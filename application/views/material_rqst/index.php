@@ -30,20 +30,8 @@
 								<tr>
 								  <th>No</th>
 								  <th>Site</th>
-								  <th>Vendor</th>
-								  <th>Challan</th>
 								  <th>Receive Date</th>
 								  <th>Action</th>
-								  <!--
-								  <th>Material</th>
-								  <th>Qty</th>
-								  <th>Unit Price</th>
-								  <th>Material Unit</th>
-								  <th>Trunk No</th>
-								  <th>Challan No</th>
-								  <th>Material Unit</th>
-								  <th>Transporter</th>
-								  <th>Remarks</th>-->
 								</tr>
 						   </thead>
 							<tbody>
@@ -52,11 +40,9 @@
 										foreach($row as $test) {?>
 									<tr>
 									  <td><?php echo $no;?></td>
-									  <td><?php echo $test->site;?></td>
-									  <td><?php echo $test->vendor;?></td>
-									  <td><?php echo $test->challan;?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->receive_date));?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->id;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->id;?>" class="btn btn-danger">Delete</a></td>
+									  <td><?php echo $test->sid;?></td>
+									  <td><?php echo date("d-m-Y",strtotime($test->mrcreatedon));?></td>
+									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger">Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php

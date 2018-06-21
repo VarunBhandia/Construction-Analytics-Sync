@@ -1,25 +1,25 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class Material extends CI_Controller{
+Class Transporter extends CI_Controller{
 	function __construct(){
 		parent:: __construct();
-		$this->load->model('material_m', 'm');
+		$this->load->model('transporter_m', 'm');
 	}
 
 	function index(){
 		$this->load->view('layout/header');
-		$this->load->view('material_master/index');
+		$this->load->view('transporter_master/index');
 		$this->load->view('layout/footer');
 	}
 
-	public function showAllMaterial(){
-		$result = $this->m->showAllMaterial();
+	public function showAllTransporter(){
+		$result = $this->m->showAllTransporter();
 		echo json_encode($result);
 	}
 
-	public function addMaterial(){
-		$result = $this->m->addMaterial();
+	public function addTransporter(){
+		$result = $this->m->addTransporter();
 		$msg['success'] = false;
 		$msg['type'] = 'add';
 		if($result){
@@ -28,13 +28,13 @@ Class Material extends CI_Controller{
 		echo json_encode($msg);
 	}
 
-	public function editMaterial(){
-		$result = $this->m->editMaterial();
+	public function editTransporter(){
+		$result = $this->m->editTransporter();
 		echo json_encode($result);
 	}
 
-	public function updateMaterial(){
-		$result = $this->m->updateMaterial();
+	public function updateTransporter(){
+		$result = $this->m->updateTransporter();
 		$msg['success'] = false;
 		$msg['type'] = 'update';
 		if($result){
@@ -43,8 +43,8 @@ Class Material extends CI_Controller{
 		echo json_encode($msg);
 	}
 
-	public function deleteMaterial(){
-		$result = $this->m->deleteMaterial();
+	public function deleteTransporter(){
+		$result = $this->m->deleteTransporter();
 		$msg['success'] = false;
 		if($result){
 			$msg['success'] = true;

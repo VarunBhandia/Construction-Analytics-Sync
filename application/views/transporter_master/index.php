@@ -13,13 +13,14 @@
         <thead>
             <tr>
                 <td>ID</td>
-                <td>Material Name</td>
-                <td>Material Unit</td>
-                <td>Material Description</td>
-                <td>HSN Code</td>
-                <td>GST Rate</td>
-                <td>Base Rate</td>
-                <td>Material type</td>
+                <td>Transporter Name</td>
+				<td>Mobile number</td>
+				<td>Alt Mobile number</td>
+				<td>Contact Name</td>
+				<td>E-mail ID</td>
+                <td>GST no</td>
+				<td>Address</td>
+                <td>Desc</td>
                 <td>Action</td>
             </tr>
         </thead>
@@ -38,53 +39,53 @@
             </div>
             <div class="modal-body">
                 <form id="myForm" action="" method="post" class="form-horizontal">
-                    <input type="hidden" name="mid" value="0">
+                    <input type="hidden" name="tid" value="0">
                     <div class="form-group">
-                        <label for="mname" class="label-control col-md-4">Material Name</label>
+                        <label for="tname" class="label-control col-md-4">Transporter Name</label>
                         <div class="col-md-8">
-                            <input type="text" name="mname" class="form-control">
+                            <input type="text" name="tname" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="munit" class="label-control col-md-4">Material Unit</label>
+                        <label for="tmobile" class="label-control col-md-4">Mobile Number</label>
                         <div class="col-md-8">
-                            <input type="text" name="munit" class="form-control">
+                            <input type="text" name="tmobile" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="mcategory" class="label-control col-md-4">Category</label>
+                        <label for="taltmobile" class="label-control col-md-4">Alt Mobile Number</label>
                         <div class="col-md-8">
-                            <input type="text" name="mcategory" class="form-control">
+                            <input type="text" name="taltmobile" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="mdesc" class="label-control col-md-4">Material Description</label>
+                        <label for="tconame" class="label-control col-md-4">Contact Name</label>
                         <div class="col-md-8">
-                            <input type="text" name="mdesc" class="form-control">
+                            <input type="text" name="tconame" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="hsn" class="label-control col-md-4">HSN Code</label>
+                        <label for="temail" class="label-control col-md-4">Email-ID</label>
                         <div class="col-md-8">
-                            <input type="text" name="hsn" class="form-control">
+                            <input type="text" name="temail" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="mgst" class="label-control col-md-4">GST Rate</label>
+                        <label for="tgst" class="label-control col-md-4">GST Number</label>
                         <div class="col-md-8">
-                            <input type="text" name="mgst" class="form-control">
+                            <input type="text" name="tgst" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="mbase" class="label-control col-md-4">Base Rate</label>
+                        <label for="taddress" class="label-control col-md-4">Address</label>
                         <div class="col-md-8">
-                            <input type="text" name="mbase" class="form-control">
+                            <input type="text" name="taddress" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="mtype" class="label-control col-md-4">Material Type</label>
+                        <label for="tdesc" class="label-control col-md-4">Description</label>
                         <div class="col-md-8">
-                            <input type="text" name="mtype" class="form-control">
+                            <input type="text" name="tdesc" class="form-control">
                         </div>
                     </div>
                 </form>
@@ -123,13 +124,13 @@
 
 <script>
     $(function() {
-        showAllMaterial();
+        showAllTransporter();
 
         //Add New
         $('#btnAdd').click(function() {
             $('#myModal').modal('show');
-            $('#myModal').find('.modal-title').text('Add New Material');
-            $('#myForm').attr('action', '<?php echo base_url() ?>material/addMaterial');
+            $('#myModal').find('.modal-title').text('Add New Transporter');
+            $('#myForm').attr('action', '<?php echo base_url() ?>transporter/addTransporter');
         });
 
 
@@ -137,30 +138,28 @@
             var url = $('#myForm').attr('action');
             var data = $('#myForm').serialize();
             //validate form
-            var mname = $('input[name=mname]');
-            var munit = $('input[name=munit]');
-            var mcategory = $('input[name=mcategory]');
-            var mdesc = $('input[name=mdesc]');
-            var hsn = $('input[name=hsn]');
-            var mgst = $('input[name=mgst]');
-            var mbase = $('input[name=mbase]');
-            var mtype = $('input[name=mtype]');
+            var tname = $('input[name=tname]');
+            var tmobile = $('input[name=tmobile]');
+            var taltmobile = $('input[name=taltmobile]');
+            var tconame = $('input[name=tconame]');
+            var temail = $('input[name=temail]');
+            var tgst = $('input[name=tgst]');
+            var taddress = $('input[name=taddress]');
+            var tdesc = $('input[name=tdesc]');
             var result = '';
-            if (mname.val() == '') {
-                mname.parent().parent().addClass('has-error');
+            if (tname.val() == '') {
+                tname.parent().parent().addClass('has-error');
             } else {
-                mname.parent().parent().removeClass('has-error');
+                tname.parent().parent().removeClass('has-error');
                 result += '1';
             }
-            
-            if (munit.val() == '') {
-                munit.parent().parent().addClass('has-error');
+            if (tmobile.val() == '') {
+                tmobile.parent().parent().addClass('has-error');
             } else {
-                munit.parent().parent().removeClass('has-error');
+                tmobile.parent().parent().removeClass('has-error');
                 result += '2';
             }
 
-            
             if (result == '12') {
                 $.ajax({
                     type: 'ajax',
@@ -178,8 +177,8 @@
                             } else if (response.type == 'update') {
                                 var type = "updated"
                             }
-                            $('.alert-success').html('Material ' + type + ' successfully').fadeIn().delay(4000).fadeOut('slow');
-                            showAllMaterial();
+                            $('.alert-success').html('Transporter ' + type + ' successfully').fadeIn().delay(4000).fadeOut('slow');
+                            showAllTransporter();
                         } else {
                             alert('Error');
                         }
@@ -193,28 +192,29 @@
 
         //edit
         $('#showdata').on('click', '.item-edit', function() {
-            var mid = $(this).attr('data');
+            var tid = $(this).attr('data');
             $('#myModal').modal('show');
-            $('#myModal').find('.modal-title').text('Edit Material');
-            $('#myForm').attr('action', '<?php echo base_url() ?>material/updateMaterial');
+            $('#myModal').find('.modal-title').text('Edit Transporter');
+            $('#myForm').attr('action', '<?php echo base_url() ?>transporter/updateTransporter');
             $.ajax({
                 type: 'ajax',
                 method: 'get',
-                url: '<?php echo base_url() ?>material/editMaterial',
+                url: '<?php echo base_url() ?>transporter/editTransporter',
                 data: {
-                    mid: mid
+                    tid: tid
                 },
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $('input[name=mname]').val(data.mname);
-                    $('input[name=munit]').val(data.munit);
-                    $('input[name=mcategory]').val(data.mcategory);
-                    $('input[name=mdesc]').val(data.mdesc);
-                    $('input[name=hsn]').val(data.hsn);
-                    $('input[name=mgst]').val(data.mgst);
-                    $('input[name=mbase]').val(data.mbase);
-                    $('input[name=mtype]').val(data.mtype);
+                    $('input[name=tname]').val(data.tname);
+                    $('input[name=tmobile]').val(data.tmobile);
+                    $('input[name=taltmobile').val(data.taltmobile);
+                    $('input[name=tconame').val(data.tconame);
+                    $('input[name=temail]').val(data.temail);
+                    $('input[name=tgst]').val(data.tgst);
+                    $('input[name=taddress]').val(data.taddress);
+                    $('input[name=tdesc]').val(data.tdesc);
+                    $('input[name=tid]').val(data.tid);
                 },
                 error: function() {
                     alert('Could not Edit Data');
@@ -224,7 +224,7 @@
 
         //delete- 
         $('#showdata').on('click', '.item-delete', function() {
-            var mid = $(this).attr('data');
+            var tid = $(this).attr('data');
             $('#deleteModal').modal('show');
             //prevent previous handler - unbind()
             $('#btnDelete').unbind().click(function() {
@@ -232,16 +232,16 @@
                     type: 'ajax',
                     method: 'get',
                     async: false,
-                    url: '<?php echo base_url() ?>material/deleteMaterial',
+                    url: '<?php echo base_url() ?>transporter/deleteTransporter',
                     data: {
-                        mid: mid
+                        tid: tid
                     },
                     dataType: 'json',
                     success: function(response) {
                         if (response.success) {
                             $('#deleteModal').modal('hide');
-                            $('.alert-success').html('Material Deleted successfully').fadeIn().delay(4000).fadeOut('slow');
-                            showAllMaterial();
+                            $('.alert-success').html('Transporter Deleted successfully').fadeIn().delay(4000).fadeOut('slow');
+                            showAllTransporter();
                         } else {
                             alert('Error');
                         }
@@ -256,10 +256,10 @@
 
 
         //function
-        function showAllMaterial() {
+        function showAllTransporter() {
             $.ajax({
                 type: 'ajax',
-                url: '<?php echo base_url() ?>material/showAllMaterial',
+                url: '<?php echo base_url() ?>transporter/showAllTransporter',
                 async: false,
                 dataType: 'json',
                 success: function(data) {
@@ -267,18 +267,18 @@
                     var i;
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
-                            '<td>' + data[i].mid + '</td>' +
-                            '<td>' + data[i].mname + '</td>' +
-                            '<td>' + data[i].munit + '</td>' +
-                            '<td>' + data[i].mcategory + '</td>' +
-                            '<td>' + data[i].mdesc + '</td>' +
-                            '<td>' + data[i].hsn + '</td>' +
-                            '<td>' + data[i].mgst + '</td>' +
-                            '<td>' + data[i].mbase + '</td>' +
-                            '<td>' + data[i].mtype + '</td>' +
+                            '<td>' + data[i].tid + '</td>' +
+                            '<td>' + data[i].tname + '</td>' +
+                            '<td>' + data[i].tmobile + '</td>' +
+                            '<td>' + data[i].taltmobile + '</td>' +
+                            '<td>' + data[i].tconame + '</td>' +
+                            '<td>' + data[i].temail + '</td>' +
+                            '<td>' + data[i].tgst + '</td>' +
+                            '<td>' + data[i].taddress + '</td>' +
+                            '<td>' + data[i].tdesc + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].mid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].mid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].tid + '">Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].tid + '">Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

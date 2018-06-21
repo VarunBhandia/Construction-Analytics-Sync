@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2018 at 07:54 AM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Jun 21, 2018 at 10:15 AM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -208,6 +208,24 @@ INSERT INTO `customers` (`id`, `FirstName`, `LastName`, `phone`, `address`, `cit
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `dropdown_value`
+--
+
+CREATE TABLE `dropdown_value` (
+  `dropdown_single` varchar(255) NOT NULL,
+  `dropdown_multi` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `dropdown_value`
+--
+
+INSERT INTO `dropdown_value` (`dropdown_single`, `dropdown_multi`) VALUES
+('Electronics and Comm. Engineering', 'a:3:{i:0;s:1:\"C\";i:1;s:3:\"C++\";i:2;s:6:\"ORACLE\";}');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dyform`
 --
 
@@ -344,6 +362,18 @@ CREATE TABLE `material_rqst_master` (
   `remarks` varchar(50) NOT NULL,
   `createdby` varchar(50) NOT NULL,
   `createdon` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `foods` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -842,6 +872,12 @@ ALTER TABLE `material_rqst_master`
   ADD PRIMARY KEY (`mrid`);
 
 --
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `performance`
 --
 ALTER TABLE `performance`
@@ -952,163 +988,141 @@ ALTER TABLE `workitems`
 --
 ALTER TABLE `category`
   MODIFY `cid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `cp_master`
 --
 ALTER TABLE `cp_master`
   MODIFY `cpid` int(5) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
 --
 -- AUTO_INCREMENT for table `dyform`
 --
 ALTER TABLE `dyform`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fruits`
 --
 ALTER TABLE `fruits`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `grn_master`
 --
 ALTER TABLE `grn_master`
   MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `import`
 --
 ALTER TABLE `import`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `material_rqst_master`
 --
 ALTER TABLE `material_rqst_master`
   MODIFY `mrid` int(6) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `performance`
 --
 ALTER TABLE `performance`
   MODIFY `performance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
   MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `rtv_master`
 --
 ALTER TABLE `rtv_master`
   MODIFY `rtvid` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
 ALTER TABLE `sitedetails`
   MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
   MODIFY `Student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `subcontdetails`
 --
 ALTER TABLE `subcontdetails`
   MODIFY `subid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
   MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 --
 -- AUTO_INCREMENT for table `tbl_employees`
 --
 ALTER TABLE `tbl_employees`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `units`
 --
 ALTER TABLE `units`
   MODIFY `uid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendordetails`
 --
 ALTER TABLE `vendordetails`
   MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `vendor_master`
 --
 ALTER TABLE `vendor_master`
   MODIFY `vid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT;
-COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

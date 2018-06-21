@@ -6,24 +6,24 @@
 		public $table = 'test';
 		public $controller = 'material_rqst';
 		public $message = 'Construction';
-		public $primary_id = "mrid";
+		public $primary_id = "id";
 		public $model;
 		
 		public function __construct()
 		{
 			parent::__construct();
-			$this->load->model('material_rqst_m');
-			$this->model = 'material_rqst_m';
+			$this->load->model('Model');
+			$this->model = 'Model';
 			date_default_timezone_set('Asia/Kolkata');
 		}
 	
 		public function index()
 		{
-			$model = $this->material_rqst_m;
+			$model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),'sitedetails',array(),'');
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
-			$this->load->view('po/index',$data);
+			$this->load->view('material_rqst/index',$data);
 		}
 		
 		public function form()
@@ -33,7 +33,7 @@
 			$data['controller'] = $this->controller;
 			$data['material_unit'] = $this->$model->select(array(),'munit',array(),'');
 			$data['materials'] = $this->$model->select(array(),'material',array(),'');
-			$this->load->view('po/form',$data);
+			$this->load->view('material_rqst/form',$data);
 		}
 
 		public function insert()

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2018 at 10:15 AM
+-- Generation Time: Jun 22, 2018 at 07:04 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -348,21 +348,78 @@ INSERT INTO `material` (`id`, `material`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `material_rqst_master`
+-- Table structure for table `materials`
 --
 
-CREATE TABLE `material_rqst_master` (
-  `mrid` int(6) NOT NULL,
-  `mr_refid` int(10) NOT NULL,
-  `sid` varchar(10) NOT NULL,
-  `materialid` varchar(10) NOT NULL,
-  `muid` varchar(10) NOT NULL,
-  `unitprice` varchar(10) NOT NULL,
-  `mr_qty` varchar(50) NOT NULL,
-  `remarks` varchar(50) NOT NULL,
-  `createdby` varchar(50) NOT NULL,
-  `createdon` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
+CREATE TABLE `materials` (
+  `mid` int(11) NOT NULL,
+  `mname` varchar(255) NOT NULL,
+  `munit` varchar(255) NOT NULL,
+  `mcategory` varchar(255) NOT NULL,
+  `mdesc` varchar(255) NOT NULL,
+  `hsn` varchar(255) NOT NULL,
+  `mgst` varchar(255) NOT NULL,
+  `mbase` varchar(255) NOT NULL,
+  `mtype` varchar(255) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `materials`
+--
+
+INSERT INTO `materials` (`mid`, `mname`, `munit`, `mcategory`, `mdesc`, `hsn`, `mgst`, `mbase`, `mtype`) VALUES
+(1, 'old material ', '', '', '', '', '', '', ''),
+(2, 'tushar', '', '', '', '', '', '', ''),
+(3, 'single material', '', '', '', '', '', '', ''),
+(4, 'row material', '', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `material_rqst`
+--
+
+CREATE TABLE `material_rqst` (
+  `mrid` int(11) NOT NULL,
+  `sid` varchar(50) NOT NULL,
+  `mid` varchar(50) NOT NULL,
+  `mrqty` varchar(50) NOT NULL,
+  `mrunitprice` varchar(50) NOT NULL,
+  `mrrefid` varchar(50) NOT NULL,
+  `muid` varchar(50) NOT NULL,
+  `mrremarks` varchar(2550) NOT NULL,
+  `mrcreatedon` date NOT NULL,
+  `mrcreatedby` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `material_rqst`
+--
+
+INSERT INTO `material_rqst` (`mrid`, `sid`, `mid`, `mrqty`, `mrunitprice`, `mrrefid`, `muid`, `mrremarks`, `mrcreatedon`, `mrcreatedby`) VALUES
+(2, '2', '2,2', ',', ',', '', ',', ',', '1970-01-01', ''),
+(3, '1', '1', '', '', '', '', '', '1970-01-01', ''),
+(4, '2', '', '', '', '', '', '', '1970-01-01', ''),
+(5, '1', '3', '65', '5', '', '2', 'hgfd>						</td>						<td><a class=', '1970-01-01', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `munits`
+--
+
+CREATE TABLE `munits` (
+  `muid` int(11) NOT NULL,
+  `muname` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `munits`
+--
+
+INSERT INTO `munits` (`muid`, `muname`) VALUES
+(1, 'kg'),
+(2, 'm');
 
 -- --------------------------------------------------------
 
@@ -468,7 +525,7 @@ CREATE TABLE `rtv_master` (
 
 CREATE TABLE `sitedetails` (
   `sid` int(11) NOT NULL,
-  `sname` varchar(3) NOT NULL,
+  `sname` varchar(255) NOT NULL,
   `sitestartdate` date NOT NULL,
   `uniquesid` varchar(255) NOT NULL,
   `contactname` varchar(255) NOT NULL,
@@ -482,7 +539,8 @@ CREATE TABLE `sitedetails` (
 --
 
 INSERT INTO `sitedetails` (`sid`, `sname`, `sitestartdate`, `uniquesid`, `contactname`, `mobile`, `email`, `address`) VALUES
-(1, 'iup', '2018-06-18', 'aSF', 'asF', 'asF', 'ankit.cogni18@gmail.com', 'asF');
+(1, 'iup', '2018-06-18', 'aSF', 'asF', 'asF', 'ankit.cogni18@gmail.com', 'asF'),
+(2, 'si2', '2018-06-20', 'aSF', 'asF', 'asF', 'ankit.cogni18@gmail.com', 'asF');
 
 -- --------------------------------------------------------
 
@@ -672,9 +730,33 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`id`, `site`, `vendor`, `challan`, `receive_date`, `material`, `qty`, `unit_price`, `material_unit`, `trunk_no`, `challan_no`, `transporter`, `remarks`) VALUES
-(1, 'http:google.com', '3', 16, '2018-06-21', '4,2,,', '0,5,,', '3,5,,', '2,2,,1', '15,45,,', '169,89,,', '1,3,,', 'test,tfutfdytfctfc,jjyfdxrd,'),
 (9, 'tfh', '2', 53165165, '2018-06-20', ',,', ',,', ',,', ',,', ',,', ',,', ',,', ',,'),
 (10, 'gfxdfd', '2', 453432, '2018-06-07', '2', '5', '5', '3', '56498', '165848', '2', 'gfxtrdx');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transporters`
+--
+
+CREATE TABLE `transporters` (
+  `tid` int(10) NOT NULL,
+  `tname` varchar(255) NOT NULL,
+  `tmobile` varchar(255) NOT NULL,
+  `taltmobile` varchar(255) NOT NULL,
+  `tconame` varchar(255) NOT NULL,
+  `temail` varchar(255) NOT NULL,
+  `tgst` varchar(255) NOT NULL,
+  `taddress` varchar(2550) NOT NULL,
+  `tdesc` varchar(2550) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transporters`
+--
+
+INSERT INTO `transporters` (`tid`, `tname`, `tmobile`, `taltmobile`, `tconame`, `temail`, `tgst`, `taddress`, `tdesc`) VALUES
+(1, 'qwert', '34546', '213456', 'qwert', 'qwerty', 'qwerty', 'qwerty', 'asdfghjkl');
 
 -- --------------------------------------------------------
 
@@ -866,10 +948,22 @@ ALTER TABLE `material`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `material_rqst_master`
+-- Indexes for table `materials`
 --
-ALTER TABLE `material_rqst_master`
+ALTER TABLE `materials`
+  ADD PRIMARY KEY (`mid`);
+
+--
+-- Indexes for table `material_rqst`
+--
+ALTER TABLE `material_rqst`
   ADD PRIMARY KEY (`mrid`);
+
+--
+-- Indexes for table `munits`
+--
+ALTER TABLE `munits`
+  ADD PRIMARY KEY (`muid`);
 
 --
 -- Indexes for table `order_items`
@@ -1029,10 +1123,15 @@ ALTER TABLE `import`
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
--- AUTO_INCREMENT for table `material_rqst_master`
+-- AUTO_INCREMENT for table `material_rqst`
 --
-ALTER TABLE `material_rqst_master`
-  MODIFY `mrid` int(6) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `material_rqst`
+  MODIFY `mrid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `munits`
+--
+ALTER TABLE `munits`
+  MODIFY `muid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `order_items`
 --
@@ -1057,7 +1156,7 @@ ALTER TABLE `rtv_master`
 -- AUTO_INCREMENT for table `sitedetails`
 --
 ALTER TABLE `sitedetails`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `students`
 --

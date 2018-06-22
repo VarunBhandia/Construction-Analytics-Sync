@@ -174,8 +174,10 @@ $model = $this->model;
 			$uid = $this->input->post('uid');
 			$where = array($this->primary_id=>$uid);
 			$this->$model->update($this->table,$data,$where);
+            
+            echo $uid;
 			
-			redirect('material_rqst');
+			redirect('user');
 		}
 
 		public function delete($uid)
@@ -185,7 +187,7 @@ $model = $this->model;
 			$this->$model->delete($this->table,$condition);
 			
 			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-			redirect('material_rqst');
+			redirect('user');
 		}
 	}
 ?>

@@ -19,7 +19,7 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_title">
-                            <h2>Construction</h2>
+                            <h2>Construction <?php echo $row[0]->user_role; ?></h2>
                             <div class="clearfix"></div>
                         </div>
                         <div class="x_content">
@@ -32,7 +32,7 @@
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Username
 	                        </label>
                                     <div class="col-md-10 col-sm-6 col-xs-12">
-                                        <input type="text" id="uname" name="uname" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->uname : '';?>" autocomplete="off">
+                                        <input type="text" id="uname" name="uname" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->username : '';?>" autocomplete="off">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -68,147 +68,147 @@
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="user" value="No" checked>No
-                                        <input type="radio" name="user" value="ReadOnly">Read Only
-                                        <input type="radio" name="user" value="AddEdit">Add-Edit
+                                        <input type="radio" name="user" value="0" <?php if($action == 'update'){  echo ($row[0]->user_role == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="user" value="1" <?php if($action == 'update'){  echo ($row[0]->user_role == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="user" value="2" <?php if($action == 'update'){  echo ($row[0]->user_role == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Site
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="site_role" value="No" checked>No
-                                        <input type="radio" name="site_role" value="ReadOnly">Read Only
-                                        <input type="radio" name="site_role" value="AddEdit">Add-Edit
+                                        <input type="radio" name="site_role" value="0" <?php if($action == 'update'){  echo ($row[0]->site_role == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="site_role" value="1" <?php if($action == 'update'){  echo ($row[0]->site_role == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="site_role" value="2" <?php if($action == 'update'){  echo ($row[0]->site_role == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="material" value="No" checked>No
-                                        <input type="radio" name="material" value="ReadOnly">Read Only
-                                        <input type="radio" name="material" value="AddEdit">Add-Edit
+                                        <input type="radio" name="material" value="0" <?php if($action == 'update'){  echo ($row[0]->material == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="material" value="1" <?php if($action == 'update'){  echo ($row[0]->material == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="material" value="2" <?php if($action == 'update'){  echo ($row[0]->material == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="vendor" value="No" checked>No
-                                        <input type="radio" name="vendor" value="ReadOnly">Read Only
-                                        <input type="radio" name="vendor" value="AddEdit">Add-Edit
+                                        <input type="radio" name="vendor" value="0" <?php if($action == 'update'){  echo ($row[0]->vendor == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="vendor" value="1" <?php if($action == 'update'){  echo ($row[0]->vendor == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="vendor" value="2" <?php if($action == 'update'){  echo ($row[0]->vendor == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material Request
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="mr" value="No" checked>No
-                                        <input type="radio" name="mr" value="ReadOnly">Read Only
-                                        <input type="radio" name="mr" value="AddEdit">Add-Edit
+                                        <input type="radio" name="mr" value="0" <?php if($action == 'update'){  echo ($row[0]->mr == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="mr" value="1" <?php if($action == 'update'){  echo ($row[0]->mr == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="mr" value="2" <?php if($action == 'update'){  echo ($row[0]->mr == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Purchase Order
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="po" value="No" checked>No
-                                        <input type="radio" name="po" value="ReadOnly">Read Only
-                                        <input type="radio" name="po" value="AddEdit">Add-Edit
+                                        <input type="radio" name="po" value="0" <?php if($action == 'update'){  echo ($row[0]->po == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="po" value="1" <?php if($action == 'update'){  echo ($row[0]->po == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="po" value="2" <?php if($action == 'update'){  echo ($row[0]->po == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Return to Vendor
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="rtv" value="No" checked>No
-                                        <input type="radio" name="rtv" value="ReadOnly">Read Only
-                                        <input type="radio" name="rtv" value="AddEdit">Add-Edit
+                                        <input type="radio" name="rtv" value="0" <?php if($action == 'update'){  echo ($row[0]->rtv == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="rtv" value="1" <?php if($action == 'update'){  echo ($row[0]->rtv == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="rtv" value="2" <?php if($action == 'update'){  echo ($row[0]->rtv == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">cash Purchase
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="cp" value="No" checked>No
-                                        <input type="radio" name="cp" value="ReadOnly">Read Only
-                                        <input type="radio" name="cp" value="AddEdit">Add-Edit
+                                        <input type="radio" name="cp" value="0" <?php if($action == 'update'){  echo ($row[0]->cp == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="cp" value="1" <?php if($action == 'update'){  echo ($row[0]->cp == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="cp" value="2" <?php if($action == 'update'){  echo ($row[0]->cp == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
-                                    <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Unordered Good Received
+                                    <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">U0rdered Good Received
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="uogrn" value="No" checked>No
-                                        <input type="radio" name="uogrn" value="ReadOnly">Read Only
-                                        <input type="radio" name="uogrn" value="AddEdit">Add-Edit
+                                        <input type="radio" name="uogrn" value="0" <?php if($action == 'update'){  echo ($row[0]->uogrn == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="uogrn" value="1" <?php if($action == 'update'){  echo ($row[0]->uogrn == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="uogrn" value="2" <?php if($action == 'update'){  echo ($row[0]->uogrn == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor Bills
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="vendorbills" value="No" checked>No
-                                        <input type="radio" name="vendorbills" value="ReadOnly">Read Only
-                                        <input type="radio" name="vendorbills" value="AddEdit">Add-Edit
+                                        <input type="radio" name="vendorbills" value="0" <?php if($action == 'update'){  echo ($row[0]->vendorbills == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="vendorbills" value="1" <?php if($action == 'update'){  echo ($row[0]->vendorbills == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="vendorbills" value="2" <?php if($action == 'update'){  echo ($row[0]->vendorbills == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor Bill Payment
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="vendorbillpayment" value="No" checked>No
-                                        <input type="radio" name="vendorbillpayment" value="ReadOnly">Read Only
-                                        <input type="radio" name="vendorbillpayment" value="AddEdit">Add-Edit
+                                        <input type="radio" name="vendorbillpayment" value="0" <?php if($action == 'update'){  echo ($row[0]->vendorbillpayment == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="vendorbillpayment" value="1" <?php if($action == 'update'){  echo ($row[0]->vendorbillpayment == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="vendorbillpayment" value="2" <?php if($action == 'update'){  echo ($row[0]->vendorbillpayment == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Move Order
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="moveorder" value="No" checked>No
-                                        <input type="radio" name="moveorder" value="ReadOnly">Read Only
-                                        <input type="radio" name="moveorder" value="AddEdit">Add-Edit
+                                        <input type="radio" name="moveorder" value="0" <?php if($action == 'update'){  echo ($row[0]->moveorder == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="moveorder" value="1" <?php if($action == 'update'){  echo ($row[0]->moveorder == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="moveorder" value="2" <?php if($action == 'update'){  echo ($row[0]->moveorder == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Office GST Details
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="officegstdetails" value="No" checked>No
-                                        <input type="radio" name="officegstdetails" value="ReadOnly">Read Only
-                                        <input type="radio" name="officegstdetails" value="AddEdit">Add-Edit
+                                        <input type="radio" name="officegstdetails" value="0" <?php if($action == 'update'){  echo ($row[0]->officegstdetails == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="officegstdetails" value="1" <?php if($action == 'update'){  echo ($row[0]->officegstdetails == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="officegstdetails" value="2" <?php if($action == 'update'){  echo ($row[0]->officegstdetails == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Subcontractor
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="subcontractor" value="No" checked>No
-                                        <input type="radio" name="subcontractor" value="ReadOnly">Read Only
-                                        <input type="radio" name="subcontractor" value="AddEdit">Add-Edit
+                                        <input type="radio" name="subcontractor" value="0" <?php if($action == 'update'){  echo ($row[0]->subcontractor == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="subcontractor" value="1" <?php if($action == 'update'){  echo ($row[0]->subcontractor == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="subcontractor" value="2" <?php if($action == 'update'){  echo ($row[0]->subcontractor == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Transporter
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="transporter" value="No" checked>No
-                                        <input type="radio" name="transporter" value="ReadOnly">Read Only
-                                        <input type="radio" name="transporter" value="AddEdit">Add-Edit
+                                        <input type="radio" name="transporter" value="0" <?php if($action == 'update'){  echo ($row[0]->transporter == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="transporter" value="1" <?php if($action == 'update'){  echo ($row[0]->transporter == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="transporter" value="2" <?php if($action == 'update'){  echo ($row[0]->transporter == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Workorder
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="workorder" value="No" checked>No
-                                        <input type="radio" name="workorder" value="ReadOnly">Read Only
-                                        <input type="radio" name="workorder" value="AddEdit">Add-Edit
+                                        <input type="radio" name="workorder" value="0" <?php if($action == 'update'){  echo ($row[0]->workorder == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="workorder" value="1" <?php if($action == 'update'){  echo ($row[0]->workorder == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="workorder" value="2" <?php if($action == 'update'){  echo ($row[0]->workorder == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Reporting
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="reporting" value="No" checked>No
-                                        <input type="radio" name="reporting" value="ReadOnly">Read Only
-                                        <input type="radio" name="reporting" value="AddEdit">Add-Edit
+                                        <input type="radio" name="reporting" value="0" <?php if($action == 'update'){  echo ($row[0]->reporting == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="reporting" value="1" <?php if($action == 'update'){  echo ($row[0]->reporting == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="reporting" value="2" <?php if($action == 'update'){  echo ($row[0]->reporting == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Work Order Materials
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="workordermaterials" value="No" checked>No
-                                        <input type="radio" name="workordermaterials" value="ReadOnly">Read Only
-                                        <input type="radio" name="workordermaterials" value="AddEdit">Add-Edit
+                                        <input type="radio" name="workordermaterials" value="0" <?php if($action == 'update'){  echo ($row[0]->workordermaterials == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="workordermaterials" value="1" <?php if($action == 'update'){  echo ($row[0]->workordermaterials == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="workordermaterials" value="2" <?php if($action == 'update'){  echo ($row[0]->workordermaterials == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Consumption
 			                        </label>
                                     <div class="col-md-2 col-sm-6 col-xs-12">
-                                        <input type="radio" name="consumption" value="No" checked>No
-                                        <input type="radio" name="consumption" value="ReadOnly">Read Only
-                                        <input type="radio" name="consumption" value="AddEdit">Add-Edit
+                                        <input type="radio" name="consumption" value="0" <?php if($action == 'update'){  echo ($row[0]->consumption == 0) ? 'checked' : '' ; }?>>No
+                                        <input type="radio" name="consumption" value="1" <?php if($action == 'update'){  echo ($row[0]->consumption == "1") ? 'checked' : '' ; }?>>Read Only
+                                        <input type="radio" name="consumption" value="2" <?php if($action == 'update'){  echo ($row[0]->consumption == "2") ? 'checked' : '' ; }?>>Add-Edit
                                     </div>
                                 </div>
 
@@ -219,16 +219,20 @@
                                     <div class="col-md-10 col-sm-6 col-xs-12">
                                         <?php
 								foreach($sites as $site)
-								{ ?>
+								{ $count_site =  count(site);
+                                    
+                                         ?>
                                             <div class="col-md-3">
-                                                <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid?>" <?php if($action=='update' ){ echo $site->sid == $row[0]->sid ? 'checked' : '' ; }?>>
-                                                <?php echo '('.$site->sid.') '.$site->sname;?>
+                                                <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid?>" <?php if($action=='update' ){ for($x = 0; $x <= $count_site + 1 ; $x++){echo $row[0]->site[$x]== $site->sid ? 'checked' : '' ;}  ;}?>>
+                                                <?php echo '('.$site->sid.') '.$site->sname;
+                                                ?>
                                             </div>
                                             <?php }	?>
                                     </div>
                                 </div>
+				<input type="hidden" name="uid" value="<?php echo $row[0]->uid; ?>"/>
 
-                                <div class="formm-group">
+                                <div class="form-group">
                                     <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
                                         <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>
                                         <a href="<?php echo base_url().$controller;?>" class="btn btn-danger">Cancel</a>

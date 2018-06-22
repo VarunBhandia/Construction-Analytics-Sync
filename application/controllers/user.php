@@ -65,8 +65,7 @@
 			$reporting = $this->input->post('reporting');
 			$workordermaterials = $this->input->post('workordermaterials');
 			$consumption = $this->input->post('consumption');
-			$site = $this->input->post('site');
-            $data['site'] =implode(",", $site);           
+            $site = count($this->input->post('site')) > 0 ? implode(",",$this->input->post('site')) : $this->input->post('site');
 			$data = array(
 					'username'  => $uname,
 					'password'  => $password,
@@ -102,59 +101,87 @@
 			redirect('user');
 		}
 
-		public function edit($mrid)
+		public function edit($uid)
 		{
-//			$mrid = $this->uri->segment(3);
-			echo '<h1>'.$mrid.'</h1>';
+//			$uid = $this->uri->segment(3);
+//			echo '<h1>'.$uid.'</h1>';
 			$model = $this->model;
-			$data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mrid),'');
-			$data['units'] = $this->$model->select(array(),'munits',array(),'');
+			$data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$uid),'');
 			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-			$data['materials'] = $this->$model->select(array(),'materials',array(),'');		
 			$data['action'] = "update";
 			$data['controller'] = $this->controller;
-			$this->load->view('material_rqst/form',$data);
+			$this->load->view('user/form',$data);
 		}
 
 		public function update()
 		{
 $model = $this->model;
 			
-			$site = $this->input->post('site');
-			$date = date('Y-m-d',strtotime($this->input->post('date')));
-
-			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
-			
-			$qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
-			
-			$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
-			
-			$m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-			
-			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-			
+			$uname = $this->input->post('uname');
+			$password = $this->input->post('password');
+			$uemail = $this->input->post('uemail');
+			$uaddress = $this->input->post('uaddress');
+			$umobile = $this->input->post('umobile');
+			$user_role = $this->input->post('user');
+			$site_role = $this->input->post('site_role');
+			$material = $this->input->post('material');
+			$vendor = $this->input->post('vendor');
+			$mr = $this->input->post('mr');
+			$po = $this->input->post('po');
+			$rtv = $this->input->post('rtv');
+			$cp = $this->input->post('cp');
+			$uogrn = $this->input->post('uogrn');
+			$vendorbills = $this->input->post('vendorbills');
+			$vendorbillpayment = $this->input->post('vendorbillpayment');
+			$moveorder = $this->input->post('moveorder');
+			$officegstdetails = $this->input->post('officegstdetails');
+			$subcontractor = $this->input->post('subcontractor');
+			$transporter = $this->input->post('transporter');
+			$workorder = $this->input->post('workorder');
+			$reporting = $this->input->post('reporting');
+			$workordermaterials = $this->input->post('workordermaterials');
+			$consumption = $this->input->post('consumption');
+            $site = count($this->input->post('site')) > 0 ? implode(",",$this->input->post('site')) : $this->input->post('site');
 			$data = array(
-					'sid'  => $site,
-					'mrcreatedon'  => $date,
-					'mid' => $mid,
-					'mrqty'  => $qty,
-					'mrunitprice'  => $unit,
-					'muid'  => $m_unit,
-					'mrremarks'  => $remark
-				);			
+					'username'  => $uname,
+					'password'  => $password,
+					'uemail'  => $uemail,
+					'uaddress'  => $uaddress,
+					'umobile'  => $umobile,
+					'user_role'  => $user_role,
+					'site_role'  => $site_role,
+					'material'  => $material,
+					'vendor'  => $vendor,
+					'mr'  => $mr,
+					'po'  => $po,
+					'rtv'  => $rtv,
+					'cp'  => $cp,
+					'uogrn'  => $uogrn,
+					'vendorbills'  => $vendorbills,
+					'vendorbillpayment'  => $vendorbillpayment,
+					'moveorder'  => $moveorder,
+					'officegstdetails'  => $officegstdetails,
+					'subcontractor'  => $subcontractor,
+					'transporter'  => $transporter,
+					'workorder'  => $workorder,
+					'reporting'  => $reporting,
+					'workordermaterials'  => $workordermaterials,
+					'consumption'  => $consumption,
+					'site'  => $site
+				);
 			$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
 			
-			$mrid = $this->input->post('mrid');
-			$where = array($this->primary_id=>$mrid);
+			$uid = $this->input->post('uid');
+			$where = array($this->primary_id=>$uid);
 			$this->$model->update($this->table,$data,$where);
 			
 			redirect('material_rqst');
 		}
 
-		public function delete($mrid)
+		public function delete($uid)
 		{
 			$model = $this->model;
-			$condition = array($this->primary_id=>$mrid);
+			$condition = array($this->primary_id=>$uid);
 			$this->$model->delete($this->table,$condition);
 			
 			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');

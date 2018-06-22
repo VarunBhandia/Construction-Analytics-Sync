@@ -221,7 +221,7 @@
 								foreach($sites as $site)
 								{ ?>
                                             <div class="col-md-3">
-                                                <input type="checkbox" class="" name="site" value="<?php echo $site->sid?>" <?php if($action=='update' ){ echo $site->sid == $row[0]->sid ? 'checked' : '' ; }?>>
+                                                <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid?>" <?php if($action=='update' ){ echo $site->sid == $row[0]->sid ? 'checked' : '' ; }?>>
                                                 <?php echo '('.$site->sid.') '.$site->sname;?>
                                             </div>
                                             <?php }	?>
@@ -241,13 +241,6 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-
-            // Initialize select2
-            $("#site").select2();
-        });
-    </script>
     <!-- /page content -->
     <?php
 		$this->load->view('include/footer');
@@ -317,40 +310,4 @@
                 }
             });
         });
-    </script>
-    <script type="text/html" id="form_tpl">
-        <tr class="pending-user">
-            <td>
-                <select class="form-control select_width" id="material_0" name="material[]">
-									<option value=""></option>
-									<?php
-									foreach($materials as $value)
-									{ ?>
-										<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
-									<?php }	?>
-								</select>
-            </td>
-            <td>
-                <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
-            </td>
-            <td>
-                <select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-									<option value=""></option>
-									<?php
-									foreach($units as $value)
-									{ ?>
-										<option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-									<?php }	?>
-								</select>
-            </td>
-            <td>
-                <input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
-            </td>
-            <td>
-                <input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
-            </td>
-            <td><a class="btn btn-sm btn-success" id="plus">+</a>
-                <a class="btn btn-sm btn-danger" id="minus">-</a>
-            </td>
-        </tr>
     </script>

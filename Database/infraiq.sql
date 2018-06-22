@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2018 at 07:04 AM
+-- Generation Time: Jun 22, 2018 at 03:20 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -786,20 +786,42 @@ CREATE TABLE `users` (
   `uid` int(11) NOT NULL,
   `username` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
-  `mobile` varchar(50) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `status` varchar(50) NOT NULL,
-  `createdon` varchar(50) NOT NULL,
-  `createdby` varchar(50) NOT NULL
+  `uemail` varchar(255) NOT NULL,
+  `uaddress` varchar(255) NOT NULL,
+  `umobile` varchar(255) NOT NULL,
+  `user_role` varchar(255) NOT NULL,
+  `site_role` varchar(255) NOT NULL,
+  `material` varchar(255) NOT NULL,
+  `vendor` varchar(255) NOT NULL,
+  `mr` varchar(255) NOT NULL,
+  `po` varchar(255) NOT NULL,
+  `rtv` varchar(255) NOT NULL,
+  `cp` varchar(255) NOT NULL,
+  `uogrn` varchar(255) NOT NULL,
+  `vendorbills` varchar(255) NOT NULL,
+  `vendorbillpayment` varchar(255) NOT NULL,
+  `moveorder` varchar(255) NOT NULL,
+  `officegstdetails` varchar(255) NOT NULL,
+  `subcontractor` varchar(255) NOT NULL,
+  `transporter` varchar(255) NOT NULL,
+  `workorder` varchar(255) NOT NULL,
+  `reporting` varchar(255) NOT NULL,
+  `workordermaterials` varchar(255) NOT NULL,
+  `consumption` varchar(255) NOT NULL,
+  `site` varchar(255) NOT NULL,
+  `ucreatedon` date NOT NULL,
+  `ucreatedby` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `username`, `password`, `mobile`, `email`, `status`, `createdon`, `createdby`) VALUES
-(2, 'varun', 'varun', '', '', '', '', ''),
-(3, 'tushar', 'tushar', '', '', '', '', '');
+INSERT INTO `users` (`uid`, `username`, `password`, `uemail`, `uaddress`, `umobile`, `user_role`, `site_role`, `material`, `vendor`, `mr`, `po`, `rtv`, `cp`, `uogrn`, `vendorbills`, `vendorbillpayment`, `moveorder`, `officegstdetails`, `subcontractor`, `transporter`, `workorder`, `reporting`, `workordermaterials`, `consumption`, `site`, `ucreatedon`, `ucreatedby`) VALUES
+(2, 'varun', 'varun', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', ''),
+(3, 'tushar', 'tushar', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', ''),
+(11, 'varunbhandia', 'varun', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '2', '0000-00-00', ''),
+(12, 'mitesh1', 'varun', 'adfadf@dfh.dsg', 'asfasf', '9000', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '1,2', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -1201,7 +1223,7 @@ ALTER TABLE `units`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `vendor`
 --

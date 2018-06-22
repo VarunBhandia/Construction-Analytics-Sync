@@ -8,4 +8,4 @@
 </select>
 </div>
 <button class="btn btn-primary">Submit</button>
-</fo
+</form>

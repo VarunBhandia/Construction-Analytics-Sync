@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Unit_m extends CI_Model{
 	public function showAllUnit(){
-		$this->db->order_by('uid', 'desc');
-		$query = $this->db->get('units');
+		$this->db->order_by('muid', 'desc');
+		$query = $this->db->get('munits');
 		if($query->num_rows() > 0){
 			return $query->result();
 		}else{
@@ -14,9 +14,9 @@ class Unit_m extends CI_Model{
 
 	public function addUnit(){
 		$field = array(
-			'uname'=>$this->input->post('uname'),
+			'muname'=>$this->input->post('muname'),
 			);
-		$this->db->insert('units', $field);
+		$this->db->insert('munits', $field);
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{
@@ -25,9 +25,9 @@ class Unit_m extends CI_Model{
 	}
 
 	public function editUnit(){
-		$uid = $this->input->get('uid');
-		$this->db->where('uid', $uid);
-		$query = $this->db->get('units');
+		$muid = $this->input->get('muid');
+		$this->db->where('muid', $muid);
+		$query = $this->db->get('munits');
 		if($query->num_rows() > 0){
 			return $query->row();
 		}else{
@@ -36,12 +36,12 @@ class Unit_m extends CI_Model{
 	}
 
 	public function updateUnit(){
-		$uid = $this->input->post('uid');
+		$muid = $this->input->post('muid');
 		$field = array(
-			'uname'=>$this->input->post('uname'),
+			'muname'=>$this->input->post('muname'),
 			);
-		$this->db->where('uid', $uid);
-		$this->db->update('units', $field);
+		$this->db->where('muid', $muid);
+		$this->db->update('munits', $field);
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{
@@ -50,9 +50,9 @@ class Unit_m extends CI_Model{
 	}
 
 	function deleteUnit(){
-		$uid = $this->input->get('uid');
-		$this->db->where('uid', $uid);
-		$this->db->delete('units');
+		$muid = $this->input->get('muid');
+		$this->db->where('muid', $muid);
+		$this->db->delete('munits');
 		if($this->db->affected_rows() > 0){
 			return true;
 		}else{

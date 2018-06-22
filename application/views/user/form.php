@@ -74,102 +74,167 @@
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Site
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="site[]" value="No" checked>No
+										<input type="radio" name="site[]" value="ReadOnly">Read Only
+										<input type="radio" name="site[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="material[]" value="No" checked>No
+										<input type="radio" name="material[]" value="ReadOnly">Read Only
+										<input type="radio" name="material[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="vendor[]" value="No" checked>No
+										<input type="radio" name="vendor[]" value="ReadOnly">Read Only
+										<input type="radio" name="vendor[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material Request
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="mr[]" value="No" checked>No
+										<input type="radio" name="mr[]" value="ReadOnly">Read Only
+										<input type="radio" name="mr[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Purchase Order
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="po[]" value="No" checked>No
+										<input type="radio" name="po[]" value="ReadOnly">Read Only
+										<input type="radio" name="po[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Return to Vendor
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="rtv[]" value="No" checked>No
+										<input type="radio" name="rtv[]" value="ReadOnly">Read Only
+										<input type="radio" name="rtv[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">cash Purchase
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="cp[]" value="No" checked>No
+										<input type="radio" name="cp[]" value="ReadOnly">Read Only
+										<input type="radio" name="cp[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Unordered Good Received
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="uogrn[]" value="No" checked>No
+										<input type="radio" name="uogrn[]" value="ReadOnly">Read Only
+										<input type="radio" name="uogrn[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor Bills
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="vendorbills[]" value="No" checked>No
+										<input type="radio" name="vendorbills[]" value="ReadOnly">Read Only
+										<input type="radio" name="vendorbills[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
 								<div class="form-group">
-			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Users
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor Bill Payment
 			                        </label>
 			                        <div class="col-md-10 col-sm-6 col-xs-12">
-										<input type="radio" name="user[]" value="No" checked>No
-										<input type="radio" name="user[]" value="ReadOnly">Read Only
-										<input type="radio" name="user[]" value="AddEdit">Add-Edit
+										<input type="radio" name="vendorbillpayment[]" value="No" checked>No
+										<input type="radio" name="vendorbillpayment[]" value="ReadOnly">Read Only
+										<input type="radio" name="vendorbillpayment[]" value="AddEdit">Add-Edit
 			                        </div>
 								</div>
-
-	                      <div class="form-group">
-	                        
-	                      </div>
-
-
-						  
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Move Order
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="moveorder[]" value="No" checked>No
+										<input type="radio" name="moveorder[]" value="ReadOnly">Read Only
+										<input type="radio" name="moveorder[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Office GST Details
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="officegstdetails[]" value="No" checked>No
+										<input type="radio" name="officegstdetails[]" value="ReadOnly">Read Only
+										<input type="radio" name="officegstdetails[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Subcontractor
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="subcontractor[]" value="No" checked>No
+										<input type="radio" name="subcontractor[]" value="ReadOnly">Read Only
+										<input type="radio" name="subcontractor[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Transporter
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="transporter[]" value="No" checked>No
+										<input type="radio" name="transporter[]" value="ReadOnly">Read Only
+										<input type="radio" name="transporter[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Workorder
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="workorder[]" value="No" checked>No
+										<input type="radio" name="workorder[]" value="ReadOnly">Read Only
+										<input type="radio" name="workorder[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Reporting
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="reporting[]" value="No" checked>No
+										<input type="radio" name="reporting[]" value="ReadOnly">Read Only
+										<input type="radio" name="reporting[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Work Order Materials
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="workordermaterials[]" value="No" checked>No
+										<input type="radio" name="workordermaterials[]" value="ReadOnly">Read Only
+										<input type="radio" name="workordermaterials[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
+								<div class="form-group">
+			                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Consumption
+			                        </label>
+			                        <div class="col-md-10 col-sm-6 col-xs-12">
+										<input type="radio" name="consumption[]" value="No" checked>No
+										<input type="radio" name="consumption[]" value="ReadOnly">Read Only
+										<input type="radio" name="consumption[]" value="AddEdit">Add-Edit
+			                        </div>
+								</div>
 	                      <div class="form-group">
 	                        <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
 	                          <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>

@@ -45,7 +45,7 @@ class Workitem_m extends CI_Model{
 		$field = array(
 			'winame'=>$this->input->post('winame'),
 			'widesc'=>$this->input->post('widesc'),
-			'wigst'=>$this->input->post('wibase'),
+			'wigst'=>$this->input->post('wigst'),
 			'wibase'=>$this->input->post('wibase'),
 			'wicategory'=>$this->input->post('wicategory'),
 			'witype'=>$this->input->post('witype'),

@@ -7,7 +7,7 @@
     <div class="alert alert-success" style="display: none;">
 
     </div>
-    <button id="btnAdd" class="btn btn-success">Add New</button>
+    <button id="btnAdd" class="btn btn-success">Add New Work Item</button>
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
 
         <thead>
@@ -116,7 +116,7 @@
         $('#btnAdd').click(function() {
             $('#myModal').modal('show');
             $('#myModal').find('.modal-title').text('Add New Work Item');
-            $('#myForm').attr('action', '<?php echo base_url() ?>witem/addWorkItem');
+            $('#myForm').attr('action', '<?php echo base_url() ?>workitem/addWorkItem');
         });
 
 
@@ -129,7 +129,7 @@
             var wigst = $('input[name=wigst]');
             var wibase = $('input[name=wibase]');
             var wicategory = $('input[name=wicategory]');
-            var witype = $('input[name=wityep]');
+            var witype = $('input[name=witype]');
             var result = '';
             if (winame.val() == '') {
                 winame.parent().parent().addClass('has-error');
@@ -177,7 +177,7 @@
             $.ajax({
                 type: 'ajax',
                 method: 'get',
-                url: '<?php echo base_url() ?>work/editWorkItem',
+                url: '<?php echo base_url() ?>workitem/editWorkItem',
                 data: {
                     wiid: wiid
                 },
@@ -189,7 +189,7 @@
                     $('input[name=wigst]').val(data.wigst);
                     $('input[name=wibase]').val(data.wibase);
                     $('input[name=wicategory]').val(data.wicategory);
-                    $('input[name=wityep]').val(data.wityep);
+                    $('input[name=witype]').val(data.witype);
                     $('input[name=wiid]').val(data.wiid);
                 },
                 error: function() {
@@ -232,7 +232,7 @@
 
 
         //function
-        function showAllVendor() {
+        function showAllWorkItem() {
             $.ajax({
                 type: 'ajax',
                 url: '<?php echo base_url() ?>workitem/showAllWorkItem',

@@ -32,11 +32,11 @@
             </div>
             <div class="modal-body">
                 <form id="myForm" action="" method="post" class="form-horizontal">
-                    <input type="hidden" name="uid" value="0">
+                    <input type="hidden" name="muid" value="0">
                     <div class="form-group">
-                        <label for="uname" class="label-control col-md-4">Unit Name</label>
+                        <label for="muname" class="label-control col-md-4">Unit Name</label>
                         <div class="col-md-8">
-                            <input type="text" name="uname" class="form-control">
+                            <input type="text" name="muname" class="form-control">
                         </div>
                     </div>
                     
@@ -90,12 +90,12 @@
             var url = $('#myForm').attr('action');
             var data = $('#myForm').serialize();
             //validate form
-            var uname = $('input[name=uname]');
+            var muname = $('input[name=muname]');
             var result = '';
-            if (uname.val() == '') {
-                uname.parent().parent().addClass('has-error');
+            if (muname.val() == '') {
+                muname.parent().parent().addClass('has-error');
             } else { 
-                uname.parent().parent().removeClass('has-error');
+                muname.parent().parent().removeClass('has-error');
                 result += '1';
             }
 
@@ -131,7 +131,7 @@
 
         //edit
         $('#showdata').on('click', '.item-edit', function() {
-            var uid = $(this).attr('data');
+            var muid = $(this).attr('data');
             $('#myModal').modal('show');
             $('#myModal').find('.modal-title').text('Edit Unit');
             $('#myForm').attr('action', '<?php echo base_url() ?>unit/updateUnit');
@@ -140,13 +140,13 @@
                 method: 'get',
                 url: '<?php echo base_url() ?>unit/editUnit',
                 data: {
-                    uid: uid
+                    muid: muid
                 },
                 async: false,
                 dataType: 'json',
                 success: function(data) {
-                    $('input[name=uname]').val(data.uname);
-                    $('input[name=uid]').val(data.uid);
+                    $('input[name=muname]').val(data.muname);
+                    $('input[name=muid]').val(data.muid);
                 },
                 error: function() {
                     alert('Could not Edit Data');
@@ -156,7 +156,7 @@
 
         //delete- 
         $('#showdata').on('click', '.item-delete', function() {
-            var uid = $(this).attr('data');
+            var muid = $(this).attr('data');
             $('#deleteModal').modal('show');
             //prevent previous handler - unbind()
             $('#btnDelete').unbind().click(function() {
@@ -166,7 +166,7 @@
                     async: false,
                     url: '<?php echo base_url() ?>unit/deleteUnit',
                     data: {
-                        uid: uid
+                        muid: muid
                     },
                     dataType: 'json',
                     success: function(response) {
@@ -199,11 +199,11 @@
                     var i;
                     for (i = 0; i < data.length; i++) {
                         html += '<tr>' +
-                            '<td>' + data[i].uid + '</td>' +
-                            '<td>' + data[i].uname + '</td>' +
+                            '<td>' + data[i].muid + '</td>' +
+                            '<td>' + data[i].muname + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].uid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].uid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].muid + '">Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].muid + '">Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

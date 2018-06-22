@@ -7,7 +7,7 @@
     <div class="alert alert-success" style="display: none;">
 
     </div>
-    <button id="btnAdd" class="btn btn-success">Add New</button>
+    <button id="btnAdd" class="btn btn-success">Add New Vendor</button>
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
 
         <thead>

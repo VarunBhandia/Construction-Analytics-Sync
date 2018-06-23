@@ -31,10 +31,18 @@ error_reporting(0);
 				<thead>
 					<tr class="headings">
 					<th class="column-title">Material Name</th>
-					<th class="column-title">Qty</th>
 					<th class="column-title">Material Unit</th>
-					<th class="column-title">  Unit Price</th>
-					<th class="column-title"> Remarks</th>
+					<th class="column-title">Requested Quantity</th>
+					<th class="column-title">Approved Quantity</th>
+					<th class="column-title">Unit Price</th>
+					<th class="column-title">Discount Type</th>
+					<th class="column-title">Discount </th>
+					<th class="column-title">CGST </th>
+					<th class="column-title">SGST </th>
+					<th class="column-title">IGST </th>
+					<th class="column-title">Total </th>
+					<th class="column-title">Vendor Name </th>
+					<th class="column-title">Remarks </th>
 					<th class="column-title no-link last">
 					<span class="nobr">Action</span>
 					</th>
@@ -78,7 +86,7 @@ error_reporting(0);
 						</td>
 					</tr>
 				<?php } else {
-                    echo 'check'; ?>
+                  ?>
 				<input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
 				<?php 
 				
@@ -87,7 +95,6 @@ error_reporting(0);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
-    					print_r($unit);
 
 					for($i=0; $i<count($material); $i++)
 					{
@@ -104,9 +111,6 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
-						</td>
-						<td>
 							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
 								<option value=""></option>
 								<?php
@@ -117,10 +121,45 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+						</td>
+						<td>
+							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+						</td>
+						<td>
 							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remarks[$i]; ?>">
+							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="amount">Amount
+							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="percentage">Percentage
+						</td>
+						<td>
+							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="cgst_0" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="sgst_0" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="igst_0" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<select class="form-control select_width" id="material_0" name="material[]">
+								<option value=""></option>
+								<?php
+								foreach($vendors as $value)
+								{ echo $vendors[$i]; ?>
+									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
+								<?php }	?>
+							</select>
+						</td>
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
@@ -211,19 +250,16 @@ $(document).ready(function (){
 }); 
 </script>
 <script  type="text/html" id="form_tpl">
-	<tr class="pending-user">
+				<tr class="pending-user">
 						<td>
 							<select class="form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
-								{ ?>
+								{ echo $material[$i]; ?>
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
-						</td>
-						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
 							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
@@ -236,14 +272,49 @@ $(document).ready(function (){
 							</select>
 						</td>
 						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
+							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+						</td>
+						<td>
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+						</td>
+						<td>
+							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="amount">Amount
+							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="percentage">Percentage
+						</td>
+						<td>
+							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="cgst_0" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="sgst_0" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="igst_0" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<select class="form-control select_width" id="material_0" name="material[]">
+								<option value=""></option>
+								<?php
+								foreach($vendors as $value)
+								{ echo $vendors[$i]; ?>
+									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
+								<?php }	?>
+							</select>
+						</td>
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
-					</tr>   
+					</tr>
 </script>
 

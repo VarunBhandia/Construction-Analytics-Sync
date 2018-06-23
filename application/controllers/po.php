@@ -37,6 +37,7 @@
 			$data['action'] = "insert";
 			$data['controller'] = $this->controller;
 			$data['units'] = $this->$model->select(array(),'munits',array(),'');
+			$data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
 			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
 			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
             $poid = $this->uri->segment(3);

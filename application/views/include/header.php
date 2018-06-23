@@ -32,6 +32,12 @@
 
     <!-- Custom Theme Style -->
     <link href="<?php echo base_url();?>assets/css/custom.min.css" rel="stylesheet">
+
+<!--     Select2 JS and CSS Files -->
+    <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js')?>" type='text/javascript'></script>
+    <script src="<?php echo base_url('assets/select2/dist/js/select2.min.js')?>" type='text/javascript'></script>
+
+    <link href="<?php echo base_url('assets/select2/dist/css/select2.min.css')?>" rel='stylesheet' type='text/css'>
 	
   </head>
 

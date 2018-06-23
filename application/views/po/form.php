@@ -1,16 +1,16 @@
 <?php
 error_reporting(0);
 	$this->load->view('include/header');
-	
 	if($action == 'insert')
 	{
-		$btn = 'Save';
+		$btn = 'Create PO';
 	}
 	elseif($action == 'update')
 	{
-		$btn = 'Update';
+		$btn = 'Update PO';
 	}
 ?>
+
 	<!-- page content -->
         <div class="right_col" role="main">          
           <div class="row">
@@ -19,34 +19,13 @@ error_reporting(0);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Construction</h2>
+                    <h2>Constructions <?php echo $action; ?></h2>
                     <div class="clearfix"></div>
                   </div>
                 <div class="x_content">
                     <br />
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 					<?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
-                      <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
-                        </label>
-                        <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="site" name="site">
-								<option value="">---site name----</option>
-								<?php
-								foreach($sites as $site)
-								{ ?>
-									<option <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
-								<?php }	?>
-							</select>
-                        </div>
-                      </div>
-					  <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Receive Date
-                        </label>
-                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="date" name="date" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y",strtotime($row[0]->receive_date)) :  date("d-m-Y"); ?>" autocomplete="off">
-						</div>
-                      </div>
 	<div class="table-responsive">		  
 		<table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
@@ -62,7 +41,8 @@ error_reporting(0);
 					</tr>
 				</thead>
 				<tbody>
-				<?php if($action == 'insert') { ?>
+				<?php if($action == 'update') 
+{ ?>
 					<tr class="pending-user">
 						<td>
 							<select class="form-control select_width" id="material_0" name="material[]">
@@ -97,7 +77,8 @@ error_reporting(0);
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
-				<?php } else { ?>
+				<?php } else {
+                    echo 'check'; ?>
 				<input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
 				<?php 
 				
@@ -106,7 +87,8 @@ error_reporting(0);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
-					
+    					print_r($unit);
+
 					for($i=0; $i<count($material); $i++)
 					{
 				?>
@@ -117,7 +99,7 @@ error_reporting(0);
 								<?php
 								foreach($materials as $value)
 								{ echo $material[$i]; ?>
-									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+									<option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
 						</td>
@@ -130,7 +112,7 @@ error_reporting(0);
 								<?php
 								foreach($units as $value)
 								{ ?>
-									<option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+									<option <?php if($action == 'insert'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
 								<?php }	?>
 							</select>
 						</td>

@@ -1,13 +1,13 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class Material_rqst extends CI_Controller
+	class Po extends CI_Controller
 	{
-		public $table = 'material_rqst';
+		public $table = 'purchaseorder';
 		public $sitetable = 'sitedetails';
-		public $controller = 'material_rqst';
+		public $controller = 'Po';
 		public $message = 'Construction';
-		public $primary_id = "mrid";
+		public $primary_id = "poid";
 		public $model;
 		
 		public function __construct()
@@ -22,21 +22,31 @@
 		{
 			$model = $this->model;
 			$data['controller'] = $this->controller;
-			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
+			$data['row'] = $this->$model->select(array(),'material_rqst',array(mrid=>$poid),'');
+            
 
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
-			$this->load->view('material_rqst/index',$data);
+			$this->load->view('po/index',$data);
 		}
 		
-		public function form()
+		public function form($poid)
 		{
 			$model = $this->model;
+            echo $poid;
+            $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
 			$data['action'] = "insert";
 			$data['controller'] = $this->controller;
 			$data['units'] = $this->$model->select(array(),'munits',array(),'');
 			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
 			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
-			$this->load->view('material_rqst/form',$data);
+            $poid = $this->uri->segment(3);
+			$this->load->view('po/form',$data);
+            $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+            echo '<pre>';
+            print_r($data[material_rqsts]);
+            echo '</pre>';
+
+
 		}
 
 		public function insert()
@@ -70,65 +80,6 @@
 			
 			$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
 			
-			redirect('material_rqst');
-		}
-
-		public function edit($mrid)
-		{
-			$mrid = $this->uri->segment(3);
-			echo '<h1>'.$mrid.'</h1>';
-			$model = $this->model;
-			$data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mrid),'');
-			$data['units'] = $this->$model->select(array(),'munits',array(),'');
-			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-			$data['materials'] = $this->$model->select(array(),'materials',array(),'');		
-			$data['action'] = "update";
-			$data['controller'] = $this->controller;
-			$this->load->view('material_rqst/form',$data);
-		}
-
-		public function update()
-		{
-$model = $this->model;
-			
-			$site = $this->input->post('site');
-			$date = date('Y-m-d',strtotime($this->input->post('date')));
-
-			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
-			
-			$qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
-			
-			$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
-			
-			$m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-			
-			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-			
-			$data = array(
-					'sid'  => $site,
-					'mrcreatedon'  => $date,
-					'mid' => $mid,
-					'mrqty'  => $qty,
-					'mrunitprice'  => $unit,
-					'muid'  => $m_unit,
-					'mrremarks'  => $remark
-				);			
-			$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
-			
-			$mrid = $this->input->post('mrid');
-			$where = array($this->primary_id=>$mrid);
-			$this->$model->update($this->table,$data,$where);
-			
-			redirect('material_rqst');
-		}
-
-		public function delete($mrid)
-		{
-			$model = $this->model;
-			$condition = array($this->primary_id=>$mrid);
-			$this->$model->delete($this->table,$condition);
-			
-			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
 			redirect('material_rqst');
 		}
 	}

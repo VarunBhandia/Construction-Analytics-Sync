@@ -62,7 +62,8 @@ error_reporting(0);
 					</tr>
 				</thead>
 				<tbody>
-				<?php if($action == 'insert') { ?>
+				<?php if($action == 'insert') 
+{ ?>
 					<tr class="pending-user">
 						<td>
 							<select class="form-control select_width" id="material_0" name="material[]">
@@ -106,7 +107,7 @@ error_reporting(0);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
-					
+//					print_r($qty);
 					for($i=0; $i<count($material); $i++)
 					{
 				?>

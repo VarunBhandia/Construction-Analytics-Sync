@@ -1,6 +1,6 @@
 <?php $username = $this->session->userdata('username'); ?>
 <!DOCTYPE html>  
- <html>  
+ <html style="overflow-x: hidden;">  
  <head>  
       <title>Welcome <?php echo $username; ?></title>  
 	<meta charset="UTF-8">
@@ -37,9 +37,11 @@
          
      <div class="row padding1">
          <div class="col-md-2">
-            <a href="../category" target="_blank">
-             <div class="ModuleTile"></div>
-             </a>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
              <div class="ModuleTile"></div>
@@ -56,7 +58,6 @@
          <div class="col-md-2">
              <div class="ModuleTile"></div>
          </div>
-        
      </div>
      
      <div class="row padding1">
@@ -77,8 +78,36 @@
          </div>
          <div class="col-md-2">
              <div class="ModuleTile"></div>
+<<<<<<< HEAD
          </div>
         
+=======
+         </div>        
+>>>>>>> 6bc74fc1fabdb58aaaff1f744d8da95bb47c03a0
+     </div>
+     
+     <div class="row padding1">
+         <div class="col-md-2">
+<<<<<<< HEAD
+=======
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+>>>>>>> 6bc74fc1fabdb58aaaff1f744d8da95bb47c03a0
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>        
      </div>
      
      <div class="row padding1">
@@ -99,8 +128,7 @@
          </div>
          <div class="col-md-2">
              <div class="ModuleTile"></div>
-         </div>
-        
+         </div>        
      </div>
      
      

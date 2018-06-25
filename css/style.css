@@ -27,14 +27,16 @@
 .ModuleTile{
     background-color: #4a4a4a;
     transition: all .4s ease-in-out; 
-    height: 14em;
-    width: 14em;
+    height: 9.5em;
+    width: 17em;
 }
 
 .ModuleTile:hover{
     background-color: #171616;
     transform: scale(1.05);
 }
+
+.ModuleHeading{}
 
 .padding1{
     padding: 1em;

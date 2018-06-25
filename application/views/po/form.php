@@ -31,7 +31,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="site" name="site" disabled>
+                           <select class="form-control" id="site" name="site" >
 								<option value="">---site name----</option>
 								<?php
 								foreach($sites as $site)
@@ -102,7 +102,7 @@ error_reporting(0);
 					</tr>
 				<?php } else {
                   ?>
-				<input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
+<!--				<input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>-->
 				<?php 
 				
 					$material = explode(",",$row[0]->mid);
@@ -189,28 +189,28 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">CGST
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="csgt" name="csgt_total" type="text" value="" autocomplete="off" disabled>
+                          <input class="form-control" id="csgt" name="csgt_total" type="text" value="" autocomplete="off" readonly>
 						</div>
                       </div>
 					  <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">SGST
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="ssgt" name="ssgt_total" type="text" value="" autocomplete="off" disabled>
+                          <input class="form-control" id="ssgt" name="ssgt_total" type="text" value="" autocomplete="off" readonly>
 						</div>
                       </div>
 					  <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">IGST
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="isgt" name="isgt_total" type="text" value="" autocomplete="off" disabled>
+                          <input class="form-control" id="isgt" name="isgt_total" type="text" value="" autocomplete="off" readonly>
 						</div>
                       </div>
 					  <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">Total Amount
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="total_amount" name="total_amount" type="text" value="" autocomplete="off" disabled>
+                          <input class="form-control" id="total_amount" name="total_amount" type="text" value="" autocomplete="off" readonly>
 						</div>
                       </div>
 					  <div class="form-group">
@@ -231,7 +231,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">Gross Amount
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="gross_amount" name="gross_amount" type="text" value="" autocomplete="off" disabled>
+                          <input class="form-control" id="gross_amount" name="gross_amount" type="text" value="" autocomplete="off" readonly>
 						</div>
                       </div>
 					  <div class="form-group">

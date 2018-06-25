@@ -22,8 +22,11 @@
 		{
 			$model = $this->model;
 			$data['controller'] = $this->controller;
-			$data['row'] = $this->$model->select(array(),'material_rqst',array(mrid=>$poid),'');
-            
+			$data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
+			$data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
+            echo '<pre>';
+            print_r($data['po_row']);
+            echo '</pre>';
 
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
 			$this->load->view('po/index',$data);

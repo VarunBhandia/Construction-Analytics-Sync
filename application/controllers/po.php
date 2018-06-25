@@ -3,7 +3,7 @@
 
 	class Po extends CI_Controller
 	{
-		public $table = 'purchaseorder';
+		public $table = 'po_master';
 		public $sitetable = 'sitedetails';
 		public $controller = 'Po';
 		public $message = 'Construction';
@@ -91,12 +91,31 @@
 			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
 			$data = array(
 					'sid'  => $site,
-					'mrcreatedon'  => $date,
-					'mid' => $mid,
-					'mrqty'  => $qty,
-					'mrunitprice'  => $unit,
-					'muid'  => $m_unit,
-					'mrremarks'  => $remark
+					'csgt_total'  => $csgt_total,
+					'ssgt_total'  => $ssgt_total,
+					'isgt_total'  => $isgt_total,
+					'total_amount'  => $total_amount,
+					'frieght_amount'  => $frieght_amount,
+					'gst_frieght_amount' => $gst_frieght_amount,
+					'gross_amount'  => $gross_amount,
+					'invoice_to'  => $invoice_to,
+					'contact_name'  => $contact_name,
+					'contact_no'  => $contact_no,
+					'tandc'  => $tandc,
+					'pocreatedon'  => $date,
+					'm_unit'  => $m_unit,
+					'qty'  => $qty,
+					'app_qty'  => $app_qty,
+					'unit'  => $unit,
+					'discount_type'  => $discount_type,
+					'discount'  => $discount,
+					'cgst'  => $cgst,
+					'sgst'  => $sgst,
+					'igst'  => $igst,
+					'total'  => $total,
+					'vendor'  => $vendor,
+					'remark'  => $remark
+
 				);
 			
 			$this->$model->insert($data,$this->table);

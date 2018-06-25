@@ -1,6 +1,6 @@
 <?php $username = $this->session->userdata('username'); ?>
 <!DOCTYPE html>  
- <html>  
+ <html style="overflow-x: hidden;">  
  <head>  
       <title>Welcome <?php echo $username; ?></title>  
 	<meta charset="UTF-8">
@@ -37,7 +37,11 @@
          
      <div class="row padding1">
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
              <div class="ModuleTile"></div>
@@ -54,7 +58,69 @@
          <div class="col-md-2">
              <div class="ModuleTile"></div>
          </div>
-        
+     </div>
+     
+     <div class="row padding1">
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>        
+     </div>
+     
+     <div class="row padding1">
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>        
+     </div>
+     
+     <div class="row padding1">
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>        
      </div>
      
      

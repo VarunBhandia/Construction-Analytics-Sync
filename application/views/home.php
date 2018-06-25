@@ -37,6 +37,52 @@
          
      <div class="row padding1">
          <div class="col-md-2">
+            <a href="../category" target="_blank">
+             <div class="ModuleTile"></div>
+             </a>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+        
+     </div>
+     
+     <div class="row padding1">
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+         <div class="col-md-2">
+             <div class="ModuleTile"></div>
+         </div>
+        
+     </div>
+     
+     <div class="row padding1">
+         <div class="col-md-2">
              <div class="ModuleTile"></div>
          </div>
          <div class="col-md-2">

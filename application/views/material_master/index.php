@@ -291,6 +291,8 @@
         }
     });
 </script>
+
+<!--
 <button id="run" class="btn btn-primary">Convert!</button>
 <p id="demo"></p>
 
@@ -308,3 +310,4 @@ $('#run').click( function() {
 
 });
     </script>
+-->

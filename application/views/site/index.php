@@ -292,6 +292,7 @@ document.getElementById("demo").innerHTML = myJSON;
 
 </script>
 -->
+<!--
 <button id="run" class="btn btn-primary">Convert!</button>
 <script>
 $('#run').click( function() {
@@ -304,3 +305,4 @@ $('#run').click( function() {
 <script>
     var table = $('#example-table').tableToJSON();
 </script>
+-->

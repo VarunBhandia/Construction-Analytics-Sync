@@ -65,20 +65,30 @@ error_reporting(0);
 				</thead>
 				<tbody>
 				<?php if($action == 'update') 
-{ ?>
-					<tr class="pending-user">
+{ 
+                
+                    $material = explode(",",$row_po[0]->mid);
+					$qty = explode(",",$row_po[0]->qty);
+					$m_unit = explode(",",$row_po[0]->m_unit);
+					$remarks = explode(",",$row_po[0]->mrremarks);
+//    echo '<pre>';
+//    print_r($material);
+//    echo '</pre>';
+    					for($i=0; $i<count($material); $i++)
+					{
+?>
+                    				<input type="hidden" name="poid" value="<?php echo $row_po[0]->poid; ?>"/>
+
+				<tr class="pending-user">
 						<td>
 							<select class="form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
-								{ ?>
-									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+								{ echo $material[$i]; ?>
+									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
-						</td>
-						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
 							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
@@ -86,30 +96,67 @@ error_reporting(0);
 								<?php
 								foreach($units as $value)
 								{ ?>
-									<option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+									<option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
 								<?php }	?>
 							</select>
 						</td>
 						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
 						</td>
 						<td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
+							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+						</td>
+						<td>
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+						</td>
+						<td>
+							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="amount">Amount
+							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="percentage">Percentage
+						</td>
+						<td>
+							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+						</td>
+						<td>
+							<select class="form-control select_width" id="vendor_0" name="vendor[]">
+								<option value=""></option>
+								<?php
+								foreach($vendors as $value)
+								{ echo $vendors[$i]; ?>
+									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
+								<?php }	?>
+							</select>
+						</td>
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
-				<?php } else {
+				<?php } }else {
                   ?>
-<!--				<input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>-->
 				<?php 
-				
+
 					$material = explode(",",$row[0]->mid);
 					$qty = explode(",",$row[0]->mrqty);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
+//    echo '<pre>';
+//    print_r($unit);
+//    echo '</pre>';
 
 					for($i=0; $i<count($material); $i++)
 					{

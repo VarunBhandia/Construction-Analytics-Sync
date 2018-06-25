@@ -15,7 +15,7 @@
 				<div class="x_title">
                     <h2>Construction</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a href="<?php echo base_url().$controller;?>/form"><button class="btn btn-primary">Add New</button></a>
+                      <li><a href="<?php echo base_url()?>material_rqst"><button class="btn btn-primary">Add New</button></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>

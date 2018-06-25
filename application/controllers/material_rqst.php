@@ -89,7 +89,7 @@
 
 		public function update()
 		{
-$model = $this->model;
+            $model = $this->model;
 			
 			$site = $this->input->post('site');
 			$date = date('Y-m-d',strtotime($this->input->post('date')));

@@ -78,25 +78,17 @@
          </div>
          <div class="col-md-2">
              <div class="ModuleTile"></div>
-<<<<<<< HEAD
          </div>
-        
-=======
-         </div>        
->>>>>>> 6bc74fc1fabdb58aaaff1f744d8da95bb47c03a0
-     </div>
+    </div>        
      
      <div class="row padding1">
          <div class="col-md-2">
-<<<<<<< HEAD
-=======
              <div class="ModuleTile"></div>
          </div>
          <div class="col-md-2">
              <div class="ModuleTile"></div>
          </div>
          <div class="col-md-2">
->>>>>>> 6bc74fc1fabdb58aaaff1f744d8da95bb47c03a0
              <div class="ModuleTile"></div>
          </div>
          <div class="col-md-2">

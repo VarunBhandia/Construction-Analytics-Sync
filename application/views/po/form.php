@@ -26,7 +26,22 @@ error_reporting(0);
                     <br />
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 					<?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
-	<div class="table-responsive">		  
+                        <div class="table-responsive">
+                                           <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12">
+                           <select class="form-control" id="site" name="site" disabled>
+								<option value="">---site name----</option>
+								<?php
+								foreach($sites as $site)
+								{ ?>
+									<option <?php if($action == 'insert'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
+								<?php }	?>
+							</select>
+                        </div>
+                      </div>
+       
 		<table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
 					<tr class="headings">
@@ -121,7 +136,7 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
 						</td>
 						<td>
 							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
@@ -137,19 +152,19 @@ error_reporting(0);
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="cgst_0" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="sgst_0" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="igst_0" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
 							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="form-control select_width" id="vendor_0" name="vendor[]">
 								<option value=""></option>
 								<?php
 								foreach($vendors as $value)
@@ -168,7 +183,85 @@ error_reporting(0);
 				<?php }  }?>
 				</tbody>
 			</table>
-	</div>
+	
+                        </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">CGST
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="csgt" name="csgt_total" type="text" value="" autocomplete="off" disabled>
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">SGST
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="ssgt" name="ssgt_total" type="text" value="" autocomplete="off" disabled>
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">IGST
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="isgt" name="isgt_total" type="text" value="" autocomplete="off" disabled>
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Total Amount
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="total_amount" name="total_amount" type="text" value="" autocomplete="off" disabled>
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Frieght Amount
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="frieght_amount" name="frieght_amount" type="text" value="" autocomplete="off" >
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">GST on Freight (in %)
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="gst_frieght_amount" name="gst_frieght_amount" type="text" value="" autocomplete="off" >
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Gross Amount
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="gross_amount" name="gross_amount" type="text" value="" autocomplete="off" disabled>
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="invoice_to" name="invoice_to" type="text" value="" autocomplete="off" >
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact Name
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="contact_name" name="contact_name" type="text" value="" autocomplete="off" >
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact No.
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="contact_no" name="contact_no" type="text" value="" autocomplete="off" >
+						</div>
+                      </div>
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Terms & Conditions
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
+						</div>
+                      </div>
 					  
                       <div class="form-group">
                         <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
@@ -187,6 +280,7 @@ error_reporting(0);
 <?php
 	$this->load->view('include/footer');
 ?>
+
 <!-- Validate Js -->
 	<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/underscore-min.js">

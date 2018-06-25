@@ -32,7 +32,7 @@
 		public function form($poid)
 		{
 			$model = $this->model;
-            echo $poid;
+//            echo $poid;
             $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
 			$data['action'] = "insert";
 			$data['controller'] = $this->controller;
@@ -43,9 +43,9 @@
             $poid = $this->uri->segment(3);
 			$this->load->view('po/form',$data);
             $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
-            echo '<pre>';
-            print_r($data[material_rqsts]);
-            echo '</pre>';
+//            echo '<pre>';
+//            print_r($data[material_rqsts]);
+//            echo '</pre>';
 
 
 		}
@@ -53,20 +53,42 @@
 		public function insert()
 		{
 			$model = $this->model;
-			
 			$site = $this->input->post('site');
+			$csgt_total = $this->input->post('csgt_total');
+			$ssgt_total = $this->input->post('ssgt_total');
+			$isgt_total = $this->input->post('isgt_total');
+			$total_amount = $this->input->post('total_amount');
+			$frieght_amount = $this->input->post('frieght_amount');
+			$gst_frieght_amount = $this->input->post('gst_frieght_amount');
+			$gross_amount = $this->input->post('gross_amount');
+			$invoice_to = $this->input->post('invoice_to');
+			$contact_name = $this->input->post('contact_name');
+			$contact_no = $this->input->post('contact_no');
+			$tandc = $this->input->post('tandc');
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
-
+            
 			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
-			
-			$qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
-			
-			$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
-			
+            
 			$m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-			
-			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-			
+            
+			$qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');	
+            
+			$app_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');		
+            
+			$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
+            
+			$discount_type = count($this->input->post('discount_type')) > 0 ? implode(",",$this->input->post('discount_type')) : $this->input->post('discount_type');		
+            
+			$discount = count($this->input->post('discount')) > 0 ? implode(",",$this->input->post('discount')) : $this->input->post('discount');	
+            
+			$cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
+			$sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
+			$igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
+            
+			$total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
+			$vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
+            
+			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
 			$data = array(
 					'sid'  => $site,
 					'mrcreatedon'  => $date,

@@ -37,6 +37,15 @@
          
      <div class="row padding1">
          <div class="col-md-2">
+             <a href="<?php echo base_url(); ?>user" target="_blank">
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
+                 </a>
+         </div>
+         <div class="col-md-2">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
                      USER
@@ -44,85 +53,171 @@
              </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
-         </div>
-         <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
      </div>
-     
+          
      <div class="row padding1">
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
+
              <div class="ModuleTile"></div>
          </div>
     </div>        
-     
+         
+          
      <div class="row padding1">
          <div class="col-md-2">
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
+
              <div class="ModuleTile"></div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
-         </div>        
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
+         </div>
      </div>
-     
+          
      <div class="row padding1">
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile"></div>
-         </div>        
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     USER
+                 </div>
+             </div>
+         </div>
      </div>
-     
+          
      
             <!--===============================================================================================-->	
 	<script src="<?php echo base_url(); ?>vendor/jquery/jquery-3.2.1.min.js"></script>

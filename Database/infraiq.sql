@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 22, 2018 at 03:20 PM
+-- Generation Time: Jun 25, 2018 at 01:01 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -45,21 +45,58 @@ INSERT INTO `category` (`cid`, `cname`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `consumption`
+--
+
+CREATE TABLE `consumption` (
+  `consid` int(11) NOT NULL,
+  `sid` varchar(10) NOT NULL,
+  `mid` varchar(50) NOT NULL,
+  `muid` varchar(50) NOT NULL,
+  `consqty` varchar(50) NOT NULL,
+  `consunitprice` varchar(50) NOT NULL,
+  `consremark` varchar(2550) NOT NULL,
+  `conscreatedby` varchar(255) NOT NULL,
+  `conscreatedon` datetime NOT NULL,
+  `consissuedate` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `consumption`
+--
+
+INSERT INTO `consumption` (`consid`, `sid`, `mid`, `muid`, `consqty`, `consunitprice`, `consremark`, `conscreatedby`, `conscreatedon`, `consissuedate`) VALUES
+(1, '1', '3,1', '1,3', '444,111', '42342,132343434', '42342,34356657', '', '0000-00-00 00:00:00', '2018-06-04 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cp_master`
 --
 
 CREATE TABLE `cp_master` (
   `cpid` int(5) NOT NULL,
+  `cprefid` varchar(50) NOT NULL,
   `sid` int(5) NOT NULL,
   `vid` int(5) NOT NULL,
-  `purchasedate` date NOT NULL,
-  `cp_challan` varchar(50) NOT NULL,
-  `cp_material_name` varchar(50) NOT NULL,
-  `cp_material_unit` varchar(50) NOT NULL,
-  `cp_unitprice` varchar(50) NOT NULL,
-  `cp_material_challan` varchar(50) NOT NULL,
-  `remarks` varchar(2550) NOT NULL
+  `cppurchasedate` date NOT NULL,
+  `cpchallan` varchar(50) NOT NULL,
+  `mid` varchar(50) NOT NULL,
+  `muid` varchar(50) NOT NULL,
+  `cpunitprice` varchar(50) NOT NULL,
+  `cplinechallan` varchar(50) NOT NULL,
+  `cpremark` varchar(2550) NOT NULL,
+  `cpcreatedon` datetime(6) NOT NULL,
+  `cpcreatedby` varchar(50) NOT NULL,
+  `cpqty` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `cp_master`
+--
+
+INSERT INTO `cp_master` (`cpid`, `cprefid`, `sid`, `vid`, `cppurchasedate`, `cpchallan`, `mid`, `muid`, `cpunitprice`, `cplinechallan`, `cpremark`, `cpcreatedon`, `cpcreatedby`, `cpqty`) VALUES
+(1, '', 1, 4, '2018-06-01', '12', '1', '1', '', '', 'sddqsdqd', '0000-00-00 00:00:00.000000', '', '12');
 
 -- --------------------------------------------------------
 
@@ -279,22 +316,36 @@ INSERT INTO `fruits` (`id`, `fruits_name`, `quantity`) VALUES
 
 CREATE TABLE `grn_master` (
   `grnid` int(10) NOT NULL,
-  `sid` int(10) NOT NULL,
-  `vid` int(10) NOT NULL,
-  `grn_challan` varchar(50) NOT NULL,
-  `recievedate` date NOT NULL,
-  `createdon` timestamp(5) NOT NULL DEFAULT CURRENT_TIMESTAMP(5) ON UPDATE CURRENT_TIMESTAMP(5),
-  `createdby` varchar(50) NOT NULL,
-  `mid` int(50) NOT NULL,
-  `grn_qty` varchar(50) NOT NULL,
-  `unitprice` varchar(50) NOT NULL,
-  `muid` int(10) NOT NULL,
-  `truck` varchar(50) NOT NULL,
-  `challan` varchar(50) NOT NULL,
-  `trans_id` int(10) NOT NULL,
-  `remarks` varchar(2550) NOT NULL,
-  `grn_refid` int(10) NOT NULL
+  `sid` varchar(10) DEFAULT NULL,
+  `vid` varchar(10) DEFAULT NULL,
+  `grnchallan` varchar(50) DEFAULT NULL,
+  `grnreceivedate` date DEFAULT NULL,
+  `grncreatedon` timestamp(6) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(6),
+  `grncreatedby` varchar(50) DEFAULT NULL,
+  `mid` varchar(50) DEFAULT NULL,
+  `grnqty` varchar(50) DEFAULT NULL,
+  `grnunitprice` varchar(50) DEFAULT NULL,
+  `muid` varchar(10) DEFAULT NULL,
+  `grntruck` varchar(50) DEFAULT NULL,
+  `grnlinechallan` varchar(50) DEFAULT NULL,
+  `tid` varchar(10) DEFAULT NULL,
+  `grnremarks` varchar(2550) DEFAULT NULL,
+  `grnrefid` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `grn_master`
+--
+
+INSERT INTO `grn_master` (`grnid`, `sid`, `vid`, `grnchallan`, `grnreceivedate`, `grncreatedon`, `grncreatedby`, `mid`, `grnqty`, `grnunitprice`, `muid`, `grntruck`, `grnlinechallan`, `tid`, `grnremarks`, `grnrefid`) VALUES
+(15, '1', '4', '435467', '2020-02-04', '2018-06-22 06:28:16.091911', NULL, '2', '442', '424', '2', '22345678', '424', '1', '424', NULL),
+(21, '2', '4', '', '1970-01-01', '2018-06-22 06:11:33.488151', NULL, '', '', '', '', '', '', '', '', NULL),
+(22, '1', '6', '', '1970-01-01', '2018-06-22 06:38:06.569115', NULL, '', '', '', '', '', '', '', '', NULL),
+(23, '1', '5', '234', '2018-06-22', NULL, NULL, '1', '334', '45678', '2', '535', '42424', '1', '333333', NULL),
+(25, '1', '6', '234567', '1970-01-01', '2018-06-22 06:19:43.935513', NULL, '3', '21210000', '2210000', '2', '1212000', '4242400000', '1', '21212100000', NULL),
+(27, '2', '5', '2345678909', '2018-06-21', NULL, NULL, '3,1', '123,456', '12,34', '2,1', '232424,999999', '24242424,0000011', '1,1', '2345678,09876543', NULL),
+(29, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(30, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -397,10 +448,40 @@ CREATE TABLE `material_rqst` (
 --
 
 INSERT INTO `material_rqst` (`mrid`, `sid`, `mid`, `mrqty`, `mrunitprice`, `mrrefid`, `muid`, `mrremarks`, `mrcreatedon`, `mrcreatedby`) VALUES
-(2, '2', '2,2', ',', ',', '', ',', ',', '1970-01-01', ''),
-(3, '1', '1', '', '', '', '', '', '1970-01-01', ''),
-(4, '2', '', '', '', '', '', '', '1970-01-01', ''),
+(2, '2', '2,2', '1,1', '5,10', '', '1,2', ',', '1970-01-01', ''),
+(3, '2', '1', '', '', '', '', '', '1970-01-01', ''),
+(4, '2', '2,2', '500', '2,4', '', '', '', '1970-01-01', ''),
 (5, '1', '3', '65', '5', '', '2', 'hgfd>						</td>						<td><a class=', '1970-01-01', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mo_master`
+--
+
+CREATE TABLE `mo_master` (
+  `moid` int(10) NOT NULL,
+  `morefid` varchar(50) NOT NULL,
+  `sid` varchar(100) NOT NULL,
+  `vid` varchar(255) NOT NULL,
+  `mid` varchar(50) NOT NULL,
+  `muid` varchar(50) NOT NULL,
+  `modate` date NOT NULL,
+  `mochallan` varchar(255) NOT NULL,
+  `moqty` varchar(50) NOT NULL,
+  `movehicle` varchar(100) NOT NULL,
+  `tid` varchar(50) NOT NULL,
+  `moremark` varchar(100) NOT NULL,
+  `mocreatedon` datetime NOT NULL,
+  `mocreatedby` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `mo_master`
+--
+
+INSERT INTO `mo_master` (`moid`, `morefid`, `sid`, `vid`, `mid`, `muid`, `modate`, `mochallan`, `moqty`, `movehicle`, `tid`, `moremark`, `mocreatedon`, `mocreatedby`) VALUES
+(1, '', '1', '', '2', '2', '2018-06-25', '', '344', '', '1', '42424', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -420,6 +501,29 @@ CREATE TABLE `munits` (
 INSERT INTO `munits` (`muid`, `muname`) VALUES
 (1, 'kg'),
 (2, 'm');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `officedetails`
+--
+
+CREATE TABLE `officedetails` (
+  `oid` int(10) NOT NULL,
+  `oname` varchar(100) NOT NULL,
+  `oaddress` varchar(255) NOT NULL,
+  `ogst` varchar(255) NOT NULL,
+  `ocreatedon` datetime NOT NULL,
+  `ocreatedby` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `officedetails`
+--
+
+INSERT INTO `officedetails` (`oid`, `oname`, `oaddress`, `ogst`, `ocreatedon`, `ocreatedby`) VALUES
+(2, 'tueqwe', 'eqweqw21212', 'eqeqwe2121311231', '0000-00-00 00:00:00', ''),
+(3, '32323', '313123', '3213213', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
 
@@ -468,31 +572,39 @@ INSERT INTO `performance` (`performance_id`, `performance_year`, `performance_sa
 
 CREATE TABLE `po_master` (
   `poid` int(11) NOT NULL,
-  `po_refid` int(11) NOT NULL,
-  `sid` int(11) NOT NULL,
-  `materialid` int(11) NOT NULL,
-  `muid` int(11) NOT NULL,
-  `po_qty` varchar(50) NOT NULL,
-  `discounttype` varchar(11) NOT NULL,
-  `discountrate` varchar(50) NOT NULL,
-  `unitprice` varchar(50) NOT NULL,
-  `cgst` varchar(50) NOT NULL,
-  `sgst` varchar(50) NOT NULL,
-  `igst` varchar(50) NOT NULL,
-  `vid` varchar(50) NOT NULL,
-  `createdon` varchar(50) NOT NULL,
-  `createdby` varchar(50) NOT NULL,
-  `freightamount` varchar(50) NOT NULL,
-  `mr_qty` varchar(50) NOT NULL,
-  `totalamount` varchar(50) NOT NULL,
-  `remarks` varchar(2550) NOT NULL,
-  `freightgst` varchar(50) NOT NULL,
-  `grossamount` varchar(50) NOT NULL,
-  `invoiceto` varchar(50) NOT NULL,
-  `tandc` varchar(2550) NOT NULL,
-  `concactname` varchar(50) NOT NULL,
-  `contactmobile` varchar(50) NOT NULL
+  `sid` varchar(255) NOT NULL,
+  `csgt_total` varchar(255) NOT NULL,
+  `ssgt_total` varchar(255) NOT NULL,
+  `isgt_total` varchar(255) NOT NULL,
+  `total_amount` varchar(255) NOT NULL,
+  `frieght_amount` varchar(255) NOT NULL,
+  `gst_frieght_amount` varchar(255) NOT NULL,
+  `gross_amount` varchar(255) NOT NULL,
+  `invoice_to` varchar(255) NOT NULL,
+  `contact_name` varchar(255) NOT NULL,
+  `contact_no` varchar(255) NOT NULL,
+  `tandc` varchar(255) NOT NULL,
+  `pocreatedon` date NOT NULL,
+  `m_unit` varchar(255) NOT NULL,
+  `qty` varchar(255) NOT NULL,
+  `app_qty` varchar(255) NOT NULL,
+  `unit` varchar(255) NOT NULL,
+  `discount_type` varchar(255) NOT NULL,
+  `discount` varchar(255) NOT NULL,
+  `cgst` varchar(255) NOT NULL,
+  `sgst` varchar(255) NOT NULL,
+  `igst` varchar(255) NOT NULL,
+  `total` varchar(255) NOT NULL,
+  `vendor` varchar(255) NOT NULL,
+  `remark` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `po_master`
+--
+
+INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `discount_type`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vendor`, `remark`) VALUES
+(1, '1', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2', '65', '65', '5', 'amount', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -502,20 +614,30 @@ CREATE TABLE `po_master` (
 
 CREATE TABLE `rtv_master` (
   `rtvid` int(11) NOT NULL,
+  `rtvrefid` varchar(50) NOT NULL,
   `sid` int(11) NOT NULL,
   `vid` int(11) NOT NULL,
-  `returndate` date NOT NULL,
-  `createdby` varchar(255) NOT NULL,
-  `createdon` timestamp(5) NOT NULL DEFAULT CURRENT_TIMESTAMP(5) ON UPDATE CURRENT_TIMESTAMP(5),
+  `rtvreturndate` date NOT NULL,
+  `rtvcreatedby` varchar(255) NOT NULL,
+  `rtvcreatedon` timestamp(5) NOT NULL DEFAULT '0000-00-00 00:00:00.00000' ON UPDATE CURRENT_TIMESTAMP(5),
   `vchallan` varchar(50) NOT NULL,
   `schallan` varchar(50) NOT NULL,
-  `mid` int(11) NOT NULL,
-  `muid` int(11) NOT NULL,
-  `rtv_qty` varchar(50) NOT NULL,
-  `truck` varchar(50) NOT NULL,
-  `remarks` varchar(2550) NOT NULL,
-  `trans_id` int(11) NOT NULL
+  `mid` varchar(11) NOT NULL,
+  `muid` varchar(11) NOT NULL,
+  `rtvqty` varchar(50) NOT NULL,
+  `rtvtruck` varchar(50) NOT NULL,
+  `rtvremark` varchar(2550) NOT NULL,
+  `tid` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `rtv_master`
+--
+
+INSERT INTO `rtv_master` (`rtvid`, `rtvrefid`, `sid`, `vid`, `rtvreturndate`, `rtvcreatedby`, `rtvcreatedon`, `vchallan`, `schallan`, `mid`, `muid`, `rtvqty`, `rtvtruck`, `rtvremark`, `tid`) VALUES
+(1, '', 1, 5, '2018-06-05', '', '2018-06-25 00:14:49.34148', '123', '456', '2,4', '3,1', '23123,45', '6789,1234', '32,0909', '1'),
+(2, '', 1, 6, '2018-06-22', '', '2018-06-25 00:15:13.85121', '999999999', '88888888', '2', '2', '777777888888888', '66666666', '55555', '1'),
+(3, '', 1, 5, '2018-06-12', '', '2018-06-24 23:58:07.88372', '23123', '3313', '2,4', '1,2', '21,3132', '313,3131', '3123123,123131', '1');
 
 -- --------------------------------------------------------
 
@@ -866,34 +988,7 @@ CREATE TABLE `vendordetails` (
 
 INSERT INTO `vendordetails` (`vid`, `vname`, `vmobile`, `valtmobile`, `vemail`, `vgst`, `vaddress`, `vdesc`) VALUES
 (4, 'werwqw', 'qeqewe', '12313123', 'uri2uo@gmail.com', '313123123', '122ttus', 'services'),
-(5, 'fsdf', '4324234', '234234234234', 'uri2uo@gmail.com', '2121eiwoije', 'eeqweqw', 'qqeweqwe'),
-(6, 'asdass', '65432', '12345678', 'uri2uo@gmail.com', '2121eiwoije', '34567876543AS', 'SADFG');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `vendor_master`
---
-
-CREATE TABLE `vendor_master` (
-  `vid` int(11) NOT NULL,
-  `vname` varchar(50) NOT NULL,
-  `vaddress` varchar(255) NOT NULL,
-  `vmobile` varchar(50) NOT NULL,
-  `valtmobile` varchar(50) NOT NULL,
-  `vemail` varchar(50) NOT NULL,
-  `vgst` varchar(50) NOT NULL,
-  `vdesc` varchar(50) NOT NULL,
-  `createdon` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `createdby` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `vendor_master`
---
-
-INSERT INTO `vendor_master` (`vid`, `vname`, `vaddress`, `vmobile`, `valtmobile`, `vemail`, `vgst`, `vdesc`, `createdon`, `createdby`) VALUES
-(1, 'varun', 'varun', '900112603', '900112603', 'varun@email.com', '900', 'varunbhandia', '2018-06-13 05:54:30', '2');
+(5, 'fsdf', '4324234', '234234234234', 'uri2uo@gmail.com', '2121eiwoije', 'sdjg', 'qqeweqwe');
 
 -- --------------------------------------------------------
 
@@ -922,12 +1017,6 @@ ALTER TABLE `category`
   ADD PRIMARY KEY (`cid`);
 
 --
--- Indexes for table `cp_master`
---
-ALTER TABLE `cp_master`
-  ADD PRIMARY KEY (`cpid`);
-
---
 -- Indexes for table `customers`
 --
 ALTER TABLE `customers`
@@ -950,12 +1039,6 @@ ALTER TABLE `employee_info`
 --
 ALTER TABLE `fruits`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `grn_master`
---
-ALTER TABLE `grn_master`
-  ADD PRIMARY KEY (`grnid`);
 
 --
 -- Indexes for table `import`
@@ -1003,13 +1086,7 @@ ALTER TABLE `performance`
 -- Indexes for table `po_master`
 --
 ALTER TABLE `po_master`
-  ADD UNIQUE KEY `poid` (`poid`);
-
---
--- Indexes for table `rtv_master`
---
-ALTER TABLE `rtv_master`
-  ADD PRIMARY KEY (`rtvid`);
+  ADD PRIMARY KEY (`poid`);
 
 --
 -- Indexes for table `sitedetails`
@@ -1084,12 +1161,6 @@ ALTER TABLE `vendordetails`
   ADD PRIMARY KEY (`vid`);
 
 --
--- Indexes for table `vendor_master`
---
-ALTER TABLE `vendor_master`
-  ADD PRIMARY KEY (`vid`);
-
---
 -- Indexes for table `workitems`
 --
 ALTER TABLE `workitems`
@@ -1104,11 +1175,6 @@ ALTER TABLE `workitems`
 --
 ALTER TABLE `category`
   MODIFY `cid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
---
--- AUTO_INCREMENT for table `cp_master`
---
-ALTER TABLE `cp_master`
-  MODIFY `cpid` int(5) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `customers`
 --
@@ -1129,11 +1195,6 @@ ALTER TABLE `employee_info`
 --
 ALTER TABLE `fruits`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
---
--- AUTO_INCREMENT for table `grn_master`
---
-ALTER TABLE `grn_master`
-  MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `import`
 --
@@ -1168,12 +1229,7 @@ ALTER TABLE `performance`
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT for table `rtv_master`
---
-ALTER TABLE `rtv_master`
-  MODIFY `rtvid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
@@ -1234,11 +1290,6 @@ ALTER TABLE `vendor`
 --
 ALTER TABLE `vendordetails`
   MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
---
--- AUTO_INCREMENT for table `vendor_master`
---
-ALTER TABLE `vendor_master`
-  MODIFY `vid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `workitems`
 --

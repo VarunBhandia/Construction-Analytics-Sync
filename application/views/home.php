@@ -46,175 +46,206 @@
                  </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>site" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     SITE
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>unit" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Units
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>category" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Category
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>material" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Materials
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>index.php/vendor" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Vendors
                  </div>
              </div>
+             </a>
          </div>
      </div>
           
      <div class="row padding1">
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>material_rqst" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Material Request
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>po" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Purchase Order
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>rtv" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Return To Vendor
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>cp" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Cash Purchase
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>grn" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Goods Received
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
-
-             <div class="ModuleTile"></div>
-         </div>
+            <a href="<?php echo base_url(); ?>vbill" target="_blank">
+             <div class="ModuleTile">
+                <div class="ModuleHeading">
+                Vendor Bills 
+                 </div>
+             </div>
+            </a>
     </div>        
          
           
      <div class="row padding1">
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                    Terms and Conditions
+                 </div>
+                </div>
+                </a>
+            </div>
+         <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>mo" target="_blank"> 
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     Move Order
                  </div>
              </div>
-
-             <div class="ModuleTile"></div>
+             </a>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile">
+            <a href="<?php echo base_url(); ?>office" target="_blank">
+            <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     New Offices
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
-
+            <a href="<?php echo base_url(); ?>subcont" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Sub-Contractors
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>transporter" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Transporters
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>workorder" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Work Order
                  </div>
              </div>
-         </div>
-         <div class="col-md-2">
-             <div class="ModuleTile">
-                 <div class="ModuleHeading">
-                     USER
-                 </div>
-             </div>
+             </a>
          </div>
      </div>
           
      <div class="row padding1">
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>workitem" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Work Items
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
-             <div class="ModuleTile">
+            <a href="#" target="_blank">
+                
+                         <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Work Order
                  </div>
              </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="#" target="_blank">
+            <a href="<?php echo base_url(); ?>consumption" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Consumption
                  </div>
              </div>
-         </div>
+             </a>
+             </a></div>
          <div class="col-md-2">
+                       <a href="#" target="_blank">
+
+            
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Reporting
                  </div>
              </div>
-         </div>
-         <div class="col-md-2">
-             <div class="ModuleTile">
-                 <div class="ModuleHeading">
-                     USER
-                 </div>
-             </div>
-         </div>
-         <div class="col-md-2">
-             <div class="ModuleTile">
-                 <div class="ModuleHeading">
-                     USER
-                 </div>
-             </div>
+             </a>
          </div>
      </div>
           

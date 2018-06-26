@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2018 at 01:01 PM
+-- Generation Time: Jun 26, 2018 at 08:08 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -245,6 +245,25 @@ INSERT INTO `customers` (`id`, `FirstName`, `LastName`, `phone`, `address`, `cit
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `discount_type`
+--
+
+CREATE TABLE `discount_type` (
+  `dtid` int(11) NOT NULL,
+  `dtname` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `discount_type`
+--
+
+INSERT INTO `discount_type` (`dtid`, `dtname`) VALUES
+(1, 'Amount'),
+(2, 'Percentage');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `dropdown_value`
 --
 
@@ -449,7 +468,7 @@ CREATE TABLE `material_rqst` (
 
 INSERT INTO `material_rqst` (`mrid`, `sid`, `mid`, `mrqty`, `mrunitprice`, `mrrefid`, `muid`, `mrremarks`, `mrcreatedon`, `mrcreatedby`) VALUES
 (2, '2', '2,2', '1,1', '5,10', '', '1,2', ',', '1970-01-01', ''),
-(3, '2', '1', '', '', '', '', '', '1970-01-01', ''),
+(3, '2', '1', '', '455,1000', '', '', '', '1970-01-01', ''),
 (4, '2', '2,2', '500', '2,4', '', '', '', '1970-01-01', ''),
 (5, '1', '3', '65', '5', '', '2', 'hgfd>						</td>						<td><a class=', '1970-01-01', '');
 
@@ -589,22 +608,26 @@ CREATE TABLE `po_master` (
   `qty` varchar(255) NOT NULL,
   `app_qty` varchar(255) NOT NULL,
   `unit` varchar(255) NOT NULL,
-  `discount_type` varchar(255) NOT NULL,
+  `dtid` varchar(255) NOT NULL,
   `discount` varchar(255) NOT NULL,
   `cgst` varchar(255) NOT NULL,
   `sgst` varchar(255) NOT NULL,
   `igst` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
-  `vendor` varchar(255) NOT NULL,
-  `remark` varchar(255) NOT NULL
+  `vid` varchar(255) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  `pocreatedby` varchar(255) NOT NULL,
+  `mid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `po_master`
 --
 
-INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `discount_type`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vendor`, `remark`) VALUES
-(1, '1', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2', '65', '65', '5', 'amount', '', '', '', '', '', '', '');
+INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `dtid`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vid`, `remark`, `pocreatedby`, `mid`) VALUES
+(2, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2,', '23,', '23,', ',', '2,1', ',', '45,', '45,', '45,', '345,', '4', 'etrthrth,', '', '1,1'),
+(3, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2,1', '23,22', '23,22', '222,', '1,2', ',', '123,', '11,', '12,', '13,', ',', 'aDSFGH,', '', '1,2'),
+(4, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '1,2', '1,1', '1,1', '5,10', '1,2', ',', ',', ',', ',', ',', ',', ',', '', '');
 
 -- --------------------------------------------------------
 
@@ -1023,6 +1046,12 @@ ALTER TABLE `customers`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `discount_type`
+--
+ALTER TABLE `discount_type`
+  ADD PRIMARY KEY (`dtid`);
+
+--
 -- Indexes for table `dyform`
 --
 ALTER TABLE `dyform`
@@ -1181,6 +1210,11 @@ ALTER TABLE `category`
 ALTER TABLE `customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
 --
+-- AUTO_INCREMENT for table `discount_type`
+--
+ALTER TABLE `discount_type`
+  MODIFY `dtid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- AUTO_INCREMENT for table `dyform`
 --
 ALTER TABLE `dyform`
@@ -1229,7 +1263,7 @@ ALTER TABLE `performance`
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
@@ -1289,7 +1323,7 @@ ALTER TABLE `vendor`
 -- AUTO_INCREMENT for table `vendordetails`
 --
 ALTER TABLE `vendordetails`
-  MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `workitems`
 --

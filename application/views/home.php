@@ -46,25 +46,32 @@
                  </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>site" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     SITE
                  </div>
              </div>
+             </a>
+         </div>
+             
+         <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>unit" target="_blank">
+             <div class="ModuleTile">
+                 <div class="ModuleHeading">
+                     Category
+                 </div>
+             </div>
+             </a>
          </div>
          <div class="col-md-2">
+            <a href="<?php echo base_url(); ?>material" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
-                     USER
+                     Material
                  </div>
              </div>
-         </div>
-         <div class="col-md-2">
-             <div class="ModuleTile">
-                 <div class="ModuleHeading">
-                     USER
-                 </div>
-             </div>
+             </a>
          </div>
          <div class="col-md-2">
              <div class="ModuleTile">

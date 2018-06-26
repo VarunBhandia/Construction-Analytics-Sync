@@ -121,8 +121,9 @@
          <div class="col-md-2">
 
              <div class="ModuleTile"></div>
-         </div>   
-     </div>        
+         </div>
+    </div>        
+         
           
      <div class="row padding1">
          <div class="col-md-2">
@@ -142,12 +143,12 @@
              </div>
          </div>
          <div class="col-md-2">
+
              <div class="ModuleTile">
                  <div class="ModuleHeading">
                      USER
                  </div>
              </div>
-             <div class="ModuleTile"></div>
          </div>
          <div class="col-md-2">
              <div class="ModuleTile">

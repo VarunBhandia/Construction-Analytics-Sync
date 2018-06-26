@@ -45,7 +45,7 @@
 									  <td><?php echo $no;?></td>
 									  <td><?php echo $test->poid;?></td>
 									  <td><?php echo $test->sid;?></td>
-									  <td><?php echo $test->vendor;?></td>
+									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo $test->pocreatedby;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
 									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger">Delete</a></td>

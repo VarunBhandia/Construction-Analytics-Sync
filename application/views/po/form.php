@@ -27,18 +27,38 @@ error_reporting(0);
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 					<?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
                         <div class="table-responsive">
-                                           <div class="form-group">
+                            <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="site" name="site" >
-								<option value="">---site name----</option>
+                            
+                           <select class="form-control" id="site" name="site">
 								<?php
 								foreach($sites as $site)
 								{ ?>
-									<option <?php if($action == 'insert'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
+									<option <?php if($action != ''){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
+                            
+                        </div>
+                      </div>
+       				<?php	$vid = explode(",",$row_po[0]->vid); 
+                            print_r ($vid); ?>
+
+                            <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Vendor
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12">
+                            
+							<select class="form-control select_width" id="vendor" name="vendor[]">
+								<option value=""></option>
+								<?php
+								foreach($vendors as $value)
+								{?>
+									<option <?php if($action == 'update'){  echo ($value->vid == $vid[0]) ? 'selected' : '' ; }?> value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
+								<?php }	?>
+							</select>
+                            
                         </div>
                       </div>
        
@@ -56,7 +76,6 @@ error_reporting(0);
 					<th class="column-title">SGST </th>
 					<th class="column-title">IGST </th>
 					<th class="column-title">Total </th>
-					<th class="column-title">Vendor Name </th>
 					<th class="column-title">Remarks </th>
 					<th class="column-title no-link last">
 					<span class="nobr">Action</span>
@@ -67,10 +86,20 @@ error_reporting(0);
 				<?php if($action == 'update') 
 { 
                 
-                    $material = explode(",",$row_po[0]->mid);
+                    $m_unit = explode(",",$row_po[0]->m_unit);
 					$qty = explode(",",$row_po[0]->qty);
-					$m_unit = explode(",",$row_po[0]->m_unit);
-					$remarks = explode(",",$row_po[0]->mrremarks);
+					$app_qty = explode(",",$row_po[0]->app_qty);
+					$unit = explode(",",$row_po[0]->unit);
+					$dtid = explode(",",$row_po[0]->dtid);
+					$discount = explode(",",$row_po[0]->discount);
+					$cgst = explode(",",$row_po[0]->cgst);
+					$sgst = explode(",",$row_po[0]->sgst);
+					$igst = explode(",",$row_po[0]->igst);
+					$total = explode(",",$row_po[0]->total);
+					$vid = explode(",",$row_po[0]->vid);
+					$remark = explode(",",$row_po[0]->remark);
+					$material = explode(",",$row_po[0]->mid);
+
 //    echo '<pre>';
 //    print_r($material);
 //    echo '</pre>';
@@ -110,42 +139,39 @@ error_reporting(0);
 							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="amount">Amount
-							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="percentage">Percentage
-						</td>
-						<td>
-							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
-						</td>
-						<td>
-							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
-						</td>
-						<td>
-							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
-						</td>
-						<td>
-							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
-						</td>
-						<td>
-							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
-						</td>
-						<td>
-							<select class="form-control select_width" id="vendor_0" name="vendor[]">
+							<select class="form-control select_width" id="discount_type" name="discount_type[]">
 								<option value=""></option>
 								<?php
-								foreach($vendors as $value)
-								{ echo $vendors[$i]; ?>
-									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
+								foreach($discount_types as $value)
+								{ ?>
+									<option <?php if($action == 'update'){  echo ($value->dtid == $dtid[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
 								<?php }	?>
 							</select>
 						</td>
 						<td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
+							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $$discount[$i]; ?>">
+						</td>
+						<td>
+							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $cgst[$i]; ?>">
+						</td>
+						<td>
+							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $sgst[$i]; ?>">
+						</td>
+						<td>
+							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $igst[$i]; ?>">
+						</td>
+						<td>
+							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $total[$i]; ?>">
+						</td>
+                    <td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remark[$i]; ?>">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
-				<?php } }else {
+				<?php } }else 
+{
                   ?>
 				<?php 
 
@@ -192,8 +218,14 @@ error_reporting(0);
 							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="amount">Amount
-							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="percentage">Percentage
+							<select class="form-control select_width" id="discount_type" name="discount_type[]">
+								<option value=""></option>
+								<?php
+								foreach($discount_types as $value)
+								{ ?>
+									<option <?php if($action == 'update'){  echo ($value->dtid == $dtid[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
+								<?php }	?>
+							</select>
 						</td>
 						<td>
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
@@ -210,17 +242,7 @@ error_reporting(0);
 						<td>
 							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
-						<td>
-							<select class="form-control select_width" id="vendor_0" name="vendor[]">
-								<option value=""></option>
-								<?php
-								foreach($vendors as $value)
-								{ echo $vendors[$i]; ?>
-									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
-								<?php }	?>
-							</select>
-						</td>
-						<td>
+\						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
@@ -422,8 +444,14 @@ $(document).ready(function (){
 							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="amount">Amount
-							<input type="radio" id="discount_type" name="discount_type[<?php echo $i; ?>]" class="amountonly form-control" value="percentage">Percentage
+							<select class="form-control select_width" id="discount_type" name="discount_type[]">
+								<option value=""></option>
+								<?php
+								foreach($discount_types as $value)
+								{ ?>
+									<option value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
+								<?php }	?>
+							</select>
 						</td>
 						<td>
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
@@ -439,16 +467,6 @@ $(document).ready(function (){
 						</td>
 						<td>
 							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
-						</td>
-						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
-								<option value=""></option>
-								<?php
-								foreach($vendors as $value)
-								{ echo $vendors[$i]; ?>
-									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
-								<?php }	?>
-							</select>
 						</td>
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">

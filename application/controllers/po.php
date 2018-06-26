@@ -24,6 +24,7 @@
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
 			$data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
+			$data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
 //            echo '<pre>';
 //            print_r($data['po_row']);
 //            echo '</pre>';
@@ -41,6 +42,7 @@
 			$data['controller'] = $this->controller;
 			$data['units'] = $this->$model->select(array(),'munits',array(),'');
 			$data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+			$data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
 			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
 			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
             $poid = $this->uri->segment(3);
@@ -110,7 +112,7 @@
 					'qty'  => $qty,
 					'app_qty'  => $app_qty,
 					'unit'  => $unit,
-					'discount_type'  => $discount_type,
+					'dtid'  => $discount_type,
 					'discount'  => $discount,
 					'cgst'  => $cgst,
 					'sgst'  => $sgst,
@@ -139,6 +141,7 @@
 			$data['controller'] = $this->controller;
 			$data['units'] = $this->$model->select(array(),'munits',array(),'');
 			$data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+			$data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
 			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
 			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
 			$this->load->view('po/form',$data);
@@ -161,6 +164,7 @@
 			$gross_amount = $this->input->post('gross_amount');
 			$invoice_to = $this->input->post('invoice_to');
 			$contact_name = $this->input->post('contact_name');
+			$vendor = $this->input->post('vendor');
 			$contact_no = $this->input->post('contact_no');
 			$tandc = $this->input->post('tandc');
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
@@ -206,7 +210,7 @@
 					'qty'  => $qty,
 					'app_qty'  => $app_qty,
 					'unit'  => $unit,
-					'discount_type'  => $discount_type,
+					'dtid'  => $discount_type,
 					'discount'  => $discount,
 					'cgst'  => $cgst,
 					'sgst'  => $sgst,

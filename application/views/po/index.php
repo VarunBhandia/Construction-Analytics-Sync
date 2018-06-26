@@ -15,7 +15,7 @@
 				<div class="x_title">
                     <h2>Construction</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a href="<?php echo base_url().$controller;?>/form"><button class="btn btn-primary">Add New</button></a>
+                      <li><a href="<?php echo base_url()?>material_rqst"><button class="btn btn-primary">Add New</button></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -29,20 +29,26 @@
 							<thead>
 								<tr>
 								  <th>No</th>
-								  <th>Site</th>
-								  <th>Receive Date</th>
+								  <th>PO ID</th>
+								  <th>Site Name	</th>
+								  <th>Vendor Name</th>
+								  <th>Created By</th>
+								  <th>Created On</th>
 								  <th>Action</th>
 								</tr>
 						   </thead>
 							<tbody>
 								<?php
 									$no = 1;
-										foreach($row as $test) {?>
+										foreach($po_row as $test) {?>
 									<tr>
 									  <td><?php echo $no;?></td>
+									  <td><?php echo $test->poid;?></td>
 									  <td><?php echo $test->sid;?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->mrcreatedon));?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><?php echo $test->vid;?></td>
+									  <td><?php echo $test->pocreatedby;?></td>
+									  <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
+									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger">Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php

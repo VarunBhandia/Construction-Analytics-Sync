@@ -54,11 +54,13 @@
              </div>
              </a>
          </div>
+             
          <div class="col-md-2">
             <a href="<?php echo base_url(); ?>unit" target="_blank">
              <div class="ModuleTile">
                  <div class="ModuleHeading">
                      Units
+
                  </div>
              </div>
              </a>
@@ -247,6 +249,7 @@
              </div>
              </a>
          </div>
+     </div>
      </div>
           
      

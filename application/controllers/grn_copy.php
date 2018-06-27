@@ -1,14 +1,13 @@
 <?php
 	defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class Grn extends CI_Controller
+	class Grn_copy extends CI_Controller
 	{
 		public $table = 'grn_master';
-		public $controller = 'grn';
+		public $controller = 'grn_copy';
 		public $message = 'Construction';
 		public $primary_id = "grnid";
 		public $model;
-		public $module_name = "GRN";
 		
 		public function __construct()
 		{
@@ -20,12 +19,15 @@
 	
 		public function index()
 		{
-			$model = $this->model;
+			$data['show_table'] = $this->view_table();
+            $this->load->view('grn_Copy/index', $data);
+            $model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
-			$this->load->view('grn/index',$data);
+			$this->load->view('grn_Copy/index',$data);
 		}
+
 		
 		public function form()
 		{
@@ -37,7 +39,7 @@
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
 			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
             $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
-			$this->load->view('grn/form',$data);
+			$this->load->view('grn_Copy/form',$data);
 		}
 
 		public function insert()
@@ -82,7 +84,7 @@
 			
 			$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
 			
-			redirect('Grn');
+			redirect('grn_Copy');
 		}
 
 		public function edit($grnid)
@@ -96,7 +98,7 @@
             $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
 			$data['action'] = "update";
 			$data['controller'] = $this->controller;
-			$this->load->view('grn/form',$data);
+			$this->load->view('grn_Copy/form',$data);
 		}
 
 		public function update()
@@ -144,7 +146,7 @@
 			$where = array($this->primary_id=>$grnid);
 			$this->$model->update($this->table,$data,$where);
 			
-			redirect('Grn');
+			redirect('grn_Copy');
 		}
 
 		public function delete($grnid)
@@ -154,7 +156,7 @@
 			$this->$model->delete($this->table,$condition);
 			
 			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-			redirect('Grn');
+			redirect('grn_Copy');
 		}
 	}
 ?>

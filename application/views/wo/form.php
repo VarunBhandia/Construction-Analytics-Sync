@@ -61,11 +61,12 @@ error_reporting(0);
                           <input class="form-control" id="wodate" name="wodate" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y",strtotime($row[0]->receive_date)) :  date("d-m-Y"); ?>" autocomplete="off">
 						</div>
                       </div>
-	<div class="table-responsive">		  
+	<div class="table-responsive">
+        
 		<table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
 					<tr class="headings">
-					<th class="column-title">Material Name</th>
+					<th class="column-title">Work Items</th>
 					<th class="column-title">Material Unit</th>
 					<th class="column-title">Quantity</th>
 					<th class="column-title">Unit Price</th>
@@ -86,12 +87,12 @@ error_reporting(0);
 { ?>
 					<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="form-control select_width" id="workitem_0" name="workitem[]">
 								<option value=""></option>
 								<?php
-								foreach($materials as $value)
+								foreach($workitems as $value)
 								{ ?>
-									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+									<option value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
 								<?php }	?>
 							</select>
 						</td>

@@ -231,16 +231,16 @@ error_reporting(0);
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 \						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
@@ -249,6 +249,36 @@ error_reporting(0);
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
+                    <script>
+                        $(function(){
+                            var cgst = $('#cgst_<?php echo $i; ?>').val();
+                            var sgst = $('#sgst_<?php echo $i; ?>').val();
+                            var igst = $('#igst_<?php echo $i; ?>').val();
+                            
+
+                            $('#cgst_<?php echo $i; ?>').keyup(function() {
+                                var cgst = $('#cgst_<?php echo $i; ?>').val();
+                                document.getElementById("total_<?php echo $i; ?>").innerHTML = "22";
+                                alert(cgst);
+//                                $('#total<?php echo $i; ?>').html(cgst);
+                            });
+                            
+                            $('#sgst_<?php echo $i; ?>').keyup(function() {
+                                var sgst = $('#sgst_<?php echo $i; ?>').val();
+                                alert(cgst);
+                                console.log(cgst)
+                                
+                            });
+
+
+                            $('#igst_<?php echo $i; ?>').keyup(function() {
+                                var igst = $('#igst_<?php echo $i; ?>').val();
+                            });
+                        });
+                        
+                        
+                    </script>
+
 				<?php }  }?>
 				</tbody>
 			</table>
@@ -354,6 +384,7 @@ error_reporting(0);
 	<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/underscore-min.js">
 </script>
+
 <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({

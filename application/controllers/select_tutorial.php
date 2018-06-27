@@ -41,22 +41,6 @@ $data['show_table'] = $this->view_table();
 $this->load->view('select_form', $data);
 }
 
-public function select_by_date() {
-$date = $this->input->post('date');
-if ($date != "") {
-$result = $this->employee_database->show_data_by_date($date);
-
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-$data['result_display'] = "No record found !";
-}
-} else {
-$data['date_error_message'] = "Date field is required";
-}
-$data['show_table'] = $this->view_table();
-$this->load->view('select_form', $data);
-}
 
 public function select_by_date_range() {
 $date1 = $this->input->post('date_from');

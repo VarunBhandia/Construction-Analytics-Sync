@@ -38,21 +38,6 @@ echo $id_error_message;
 echo "</div>";
 echo form_submit('submit', 'Show Record');
 echo form_close();
-echo form_open('select_tutorial/select_by_date');
-echo form_label('Select By Date : ');
-$data = array(
-'type' => 'date',
-'name' => 'date',
-'placeholder' => 'yyyy-mm-dd'
-);
-echo form_input($data);
-echo "<div class='error_msg'>";
-if (isset($date_error_message)) {
-echo $date_error_message;
-}
-echo "</div>";
-echo form_submit('submit', 'Show Record');
-echo form_close();
 echo form_open('select_tutorial/select_by_date_range');
 echo form_label('Select By Range Of Dates : ');
 echo "From : ";

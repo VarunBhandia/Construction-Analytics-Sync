@@ -25,14 +25,14 @@
 }
 
 .ModuleTile{
-    background: radial-gradient(#006968, #000000);
+    background: black;
     transition: all .4s ease-in-out;
     height: 12.5em;
     width: 17.2em;
 }
 
 .ModuleTile:hover{
-    background-color: #171616;
+    background-color: white;
     transform: scale(1.05);
 }
 

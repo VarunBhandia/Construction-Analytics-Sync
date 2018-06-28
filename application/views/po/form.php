@@ -242,19 +242,19 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<input type="text" id="discount_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="discount_<?php echo $i; ?>" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="cgst_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="number" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="sgst_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="number" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="igst_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="number" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="total_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
+							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
 						</td>
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
@@ -355,7 +355,7 @@ error_reporting(0);
                                 }
                                 qtyprice = parseFloat(quantity * unit_price);
                                 netTotal = parseFloat(qtyprice - discount);
-
+console.log(netTotal);
                                 
                                 cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                 if (!cgst){
@@ -382,7 +382,9 @@ error_reporting(0);
                                 console.log(igst_d);
 
                                 total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
-                                $('#total_<?php echo $i; ?>').val(netTotal);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#cgst_<?php echo $i; ?>').keyup(function() {

@@ -12,7 +12,6 @@ return false;
 }
 }
 public function show_data_by_id($id) {
-	echo 'varun';
 $condition = "emp_id =" . "'" . $id . "'";
 $this->db->select('*');
 $this->db->from('employee_info');

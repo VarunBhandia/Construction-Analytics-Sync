@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 26, 2018 at 08:08 AM
+-- Generation Time: Jun 27, 2018 at 03:34 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -303,6 +303,14 @@ CREATE TABLE `employee_info` (
   `emp_address` varchar(255) NOT NULL,
   `emp_mobile` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employee_info`
+--
+
+INSERT INTO `employee_info` (`emp_id`, `emp_name`, `emp_date_of_join`, `emp_address`, `emp_mobile`) VALUES
+(1, 'varun', '2018-06-06', 'zzzzzzzzzzz', '9001126303'),
+(2, 'tushar', '2018-06-20', 'xxxxxxxxxxxxx', '9001126304');
 
 -- --------------------------------------------------------
 
@@ -627,7 +635,8 @@ CREATE TABLE `po_master` (
 INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `dtid`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vid`, `remark`, `pocreatedby`, `mid`) VALUES
 (2, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2,', '23,', '23,', ',', '2,1', ',', '45,', '45,', '45,', '345,', '4', 'etrthrth,', '', '1,1'),
 (3, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2,1', '23,22', '23,22', '222,', '1,2', ',', '123,', '11,', '12,', '13,', ',', 'aDSFGH,', '', '1,2'),
-(4, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '1,2', '1,1', '1,1', '5,10', '1,2', ',', ',', ',', ',', ',', ',', ',', '', '');
+(4, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '1,2', '1,1', '1,1', '5,10', '1,2', ',', ',', ',', ',', ',', ',', ',', '', ''),
+(5, '2', '', '', '', '', '122', '212', '', '212', '212', '212', '212', '1970-01-01', '1,2', '1,1', '1,1', '544,10', '1,', '3,', '22,', '3,', '43,', ',', '4', ',', '', '');
 
 -- --------------------------------------------------------
 
@@ -1030,6 +1039,50 @@ CREATE TABLE `workitems` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `workitems`
+--
+
+INSERT INTO `workitems` (`wiid`, `winame`, `widesc`, `wigst`, `wibase`, `wicategory`, `witype`) VALUES
+(1, 'painting', 'asfsaf', '453', '45', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wo_master`
+--
+
+CREATE TABLE `wo_master` (
+  `woid` int(10) NOT NULL,
+  `sid` varchar(50) NOT NULL,
+  `subid` varchar(50) NOT NULL,
+  `wodate` datetime NOT NULL,
+  `wiid` varchar(50) NOT NULL,
+  `muid` varchar(50) NOT NULL,
+  `woqty` varchar(50) NOT NULL,
+  `wounitprice` varchar(255) NOT NULL,
+  `dtid` varchar(50) NOT NULL,
+  `wodiscount` varchar(255) NOT NULL,
+  `wocgst` varchar(255) NOT NULL,
+  `wosgst` varchar(255) NOT NULL,
+  `woigst` varchar(255) NOT NULL,
+  `wototal` varchar(255) NOT NULL,
+  `woremark` varchar(2550) NOT NULL,
+  `wocgsttotal` varchar(50) NOT NULL,
+  `wosgsttotal` varchar(50) NOT NULL,
+  `woigsttotal` varchar(50) NOT NULL,
+  `wototalamount` varchar(255) NOT NULL,
+  `wofreight` varchar(255) NOT NULL,
+  `wogstfreight` varchar(255) NOT NULL,
+  `wogrossamount` varchar(255) NOT NULL,
+  `oid` varchar(50) NOT NULL,
+  `wocontactname` varchar(255) NOT NULL,
+  `wocontactno` varchar(50) NOT NULL,
+  `wotandc` varchar(50) NOT NULL,
+  `wocreatedon` datetime NOT NULL,
+  `wocreatedby` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
 -- Indexes for dumped tables
 --
 
@@ -1196,6 +1249,12 @@ ALTER TABLE `workitems`
   ADD PRIMARY KEY (`wiid`);
 
 --
+-- Indexes for table `wo_master`
+--
+ALTER TABLE `wo_master`
+  ADD PRIMARY KEY (`woid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1223,7 +1282,7 @@ ALTER TABLE `dyform`
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
-  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `fruits`
 --
@@ -1263,7 +1322,7 @@ ALTER TABLE `performance`
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
@@ -1328,7 +1387,12 @@ ALTER TABLE `vendordetails`
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `wo_master`
+--
+ALTER TABLE `wo_master`
+  MODIFY `woid` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

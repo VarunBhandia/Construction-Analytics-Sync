@@ -1,16 +1,16 @@
 <?php
 error_reporting(0);
 	$this->load->view('include/header');
+	
 	if($action == 'insert')
 	{
-		$btn = 'Create PO';
+		$btn = 'Save';
 	}
 	elseif($action == 'update')
 	{
-		$btn = 'Update PO';
+		$btn = 'Update';
 	}
 ?>
-
 	<!-- page content -->
         <div class="right_col" role="main">          
           <div class="row">
@@ -19,64 +19,56 @@ error_reporting(0);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Constructions <?php echo $action; ?></h2>
+                    <h2>Construction</h2>
                     <div class="clearfix"></div>
                   </div>
                 <div class="x_content">
                     <br />
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 					<?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
-                        <div class="table-responsive">
-                            <div class="form-group">
+                      <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                            
-                           <select class="sitename form-control" id="site" name="site">
+                           <select class="form-control" id="site" name="site">
+								<option value="">---site name----</option>
 								<?php
 								foreach($sites as $site)
 								{ ?>
-									<option <?php if($action != ''){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
+									<option <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
-                       <script type="text/javascript">
-      $('.sitename').select2({
-        placeholder: '--- Select Sites ---',
-        });
-</script>     
                         </div>
                       </div>
-       				<?php	$vid = explode(",",$row_po[0]->vid); 
-                            print_r ($vid); ?>
-
-                            <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Vendor
+                      <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Subcontractor
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                            
-							<select class="vendorname form-control select_width" id="vendor" name="vendor[]">
-								<option value=""></option>
+                           <select class="form-control" id="subcontdetail" name="subcontdetail">
+								<option value="">---Subcontractor name----</option>
 								<?php
-								foreach($vendors as $value)
-								{?>
-									<option <?php if($action == 'update'){  echo ($value->vid == $vid[0]) ? 'selected' : '' ; }?> value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
+								foreach($subcontdetails as $subcontdetail)
+								{ ?>
+									<option <?php if($action == 'update'){  echo $subcontdetail->subid == $row[0]->subid ? 'selected' : '' ; }?> value="<?php echo $subcontdetail->subid?>"><?php echo $subcontdetail->subname;?></option>
 								<?php }	?>
 							</select>
-                        <script type="text/javascript">
-      $('.vendorname').select2({
-        placeholder: '--- Select Vendors ---',
-        });
-</script>    
                         </div>
                       </div>
-       
+					  <div class="form-group">
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Work Order Date
+                        </label>
+                        <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                          <input class="form-control" id="wodate" name="wodate" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y",strtotime($row[0]->receive_date)) :  date("d-m-Y"); ?>" autocomplete="off">
+						</div>
+                      </div>
+	<div class="table-responsive">
+        
 		<table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
 					<tr class="headings">
-					<th class="column-title">Material Name</th>
+					<th class="column-title">Work Items</th>
 					<th class="column-title">Material Unit</th>
-					<th class="column-title">Requested Quantity</th>
-					<th class="column-title">Approved Quantity</th>
+					<th class="column-title">Quantity</th>
 					<th class="column-title">Unit Price</th>
 					<th class="column-title">Discount Type</th>
 					<th class="column-title">Discount </th>
@@ -91,123 +83,16 @@ error_reporting(0);
 					</tr>
 				</thead>
 				<tbody>
-				<?php if($action == 'update') 
-{ 
-                
-                    $m_unit = explode(",",$row_po[0]->m_unit);
-					$qty = explode(",",$row_po[0]->qty);
-					$app_qty = explode(",",$row_po[0]->app_qty);
-					$unit = explode(",",$row_po[0]->unit);
-					$dtid = explode(",",$row_po[0]->dtid);
-					$discount = explode(",",$row_po[0]->discount);
-					$cgst = explode(",",$row_po[0]->cgst);
-					$sgst = explode(",",$row_po[0]->sgst);
-					$igst = explode(",",$row_po[0]->igst);
-					$total = explode(",",$row_po[0]->total);
-					$vid = explode(",",$row_po[0]->vid);
-					$remark = explode(",",$row_po[0]->remark);
-					$material = explode(",",$row_po[0]->mid);
-
-//    echo '<pre>';
-//    print_r($material);
-//    echo '</pre>';
-    					for($i=0; $i<count($material); $i++)
-					{
-?>
-                    				<input type="hidden" name="poid" value="<?php echo $row_po[0]->poid; ?>"/>
-
-				<tr class="pending-user">
+				<?php if($action == 'insert') 
+{ ?>
+					<tr class="pending-user">
 						<td>
-							<select class="mname form-control select_width" id="material_0" name="material[]">
+							<select class="form-control select_width" id="workitem_0" name="workitem[]">
 								<option value=""></option>
 								<?php
-								foreach($materials as $value)
-								{ echo $material[$i]; ?>
-									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
-								<?php }	?>
-							</select>
-							<script type="text/javascript">
-      $('.mname').select2({
-        placeholder: '--- Select Materials ---',
-        });
-</script>
-						</td>
-						<td>
-							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-								<option value=""></option>
-								<?php
-								foreach($units as $value)
+								foreach($workitems as $value)
 								{ ?>
-									<option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-								<?php }	?>
-							</select>
-						</td>
-						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
-						</td>
-						<td>
-							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
-						</td>
-						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
-						</td>
-						<td>
-							<select class="form-control select_width" id="discount_type" name="discount_type[]">
-								<option value=""></option>
-								<?php
-								foreach($discount_types as $value)
-								{ ?>
-									<option <?php if($action == 'update'){  echo ($value->dtid == $dtid[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
-								<?php }	?>
-							</select>
-						</td>
-						<td>
-							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $$discount[$i]; ?>">
-						</td>
-						<td>
-							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $cgst[$i]; ?>">
-						</td>
-						<td>
-							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $sgst[$i]; ?>">
-						</td>
-						<td>
-							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $igst[$i]; ?>">
-						</td>
-						<td>
-							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $total[$i]; ?>">
-						</td>
-                    <td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remark[$i]; ?>">
-						</td>
-						<td><a class="btn btn-sm btn-success" id="plus">+</a>
-						<a class="btn btn-sm btn-danger" id="minus">-</a>
-						</td>
-					</tr>
-				<?php } }else 
-{
-                  ?>
-				<?php 
-
-					$material = explode(",",$row[0]->mid);
-					$qty = explode(",",$row[0]->mrqty);
-					$unit = explode(",",$row[0]->mrunitprice);
-					$m_unit = explode(",",$row[0]->muid);
-					$remarks = explode(",",$row[0]->mrremarks);
-//    echo '<pre>';
-//    print_r($unit);
-//    echo '</pre>';
-
-					for($i=0; $i<count($material); $i++)
-					{
-				?>
-				<tr class="pending-user">
-						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
-								<option value=""></option>
-								<?php
-								foreach($materials as $value)
-								{ echo $material[$i]; ?>
-									<option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+									<option value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
 								<?php }	?>
 							</select>
 						</td>
@@ -217,20 +102,17 @@ error_reporting(0);
 								<?php
 								foreach($units as $value)
 								{ ?>
-									<option <?php if($action == 'insert'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+									<option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
 								<?php }	?>
 							</select>
 						</td>
 						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
-							<input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
 						</td>
-						<td>
-							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
-						</td>
-						<td>
+                        <td>
 							<select class="form-control select_width" id="discount_type" name="discount_type[]">
 								<option value=""></option>
 								<?php
@@ -244,16 +126,16 @@ error_reporting(0);
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
+							<input type="text" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 \						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
@@ -262,58 +144,57 @@ error_reporting(0);
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
-                    <script>
-                        $(function(){
-                            var quantity = $('#app_qty_<?php echo $i; ?>').val();
-                            var unit_price = $('#unit_<?php echo $i; ?>').val();
-                            var cgst = $('#cgst_<?php echo $i; ?>').val();
-                            var cgst = $('#cgst_<?php echo $i; ?>').val();
-                            var sgst = $('#sgst_<?php echo $i; ?>').val();
-                            var igst = $('#igst_<?php echo $i; ?>').val();
-                            var total =parseInt(0);
-                            
-                            console.log(csgt);
-
-                            $('#app_qty_<?php echo $i; ?>').keyup(function() {
-                                quantity =parseInt(0);
-                                 quantity = parseInt($('#app_qty_<?php echo $i; ?>').val());
-                                total = parseInt(total+cgst);
-                                $('#total_<?php echo $i; ?>').val(total);
-                            });
-                            
-                            $('#cgst_<?php echo $i; ?>').keyup(function() {
-                                cgst =parseInt(0);
-                                 cgst = parseInt($('#cgst_<?php echo $i; ?>').val());
-                                total = parseInt(total+cgst);
-                                $('#total_<?php echo $i; ?>').val(total);
-                            });
-                            
-                            $('#sgst_<?php echo $i; ?>').keyup(function() {
-                                sgst =parseInt(0);
-                                 sgst = parseInt($('#sgst_<?php echo $i; ?>').val());
-                                total = parseInt(total+sgst);
-                                $('#total_<?php echo $i; ?>').val(total);
-
-                            });
-
-
-                            $('#igst_<?php echo $i; ?>').keyup(function() {
-                                igst =parseInt(0);
-                                 igst = parseInt($('#igst_<?php echo $i; ?>').val());
-                                total = parseInt(total+igst);
-                                $('#total_<?php echo $i; ?>').val(total);
-                            });
-                        });
-                        
-                        
-                    </script>
-
+				<?php } else { ?>
+				<input type="hidden" name="woid" value="<?php echo $row[0]->woid; ?>"/>
+				<?php 
+				
+					$material = explode(",",$row[0]->mid);
+					$qty = explode(",",$row[0]->mrqty);
+					$unit = explode(",",$row[0]->mrunitprice);
+					$m_unit = explode(",",$row[0]->muid);
+					$remarks = explode(",",$row[0]->mrremarks);
+					for($i=0; $i<count($material); $i++)
+					{
+				?>
+				<tr class="pending-user">
+						<td>
+							<select class="form-control select_width" id="material_0" name="material[]">
+								<option value=""></option>
+								<?php
+								foreach($materials as $value)
+								{ echo $material[$i]; ?>
+									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+								<?php }	?>
+							</select>
+						</td>
+						<td>
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+						</td>
+						<td>
+							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
+								<option value=""></option>
+								<?php
+								foreach($units as $value)
+								{ ?>
+									<option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+								<?php }	?>
+							</select>
+						</td>
+						<td>
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+						</td>
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remarks[$i]; ?>">
+						</td>
+						<td><a class="btn btn-sm btn-success" id="plus">+</a>
+						<a class="btn btn-sm btn-danger" id="minus">-</a>
+						</td>
+					</tr>
 				<?php }  }?>
 				</tbody>
 			</table>
-	
-                        </div>
-					  <div class="form-group">
+	</div>
+								  <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">CGST
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
@@ -390,7 +271,7 @@ error_reporting(0);
                           <input class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
 						</div>
                       </div>
-					  
+		  
                       <div class="form-group">
                         <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
                           <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>
@@ -408,12 +289,10 @@ error_reporting(0);
 <?php
 	$this->load->view('include/footer');
 ?>
-
 <!-- Validate Js -->
 	<script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
 	<script src="<?php echo base_url();?>assets/js/underscore-min.js">
 </script>
-
 <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
@@ -473,13 +352,13 @@ $(document).ready(function (){
 }); 
 </script>
 <script  type="text/html" id="form_tpl">
-				<tr class="pending-user">
+					<tr class="pending-user">
 						<td>
 							<select class="form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
-								{ echo $material[$i]; ?>
+								{ ?>
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
@@ -495,21 +374,18 @@ $(document).ready(function (){
 							</select>
 						</td>
 						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
-							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
 						</td>
-						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
-						</td>
-						<td>
+                        <td>
 							<select class="form-control select_width" id="discount_type" name="discount_type[]">
 								<option value=""></option>
 								<?php
 								foreach($discount_types as $value)
 								{ ?>
-									<option value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
+									<option <?php if($action == 'update'){  echo ($value->dtid == $dtid[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
 								<?php }	?>
 							</select>
 						</td>
@@ -517,23 +393,22 @@ $(document).ready(function (){
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="cgst_0" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="sgst_0" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="igst_0" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
-						<td>
+\						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
-					</tr>
-</script>
+					</tr></script>
 

@@ -33,6 +33,7 @@ $data = array(
 $data['show_table'] = $this->view_table();
 $this->load->view('select_form', $data);
 }
+<<<<<<< HEAD
 public function select_by_date() {
 $date = $this->input->post('date');
 if ($date != "") {
@@ -48,6 +49,10 @@ $data['date_error_message'] = "Date field is required";
 $data['show_table'] = $this->view_table();
 $this->load->view('select_form', $data);
 }
+=======
+
+
+>>>>>>> 4abcbcc4b1e127d0fe70db8e92eb32464bf29bd4
 public function select_by_date_range() {
 $date1 = $this->input->post('date_from');
 $date2 = $this->input->post('date_to');

@@ -45,6 +45,7 @@ if (isset($id_error_message))
 echo "</div>";
 echo form_submit('submit', 'Show Record');
 echo form_close();
+<<<<<<< HEAD
 
 echo form_open('select_tutorial/select_by_date');
 echo form_label('Select By Date : ');

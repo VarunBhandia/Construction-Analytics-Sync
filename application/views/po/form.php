@@ -242,21 +242,21 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="discount_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="number" id="cgst_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="number" id="sgst_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
+							<input type="number" id="igst_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
+							<input type="number" id="total_<?php echo $i; ?>" onChange="calculateRowTotal('<?php echo $i; ?>');" onkeyup="calculateRowTotal('<?php echo $i; ?>');"name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
 						</td>
-\						<td>
+						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
@@ -264,6 +264,54 @@ error_reporting(0);
 						</td>
 					</tr>
                     <script>
+//                        function calculateRowTotal()
+//{
+//    var approvedQty = $("#qty_<?php echo $i; ?>").val();
+//    var unit_price = $("#unit_price_<?php echo $i; ?>").val();
+//    var discount = $("#discount_<?php echo $i; ?>").val();
+//    var cgst_rate = $("#cgst_<?php echo $i; ?>").val();
+//    var sgst_rate = $("#sgst_<?php echo $i; ?>").val();
+//    var igst_rate = $("#igst_<?php echo $i; ?>").val();
+//
+//    if(approvedQty=="")
+//      approvedQty = 0;
+//
+//    if(unit_price=="")
+//      unit_price = 0;
+//
+//    if(discount=="")
+//      discount = 0;
+//
+//    if(cgst_rate=="")
+//      cgst_rate = 0;
+//
+//    if(sgst_rate=="")
+//      sgst_rate = 0;
+//
+//    if(igst_rate=="")
+//      igst_rate = 0;
+//
+//    var total_price = 0;
+//    var total = 0;
+//    var cgst_amount = 0;
+//    var sgst_amount = 0;
+//    var igst_amount = 0;
+//
+//      total_price = approvedQty * unit_price;
+//
+////      if(discount_type===false)
+//        discount = (discount/100)*total_price;
+//
+//      total_price = total_price - discount;
+//
+//      cgst_amount = (cgst_rate/100) * total_price;
+//      sgst_amount = (sgst_rate/100) * total_price;
+//      igst_amount = (igst_rate/100) * total_price;
+//      total = total_price + cgst_amount + sgst_amount + igst_amount;
+////    alert('total');
+//    $("#total_<?php echo $i; ?>").html(total.toFixed(2));
+//
+//}
                         function discount_Type() {
                             var x = document.getElementById("discount_type_<?php echo $i; ?>").selectedIndex;
                             y = document.getElementsByTagName("option")[x].value
@@ -274,49 +322,108 @@ error_reporting(0);
                         $(function(){
                             var quantity = $('#app_qty_<?php echo $i; ?>').val();
                             var unit_price = $('#unit_<?php echo $i; ?>').val();
+                            var discount = $('#discount_<?php echo $i; ?>').val();
                             var cgst = $('#cgst_<?php echo $i; ?>').val();
                             var cgst = $('#cgst_<?php echo $i; ?>').val();
                             var sgst = $('#sgst_<?php echo $i; ?>').val();
                             var igst = $('#igst_<?php echo $i; ?>').val();
-                            var total = $('#total_<?php echo $i; ?>').val();
-                            
+                            var total = parseFloat(0);
+                            var cgst_d = parseFloat(cgst * quantity * unit_price * 0.01)
+                            var sgst_d = parseFloat(sgst * quantity * unit_price * 0.01)
+                            var igst_d = parseFloat(igst * quantity * unit_price * 0.01)
 
                             $('#app_qty_<?php echo $i; ?>').keyup(function() {
-                                 quantity = parseInt($('#app_qty_<?php echo $i; ?>').val());
-                                total = parseInt(quantity * unit_price);
+                                 quantity = parseFloat($('#app_qty_<?php echo $i; ?>').val());
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#unit_<?php echo $i; ?>').keyup(function() {
-                                 unit_price = parseInt($('#unit_<?php echo $i; ?>').val());
-                                total = parseInt(quantity * unit_price);
+                                 unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
-                            $('#cgst_<?php echo $i; ?>').keyup(function() {
-                                 cgst = parseInt($('#cgst_<?php echo $i; ?>').val());
-                                if (!cgst){
-                                    cgst = parseInt(0);
+                            $('#discount_<?php echo $i; ?>').keyup(function() {
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
                                 }
-                                total = parseInt(cgst+sgst+igst);
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                $('#total_<?php echo $i; ?>').val(netTotal);
+                            });
+                            
+                            $('#cgst_<?php echo $i; ?>').keyup(function() {
+                                 cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+//                                console.log(cgst_d);
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#sgst_<?php echo $i; ?>').keyup(function() {
-                                 sgst = parseInt($('#sgst_<?php echo $i; ?>').val());
+                                 sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
                                 if (!sgst){
-                                    sgst = parseInt(0);
+                                    sgst = parseFloat(0);
                                 }
-                                total = parseInt(cgst+sgst+igst);
+                                sgst_d = parseFloat(0);
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+//                                console.log(sgst_d);
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#igst_<?php echo $i; ?>').keyup(function() {
-                                 igst = parseInt($('#igst_<?php echo $i; ?>').val());
+                                 igst = parseFloat($('#igst_<?php echo $i; ?>').val());
                                 if (!igst){
-                                    igst = parseInt(0);
+                                    igst = parseFloat(0);
                                 }
-                                total = parseInt(cgst+sgst+igst);
+                                igst_d = parseFloat(0);
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+//                                console.log(igst_d);
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                         });

@@ -212,10 +212,10 @@ error_reporting(0);
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
 						</td>
 						<td>
-							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
 							<select class="form-control select_width" id="discount_type" name="discount_type[]">
@@ -231,16 +231,16 @@ error_reporting(0);
 							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
 						</td>
 \						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
@@ -251,28 +251,44 @@ error_reporting(0);
 					</tr>
                     <script>
                         $(function(){
+                            var quantity = $('#app_qty_<?php echo $i; ?>').val();
+                            var unit_price = $('#unit_<?php echo $i; ?>').val();
+                            var cgst = $('#cgst_<?php echo $i; ?>').val();
                             var cgst = $('#cgst_<?php echo $i; ?>').val();
                             var sgst = $('#sgst_<?php echo $i; ?>').val();
                             var igst = $('#igst_<?php echo $i; ?>').val();
+                            var total =parseInt(0);
                             
+                            console.log(csgt);
 
+                            $('#app_qty_<?php echo $i; ?>').keyup(function() {
+                                quantity =parseInt(0);
+                                 quantity = parseInt($('#app_qty_<?php echo $i; ?>').val());
+                                total = parseInt(total+cgst);
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                            
                             $('#cgst_<?php echo $i; ?>').keyup(function() {
-                                var cgst = $('#cgst_<?php echo $i; ?>').val();
-                                document.getElementById("total_<?php echo $i; ?>").innerHTML = "22";
-                                alert(cgst);
-//                                $('#total<?php echo $i; ?>').html(cgst);
+                                cgst =parseInt(0);
+                                 cgst = parseInt($('#cgst_<?php echo $i; ?>').val());
+                                total = parseInt(total+cgst);
+                                $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#sgst_<?php echo $i; ?>').keyup(function() {
-                                var sgst = $('#sgst_<?php echo $i; ?>').val();
-                                alert(cgst);
-                                console.log(cgst)
-                                
+                                sgst =parseInt(0);
+                                 sgst = parseInt($('#sgst_<?php echo $i; ?>').val());
+                                total = parseInt(total+sgst);
+                                $('#total_<?php echo $i; ?>').val(total);
+
                             });
 
 
                             $('#igst_<?php echo $i; ?>').keyup(function() {
-                                var igst = $('#igst_<?php echo $i; ?>').val();
+                                igst =parseInt(0);
+                                 igst = parseInt($('#igst_<?php echo $i; ?>').val());
+                                total = parseInt(total+igst);
+                                $('#total_<?php echo $i; ?>').val(total);
                             });
                         });
                         

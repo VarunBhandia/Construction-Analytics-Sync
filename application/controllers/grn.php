@@ -14,19 +14,59 @@
 		{
 			parent::__construct();
 			$this->load->model('Model');
+            $this->load->model('grn_m');
 			$this->model = 'Model';
 			date_default_timezone_set('Asia/Kolkata');
 		}
+        
+        public function view_table()
+        {			
+            $data['controller'] = $this->controller;
+            $model = $this->model;
+            $result = $this->grn_m->show_all_data();
+            if ($result != false) {
+                return $result;
+            } else {
+                return 'Database is empty !';
+            }
+        }
+        
+        public function select_by_id() 
+        {
+            $model = $this->model;
+			$data['controller'] = $this->controller;
+            $grnid = $this->input->post('grnid');
+            if ($grnid != "") {
+                $result = $this->grn_m->show_data_by_id($grnid);
+                if ($result != false) {
+                    $data['result_display'] = $result;
+                } else 
+                    {
+                    $data['result_display'] = "No record found !";
+                    }
+            } 
+            else {
+                $data = array(
+                    'id_error_message' => "Id field is required"
+                );
+                }
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['show_table'] = $this->view_table();
+            $this->load->view('grn/index', $data);
+        }
 	
 		public function index()
 		{
-			$model = $this->model;
+            $model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
+//            echo '<pre>';
+//            print_r($data['row']);
+//            echo '</pre>';
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
 			$this->load->view('grn/index',$data);
 		}
-		
+	
 		public function form()
 		{
 			$model = $this->model;

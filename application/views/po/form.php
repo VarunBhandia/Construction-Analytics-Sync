@@ -32,14 +32,18 @@ error_reporting(0);
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
                             
-                           <select class="form-control" id="site" name="site">
+                           <select class="sitename form-control" id="site" name="site">
 								<?php
 								foreach($sites as $site)
 								{ ?>
 									<option <?php if($action != ''){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
-                            
+                       <script type="text/javascript">
+      $('.sitename').select2({
+        placeholder: '--- Select Sites ---',
+        });
+</script>     
                         </div>
                       </div>
        				<?php	$vid = explode(",",$row_po[0]->vid); 
@@ -50,7 +54,7 @@ error_reporting(0);
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
                             
-							<select class="form-control select_width" id="vendor" name="vendor[]">
+							<select class="vendorname form-control select_width" id="vendor" name="vendor[]">
 								<option value=""></option>
 								<?php
 								foreach($vendors as $value)
@@ -58,7 +62,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo ($value->vid == $vid[0]) ? 'selected' : '' ; }?> value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
 								<?php }	?>
 							</select>
-                            
+                        <script type="text/javascript">
+      $('.vendorname').select2({
+        placeholder: '--- Select Vendors ---',
+        });
+</script>    
                         </div>
                       </div>
        
@@ -110,7 +118,7 @@ error_reporting(0);
 
 				<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="mname form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -118,6 +126,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
+							<script type="text/javascript">
+      $('.mname').select2({
+        placeholder: '--- Select Materials ---',
+        });
+</script>
 						</td>
 						<td>
 							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">

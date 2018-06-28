@@ -30,7 +30,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="site" name="site">
+                           <select class="sitename form-control" id="site" name="site">
 								<option value="">---site name----</option>
 								<?php
 								foreach($sites as $site)
@@ -38,13 +38,18 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
+                       <script type="text/javascript">
+      $('.sitename').select2({
+        placeholder: '--- Select Sites ---',
+        });
+</script>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Vendor
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="vendor" name="vendor" required>
+                           <select class="vendorname form-control" id="vendor" name="vendor" required>
 								<option value="">---vendor name----</option>
 								<?php
 								foreach($vendors as $vendor)
@@ -52,6 +57,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo $vendor->vid == $row[0]->vid ? 'selected' : '' ; }?> value="<?php echo $vendor->vid?>"><?php echo $vendor->vname;?></option>
 								<?php }	?>
 							</select>
+                    <script type="text/javascript">
+      $('.vendorname').select2({
+        placeholder: '--- Select Vendors ---',
+        });
+</script>
                         </div>
                       </div>
 					  <div class="form-group">
@@ -87,7 +97,7 @@ error_reporting(0);
 				<?php if($action == 'insert') { ?>
 					<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="materialname form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -95,6 +105,11 @@ error_reporting(0);
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
+							<script type="text/javascript">
+      $('.materialname').select2({
+        placeholder: '--- Select material ---',
+        });
+</script>
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">

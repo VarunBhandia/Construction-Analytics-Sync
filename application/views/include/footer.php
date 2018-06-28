@@ -8,6 +8,13 @@
         <!-- /footer content -->
       </div>
     </div>
+<!--
+                       <script type="text/javascript">
+      $('.form-control').select2({
+        placeholder: '--- Select Sites ---',
+        });
+</script>
+-->
 
     <!-- jQuery -->
     <script src="<?php echo base_url();?>assets/js/jquery.min.js"></script>

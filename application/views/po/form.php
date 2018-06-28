@@ -231,7 +231,9 @@ error_reporting(0);
 							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<select class="form-control select_width" id="discount_type" name="discount_type[]" onchange="myFunction()">
+							<select class="form-control select_width" id="discount_type" name="discount_type[]" onchange="discount_Type()">
+<!--                                								<option value=""></option>-->
+
 								<?php
 								foreach($discount_types as $value)
 								{ ?>
@@ -262,13 +264,13 @@ error_reporting(0);
 						</td>
 					</tr>
                     <script>
-                        function myFunction() {
-                            var x = document.getElementById("discount_type").selectedIndex;
+                        function discount_Type() {
+                            var x = document.getElementById("discount_type_<?php echo $i; ?>").selectedIndex;
                             y = document.getElementsByTagName("option")[x].value
-                            alert(y);
+                            
                         }
-</script>
-                    <script>
+
+                        
                         $(function(){
                             var quantity = $('#app_qty_<?php echo $i; ?>').val();
                             var unit_price = $('#unit_<?php echo $i; ?>').val();
@@ -276,9 +278,8 @@ error_reporting(0);
                             var cgst = $('#cgst_<?php echo $i; ?>').val();
                             var sgst = $('#sgst_<?php echo $i; ?>').val();
                             var igst = $('#igst_<?php echo $i; ?>').val();
-//                            var total =parseInt(0);
+                            var total = $('#total_<?php echo $i; ?>').val();
                             
-                            console.log(csgt);
 
                             $('#app_qty_<?php echo $i; ?>').keyup(function() {
                                  quantity = parseInt($('#app_qty_<?php echo $i; ?>').val());
@@ -294,20 +295,27 @@ error_reporting(0);
                             
                             $('#cgst_<?php echo $i; ?>').keyup(function() {
                                  cgst = parseInt($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseInt(0);
+                                }
                                 total = parseInt(cgst+sgst+igst);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#sgst_<?php echo $i; ?>').keyup(function() {
                                  sgst = parseInt($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseInt(0);
+                                }
                                 total = parseInt(cgst+sgst+igst);
                                 $('#total_<?php echo $i; ?>').val(total);
-
                             });
-
-
+                            
                             $('#igst_<?php echo $i; ?>').keyup(function() {
                                  igst = parseInt($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseInt(0);
+                                }
                                 total = parseInt(cgst+sgst+igst);
                                 $('#total_<?php echo $i; ?>').val(total);
                             });

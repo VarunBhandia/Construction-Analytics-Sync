@@ -1,7 +1,7 @@
 <?php $uid = $this->session->userdata('username'); ?>
 
 <div class="container">
-    <h3>All vendors List
+    <h3>All Materials List
         <?php echo $uid; ?>
     </h3>
     <div class="alert alert-success" style="display: none;">
@@ -15,6 +15,7 @@
                 <td>ID</td>
                 <td>Material Name</td>
                 <td>Material Unit</td>
+                <td>Material Category</td>
                 <td>Material Description</td>
                 <td>HSN Code</td>
                 <td>GST Rate</td>
@@ -52,11 +53,25 @@
                         </div>
                     </div>
                     <div class="form-group">
+<!--
                         <label for="mcategory" class="label-control col-md-4">Category</label>
                         <div class="col-md-8">
                             <input type="text" name="mcategory" class="form-control">
                         </div>
+-->
+                        <label for="mdesc" class="label-control col-md-4">Category</label>
+                        <div class="col-md-8">
+                           <select class=" form-control" id="mcategory" name="mcategory">
+								<option value="">---category name----</option>
+								<?php
+								foreach($mcategorys as $mcategory)
+								{ ?>
+									<option value="<?php echo $mcategory->cid; ?>"><?php echo $mcategory->cname;?></option>
+								<?php }	?>
+							</select>
                     </div>
+                    </div>
+
                     <div class="form-group">
                         <label for="mdesc" class="label-control col-md-4">Material Description</label>
                         <div class="col-md-8">
@@ -209,7 +224,8 @@
                 success: function(data) {
                     $('input[name=mname]').val(data.mname);
                     $('input[name=munit]').val(data.munit);
-                    $('input[name=mcategory]').val(data.mcategory);
+                    $('input[name=mcategory]').val(<?php foreach($mcategorys as $mcategory)
+								{ } ?>data.mcategory);
                     $('input[name=mdesc]').val(data.mdesc);
                     $('input[name=hsn]').val(data.hsn);
                     $('input[name=mgst]').val(data.mgst);

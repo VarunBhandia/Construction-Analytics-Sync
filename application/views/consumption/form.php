@@ -30,14 +30,21 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="site" name="site">
-								<option value="">---site name----</option>
+                           <select class="itemName form-control" id="site" name="site">
+								<option value=""></option>
 								<?php
 								foreach($sites as $site)
 								{ ?>
 									<option <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
+                      
+                       <script type="text/javascript">
+      $('.itemName').select2({
+        placeholder: '--- Select Sites ---',
+        });
+</script>
+
                         </div>
                       </div>
 					  <div class="form-group">
@@ -65,7 +72,7 @@ error_reporting(0);
 				<?php if($action == 'insert') { ?>
 					<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class=" materialname form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -73,6 +80,11 @@ error_reporting(0);
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
+							<script type="text/javascript">
+      $('.materialname').select2({
+        placeholder: '--- Select material ---',
+        });
+</script>
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">

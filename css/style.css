@@ -16,7 +16,7 @@
     line-height: 1.7;
     color: white;
     margin: 1em;
-    transition: all 0.4s;
+    transition: all .8s;
     -webkit-transition: all 0.4s;
 }
 
@@ -25,26 +25,28 @@
 }
 
 .ModuleTile{
-    background-image: radial-gradient(circle at 0 0, #11bbee, #0055ff 100%);
-    transition: all .2s ease-in-out; 
-    height: 9.5em;
-    width: 17em;
+    background: radial-gradient(#006968, #000000);
+    transition: all .4s ease-in-out;
+    height: 12.5em;
+    width: 17.2em;
 }
 
 .ModuleTile:hover{
     background-color: #171616;
-    transform: scale(1.08);
+    transform: scale(1.05);
 }
 
 .ModuleHeading{
+    text-transform: uppercase;
     text-align: center;
     font-size: 1em;
     color: white;
-    padding-top: 19%;
+    padding-top: 33%;
+    letter-spacing: 2px;
 }
 
 .padding1{
-    padding: 1em;
+    padding: .1em;
 }
 
 .grow { transition: all .2s ease-in-out; }

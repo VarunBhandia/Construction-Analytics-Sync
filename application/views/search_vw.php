@@ -14,29 +14,14 @@
 
 <div style="width:520px;margin:0px auto;margin-top:30px;height:500px;">
   <h2>Select Box with Search Option Jquery Select2.js</h2>
-  <select class="itemName form-control" style="width:500px" name="itemName"></select>
+  <select class="class1 form-control" style="width:500px" name="itemName"></select>
 </div>
 
 
 <script type="text/javascript">
-
-
-      $('.itemName').select2({
-        placeholder: '--- Select Item ---',
-        ajax: {
-          url: '<?php echo base_url() ?>/search',
-          dataType: 'json',
-          delay: 250,
-          processResults: function (data) {
-            return {
-              results: data
-            };
-          },
-          cache: true
-        }
-      });
-
-
+      $('.class1').select2({
+        placeholder: '--- Select Sites ---',
+        });
 </script>
 
 

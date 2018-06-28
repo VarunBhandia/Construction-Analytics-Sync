@@ -47,8 +47,31 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="<?php echo base_url();?>" class="site_title"><i class="fa fa-paw"></i> <span>Construction</span></a>
-            </div>
+              
+              <div id="show_form">
+          
+            <?php
+echo form_open('grn/select_by_id');
+echo form_label('Select By ID : ');
+$data = array(
+    'name' => 'grnid',
+    'placeholder' => 'Please Enter ID'
+);
+
+echo form_input($data);
+echo "<div class='error_msg'>";
+
+if (isset($id_error_message))
+{
+    echo $id_error_message;
+}
+
+echo "</div>";
+echo form_submit('submit', 'Show Record');
+echo form_close();
+                  ?>
+              </div>
+              </div>
 
             <div class="clearfix"></div>
 
@@ -94,7 +117,7 @@
 				<div class="x_title">
                     <h2>Construction</h2>
                     <ul class="nav navbar-right panel_toolbox">
-                      <li><a href="<?php echo base_url().$controller;?>/form"><button class="btn btn-primary">Add New GRN</button></a>
+                      <li><a href="<?php echo base_url();?>grn/form"><button class="btn btn-primary">Add New GRN</button></a>
                       </li>
                     </ul>
                     <div class="clearfix"></div>
@@ -102,6 +125,62 @@
 				 <?php
 					echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
 				  ?>
+				                <div class="message">
+                    <?php
+if (isset($result_display))
+{
+    echo "<p><u>Result</u></p>";
+    if ($result_display == 'No record found !')
+    {
+        echo $result_display;
+    }
+    else
+    { ?>
+			<div id="table-scroll" class="table-scroll">
+			  <div class="table-wrap">
+					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
+							<thead>
+								<tr>
+								  <th>No</th>
+								  <th>GRN Ref-id</th>
+								  <th>Site Name</th>
+								  <th>Vendor Name</th>
+								  <th>Challan Number</th>
+								  <th>Receive Date</th>
+								  <th>Action</th>
+								</tr>
+						   </thead>
+							<tbody>
+								<?php
+									$no = 1;
+										foreach($result_display as $test) {?>
+									<tr>
+									  <td><?php echo $no;?></td>
+									  <td><?php echo $test->grnid;?></td>
+									  <td><?php echo $test->sid;?></td>
+									  <td><?php echo $test->vid;?></td>
+									  <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
+									  <td><?php echo $test->grnreceivedate;?></td>
+									  <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger">Delete</a></td>
+									  <?php $no++;?>
+									</tr>
+									<?php
+									}
+									?>
+							</tbody>
+					</table>
+				</div>
+			</div>   <?php }
+}
+?>
+
+                </div>
+                <?php
+    $showtable = $this->uri->segment(2);
+                    if($showtable != 'select_by_id'){
+                    
+?>
+    
 			<div id="table-scroll" class="table-scroll">
 			  <div class="table-wrap">
 					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
@@ -127,7 +206,7 @@
 									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
 									  <td><?php echo $test->grnreceivedate;?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->grnid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->grnid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger">Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php
@@ -136,7 +215,7 @@
 							</tbody>
 					</table>
 				</div>
-			</div>
+			</div> <?php } ?>
                 </div>
               </div>
           </div>

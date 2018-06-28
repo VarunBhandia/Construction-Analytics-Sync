@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2018 at 03:34 PM
+-- Generation Time: Jun 28, 2018 at 11:09 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -1083,6 +1083,13 @@ CREATE TABLE `wo_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `wo_master`
+--
+
+INSERT INTO `wo_master` (`woid`, `sid`, `subid`, `wodate`, `wiid`, `muid`, `woqty`, `wounitprice`, `dtid`, `wodiscount`, `wocgst`, `wosgst`, `woigst`, `wototal`, `woremark`, `wocgsttotal`, `wosgsttotal`, `woigsttotal`, `wototalamount`, `wofreight`, `wogstfreight`, `wogrossamount`, `oid`, `wocontactname`, `wocontactno`, `wotandc`, `wocreatedon`, `wocreatedby`) VALUES
+(2, '1', '2', '1970-01-01 00:00:00', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01 00:00:00', '');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -1392,7 +1399,7 @@ ALTER TABLE `workitems`
 -- AUTO_INCREMENT for table `wo_master`
 --
 ALTER TABLE `wo_master`
-  MODIFY `woid` int(10) NOT NULL AUTO_INCREMENT;COMMIT;
+  MODIFY `woid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

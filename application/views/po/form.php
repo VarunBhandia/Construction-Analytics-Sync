@@ -231,7 +231,7 @@ error_reporting(0);
 							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<select class="form-control select_width" id="discount_type" name="discount_type[]">
+							<select class="form-control select_width" id="discount_type" name="discount_type[]" onchange="myFunction()">
 								<?php
 								foreach($discount_types as $value)
 								{ ?>
@@ -261,6 +261,13 @@ error_reporting(0);
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
+                    <script>
+                        function myFunction() {
+                            var x = document.getElementById("discount_type").selectedIndex;
+                            y = document.getElementsByTagName("option")[x].value
+                            alert(y);
+                        }
+</script>
                     <script>
                         $(function(){
                             var quantity = $('#app_qty_<?php echo $i; ?>').val();

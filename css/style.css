@@ -25,36 +25,24 @@
 }
 
 .ModuleTile{
-<<<<<<< HEAD
-    background-color: black;
-    transition: all .2s ease-in-out; 
-    height: 9.5em;
-    width: 17em;
-}
-
-.ModuleTile:hover{
+        color: white;
     font-size: 1em;
-        color: black;
-    background-color: white;
-    transform: scale(1.08);
-=======
-    background: radial-gradient(#006968, #000000);
-    transition: all .4s ease-in-out;
+
+    background-color: black;
+    transition: all .2s ease-in-out;
     height: 12.5em;
     width: 17.2em;
 }
 
 .ModuleTile:hover{
-    background-color: #171616;
+    color: black;
+    background-color: white;
     transform: scale(1.05);
->>>>>>> 2a1c4c59a3bf378064e9c30c8f31b939441bc076
 }
 
 .ModuleHeading{
     text-transform: uppercase;
     text-align: center;
-    font-size: 1em;
-    color: white;
     padding-top: 33%;
     letter-spacing: 2px;
 }
@@ -64,8 +52,6 @@
     padding: .1em;
 }
 
-.grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.1); }
 
 /*Resizable Table*/
 body {

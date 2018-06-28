@@ -25,13 +25,18 @@
 }
 
 .ModuleTile{
-    background: black;
-    transition: all .4s ease-in-out;
+
+        color: white;
+    font-size: 1em;
+
+    background-color: black;
+    transition: all .2s ease-in-out;
     height: 12.5em;
     width: 17.2em;
 }
 
 .ModuleTile:hover{
+    color: black;
     background-color: white;
     transform: scale(1.05);
 }
@@ -39,18 +44,15 @@
 .ModuleHeading{
     text-transform: uppercase;
     text-align: center;
-    font-size: 1em;
-    color: white;
     padding-top: 33%;
     letter-spacing: 2px;
 }
+
 
 .padding1{
     padding: .1em;
 }
 
-.grow { transition: all .2s ease-in-out; }
-.grow:hover { transform: scale(1.1); }
 
 /*Resizable Table*/
 body {

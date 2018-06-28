@@ -264,54 +264,54 @@ error_reporting(0);
 						</td>
 					</tr>
                     <script>
-//                        function calculateRowTotal()
-//{
-//    var approvedQty = $("#qty_<?php echo $i; ?>").val();
-//    var unit_price = $("#unit_price_<?php echo $i; ?>").val();
-//    var discount = $("#discount_<?php echo $i; ?>").val();
-//    var cgst_rate = $("#cgst_<?php echo $i; ?>").val();
-//    var sgst_rate = $("#sgst_<?php echo $i; ?>").val();
-//    var igst_rate = $("#igst_<?php echo $i; ?>").val();
-//
-//    if(approvedQty=="")
-//      approvedQty = 0;
-//
-//    if(unit_price=="")
-//      unit_price = 0;
-//
-//    if(discount=="")
-//      discount = 0;
-//
-//    if(cgst_rate=="")
-//      cgst_rate = 0;
-//
-//    if(sgst_rate=="")
-//      sgst_rate = 0;
-//
-//    if(igst_rate=="")
-//      igst_rate = 0;
-//
-//    var total_price = 0;
-//    var total = 0;
-//    var cgst_amount = 0;
-//    var sgst_amount = 0;
-//    var igst_amount = 0;
-//
-//      total_price = approvedQty * unit_price;
-//
-////      if(discount_type===false)
-//        discount = (discount/100)*total_price;
-//
-//      total_price = total_price - discount;
-//
-//      cgst_amount = (cgst_rate/100) * total_price;
-//      sgst_amount = (sgst_rate/100) * total_price;
-//      igst_amount = (igst_rate/100) * total_price;
-//      total = total_price + cgst_amount + sgst_amount + igst_amount;
-////    alert('total');
-//    $("#total_<?php echo $i; ?>").html(total.toFixed(2));
-//
-//}
+                        function calculateRowTotal()
+{
+    var approvedQty = $("#qty_<?php echo $i; ?>").val();
+    var unit_price = $("#unit_price_<?php echo $i; ?>").val();
+    var discount = $("#discount_<?php echo $i; ?>").val();
+    var cgst_rate = $("#cgst_<?php echo $i; ?>").val();
+    var sgst_rate = $("#sgst_<?php echo $i; ?>").val();
+    var igst_rate = $("#igst_<?php echo $i; ?>").val();
+
+    if(approvedQty=="")
+      approvedQty = 0;
+
+    if(unit_price=="")
+      unit_price = 0;
+
+    if(discount=="")
+      discount = 0;
+
+    if(cgst_rate=="")
+      cgst_rate = 0;
+
+    if(sgst_rate=="")
+      sgst_rate = 0;
+
+    if(igst_rate=="")
+      igst_rate = 0;
+
+    var total_price = 0;
+    var total = 0;
+    var cgst_amount = 0;
+    var sgst_amount = 0;
+    var igst_amount = 0;
+
+      total_price = approvedQty * unit_price;
+
+//      if(discount_type===false)
+        discount = (discount/100)*total_price;
+
+      total_price = total_price - discount;
+
+      cgst_amount = (cgst_rate/100) * total_price;
+      sgst_amount = (sgst_rate/100) * total_price;
+      igst_amount = (igst_rate/100) * total_price;
+      total = total_price + cgst_amount + sgst_amount + igst_amount;
+//    alert('total');
+    $("#total_<?php echo $i; ?>").html(total.toFixed(2));
+
+}
                         function discount_Type() {
                             var x = document.getElementById("discount_type_<?php echo $i; ?>").selectedIndex;
                             y = document.getElementsByTagName("option")[x].value
@@ -334,17 +334,81 @@ error_reporting(0);
 
                             $('#app_qty_<?php echo $i; ?>').keyup(function() {
                                  quantity = parseFloat($('#app_qty_<?php echo $i; ?>').val());
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
                                 qtyprice = parseFloat(quantity * unit_price);
                                 netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
                                 total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
                             $('#unit_<?php echo $i; ?>').keyup(function() {
                                  unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
                                 qtyprice = parseFloat(quantity * unit_price);
                                 netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
                                 total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
                                 $('#total_<?php echo $i; ?>').val(total);
                             });
                             
@@ -355,7 +419,7 @@ error_reporting(0);
                                 }
                                 qtyprice = parseFloat(quantity * unit_price);
                                 netTotal = parseFloat(qtyprice - discount);
-console.log(netTotal);
+                                console.log(netTotal);
                                 
                                 cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                 if (!cgst){

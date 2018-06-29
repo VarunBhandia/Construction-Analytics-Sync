@@ -212,27 +212,33 @@
                                     </div>
                                 </div>
 
+                                <?php 					
+                                    $user_sites = explode(",",$row[0]->site);
+                                ?>
                                 <h2> Assign Sites</h2>
+                                
                                 <script language="JavaScript">
-	function selectAll(source) {
-		checkboxes = document.getElementsByName('site[]');
-		for(var i in checkboxes)
-			checkboxes[i].checked = source.checked;
-	}
-</script>
+                                    function selectAll(source) {
+                                        checkboxes = document.getElementsByName('site[]');
+                                        for(var i in checkboxes)
+                                            checkboxes[i].checked = source.checked;
+                                    }
+                                </script>
+                                
                                 <div class="form-group">
-                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
-                        </label>
-                                        <input type="checkbox" id="selectall" onClick="selectAll(this)" />Select All<br>
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site</label>
+                                    <input type="checkbox" id="selectall" onClick="selectAll(this)" />Select All<br>
 
                                     <div class="col-md-10 col-sm-6 col-xs-12">
                                         <?php
-								foreach($sites as $site)
-								{ $count_site =  count(site);
-                                    
+                                        $count_site =  count($user_sites);
+                                        
+                                        foreach($sites as $site)
+                                        { 
+                                         
                                          ?>
                                             <div class="col-md-3">
-                                                <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid?>" <?php if($action=='update' ){ for($x = 0; $x <= $count_site + 1 ; $x++){echo $row[0]->site[$x]== $site->sid ? 'checked' : '' ;}  ;}?>>
+                                                <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid?>" <?php if($action=='update' ){ for($x = 0; $x <= $count_site + 1 ; $x++){echo $user_sites[$x]== $site->sid ? 'checked' : '' ;}  ;}?>>
                                                 <?php echo '('.$site->sid.') '.$site->sname;
                                                 ?>
                                             </div>

@@ -46,8 +46,8 @@ error_reporting(0);
 </script>     
                         </div>
                       </div>
-       				<?php	$vid = explode(",",$row_po[0]->vid); 
-                            ?>
+                            
+                            <?php	$vid = explode(",",$row_po[0]->vid); ?>
 
                             <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Vendor
@@ -107,18 +107,16 @@ error_reporting(0);
 					$vid = explode(",",$row_po[0]->vid);
 					$remark = explode(",",$row_po[0]->remark);
 					$material = explode(",",$row_po[0]->mid);
-
-//    echo '<pre>';
-//    print_r($material);
-//    echo '</pre>';
+?>
+                    <input type="hidden" name="poid" value="<?php echo $row_po[0]->poid; ?>"/>
+                    <?php
     					for($i=0; $i<count($material); $i++)
 					{
 ?>
-                    				<input type="hidden" name="poid" value="<?php echo $row_po[0]->poid; ?>"/>
 
-                    				<tr class="pending-user">
+                    <tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="form-control select_width" id="material_<?php echo $i; ?>" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -128,7 +126,7 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
+							<select class="form-control select_width" id="m_unit_<?php echo $i; ?>" name="m_unit[]">
 								<option value=""></option>
 								<?php
 								foreach($units as $value)
@@ -147,7 +145,7 @@ error_reporting(0);
 							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<select class="form-control select_width" id="discount_type_<?php echo $i; ?>" name="discount_type[]" onchange="getval(this)">
+							<select class="form-control select_width" id="discount_type_<?php echo $i; ?>" name="discount_type[]" >
 								<?php
 								foreach($discount_types as $value)
 								{ ?>
@@ -171,12 +169,13 @@ error_reporting(0);
 							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
 						</td>
 						<td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
+							<input type="text" id="remark_<?php echo $i; ?>" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
-						<td><a class="btn btn-sm btn-success" id="plus">+</a>
+						<td>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
+<!--
                     <script>
                             var quantity = $('#app_qty_<?php echo $i; ?>').val();
                             var unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
@@ -190,7 +189,7 @@ error_reporting(0);
                         
                         function getval(sel)
                         {                  
-                            discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                            this.discount = parseFloat($('#discount_<?php echo $i; ?>').val());
                                 if (!discount){
                                     discount = parseFloat(0);
                                 }
@@ -250,8 +249,8 @@ error_reporting(0);
 
 
 }
-</script>
-
+                    </script>
+-->
                     <script>
                         
                         $(function(){
@@ -494,12 +493,34 @@ error_reporting(0);
                                 console.log(total);
                                 
                                 $('#total_<?php echo $i; ?>').val(total);
+                            });    
+                            
+                            $('#discount_type_<?php echo $i; ?>').change(function() {
+                                dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
+                                
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+
+                                if(dicount_Type == 1){
+                                    discount = discount;
+                                console.log(discount);
+                                }
+                                else
+                                {
+                                    discount = discount * .01
+                                console.log(discount);
+                                }
                             });
                         });
                         
                         
                     </script>
-				<?php } }else 
+				<?php } 
+}
+                    
+                    else 
 {
                   ?>
 				<?php 
@@ -509,9 +530,6 @@ error_reporting(0);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
-//    echo '<pre>';
-//    print_r($unit);
-//    echo '</pre>';
 
 					for($i=0; $i<count($material); $i++)
 					{
@@ -573,7 +591,7 @@ error_reporting(0);
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
-						<td><a class="btn btn-sm btn-success" id="plus">+</a>
+						<td>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>

@@ -96,6 +96,7 @@
 			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
 			$data = array(
 					'sid'  => $site,
+					'mid'  => $mid,
 					'csgt_total'  => $csgt_total,
 					'ssgt_total'  => $ssgt_total,
 					'isgt_total'  => $isgt_total,

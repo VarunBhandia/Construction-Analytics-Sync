@@ -213,9 +213,18 @@
                                 </div>
 
                                 <h2> Assign Sites</h2>
+                                <script language="JavaScript">
+	function selectAll(source) {
+		checkboxes = document.getElementsByName('site[]');
+		for(var i in checkboxes)
+			checkboxes[i].checked = source.checked;
+	}
+</script>
                                 <div class="form-group">
                                     <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
+                                        <input type="checkbox" id="selectall" onClick="selectAll(this)" />Select All<br>
+
                                     <div class="col-md-10 col-sm-6 col-xs-12">
                                         <?php
 								foreach($sites as $site)

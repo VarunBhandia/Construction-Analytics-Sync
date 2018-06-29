@@ -14,6 +14,7 @@ Class Material extends CI_Controller{
 		$this->load->view('layout/footer');
         $data['row'] = $this->Model->select(array(),'materials',array(),'');
         $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');
+        $data['munits'] = $this->Model->select(array(),'munits',array(),'');
 		$this->load->view('material_master/index',$data);
 
 	}

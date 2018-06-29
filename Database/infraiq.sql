@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 29, 2018 at 06:14 AM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Jun 29, 2018 at 03:28 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -368,23 +368,6 @@ CREATE TABLE `grn_master` (
   `grnrefid` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `grn_master`
---
-
-INSERT INTO `grn_master` (`grnid`, `sid`, `vid`, `grnchallan`, `grnreceivedate`, `grncreatedon`, `grncreatedby`, `mid`, `grnqty`, `grnunitprice`, `muid`, `grntruck`, `grnlinechallan`, `tid`, `grnremarks`, `grnrefid`) VALUES
-(21, '2', '4', '646346', '1970-01-01', '2018-06-27 05:59:43.868893', NULL, '2,3', '6363,6464', '6646,6464', '1,2', '6464,6', '6464,646', '1,1', '64646,6464', NULL),
-(22, '1', '6', '', '1970-01-01', '2018-06-22 06:38:06.569115', NULL, '', '', '', '', '', '', '', '', NULL),
-(23, '1', '5', '234', '2018-06-22', NULL, NULL, '1', '334', '45678', '2', '535', '42424', '1', '333333', NULL),
-(25, '1', '5', '234567', '1970-01-01', '2018-06-26 05:11:36.427388', NULL, '3,2', '21210000,2212', '2210000,2121', '2,1', '1212000,121', '4242400000,12', '1,1', '21212100000,1212', NULL),
-(27, '2', '5', '2345678909', '2018-06-21', NULL, NULL, '3,1', '123,456', '12,34', '2,1', '232424,999999', '24242424,0000011', '1,1', '2345678,09876543', NULL),
-(29, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(30, NULL, NULL, NULL, '1970-01-01', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(0, '2', '4', '', '2018-06-26', NULL, NULL, '2', '221', '2121', '1', '1212', '2121', '1', '2121', NULL),
-(0, '2', '4', '233', '2018-06-04', NULL, NULL, '2', '23123', '313', '2', '331', '331', '1', '331', NULL),
-(0, '1', '4', '2323', '2018-06-18', NULL, NULL, '3', '22', '22', '2', '22', '22', '1', '22', NULL),
-(0, '1', '4', '3434', '2018-06-19', NULL, NULL, '3', '44', '424', '2', '4242', '4242', '1', '24242', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -655,16 +638,17 @@ CREATE TABLE `po_master` (
   `sgst` varchar(255) NOT NULL,
   `igst` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
-  `vendor` varchar(255) NOT NULL,
-  `remark` varchar(255) NOT NULL
+  `vid` varchar(255) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  `pocreatedby` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `po_master`
 --
 
-INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `discount_type`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vendor`, `remark`) VALUES
-(1, '1', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2', '65', '65', '5', 'amount', '', '', '', '', '', '', '');
+INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `discount_type`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vid`, `remark`, `pocreatedby`) VALUES
+(1, '1', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2', '65', '65', '5', 'amount', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -1147,7 +1131,7 @@ CREATE TABLE `users` (
   `reporting` varchar(255) NOT NULL,
   `workordermaterials` varchar(255) NOT NULL,
   `consumption` varchar(255) NOT NULL,
-  `site` varchar(255) NOT NULL,
+  `site` varchar(2550) NOT NULL,
   `ucreatedon` date NOT NULL,
   `ucreatedby` varchar(255) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -1159,8 +1143,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`uid`, `username`, `password`, `uemail`, `uaddress`, `umobile`, `user_role`, `site_role`, `material`, `vendor`, `mr`, `po`, `rtv`, `cp`, `uogrn`, `vendorbills`, `vendorbillpayment`, `moveorder`, `officegstdetails`, `subcontractor`, `transporter`, `workorder`, `reporting`, `workordermaterials`, `consumption`, `site`, `ucreatedon`, `ucreatedby`) VALUES
 (2, 'varun', 'varun', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', ''),
 (3, 'tushar', 'tushar', '', '', '', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '6', '0000-00-00', ''),
-(11, 'varunbhandia', 'varun', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '0', '1', '2', '0', '0', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1,2,4,7,9,13,70', '0000-00-00', ''),
-(12, 'mitesh1', 'varun', 'adfadf@dfh.dsg', 'asfasf', '9000', '2', '0', '1', '2', '0', '1', '2', '0', '1', '0', '0', '1', '2', '0', '1', '2', '0', '1', '2', '1,2,171,175,177', '0000-00-00', '');
+(11, 'varunbhandia', 'varun', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '0', '1', '2', '0', '0', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177', '0000-00-00', ''),
+(12, 'mitesh1', 'varun', 'adfadf@dfh.dsg', 'asfasf', '9000', '2', '0', '1', '2', '0', '1', '2', '0', '1', '0', '0', '1', '2', '0', '1', '2', '0', '1', '2', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,169,170,171,172,173,174,175,176,177', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -2700,6 +2684,12 @@ ALTER TABLE `fruits`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `grn_master`
+--
+ALTER TABLE `grn_master`
+  ADD PRIMARY KEY (`grnid`);
+
+--
 -- Indexes for table `import`
 --
 ALTER TABLE `import`
@@ -2828,145 +2818,121 @@ ALTER TABLE `workitems`
 --
 ALTER TABLE `category`
   MODIFY `cid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
 --
 -- AUTO_INCREMENT for table `dyform`
 --
 ALTER TABLE `dyform`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fruits`
 --
 ALTER TABLE `fruits`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `import`
 --
 ALTER TABLE `import`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `material_rqst`
 --
 ALTER TABLE `material_rqst`
   MODIFY `mrid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `munits`
 --
 ALTER TABLE `munits`
   MODIFY `muid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `performance`
 --
 ALTER TABLE `performance`
   MODIFY `performance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
   MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
 ALTER TABLE `sitedetails`
   MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=178;
-
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
   MODIFY `Student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `subcontdetails`
 --
 ALTER TABLE `subcontdetails`
   MODIFY `subid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
   MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 --
 -- AUTO_INCREMENT for table `tbl_employees`
 --
 ALTER TABLE `tbl_employees`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendordetails`
 --
 ALTER TABLE `vendordetails`
   MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1391;
-
 --
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

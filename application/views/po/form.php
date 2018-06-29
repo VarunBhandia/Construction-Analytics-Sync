@@ -1066,14 +1066,14 @@ $(document).ready(function (){
 }); 
 </script>
 <script  type="text/html" id="form_tpl">
-				<tr class="pending-user">
+                    				<tr class="pending-user">
 						<td>
 							<select class="form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
 								{ echo $material[$i]; ?>
-									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
 						</td>
@@ -1083,43 +1083,42 @@ $(document).ready(function (){
 								<?php
 								foreach($units as $value)
 								{ ?>
-									<option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+									<option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
 								<?php }	?>
 							</select>
 						</td>
 						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="qty_<?php echo $i; ?>" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
 						</td>
 						<td>
-							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<select class="form-control select_width" id="discount_type" name="discount_type[]">
-								<option value=""></option>
+							<select class="form-control select_width" id="discount_type_<?php echo $i; ?>" name="discount_type[]" onchange="getval(this)">
 								<?php
 								foreach($discount_types as $value)
 								{ ?>
-									<option value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
+									<option <?php if($action == 'update'){  echo ($value->dtid == $dtid[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->dtid?>"><?php echo $value->dtname;?></option>
 								<?php }	?>
 							</select>
 						</td>
 						<td>
-							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="text" id="discount_<?php echo $i; ?>" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="cgst_0" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="number" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="sgst_0" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="number" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="igst_0" name="igst[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="number" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="">
+							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
 						</td>
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
@@ -1127,6 +1126,5 @@ $(document).ready(function (){
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
-					</tr>
-</script>
+					</tr></script>
 

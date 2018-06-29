@@ -116,9 +116,9 @@ error_reporting(0);
 ?>
                     				<input type="hidden" name="poid" value="<?php echo $row_po[0]->poid; ?>"/>
 
-				<tr class="pending-user">
+                    				<tr class="pending-user">
 						<td>
-							<select class="mname form-control select_width" id="material_0" name="material[]">
+							<select class="form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -126,11 +126,6 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
-							<script type="text/javascript">
-      $('.mname').select2({
-        placeholder: '--- Select Materials ---',
-        });
-</script>
 						</td>
 						<td>
 							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
@@ -143,17 +138,16 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
+							<input type="text" id="qty_<?php echo $i; ?>" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
 						</td>
 						<td>
-							<input type="text" id="app_qty_0" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+							<input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
 						</td>
 						<td>
-							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+							<input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
 						</td>
 						<td>
-							<select class="form-control select_width" id="discount_type" name="discount_type[]">
-								<option value=""></option>
+							<select class="form-control select_width" id="discount_type_<?php echo $i; ?>" name="discount_type[]" onchange="getval(this)">
 								<?php
 								foreach($discount_types as $value)
 								{ ?>
@@ -162,27 +156,349 @@ error_reporting(0);
 							</select>
 						</td>
 						<td>
-							<input type="text" id="discount" name="discount[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $$discount[$i]; ?>">
+							<input type="text" id="discount_<?php echo $i; ?>" name="discount[]" class="amountonly form-control" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="gst" name="cgst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $cgst[$i]; ?>">
+							<input type="number" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="gst" name="sgst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $sgst[$i]; ?>">
+							<input type="number" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="gst" name="igst[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $igst[$i]; ?>">
+							<input type="number" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0.00" value="">
 						</td>
 						<td>
-							<input type="text" id="total_0" name="total[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $total[$i]; ?>">
+							<input type="number" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
 						</td>
-                    <td>
-							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remark[$i]; ?>">
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="">
 						</td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
+                    <script>
+                            var quantity = $('#app_qty_<?php echo $i; ?>').val();
+                            var unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
+                            var discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+
+                        qtyprice = parseFloat(quantity * unit_price);
+                        netTotal = parseFloat(qtyprice - discount);
+                        
+                        function getval(sel)
+                        {                  
+                            discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                            
+                            discount_type = parseFloat(sel.value);    
+                            if( discount_type == 2 )
+                            {
+                                discount = $('#discount_<?php echo $i; ?>').val();
+                                if (!discount){ discount = parseFloat(0); }
+                                console.log('percent');
+//                                discount = parseFloat(discount * .01);
+                                console.log(discount);
+                            }
+                            else {
+                                discount = $('#discount_<?php echo $i; ?>').val();
+                                if (!discount){ discount = parseFloat(0); }
+                                console.log('amount');
+//                                discount = parseFloat(discount);
+                                console.log(discount);
+                            }
+
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+//                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+//                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+//                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+//                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+//                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+
+
+}
+</script>
+
+                    <script>
+                        
+                        $(function(){
+
+                            var quantity = $('#app_qty_<?php echo $i; ?>').val();
+                            var unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
+                            
+                            $('#app_qty_<?php echo $i; ?>').keyup(function() {
+                                 quantity = parseFloat($('#app_qty_<?php echo $i; ?>').val());
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                console.log(discount);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                            
+                            $('#unit_<?php echo $i; ?>').keyup(function() {
+                                 unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                            
+                            $('#discount_<?php echo $i; ?>').keyup(function() {
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                            
+                            $('#cgst_<?php echo $i; ?>').keyup(function() {
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                            
+                            $('#sgst_<?php echo $i; ?>').keyup(function() {
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                            
+                            $('#igst_<?php echo $i; ?>').keyup(function() {
+                                discount = parseFloat($('#discount_<?php echo $i; ?>').val());
+                                if (!discount){
+                                    discount = parseFloat(0);
+                                }
+                                qtyprice = parseFloat(quantity * unit_price);
+                                netTotal = parseFloat(qtyprice - discount);
+                                console.log(netTotal);
+                                
+                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst){
+                                    cgst = parseFloat(0);
+                                }
+                                cgst_d = parseFloat(0);
+                                cgst_d = parseFloat(cgst * netTotal * 0.01)
+                                console.log(cgst_d);
+                                
+                                sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
+                                if (!sgst){
+                                    sgst = parseFloat(0);
+                                }
+                                sgst_d = parseFloat(0);
+                                sgst_d = parseFloat(sgst * netTotal * 0.01)
+                                console.log(sgst_d);
+                                
+                                igst = parseFloat($('#igst_<?php echo $i; ?>').val());
+                                if (!igst){
+                                    igst = parseFloat(0);
+                                }
+                                igst_d = parseFloat(0);
+                                igst_d = parseFloat(igst * netTotal * 0.01)
+                                console.log(igst_d);
+
+                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                console.log(total);
+                                
+                                $('#total_<?php echo $i; ?>').val(total);
+                            });
+                        });
+                        
+                        
+                    </script>
 				<?php } }else 
 {
                   ?>

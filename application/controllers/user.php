@@ -111,6 +111,9 @@
 			$data['action'] = "update";
 			$data['controller'] = $this->controller;
 			$this->load->view('user/form',$data);
+            echo '<pre>';
+            print_r($data['row']);
+            echo '</pre>';
 		}
 
 		public function update()

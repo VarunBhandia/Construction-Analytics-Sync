@@ -49,7 +49,14 @@
                     <div class="form-group">
                         <label for="munit" class="label-control col-md-4">Material Unit</label>
                         <div class="col-md-8">
-                            <input type="text" name="munit" class="form-control">
+                            <select class=" form-control" id="munit" name="munit">
+								<option value="">---Unit name----</option>
+								<?php
+								foreach($munits as $munit)
+								{ ?>
+									<option value="<?php echo $munit->muid; ?>"><?php echo $munit->muname;?></option>
+								<?php }	?>
+							</select>
                         </div>
                     </div>
                     <div class="form-group">
@@ -223,7 +230,8 @@
                 dataType: 'json',
                 success: function(data) {
                     $('input[name=mname]').val(data.mname);
-                    $('input[name=munit]').val(data.munit);
+                    $('input[name=munit]').val(<?php foreach($munits as $munit)
+								{ } ?>data.munit);
                     $('input[name=mcategory]').val(<?php foreach($mcategorys as $mcategory)
 								{ } ?>data.mcategory);
                     $('input[name=mdesc]').val(data.mdesc);

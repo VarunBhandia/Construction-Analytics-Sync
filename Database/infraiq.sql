@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2018 at 02:58 PM
+-- Generation Time: Jun 30, 2018 at 03:03 PM
 -- Server version: 10.1.32-MariaDB
 -- PHP Version: 7.2.5
 
@@ -3654,22 +3654,26 @@ CREATE TABLE `po_master` (
   `qty` varchar(255) NOT NULL,
   `app_qty` varchar(255) NOT NULL,
   `unit` varchar(255) NOT NULL,
-  `discount_type` varchar(255) NOT NULL,
+  `dtid` varchar(255) NOT NULL,
   `discount` varchar(255) NOT NULL,
   `cgst` varchar(255) NOT NULL,
   `sgst` varchar(255) NOT NULL,
   `igst` varchar(255) NOT NULL,
   `total` varchar(255) NOT NULL,
-  `vendor` varchar(255) NOT NULL,
-  `remark` varchar(255) NOT NULL
+  `vid` varchar(255) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  `pocreatedby` varchar(255) NOT NULL,
+  `mid` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `po_master`
 --
 
-INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `discount_type`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vendor`, `remark`) VALUES
-(1, '1', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2', '65', '65', '5', 'amount', '', '', '', '', '', '', '');
+INSERT INTO `po_master` (`poid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `dtid`, `discount`, `cgst`, `sgst`, `igst`, `total`, `vid`, `remark`, `pocreatedby`, `mid`) VALUES
+(1, '1', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '2', '65', '65', '5', 'amount', '', '', '', '', '', '', '', '', ''),
+(2, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '1,2', '1,1', '10,10', '5,10', '2,2', '20,20', '1,1', '1,1', '1,1', '30.900000000000002,82.39999999999999', '4', ',', '', ''),
+(3, '2', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01', '1,2', '1,1', '10,10', '50,12', '1,2', '50,10', '1,1', '1,1', '1,1', '463.5,111.24', '4', ',', '', '1,0');
 
 -- --------------------------------------------------------
 
@@ -6015,7 +6019,7 @@ ALTER TABLE `performance`
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `sitedetails`

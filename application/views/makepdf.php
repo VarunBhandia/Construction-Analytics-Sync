@@ -1,11 +1,11 @@
 <?php
 //============================================================+
-// File name   : example_012.php
-// Begin       : 2008-03-04
+// File name   : example_048.php
+// Begin       : 2009-03-20
 // Last Update : 2013-05-14
 //
-// Description : Example 012 for TCPDF class
-//               Graphic Functions
+// Description : Example 048 for TCPDF class
+//               HTML tables and table headers
 //
 // Author: Nicola Asuni
 //
@@ -19,12 +19,13 @@
 /**
  * Creates an example PDF TEST document using TCPDF
  * @package com.tecnick.tcpdf
- * @abstract TCPDF - Example: Graphic Functions
+ * @abstract TCPDF - Example: HTML tables and table headers
  * @author Nicola Asuni
- * @since 2008-03-04
+ * @since 2009-03-20
  */
 
 // Include the main TCPDF library (search for installation path).
+require_once('tcpdf_include.php');
 
 // create new PDF document
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -32,19 +33,24 @@ $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8',
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Nicola Asuni');
-$pdf->SetTitle('TCPDF Example 012');
+$pdf->SetTitle('TCPDF Example 048');
 $pdf->SetSubject('TCPDF Tutorial');
 $pdf->SetKeywords('TCPDF, PDF, example, test, guide');
 
-// disable header and footer
-$pdf->setPrintHeader(false);
-$pdf->setPrintFooter(false);
+// set default header data
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' 048', PDF_HEADER_STRING);
+
+// set header and footer fonts
+$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 
 // set default monospaced font
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
 $pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
@@ -61,143 +67,246 @@ if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
 // ---------------------------------------------------------
 
 // set font
-$pdf->SetFont('helvetica', '', 10);
+$pdf->SetFont('helvetica', 'B', 20);
 
 // add a page
 $pdf->AddPage();
 
-$style = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,20,5,10', 'phase' => 10, 'color' => array(255, 0, 0));
-$style2 = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(255, 0, 0));
-$style3 = array('width' => 1, 'cap' => 'round', 'join' => 'round', 'dash' => '2,10', 'color' => array(255, 0, 0));
-$style4 = array('L' => 0,
-                'T' => array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => '20,10', 'phase' => 10, 'color' => array(100, 100, 255)),
-                'R' => array('width' => 0.50, 'cap' => 'round', 'join' => 'miter', 'dash' => 0, 'color' => array(50, 50, 127)),
-                'B' => array('width' => 0.75, 'cap' => 'square', 'join' => 'miter', 'dash' => '30,10,5,10'));
-$style5 = array('width' => 0.25, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 64, 128));
-$style6 = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => '10,10', 'color' => array(0, 128, 0));
-$style7 = array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(255, 128, 0));
+$pdf->Write(0, 'Example of HTML tables', '', 0, 'L', true, 0, false, false, 0);
 
-// Line
-$pdf->Text(5, 4, 'Line examples');
-$pdf->Line(5, 10, 80, 30, $style);
-$pdf->Line(5, 10, 5, 30, $style2);
-$pdf->Line(5, 10, 80, 10, $style3);
+$pdf->SetFont('helvetica', '', 8);
 
-// Rect
-$pdf->Text(100, 4, 'Rectangle examples');
-$pdf->Rect(100, 10, 40, 20, 'DF', $style4, array(220, 220, 200));
-$pdf->Rect(145, 10, 40, 20, 'D', array('all' => $style3));
+// -----------------------------------------------------------------------------
 
-// Curve
-$pdf->Text(5, 34, 'Curve examples');
-$pdf->Curve(5, 40, 30, 55, 70, 45, 60, 75, null, $style6);
-$pdf->Curve(80, 40, 70, 75, 150, 45, 100, 75, 'F', $style6);
-$pdf->Curve(140, 40, 150, 55, 180, 45, 200, 75, 'DF', $style6, array(200, 220, 200));
+$tbl = <<<EOD
+<table cellspacing="0" cellpadding="1" border="1">
+    <tr>
+        <td rowspan="3">COL 1 - ROW 1<br />COLSPAN 3</td>
+        <td>COL 2 - ROW 1</td>
+        <td>COL 3 - ROW 1</td>
+    </tr>
+    <tr>
+        <td rowspan="2">COL 2 - ROW 2 - COLSPAN 2<br />text line<br />text line<br />text line<br />text line</td>
+        <td>COL 3 - ROW 2</td>
+    </tr>
+    <tr>
+       <td>COL 3 - ROW 3</td>
+    </tr>
 
-// Circle and ellipse
-$pdf->Text(5, 79, 'Circle and ellipse examples');
-$pdf->SetLineStyle($style5);
-$pdf->Circle(25,105,20);
-$pdf->Circle(25,105,10, 90, 180, null, $style6);
-$pdf->Circle(25,105,10, 270, 360, 'F');
-$pdf->Circle(25,105,10, 270, 360, 'C', $style6);
+</table>
+EOD;
 
-$pdf->SetLineStyle($style5);
-$pdf->Ellipse(100,103,40,20);
-$pdf->Ellipse(100,105,20,10, 0, 90, 180, null, $style6);
-$pdf->Ellipse(100,105,20,10, 0, 270, 360, 'DF', $style6);
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
-$pdf->SetLineStyle($style5);
-$pdf->Ellipse(175,103,30,15,45);
-$pdf->Ellipse(175,105,15,7.50, 45, 90, 180, null, $style6);
-$pdf->Ellipse(175,105,15,7.50, 45, 270, 360, 'F', $style6, array(220, 200, 200));
+// -----------------------------------------------------------------------------
 
-// Polygon
-$pdf->Text(5, 129, 'Polygon examples');
-$pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-$pdf->Polygon(array(5,135,45,135,15,165));
-$pdf->Polygon(array(60,135,80,135,80,155,70,165,50,155), 'DF', array($style6, $style7, $style7, 0, $style6), array(220, 200, 200));
-$pdf->Polygon(array(120,135,140,135,150,155,110,155), 'D', array($style6, 0, $style7, $style6));
-$pdf->Polygon(array(160,135,190,155,170,155,200,160,160,165), 'DF', array('all' => $style6), array(220, 220, 220));
+$tbl = <<<EOD
+<table cellspacing="0" cellpadding="1" border="1">
+    <tr>
+        <td rowspan="3">COL 1 - ROW 1<br />COLSPAN 3<br />text line<br />text line<br />text line<br />text line<br />text line<br />text line</td>
+        <td>COL 2 - ROW 1</td>
+        <td>COL 3 - ROW 1</td>
+    </tr>
+    <tr>
+        <td rowspan="2">COL 2 - ROW 2 - COLSPAN 2<br />text line<br />text line<br />text line<br />text line</td>
+         <td>COL 3 - ROW 2</td>
+    </tr>
+    <tr>
+       <td>COL 3 - ROW 3</td>
+    </tr>
 
-// Polygonal Line
-$pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 164)));
-$pdf->PolyLine(array(80,165,90,160,100,165,110,160,120,165,130,160,140,165), 'D', array(), array());
+</table>
+EOD;
 
-// Regular polygon
-$pdf->Text(5, 169, 'Regular polygon examples');
-$pdf->SetLineStyle($style5);
-$pdf->RegularPolygon(20, 190, 15, 6, 0, 1, 'F');
-$pdf->RegularPolygon(55, 190, 15, 6);
-$pdf->RegularPolygon(55, 190, 10, 6, 45, 0, 'DF', array($style6, 0, $style7, 0, $style7, $style7));
-$pdf->RegularPolygon(90, 190, 15, 3, 0, 1, 'DF', array('all' => $style5), array(200, 220, 200), 'F', array(255, 200, 200));
-$pdf->RegularPolygon(125, 190, 15, 4, 30, 1, null, array('all' => $style5), null, null, $style6);
-$pdf->RegularPolygon(160, 190, 15, 10);
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
-// Star polygon
-$pdf->Text(5, 209, 'Star polygon examples');
-$pdf->SetLineStyle($style5);
-$pdf->StarPolygon(20, 230, 15, 20, 3, 0, 1, 'F');
-$pdf->StarPolygon(55, 230, 15, 12, 5);
-$pdf->StarPolygon(55, 230, 7, 12, 5, 45, 0, 'DF', array('all' => $style7), array(220, 220, 200), 'F', array(255, 200, 200));
-$pdf->StarPolygon(90, 230, 15, 20, 6, 0, 1, 'DF', array('all' => $style5), array(220, 220, 200), 'F', array(255, 200, 200));
-$pdf->StarPolygon(125, 230, 15, 5, 2, 30, 1, null, array('all' => $style5), null, null, $style6);
-$pdf->StarPolygon(160, 230, 15, 10, 3);
-$pdf->StarPolygon(160, 230, 7, 50, 26);
+// -----------------------------------------------------------------------------
 
-// Rounded rectangle
-$pdf->Text(5, 249, 'Rounded rectangle examples');
-$pdf->SetLineStyle(array('width' => 0.5, 'cap' => 'butt', 'join' => 'miter', 'dash' => 0, 'color' => array(0, 0, 0)));
-$pdf->RoundedRect(5, 255, 40, 30, 3.50, '1111', 'DF');
-$pdf->RoundedRect(50, 255, 40, 30, 6.50, '1000');
-$pdf->RoundedRect(95, 255, 40, 30, 10.0, '1111', null, $style6);
-$pdf->RoundedRect(140, 255, 40, 30, 8.0, '0101', 'DF', $style6, array(200, 200, 200));
+$tbl = <<<EOD
+<table cellspacing="0" cellpadding="1" border="1">
+    <tr>
+        <td rowspan="3">COL 1 - ROW 1<br />COLSPAN 3<br />text line<br />text line<br />text line<br />text line<br />text line<br />text line</td>
+        <td>COL 2 - ROW 1</td>
+        <td>COL 3 - ROW 1</td>
+    </tr>
+    <tr>
+        <td rowspan="2">COL 2 - ROW 2 - COLSPAN 2<br />text line<br />text line<br />text line<br />text line</td>
+         <td>COL 3 - ROW 2<br />text line<br />text line</td>
+    </tr>
+    <tr>
+       <td>COL 3 - ROW 3</td>
+    </tr>
 
-// Arrows
-$pdf->Text(185, 249, 'Arrows');
-$pdf->SetLineStyle($style5);
-$pdf->SetFillColor(255, 0, 0);
-$pdf->Arrow(200, 280, 185, 266, 0, 5, 15);
-$pdf->Arrow(200, 280, 190, 263, 1, 5, 15);
-$pdf->Arrow(200, 280, 195, 261, 2, 5, 15);
-$pdf->Arrow(200, 280, 200, 260, 3, 5, 15);
+</table>
+EOD;
 
-// - . - . - . - . - . - . - . - . - . - . - . - . - . - . -
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
-// ellipse
+// -----------------------------------------------------------------------------
 
-// add a page
-$pdf->AddPage();
+$tbl = <<<EOD
+<table border="1">
+<tr>
+<th rowspan="3">Left column</th>
+<th colspan="5">Heading Column Span 5</th>
+<th colspan="9">Heading Column Span 9</th>
+</tr>
+<tr>
+<th rowspan="2">Rowspan 2<br />This is some text that fills the table cell.</th>
+<th colspan="2">span 2</th>
+<th colspan="2">span 2</th>
+<th rowspan="2">2 rows</th>
+<th colspan="8">Colspan 8</th>
+</tr>
+<tr>
+<th>1a</th>
+<th>2a</th>
+<th>1b</th>
+<th>2b</th>
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+</tr>
+</table>
+EOD;
 
-$pdf->Cell(0, 0, 'Arc of Ellipse');
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
-// center of ellipse
-$xc=100;
-$yc=100;
+// -----------------------------------------------------------------------------
 
-// X Y axis
-$pdf->SetDrawColor(200, 200, 200);
-$pdf->Line($xc-50, $yc, $xc+50, $yc);
-$pdf->Line($xc, $yc-50, $xc, $yc+50);
+// Table with rowspans and THEAD
+$tbl = <<<EOD
+<table border="1" cellpadding="2" cellspacing="2">
+<thead>
+ <tr style="background-color:#FFFF00;color:#0000FF;">
+  <td width="30" align="center"><b>A</b></td>
+  <td width="140" align="center"><b>XXXX</b></td>
+  <td width="140" align="center"><b>XXXX</b></td>
+  <td width="80" align="center"> <b>XXXX</b></td>
+  <td width="80" align="center"><b>XXXX</b></td>
+  <td width="45" align="center"><b>XXXX</b></td>
+ </tr>
+ <tr style="background-color:#FF0000;color:#FFFF00;">
+  <td width="30" align="center"><b>B</b></td>
+  <td width="140" align="center"><b>XXXX</b></td>
+  <td width="140" align="center"><b>XXXX</b></td>
+  <td width="80" align="center"> <b>XXXX</b></td>
+  <td width="80" align="center"><b>XXXX</b></td>
+  <td width="45" align="center"><b>XXXX</b></td>
+ </tr>
+</thead>
+ <tr>
+  <td width="30" align="center">1.</td>
+  <td width="140" rowspan="6">XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX</td>
+  <td width="140">XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td width="80">XXXX</td>
+  <td align="center" width="45">XXXX<br />XXXX</td>
+ </tr>
+ <tr>
+  <td width="30" align="center" rowspan="3">2.</td>
+  <td width="140" rowspan="3">XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td align="center" width="45">XXXX<br />XXXX</td>
+ </tr>
+ <tr>
+  <td width="80">XXXX<br />XXXX<br />XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td align="center" width="45">XXXX<br />XXXX</td>
+ </tr>
+ <tr>
+  <td width="80" rowspan="2" >RRRRRR<br />XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td align="center" width="45">XXXX<br />XXXX</td>
+ </tr>
+ <tr>
+  <td width="30" align="center">3.</td>
+  <td width="140">XXXX1<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td align="center" width="45">XXXX<br />XXXX</td>
+ </tr>
+ <tr>
+  <td width="30" align="center">4.</td>
+  <td width="140">XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td width="80">XXXX<br />XXXX</td>
+  <td align="center" width="45">XXXX<br />XXXX</td>
+ </tr>
+</table>
+EOD;
 
-// ellipse axis
-$pdf->SetDrawColor(200, 220, 255);
-$pdf->Line($xc-50, $yc-50, $xc+50, $yc+50);
-$pdf->Line($xc-50, $yc+50, $xc+50, $yc-50);
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
-// ellipse
-$pdf->SetDrawColor(200, 255, 200);
-$pdf->Ellipse($xc, $yc, 30, 15, 45, 0, 360, 'D', array(), array(), 2);
+$pdf->writeHTML($tbl, true, false, false, false, '');
 
-// ellipse arc
-$pdf->SetDrawColor(255, 0, 0);
-$pdf->Ellipse($xc, $yc, 30, 15, 45, 45, 90, 'D', array(), array(), 2);
+// -----------------------------------------------------------------------------
 
+// NON-BREAKING TABLE (nobr="true")
 
-// ---------------------------------------------------------
+$tbl = <<<EOD
+<table border="1" cellpadding="2" cellspacing="2" nobr="true">
+ <tr>
+  <th colspan="3" align="center">NON-BREAKING TABLE</th>
+ </tr>
+ <tr>
+  <td>1-1</td>
+  <td>1-2</td>
+  <td>1-3</td>
+ </tr>
+ <tr>
+  <td>2-1</td>
+  <td>3-2</td>
+  <td>3-3</td>
+ </tr>
+ <tr>
+  <td>3-1</td>
+  <td>3-2</td>
+  <td>3-3</td>
+ </tr>
+</table>
+EOD;
+
+$pdf->writeHTML($tbl, true, false, false, false, '');
+
+// -----------------------------------------------------------------------------
+
+// NON-BREAKING ROWS (nobr="true")
+
+$tbl = <<<EOD
+<table border="1" cellpadding="2" cellspacing="2" align="center">
+ <tr nobr="true">
+  <th colspan="3">NON-BREAKING ROWS</th>
+ </tr>
+ <tr nobr="true">
+  <td>ROW 1<br />COLUMN 1</td>
+  <td>ROW 1<br />COLUMN 2</td>
+  <td>ROW 1<br />COLUMN 3</td>
+ </tr>
+ <tr nobr="true">
+  <td>ROW 2<br />COLUMN 1</td>
+  <td>ROW 2<br />COLUMN 2</td>
+  <td>ROW 2<br />COLUMN 3</td>
+ </tr>
+ <tr nobr="true">
+  <td>ROW 3<br />COLUMN 1</td>
+  <td>ROW 3<br />COLUMN 2</td>
+  <td>ROW 3<br />COLUMN 3</td>
+ </tr>
+</table>
+EOD;
+
+$pdf->writeHTML($tbl, true, false, false, false, '');
+
+// -----------------------------------------------------------------------------
 
 //Close and output PDF document
-$pdf->Output('example_012.pdf', 'I');
+$pdf->Output('example_048.pdf', 'I');
 
 //============================================================+
 // END OF FILE

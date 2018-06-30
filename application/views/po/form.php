@@ -1137,6 +1137,7 @@ error_reporting(0);
                             });
                             
                             $('#cgst_<?php echo $i; ?>').keyup(function() {
+                                
                                 dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
                                 
                                 discount = parseFloat($('#discount_<?php echo $i; ?>').val());
@@ -1177,8 +1178,9 @@ error_reporting(0);
 
                                 total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
                                 console.log(total);
-                                
                                 $('#total_<?php echo $i; ?>').val(total);
+                                    
+                                $('#csgt').val(cgst_d);
 
                                 }
                                 else
@@ -1218,6 +1220,7 @@ error_reporting(0);
                                 console.log(total);
                                 
                                 $('#total_<?php echo $i; ?>').val(total);
+                                $('#csgt_total').val(cgst_d);
 
                                 }
                             });

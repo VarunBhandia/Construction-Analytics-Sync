@@ -108,7 +108,10 @@ error_reporting(0);
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
 						</td>
 					</tr>
-				<?php } else { ?>
+				<?php 
+} 
+                    else 
+{ ?>
 				<input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
 				<?php 
 				
@@ -117,7 +120,6 @@ error_reporting(0);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
-//					print_r($qty);
 					for($i=0; $i<count($material); $i++)
 					{
 				?>

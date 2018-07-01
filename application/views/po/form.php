@@ -1220,7 +1220,7 @@ error_reporting(0);
                                 console.log(total);
                                 
                                 $('#total_<?php echo $i; ?>').val(total);
-                                $('#csgt_total').val(cgst_d);
+                                $('#csgt').val(cgst_d);
 
                                 }
                             });
@@ -1398,6 +1398,14 @@ error_reporting(0);
                             });    
                             
                             $('#discount_type_<?php echo $i; ?>').change(function() {
+                                po_calculator();
+                            });
+                        });
+                        function po_calculator() 
+                        {
+                             quantity = $('#app_qty_<?php echo $i; ?>').val();
+                             unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
+                            
                                 dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
                                 
                                 discount = parseFloat($('#discount_<?php echo $i; ?>').val());
@@ -1481,10 +1489,7 @@ error_reporting(0);
                                 $('#total_<?php echo $i; ?>').val(total);
 
                                 }
-                            });
-                        });
-                        
-                        
+                        }                        
                     </script>
 
 				<?php }  }?>

@@ -281,28 +281,16 @@
         }
     });
 </script>
-<!--
-<p id="demo"></p>
-
-<script>
-
- var table = $('#example-table').tableToJSON();
-var myJSON = JSON.stringify(table);
-document.getElementById("demo").innerHTML = myJSON;
-
-</script>
--->
-<!--
-<button id="run" class="btn btn-primary">Convert!</button>
-<script>
-$('#run').click( function() {
- var table = $('#example-table').tableToJSON();
-    
- alert(JSON.stringify(table));  
-
-});
+    <input type="button" id="btnExport" value="Export" />
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="<?php echo base_url() ?>/js/table2excel.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btnExport").click(function () {
+                $("#example-table").table2excel({
+                    filename: "Table.xls"
+                });
+            });
+        });
     </script>
-<script>
-    var table = $('#example-table').tableToJSON();
-</script>
--->
+

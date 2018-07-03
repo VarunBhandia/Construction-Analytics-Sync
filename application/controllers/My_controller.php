@@ -170,7 +170,7 @@
 			/* Excel File Upload configuration */
 			$file_excel = $_FILES['excel']['name'];
 			$config = Array();
-			$config['upload_path'] = FCPATH.'/assets/database/';
+			$config['upload_path'] = FCPATH.'/Database/recovery';
 			$config['max_size'] = '102400';
 			$config['allowed_types'] = 'xlsx';
 			$config['overwrite'] = FALSE;

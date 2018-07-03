@@ -108,8 +108,10 @@ error_reporting(0);
 					$remark = explode(",",$row_po[0]->remark);
 					$material = explode(",",$row_po[0]->mid);
 ?>
+
                     <input type="hidden" name="poid" value="<?php echo $row_po[0]->poid; ?>"/>
                     <?php
+    
     					for($i=0; $i<count($material); $i++)
 					{
 ?>
@@ -796,6 +798,9 @@ error_reporting(0);
                     else 
 {
                   ?>
+                    <script>
+                            var cgst_d_total = parseFloat(0);
+                    </script>
 				<?php 
 
 					$material = explode(",",$row[0]->mid);
@@ -803,7 +808,9 @@ error_reporting(0);
 					$unit = explode(",",$row[0]->mrunitprice);
 					$m_unit = explode(",",$row[0]->muid);
 					$remarks = explode(",",$row[0]->mrremarks);
-
+                        
+                        
+                        
 					for($i=0; $i<count($material); $i++)
 					{
 				?>
@@ -1137,7 +1144,7 @@ error_reporting(0);
                             });
                             
                             $('#cgst_<?php echo $i; ?>').keyup(function() {
-                                
+//                                cgst_d_total = parseFloat(0);
                                 dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
                                 
                                 discount = parseFloat($('#discount_<?php echo $i; ?>').val());
@@ -1152,13 +1159,16 @@ error_reporting(0);
                                 netTotal = parseFloat(qtyprice - discount);
                                 console.log(netTotal);
                                 
-                                cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
-                                if (!cgst){
-                                    cgst = parseFloat(0);
+                                cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                if (!cgst_<?php echo $i; ?>){
+                                    cgst_<?php echo $i; ?> = parseFloat(0);
                                 }
-                                cgst_d = parseFloat(0);
-                                cgst_d = parseFloat(cgst * netTotal * 0.01)
-                                console.log(cgst_d);
+                                cgst_d_<?php echo $i; ?> = parseFloat(0);
+                                cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
+                                console.log(cgst_d_<?php echo $i; ?>);
+                                    cgst_d_total += cgst_d_<?php echo $i; ?> ;
+                                    console.log(cgst_d_total);
+                                    $('#csgt').val(cgst_d_total);
                                 
                                 sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
                                 if (!sgst){
@@ -1176,12 +1186,11 @@ error_reporting(0);
                                 igst_d = parseFloat(igst * netTotal * 0.01)
                                 console.log(igst_d);
 
-                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d + igst_d);
                                 console.log(total);
                                 $('#total_<?php echo $i; ?>').val(total);
                                     
-                                $('#csgt').val(cgst_d);
-
+                                    
                                 }
                                 else
                                 {
@@ -1191,14 +1200,13 @@ error_reporting(0);
                                     netTotal = parseFloat(qtyprice - discount);
                                     console.log(netTotal);
                                 
-                                    cgst = parseFloat($('#cgst_<?php echo $i; ?>').val());
-                                    if (!cgst){
-                                        cgst = parseFloat(0);
+                                    cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
+                                    if (!cgst_<?php echo $i; ?>){
+                                        cgst_<?php echo $i; ?> = parseFloat(0);
                                     }
                                     
-                                cgst_d = parseFloat(0);
-                                cgst_d = parseFloat(cgst * netTotal * 0.01)
-                                console.log(cgst_d);
+                                cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
+                                console.log(cgst_d_<?php echo $i; ?>);
                                 
                                 sgst = parseFloat($('#sgst_<?php echo $i; ?>').val());
                                 if (!sgst){
@@ -1216,14 +1224,17 @@ error_reporting(0);
                                 igst_d = parseFloat(igst * netTotal * 0.01)
                                 console.log(igst_d);
 
-                                total = parseFloat(netTotal + cgst_d + sgst_d + igst_d);
+                                total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d + igst_d);
                                 console.log(total);
                                 
+                                    
                                 $('#total_<?php echo $i; ?>').val(total);
-                                $('#csgt_total').val(cgst_d);
-
-                                }
-                            });
+                                    cgst_d_total = parseFloat(0);
+                                    cgst_d_total = cgst_d_total + cgst_d_<?php echo $i; ?>;
+                                console.log(cgst_d_total);
+                                $('#csgt').val(cgst_d_total);
+                                                                        
+                            }});
                             
                             $('#sgst_<?php echo $i; ?>').keyup(function() {
                                 dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
@@ -1483,6 +1494,7 @@ error_reporting(0);
                                 }
                             });
                         });
+                        
                         
                         
                     </script>

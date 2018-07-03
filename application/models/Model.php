@@ -6,8 +6,6 @@ class Model extends CI_Model {
 		parent::__construct();
 	}
     
-    
-    
 	public function select($fields,$table,$condition,$orderField,$orderType='desc',$limit=null)
 	{
 		return $this->db->select($fields)->where($condition)->order_by($orderField,$orderType)->limit($limit)->get($table)->result();
@@ -23,9 +21,7 @@ class Model extends CI_Model {
 	public function insert_batch($collection,$table)
 	{
 		$this->db->insert_batch($table, $collection);
-	
-        
-        return $this->db->insert_id();
+		return $this->db->insert_id();
 	}
 	
 	public function update($table,$data,$where)

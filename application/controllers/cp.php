@@ -13,9 +13,46 @@
 		{
 			parent::__construct();
 			$this->load->model('Model');
+            $this->load->model('cp_m');
 			$this->model = 'Model';
 			date_default_timezone_set('Asia/Kolkata');
 		}
+        
+        public function view_table()
+        {			
+            $data['controller'] = $this->controller;
+            $model = $this->model;
+            $result = $this->cp_m->show_all_data();
+            if ($result != false) {
+                return $result;
+            } else {
+                return 'Database is empty !';
+            }
+        }
+        
+        public function select_by_id() 
+        {
+            $model = $this->model;
+			$data['controller'] = $this->controller;
+            $sid = $this->input->post('sid');
+            if ($sid != "") {
+                $result = $this->cp_m->show_data_by_id($sid);
+                if ($result != false) {
+                    $data['result_display'] = $result;
+                } else 
+                    {
+                    $data['result_display'] = "No record found !";
+                    }
+            } 
+            else {
+                $data = array(
+                    'id_error_message' => "Id field is required"
+                );
+                }
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['show_table'] = $this->view_table();
+            $this->load->view('cp/index', $data);
+        }
 	
 		public function index()
 		{
@@ -53,7 +90,7 @@
             
             $unitprice = count($this->input->post('unitprice')) > 0 ? implode(",",$this->input->post('unitprice')) : $this->input->post('unitprice');
 			
-			$linechallan = count($this->input->post('$linechallan')) > 0 ? implode(",",$this->input->post('$linechallan')) : $this->input->post('$linechallan');
+			$linechallan = count($this->input->post('linechallan')) > 0 ? implode(",",$this->input->post('linechallan')) : $this->input->post('linechallan');
 			
 			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 			
@@ -105,9 +142,9 @@
 			
 			$m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
             
-            $unitprice = count($this->input->post('$unitprice')) > 0 ? implode(",",$this->input->post('$unitprice')) : $this->input->post('$unitprice');
+            $unitprice = count($this->input->post('unitprice')) > 0 ? implode(",",$this->input->post('unitprice')) : $this->input->post('unitprice');
 			
-			$linechallan = count($this->input->post('$linechallan')) > 0 ? implode(",",$this->input->post('$linechallan')) : $this->input->post('$linechallan');
+			$linechallan = count($this->input->post('linechallan')) > 0 ? implode(",",$this->input->post('linechallan')) : $this->input->post('linechallan');
 			
 			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 			

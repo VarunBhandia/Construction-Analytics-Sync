@@ -5,33 +5,7 @@ class Model extends CI_Model {
 	{
 		parent::__construct();
 	}
-    
-    public function show_all_data() {
-$this->db->select('*');
-$this->db->from('grn_master');
-$query = $this->db->get();
-if ($query->num_rows() > 0) {
-return $query->result();
-} else {
-return false;
-}
-}
-public function show_data_by_id($grnid) {
-    echo 'test';
-$condition = "grnid =" . "'" . $grnid . "'";
-$this->db->select('*');
-$this->db->from('grn_master');
-$this->db->where($condition);
-$this->db->limit(1);
-$query = $this->db->get();
-if ($query->num_rows() == 1) {
-return $query->result();
-} else {
-return false;
-}
-}
-    
-    
+
 	public function select($fields,$table,$condition,$orderField,$orderType='desc',$limit=null)
 	{
 		return $this->db->select($fields)->where($condition)->order_by($orderField,$orderType)->limit($limit)->get($table)->result();
@@ -47,9 +21,7 @@ return false;
 	public function insert_batch($collection,$table)
 	{
 		$this->db->insert_batch($table, $collection);
-	
-        
-        return $this->db->insert_id();
+		return $this->db->insert_id();
 	}
 	
 	public function update($table,$data,$where)

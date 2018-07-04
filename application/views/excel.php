@@ -34,6 +34,7 @@
                     </form>
                   </div>
 				  <?php	if($Count > 0) {	?>
+                    
 				  <div class="col-md-12 col-sm-6 col-xs-12">
 					<h4>Number Of Row : <?php echo $Count;?></h4>
 				  </div>
@@ -122,6 +123,7 @@ $(document).ready(function (){
       });
     });
 </script>
+
 <script>
 $(document).ready(function() {
     $('#datatable1').DataTable();

@@ -3,11 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Select_Tutorial extends CI_Controller {
+class Vendor_bills extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('employee_database');
+        $this->load->model('vendor_bills_m');
     }
 
     public function index() {
@@ -15,7 +15,7 @@ class Select_Tutorial extends CI_Controller {
         $this->load->view('select_form', $data);
     }
     public function view_table(){
-        $result = $this->employee_database->show_all_data();
+        $result = $this->vendor_bills_m->show_all_data();
         if ($result != false) {
             return $result;
         } else {
@@ -23,17 +23,17 @@ class Select_Tutorial extends CI_Controller {
         }
     }
 
-    public function select_by_date_range() {
-        $date1 = $this->input->post('date_from');
-        $date2 = $this->input->post('date_to');
+    public function show_data_by_site_vendor() {
+        $date1 = $this->input->post('sid');
+        $date2 = $this->input->post('vid');
         $data = array(
-            'date1' => $date1,
-            'date2' => $date2
+            'sid' => $sid,
+            'vid' => $vid
         );
-        if ($date1 == "" || $date2 == "") {
-            $data['date_range_error_message'] = "Both date fields are required";
+        if ($sid == "" || $vid == "") {
+            $data['error_message'] = "Both date fields are required";
         } else {
-            $result = $this->employee_database->show_data_by_date_range($data);
+            $result = $this->vendor_bills_m->show_data_by_site_vendor($data);
             if ($result != false) {
                 $data['result_display'] = $result;
             } else {

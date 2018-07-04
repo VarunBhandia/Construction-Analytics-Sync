@@ -1219,10 +1219,34 @@ error_reporting(0);
                                     
                                     $('#igst').val(igst_d_k);
 
-                                    total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
-                                    console.log(total);
-                                    $('#total_<?php echo $i; ?>').val(total);
+                                    total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
+                                    $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
+                                    total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
+                                    console.log('total_total');
+                                    console.log(total_total);
+
+                                    var total_d_j;
+                                    var total_d_k=parseFloat(0);
+                                    for (total_d_j = 0; total_d_j < total_total.length; total_d_j++) 
+                                    { total_d_k += parseFloat(total_total[total_d_j]) ; } 
+                                    $('#total_total').val(total_d_k);
+                                    console.log('total_d_k : '+total_d_k);
                                     
+                                    frieght_amount = parseFloat(document.getElementById("frieght_amount").value);
+                                    if (!frieght_amount){ frieght_amount = parseFloat(0); }
+                                    console.log('frieght_amount : '+frieght_amount);
+                                    
+                                    frieght_gst = parseFloat(document.getElementById("frieght_gst").value);
+                                    if (!frieght_gst){ frieght_gst = parseFloat(0); }
+                                    console.log('frieght_gst : '+frieght_gst);
+                                    
+                                    frieght_amount_gst = frieght_amount * frieght_gst * .01;
+                                    console.log('frieght_amount_gst : '+frieght_amount_gst);
+                                    
+                                    frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                    console.log('frieght_amount_total : '+frieght_amount_total);
+                                    
+                                    $('#gross_amount').val(frieght_amount_total);
                                     
                                 }
                                 else
@@ -1281,16 +1305,41 @@ error_reporting(0);
                                     
                                     $('#igst').val(igst_d_k);
 
-                                    total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
-                                    console.log(total);
-                                    $('#total_<?php echo $i; ?>').val(total);
-                                                                        
+                                    total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
+                                    $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
+                                    total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
+                                    console.log('total_total');
+                                    console.log(total_total);
+
+                                    var total_d_j;
+                                    var total_d_k=parseFloat(0);
+                                    for (total_d_j = 0; total_d_j < total_total.length; total_d_j++) 
+                                    { total_d_k += parseFloat(total_total[total_d_j]) ; } 
+                                    $('#total_total').val(total_d_k);
+                                    console.log('total_d_k : '+total_d_k);
+                                    
+                                    frieght_amount = parseFloat(document.getElementById("frieght_amount").value);
+                                    if (!frieght_amount){ frieght_amount = parseFloat(0); }
+                                    console.log('frieght_amount : '+frieght_amount);
+                                    
+                                    frieght_gst = parseFloat(document.getElementById("frieght_gst").value);
+                                    if (!frieght_gst){ frieght_gst = parseFloat(0); }
+                                    console.log('frieght_gst : '+frieght_gst);
+                                    
+                                    frieght_amount_gst = frieght_amount * frieght_gst * .01;
+                                    console.log('frieght_amount_gst : '+frieght_amount_gst);
+                                    
+                                    frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                    console.log('frieght_amount_total : '+frieght_amount_total);
+                                    
+                                    $('#gross_amount').val(frieght_amount_total);
+                                    
                             }
-                            });
+                            }); 
                             
                             $('#unit_<?php echo $i; ?>').keyup(function() {
-                                unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
                                 
+                                unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
                                 dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
                                 discount = parseFloat($('#discount_<?php echo $i; ?>').val());
                                 if (!discount){ discount = parseFloat(0); }
@@ -1350,10 +1399,34 @@ error_reporting(0);
                                     
                                     $('#igst').val(igst_d_k);
 
-                                    total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
-                                    console.log(total);
-                                    $('#total_<?php echo $i; ?>').val(total);
+                                    total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
+                                    $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
+                                    total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
+                                    console.log('total_total');
+                                    console.log(total_total);
+
+                                    var total_d_j;
+                                    var total_d_k=parseFloat(0);
+                                    for (total_d_j = 0; total_d_j < total_total.length; total_d_j++) 
+                                    { total_d_k += parseFloat(total_total[total_d_j]) ; } 
+                                    $('#total_total').val(total_d_k);
+                                    console.log('total_d_k : '+total_d_k);
                                     
+                                    frieght_amount = parseFloat(document.getElementById("frieght_amount").value);
+                                    if (!frieght_amount){ frieght_amount = parseFloat(0); }
+                                    console.log('frieght_amount : '+frieght_amount);
+                                    
+                                    frieght_gst = parseFloat(document.getElementById("frieght_gst").value);
+                                    if (!frieght_gst){ frieght_gst = parseFloat(0); }
+                                    console.log('frieght_gst : '+frieght_gst);
+                                    
+                                    frieght_amount_gst = frieght_amount * frieght_gst * .01;
+                                    console.log('frieght_amount_gst : '+frieght_amount_gst);
+                                    
+                                    frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                    console.log('frieght_amount_total : '+frieght_amount_total);
+                                    
+                                    $('#gross_amount').val(frieght_amount_total);
                                     
                                 }
                                 else
@@ -1412,12 +1485,37 @@ error_reporting(0);
                                     
                                     $('#igst').val(igst_d_k);
 
-                                    total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
-                                    console.log(total);
-                                    $('#total_<?php echo $i; ?>').val(total);
-                                                                        
+                                    total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
+                                    $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
+                                    total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
+                                    console.log('total_total');
+                                    console.log(total_total);
+
+                                    var total_d_j;
+                                    var total_d_k=parseFloat(0);
+                                    for (total_d_j = 0; total_d_j < total_total.length; total_d_j++) 
+                                    { total_d_k += parseFloat(total_total[total_d_j]) ; } 
+                                    $('#total_total').val(total_d_k);
+                                    console.log('total_d_k : '+total_d_k);
+                                    
+                                    frieght_amount = parseFloat(document.getElementById("frieght_amount").value);
+                                    if (!frieght_amount){ frieght_amount = parseFloat(0); }
+                                    console.log('frieght_amount : '+frieght_amount);
+                                    
+                                    frieght_gst = parseFloat(document.getElementById("frieght_gst").value);
+                                    if (!frieght_gst){ frieght_gst = parseFloat(0); }
+                                    console.log('frieght_gst : '+frieght_gst);
+                                    
+                                    frieght_amount_gst = frieght_amount * frieght_gst * .01;
+                                    console.log('frieght_amount_gst : '+frieght_amount_gst);
+                                    
+                                    frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                    console.log('frieght_amount_total : '+frieght_amount_total);
+                                    
+                                    $('#gross_amount').val(frieght_amount_total);
+                                    
                             }
-                            });
+                            }); 
                             
                             $('#discount_<?php echo $i; ?>').keyup(function() {
                                 dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
@@ -2282,10 +2380,34 @@ error_reporting(0);
                                     
                                     $('#igst').val(igst_d_k);
 
-                                    total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
-                                    console.log(total);
-                                    $('#total_<?php echo $i; ?>').val(total);
+                                    total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
+                                    $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
+                                    total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
+                                    console.log('total_total');
+                                    console.log(total_total);
+
+                                    var total_d_j;
+                                    var total_d_k=parseFloat(0);
+                                    for (total_d_j = 0; total_d_j < total_total.length; total_d_j++) 
+                                    { total_d_k += parseFloat(total_total[total_d_j]) ; } 
+                                    $('#total_total').val(total_d_k);
+                                    console.log('total_d_k : '+total_d_k);
                                     
+                                    frieght_amount = parseFloat(document.getElementById("frieght_amount").value);
+                                    if (!frieght_amount){ frieght_amount = parseFloat(0); }
+                                    console.log('frieght_amount : '+frieght_amount);
+                                    
+                                    frieght_gst = parseFloat(document.getElementById("frieght_gst").value);
+                                    if (!frieght_gst){ frieght_gst = parseFloat(0); }
+                                    console.log('frieght_gst : '+frieght_gst);
+                                    
+                                    frieght_amount_gst = frieght_amount * frieght_gst * .01;
+                                    console.log('frieght_amount_gst : '+frieght_amount_gst);
+                                    
+                                    frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                    console.log('frieght_amount_total : '+frieght_amount_total);
+                                    
+                                    $('#gross_amount').val(frieght_amount_total);
                                     
                                 }
                                 else
@@ -2344,12 +2466,37 @@ error_reporting(0);
                                     
                                     $('#igst').val(igst_d_k);
 
-                                    total = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
-                                    console.log(total);
-                                    $('#total_<?php echo $i; ?>').val(total);
-                                                                        
+                                    total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
+                                    $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
+                                    total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
+                                    console.log('total_total');
+                                    console.log(total_total);
+
+                                    var total_d_j;
+                                    var total_d_k=parseFloat(0);
+                                    for (total_d_j = 0; total_d_j < total_total.length; total_d_j++) 
+                                    { total_d_k += parseFloat(total_total[total_d_j]) ; } 
+                                    $('#total_total').val(total_d_k);
+                                    console.log('total_d_k : '+total_d_k);
+                                    
+                                    frieght_amount = parseFloat(document.getElementById("frieght_amount").value);
+                                    if (!frieght_amount){ frieght_amount = parseFloat(0); }
+                                    console.log('frieght_amount : '+frieght_amount);
+                                    
+                                    frieght_gst = parseFloat(document.getElementById("frieght_gst").value);
+                                    if (!frieght_gst){ frieght_gst = parseFloat(0); }
+                                    console.log('frieght_gst : '+frieght_gst);
+                                    
+                                    frieght_amount_gst = frieght_amount * frieght_gst * .01;
+                                    console.log('frieght_amount_gst : '+frieght_amount_gst);
+                                    
+                                    frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                    console.log('frieght_amount_total : '+frieght_amount_total);
+                                    
+                                    $('#gross_amount').val(frieght_amount_total);
+                                    
                             }
-                            });
+                            }); 
                         });
                         
                         

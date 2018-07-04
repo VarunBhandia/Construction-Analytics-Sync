@@ -17,7 +17,7 @@ class Vendor_bills_m extends CI_Model {
 
 
     public function show_data_by_site_vendor($data) {
-        $condition = "sid=" . $data['sid'] . "'" . " AND vid= " . $data['vid'] . "'";
+        $condition = "sid=" . $data['sid'] . " AND vid= " . $data['vid'] ;
         $this->db->select('*'); 
         $this->db->from('grn_master');
         $this->db->where($condition);

@@ -1,78 +1,82 @@
-<?php
-	$this->load->view('/include/header');
-?>
-<body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-        
-        <!-- page content -->
-        <div class="right_col" role="main">          
-            <div class="clearfix"></div>
+<html>
+    <head>
+        <title>CodeIgniter Select Demo</title>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro|Open+Sans+Condensed:300|Raleway' rel='stylesheet' type='text/css'>
+    </head>
 
-            <div class="row">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-				<div class="x_title">
-                    <h2>Construction</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a href="<?php echo base_url().$controller;?>/form"><button class="btn btn-primary">Add New</button></a>
-                      </li>
-                    </ul>
-                    <div class="clearfix"></div>
-                 </div>
-				 <?php
-					echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
-				  ?>
-			<div id="table-scroll" class="table-scroll">
-			  <div class="table-wrap">
-					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
-							<thead>
-								<tr>
-								  <th>No</th>
-								  <th>Ref No.</th>
-								  <th>Site Name	</th>
-								  <th>Subcontractor Name</th>
-								  <th>Workorder Date</th>
-								  <th>Created On</th>
-								  <th>Action</th>
-								</tr>
-						   </thead>
-							<tbody>
-								<?php
-									$no = 1;
-										foreach($row as $test) {?>
-									<tr>
-									  <td><?php echo $no;?></td>
-                                        <td><?php echo 'test'; ?></td>
-									  <td><?php echo $test->sid;?></td>
-									  <td><?php echo $test->subid;?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->wocreatedon));?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->wodate));?></td>
-									  <td>
-                                          <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->woid;?>" class="btn btn-success">Edit</a>
-                                          <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger">Delete</a>
-                                        </td>
-									  <?php $no++;?>
-									</tr>
-									<?php
-									}
-									?>
-							</tbody>
-					</table>
-				</div>
-			</div>
-                </div>
-              </div>
-          </div>
+    <body>
+        <div id="main">
+            <div id="note"><span><b>Note : </b></span> In this DEMO we have used a default table for record. </div>
+            <div class="message">
+                <?php
+                if (isset($read_set_value)) {
+                    echo $read_set_value;
+                }
+                if (isset($message_display)) {
+                    echo $message_display;
+                }
+                ?>
+            </div>
+
+            <div id="show_form">
+                <h2>CodeIgniter Select By ID And Date</h2>
+                <?php
+                
+                echo form_open('Vendor_bills/show_data_by_site_vendor');
+                echo form_label('Select Site and Vendor : ');
+                echo "From : ";
+
+                $data = array(
+                    'type' => 'text',
+                    'name' => 'sid',
+                    'placeholder' => 'Sid'
+                );
+                echo form_input($data);
+                echo " To : ";
+
+                $data = array(
+                    'type' => 'text',
+                    'name' => 'vid',
+                    'placeholder' => 'Vid'
+                );
+                echo form_input($data);
+                echo "<div class='error_msg'>";
+                if (isset($date_range_error_message)) {
+                    echo $date_range_error_message;
+                }
+                echo form_submit('submit', 'Show Record');
+                echo form_close();
+                ?>
+
+                <div class="message">
+                    <?php
+                    if (isset($result_display)) {
+                        echo "<p><u>Result</u></p>";
+                        if ($result_display == 'No record found !') 
+                        { echo $result_display; } else 
+                        { ?>
+                           <table class='result_table'>
+                            <tr>
+                                <th>GRN ID</th>
+                                <th>SID</th>
+                                <th>VID</th>
+                               <tr/>
+                               <?php
+                            foreach ($result_display as $value) 
+                               { ?>
+                                <tr>
+                                    <td class="e_id"><?php echo $value->grnid; ?></td>
+                                    <td class="e_id"><?php echo $value->sid; ?></td>
+                                    <td class="e_id"><?php echo $value->vid; ?></td>
+                               </tr>
+                         <?php   } ?>
+                           </table>
+                      <?php  }
+                    }
+                    ?>
+            </div>
+            </div>
         </div>
-    </div>
-    </div>
-  </body>
-<?php
-	$this->load->view('include/footer');
-?>
-<script>
-	jQuery(document).ready(function() {
-	jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
-	});
-</script>
+    </body>
+</html>

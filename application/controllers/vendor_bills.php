@@ -12,7 +12,7 @@ class Vendor_bills extends CI_Controller {
 
     public function index() {
         $data['show_table'] = $this->view_table();
-        $this->load->view('select_form', $data);
+        $this->load->view('vendor_bills/index', $data);
     }
     public function view_table(){
         $result = $this->vendor_bills_m->show_all_data();
@@ -24,8 +24,8 @@ class Vendor_bills extends CI_Controller {
     }
 
     public function show_data_by_site_vendor() {
-        $date1 = $this->input->post('sid');
-        $date2 = $this->input->post('vid');
+        $sid = $this->input->post('sid');
+        $vid = $this->input->post('vid');
         $data = array(
             'sid' => $sid,
             'vid' => $vid
@@ -41,7 +41,7 @@ class Vendor_bills extends CI_Controller {
             }
         }
         $data['show_table'] = $this->view_table();
-        $this->load->view('select_form', $data);
+        $this->load->view('vendor_bills/index', $data);
     }
 
 }

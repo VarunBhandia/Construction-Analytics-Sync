@@ -14,15 +14,51 @@
 		{
 			parent::__construct();
 			$this->load->model('Model');
+            $this->load->model('consumption_m');
 			$this->model = 'Model';
 			date_default_timezone_set('Asia/Kolkata');
 		}
+        
+        public function view_table()
+        {			
+            $data['controller'] = $this->controller;
+            $model = $this->model;
+            $result = $this->consumption_m->show_all_data();
+            if ($result != false) {
+                return $result;
+            } else {
+                return 'Database is empty !';
+            }
+        }
+        
+        public function select_by_id() 
+        {
+            $model = $this->model;
+			$data['controller'] = $this->controller;
+            $sid = $this->input->post('sid');
+            if ($sid != "") {
+                $result = $this->consumption_m->show_data_by_id($sid);
+                if ($result != false) {
+                    $data['result_display'] = $result;
+                } else 
+                    {
+                    $data['result_display'] = "No record found !";
+                    }
+            } 
+            else {
+                $data = array(
+                    'id_error_message' => "Id field is required"
+                );
+                }
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['show_table'] = $this->view_table();
+            $this->load->view('consumption/index', $data);
+        }
 	
 		public function index()
 		{
 			$model = $this->model;
 			$data['controller'] = $this->controller;
-			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
 			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
 
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
@@ -133,70 +169,7 @@ $model = $this->model;
 			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
 			redirect('consumption');
 		}
-        public function view_table(){
-$result = $this->employee_database->show_all_data();
-if ($result != false) {
-return $result;
-} else {
-return 'Database is empty !';
-}
-}
 
-public function select_by_id() {
-$id = $this->input->post('id');
-if ($id != "") {
-$result = $this->employee_database->show_data_by_id($id);
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-$data['result_display'] = "No record found !";
-}
-} else {
-$data = array(
-'id_error_message' => "Id field is required"
-);
-}
-$data['show_table'] = $this->view_table();
-$this->load->view('Consumption', $data);
-}
-
-public function select_by_date() {
-$date = $this->input->post('date');
-if ($date != "") {
-$result = $this->employee_database->show_data_by_date($date);
-
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-$data['result_display'] = "No record found !";
-}
-} else {
-$data['date_error_message'] = "Date field is required";
-}
-$data['show_table'] = $this->view_table();
-$this->load->view('Consumption', $data);
-}
-
-public function select_by_date_range() {
-$date1 = $this->input->post('date_from');
-$date2 = $this->input->post('date_to');
-$data = array(
-'date1' => $date1,
-'date2' => $date2
-);
-if ($date1 == "" || $date2 == "") {
-$data['date_range_error_message'] = "Both date fields are required";
-} else {
-$result = $this->employee_database->show_data_by_date_range($data);
-if ($result != false) {
-$data['result_display'] = $result;
-} else {
-$data['result_display'] = "No record found !";
-}
-}
-$data['show_table'] = $this->view_table();
-$this->load->view('Consumption', $data);
-}
 
 	}
 

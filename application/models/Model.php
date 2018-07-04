@@ -5,7 +5,7 @@ class Model extends CI_Model {
 	{
 		parent::__construct();
 	}
-
+    
 	public function select($fields,$table,$condition,$orderField,$orderType='desc',$limit=null)
 	{
 		return $this->db->select($fields)->where($condition)->order_by($orderField,$orderType)->limit($limit)->get($table)->result();

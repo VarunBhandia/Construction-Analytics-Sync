@@ -91,6 +91,12 @@ error_reporting(0);
 					</tr>
 				</thead>
 				<tbody>
+                    <script>
+                            var cgst_d_total = [];
+                            var sgst_d_total = [];
+                            var igst_d_total = [];
+                    </script>
+
 				<?php if($action == 'update') 
 { 
                 

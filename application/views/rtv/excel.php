@@ -41,16 +41,16 @@
 				  <div class="datatable-responsive">
 					<table id="datatable1" class="table table-striped table-bordered">
 						<thead>
-							<th>mrid</th>
+							<th>rtvid</th>
 							<th>sid</th>
 							<th>mid</th>
-							<th>mrqty</th>
-							<th>mrunitprice</th>
-							<th>mrrefid</th>
+							<th>rtvqty</th>
+							<th>vid</th>
+							<th>rtvrefid</th>
 							<th>muid</th>
-							<th>mrremarks</th>
-							<th>mrcreatedon</th>
-							<th>mrcreatedby</th>
+							<th>rtvremark</th>
+							<th>rtvcreatedon</th>
+							<th>rtvcreatedby</th>
 						</thead>
 
                     <tbody>
@@ -104,16 +104,16 @@ $(document).ready(function (){
             "type": "POST",
             },
         "columns": [
-          { "data": "mrid",},
+          { "data": "rtvid",},
           { "data": "sid",},
           { "data": "mid"},
-          { "data": "mrqty"},
-          { "data": "mrunitprice"},
-          { "data": "mrrefid"},
+          { "data": "rtvqty"},
+          { "data": "vid"},
+          { "data": "rtvrefid"},
           { "data": "muid"},
-          { "data": "mrremarks"},
-          { "data": "mrcreatedon"},
-          { "data": "mrcreatedby"},
+          { "data": "rtvremark"},
+          { "data": "rtvcreatedon"},
+          { "data": "rtvcreatedby"},
         ],
 		"columnDefs": [ {
 			"targets": [2,3,4,5,6,7],

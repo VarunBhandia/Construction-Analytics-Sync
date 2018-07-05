@@ -140,7 +140,7 @@
              </a>
          </div>
          <div class="col-md-2">
-            <a href="<?php echo base_url(); ?>vbill" target="_blank">
+            <a href="<?php echo base_url(); ?>vendor_bills" target="_blank">
              <div class="ModuleTile">
                 <div class="ModuleHeading">
                 Vendor Bills 

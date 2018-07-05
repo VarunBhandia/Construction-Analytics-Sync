@@ -243,7 +243,7 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
@@ -331,7 +331,7 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
@@ -419,7 +419,7 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
@@ -506,7 +506,7 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
@@ -593,14 +593,15 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
 
 
-                                            });  
-                                            $('#igst_<?php echo $i; ?>').keyup(function() {
+                                            });
+                                            
+                                            $('#frieght_amount').keyup(function() {
 
                                                 netTotal = parseFloat(quantity * unit_price);
                                                 if (!netTotal){ netTotal = parseFloat(0); }
@@ -679,14 +680,15 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
 
 
                                             });  
-                                            $('#igst_<?php echo $i; ?>').keyup(function() {
+                                            
+                                            $('#frieght_gst').keyup(function() {
 
                                                 netTotal = parseFloat(quantity * unit_price);
                                                 if (!netTotal){ netTotal = parseFloat(0); }
@@ -765,20 +767,17 @@ elseif($action == 'update')
                                                 frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                 console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
 
 
                                             });                           
-
-
                                         });
 
-
-
-                                    </script>                                        <?php } } ?>
+                                    </script>                                        
+                                    <?php } } ?>
                                 </tbody>
                             </table>
                             <div class="form-group">

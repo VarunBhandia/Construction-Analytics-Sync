@@ -278,7 +278,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -364,7 +364,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -458,7 +458,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -544,7 +544,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -723,7 +723,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -809,7 +809,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -902,7 +902,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -988,7 +988,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1081,7 +1081,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1167,7 +1167,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1260,7 +1260,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1346,7 +1346,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1439,7 +1439,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1525,7 +1525,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1618,7 +1618,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1704,7 +1704,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1896,7 +1896,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -1982,7 +1982,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2076,7 +2076,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2162,7 +2162,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2341,7 +2341,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2427,7 +2427,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2520,7 +2520,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2606,7 +2606,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2698,7 +2698,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2783,7 +2783,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2876,7 +2876,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -2962,7 +2962,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -3055,7 +3055,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -3141,7 +3141,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -3234,7 +3234,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);
@@ -3320,7 +3320,7 @@ elseif($action == 'update')
                                                         frieght_amount_gst = frieght_amount * frieght_gst * .01;
                                                         console.log('frieght_amount_gst : '+frieght_amount_gst);
 
-                                                        frieght_amount_total = total_d_k + frieght_amount_gst + frieght_gst;
+                                                        frieght_amount_total = total_d_k + frieght_amount_gst+ frieght_amount;
                                                         console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                         $('#gross_amount').val(frieght_amount_total);

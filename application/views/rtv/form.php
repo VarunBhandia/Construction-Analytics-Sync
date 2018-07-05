@@ -38,11 +38,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
-                       <script type="text/javascript">
-      $('.sitename').select2({
-        placeholder: '--- Select Sites ---',
-        });
-</script>
+                            <script type="text/javascript">
+                                $('.sitename').select2({
+                                    placeholder: '--- Select Sites ---',
+                                });
+                            </script>
                         </div>
                       </div>
                       <div class="form-group">

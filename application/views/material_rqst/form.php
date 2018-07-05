@@ -52,8 +52,8 @@ error_reporting(0);
                           <input class="form-control" id="date" name="date" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y H:i:s",strtotime($row[0]->receive_date)) :  date("d-m-Y H:i:s"); ?>" autocomplete="off">
 						</div>
                       </div>
-	<div class="table-responsive">		  
-		<table class="table table-striped jambo_table" style="width:100%;">
+				  <div class="datatable-responsive">
+					<table id="datatable1" class="table table-striped table-bordered">
 				<thead>
 					<tr class="headings">
 					<th class="column-title">Material Name</th>
@@ -278,3 +278,8 @@ $(document).ready(function (){
 					</tr>   
 </script>
 
+<script>
+$(document).ready(function() {
+    $('#datatable1').DataTable();
+} );
+</script>

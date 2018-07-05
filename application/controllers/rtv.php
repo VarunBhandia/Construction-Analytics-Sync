@@ -183,14 +183,15 @@
 			redirect('Rtv');
 		}
         
-        public function browse()
 		{
 			/* File Select */
 			$model = $this->model;
 			$data['controller'] = $this->controller;
 			/* Database In Data Count */
 			$data['Count'] = $this->$model->countTableRecords('rtv_master',array());
+
 			$this->load->view('rtv/excel',$data);
+			$this->load->view('excel',$data);
 		}
 		
 		public function excel()

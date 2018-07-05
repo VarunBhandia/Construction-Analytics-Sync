@@ -180,7 +180,7 @@ $model = $this->model;
 			$data['controller'] = $this->controller;
 			/* Database In Data Count */
 			$data['Count'] = $this->$model->countTableRecords('cp_master',array());
-			$this->load->view('excel',$data);
+			$this->load->view('cp/excel',$data);
 		}
 		
 		public function excel()
@@ -217,7 +217,7 @@ $model = $this->model;
 				include(APPPATH.'/libraries/simplexlsx.class.php');
 				$xlsx = new SimpleXLSX($data_upload['full_path']);
 				
-				$table = 'material_rqst';
+				$table = 'cp_master';
 				
 				$xlsxData = $xlsx->rows(); //excel rows data
 				

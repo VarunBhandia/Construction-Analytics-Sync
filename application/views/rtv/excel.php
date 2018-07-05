@@ -12,13 +12,8 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Construction</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a href="<?php echo base_url()?>material_rqst/form"><button class="btn btn-primary">Add New MR</button></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
-                  
                 <div class="x_content">
                     <br />
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/excel';?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
@@ -39,7 +34,6 @@
                     </form>
                   </div>
 				  <?php	if($Count > 0) {	?>
-                    
 				  <div class="col-md-12 col-sm-6 col-xs-12">
 					<h4>Number Of Row : <?php echo $Count;?></h4>
 				  </div>
@@ -128,7 +122,6 @@ $(document).ready(function (){
       });
     });
 </script>
-
 <script>
 $(document).ready(function() {
     $('#datatable1').DataTable();

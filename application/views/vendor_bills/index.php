@@ -23,8 +23,6 @@ elseif($action == 'update')
                         <div class="clearfix"></div>
                     </div>
 
-                    <div id="show_form">
-                        <h2>CodeIgniter Select By ID And Date</h2>
                         <?php
 
                         echo form_open('Vendor_bills/show_data_by_site_vendor');
@@ -33,12 +31,14 @@ elseif($action == 'update')
                         $data = array(
                             'type' => 'text',
                             'name' => 'sid',
+                            'class' =>'form-control',
                             'placeholder' => 'Sid'
                         );
                         echo form_input($data);
                         $data = array(
                             'type' => 'text',
                             'name' => 'vid',
+                            'class' =>'form-control',
                             'placeholder' => 'Vid'
                         );
                         echo form_input($data);
@@ -81,6 +81,13 @@ elseif($action == 'update')
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        <script>
+                                            var cgst_d_total = [];
+                                            var sgst_d_total = [];
+                                            var igst_d_total = [];
+                                            var total_total = [];
+                                        </script>
+
                                         <?php
 
                                     foreach ($result_display as $value) {
@@ -123,7 +130,8 @@ elseif($action == 'update')
                                                 <?php }	?>
                                             </td>
                                             <td style="width: 5em;">
-                                                <input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $qty[$i]; ?>">
+                                                <?php echo $qty[$i]; ?>
+                                                <input type="hidden" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>">
 
                                             </td>
                                             <td style="width: 7em;">
@@ -158,15 +166,19 @@ elseif($action == 'update')
                                                 $('#app_qty_<?php echo $i; ?>').keyup(function() {
 
                                                     netTotal = parseFloat(quantity * unit_price);
-
+                                                    netTotal = parseFloat(quantity * unit_price);
+                                                    if (!netTotal){ netTotal = parseFloat(0); }
+                                                    
+                                                    console.log('netTotal: '+netTotal);
+                                                    
                                                     cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                                     if (!cgst_<?php echo $i; ?>){ cgst_<?php echo $i; ?> = parseFloat(0); }
 
                                                     cgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(cgst_d_<?php echo $i; ?>);
+                                                    console.log('cgst_d_'+<?php echo $i; ?>+' : '+cgst_d_<?php echo $i; ?>);
                                                     cgst_d_total[<?php echo $i; ?>] = parseFloat(cgst_d_<?php echo $i; ?>);
-                                                    console.log(cgst_d_total);
+                                                    console.log('cgst_d_total : '+cgst_d_total);
 
                                                     var cgst_d_j;
                                                     var cgst_d_k=parseFloat(0);
@@ -180,9 +192,9 @@ elseif($action == 'update')
 
                                                     sgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     sgst_d_<?php echo $i; ?> = parseFloat(sgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(sgst_d_<?php echo $i; ?>);
+                                                    console.log('sgst_d_'+<?php echo $i; ?>+' : '+sgst_d_<?php echo $i; ?>);
                                                     sgst_d_total[<?php echo $i; ?>] = parseFloat(sgst_d_<?php echo $i; ?>);
-                                                    console.log(sgst_d_total);
+                                                    console.log('sgst_d_total : '+sgst_d_total);
 
                                                     var sgst_d_j;
                                                     var sgst_d_k=parseFloat(0);
@@ -196,9 +208,9 @@ elseif($action == 'update')
 
                                                     igst_d_<?php echo $i; ?> = parseFloat(0);
                                                     igst_d_<?php echo $i; ?> = parseFloat(igst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(igst_d_<?php echo $i; ?>);
+                                                    console.log('igst_d_'+<?php echo $i; ?>+' : '+igst_d_<?php echo $i; ?>);
                                                     igst_d_total[<?php echo $i; ?>] = parseFloat(igst_d_<?php echo $i; ?>);
-                                                    console.log(igst_d_total);
+                                                    console.log('igst_d_total : '+igst_d_total);
 
                                                     var igst_d_j;
                                                     var igst_d_k=parseFloat(0);
@@ -215,15 +227,18 @@ elseif($action == 'update')
 
                                                     unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
                                                     netTotal = parseFloat(quantity * unit_price);
-
+                                                    if (!netTotal){ netTotal = parseFloat(0); }
+                                                    
+                                                    console.log('netTotal: '+netTotal);
+                                                    
                                                     cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                                     if (!cgst_<?php echo $i; ?>){ cgst_<?php echo $i; ?> = parseFloat(0); }
 
                                                     cgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(cgst_d_<?php echo $i; ?>);
+                                                    console.log('cgst_d_'+<?php echo $i; ?>+' : '+cgst_d_<?php echo $i; ?>);
                                                     cgst_d_total[<?php echo $i; ?>] = parseFloat(cgst_d_<?php echo $i; ?>);
-                                                    console.log(cgst_d_total);
+                                                    console.log('cgst_d_total : '+cgst_d_total);
 
                                                     var cgst_d_j;
                                                     var cgst_d_k=parseFloat(0);
@@ -237,9 +252,9 @@ elseif($action == 'update')
 
                                                     sgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     sgst_d_<?php echo $i; ?> = parseFloat(sgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(sgst_d_<?php echo $i; ?>);
+                                                    console.log('sgst_d_'+<?php echo $i; ?>+' : '+sgst_d_<?php echo $i; ?>);
                                                     sgst_d_total[<?php echo $i; ?>] = parseFloat(sgst_d_<?php echo $i; ?>);
-                                                    console.log(sgst_d_total);
+                                                    console.log('sgst_d_total : '+sgst_d_total);
 
                                                     var sgst_d_j;
                                                     var sgst_d_k=parseFloat(0);
@@ -253,9 +268,9 @@ elseif($action == 'update')
 
                                                     igst_d_<?php echo $i; ?> = parseFloat(0);
                                                     igst_d_<?php echo $i; ?> = parseFloat(igst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(igst_d_<?php echo $i; ?>);
+                                                    console.log('igst_d_'+<?php echo $i; ?>+' : '+igst_d_<?php echo $i; ?>);
                                                     igst_d_total[<?php echo $i; ?>] = parseFloat(igst_d_<?php echo $i; ?>);
-                                                    console.log(igst_d_total);
+                                                    console.log('igst_d_total : '+igst_d_total);
 
                                                     var igst_d_j;
                                                     var igst_d_k=parseFloat(0);
@@ -271,15 +286,18 @@ elseif($action == 'update')
                                                 $('#cgst_<?php echo $i; ?>').keyup(function() {
 
                                                     netTotal = parseFloat(quantity * unit_price);
-
+                                                    if (!netTotal){ netTotal = parseFloat(0); }
+                                                    
+                                                    console.log('netTotal: '+netTotal);
+                                                    
                                                     cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                                     if (!cgst_<?php echo $i; ?>){ cgst_<?php echo $i; ?> = parseFloat(0); }
 
                                                     cgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(cgst_d_<?php echo $i; ?>);
+                                                    console.log('cgst_d_'+<?php echo $i; ?>+' : '+cgst_d_<?php echo $i; ?>);
                                                     cgst_d_total[<?php echo $i; ?>] = parseFloat(cgst_d_<?php echo $i; ?>);
-                                                    console.log(cgst_d_total);
+                                                    console.log('cgst_d_total : '+cgst_d_total);
 
                                                     var cgst_d_j;
                                                     var cgst_d_k=parseFloat(0);
@@ -293,9 +311,9 @@ elseif($action == 'update')
 
                                                     sgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     sgst_d_<?php echo $i; ?> = parseFloat(sgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(sgst_d_<?php echo $i; ?>);
+                                                    console.log('sgst_d_'+<?php echo $i; ?>+' : '+sgst_d_<?php echo $i; ?>);
                                                     sgst_d_total[<?php echo $i; ?>] = parseFloat(sgst_d_<?php echo $i; ?>);
-                                                    console.log(sgst_d_total);
+                                                    console.log('sgst_d_total : '+sgst_d_total);
 
                                                     var sgst_d_j;
                                                     var sgst_d_k=parseFloat(0);
@@ -309,9 +327,9 @@ elseif($action == 'update')
 
                                                     igst_d_<?php echo $i; ?> = parseFloat(0);
                                                     igst_d_<?php echo $i; ?> = parseFloat(igst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(igst_d_<?php echo $i; ?>);
+                                                    console.log('igst_d_'+<?php echo $i; ?>+' : '+igst_d_<?php echo $i; ?>);
                                                     igst_d_total[<?php echo $i; ?>] = parseFloat(igst_d_<?php echo $i; ?>);
-                                                    console.log(igst_d_total);
+                                                    console.log('igst_d_total : '+igst_d_total);
 
                                                     var igst_d_j;
                                                     var igst_d_k=parseFloat(0);
@@ -328,15 +346,18 @@ elseif($action == 'update')
                                                 $('#sgst_<?php echo $i; ?>').keyup(function() {
 
                                                     netTotal = parseFloat(quantity * unit_price);
-
+                                                    if (!netTotal){ netTotal = parseFloat(0); }
+                                                    
+                                                    console.log('netTotal: '+netTotal);
+                                                    
                                                     cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                                     if (!cgst_<?php echo $i; ?>){ cgst_<?php echo $i; ?> = parseFloat(0); }
 
                                                     cgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(cgst_d_<?php echo $i; ?>);
+                                                    console.log('cgst_d_'+<?php echo $i; ?>+' : '+cgst_d_<?php echo $i; ?>);
                                                     cgst_d_total[<?php echo $i; ?>] = parseFloat(cgst_d_<?php echo $i; ?>);
-                                                    console.log(cgst_d_total);
+                                                    console.log('cgst_d_total : '+cgst_d_total);
 
                                                     var cgst_d_j;
                                                     var cgst_d_k=parseFloat(0);
@@ -350,9 +371,9 @@ elseif($action == 'update')
 
                                                     sgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     sgst_d_<?php echo $i; ?> = parseFloat(sgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(sgst_d_<?php echo $i; ?>);
+                                                    console.log('sgst_d_'+<?php echo $i; ?>+' : '+sgst_d_<?php echo $i; ?>);
                                                     sgst_d_total[<?php echo $i; ?>] = parseFloat(sgst_d_<?php echo $i; ?>);
-                                                    console.log(sgst_d_total);
+                                                    console.log('sgst_d_total : '+sgst_d_total);
 
                                                     var sgst_d_j;
                                                     var sgst_d_k=parseFloat(0);
@@ -366,9 +387,9 @@ elseif($action == 'update')
 
                                                     igst_d_<?php echo $i; ?> = parseFloat(0);
                                                     igst_d_<?php echo $i; ?> = parseFloat(igst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(igst_d_<?php echo $i; ?>);
+                                                    console.log('igst_d_'+<?php echo $i; ?>+' : '+igst_d_<?php echo $i; ?>);
                                                     igst_d_total[<?php echo $i; ?>] = parseFloat(igst_d_<?php echo $i; ?>);
-                                                    console.log(igst_d_total);
+                                                    console.log('igst_d_total : '+igst_d_total);
 
                                                     var igst_d_j;
                                                     var igst_d_k=parseFloat(0);
@@ -385,15 +406,18 @@ elseif($action == 'update')
                                                 $('#igst_<?php echo $i; ?>').keyup(function() {
 
                                                     netTotal = parseFloat(quantity * unit_price);
-
+                                                    if (!netTotal){ netTotal = parseFloat(0); }
+                                                    
+                                                    console.log('netTotal: '+netTotal);
+                                                    
                                                     cgst_<?php echo $i; ?> = parseFloat($('#cgst_<?php echo $i; ?>').val());
                                                     if (!cgst_<?php echo $i; ?>){ cgst_<?php echo $i; ?> = parseFloat(0); }
 
                                                     cgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     cgst_d_<?php echo $i; ?> = parseFloat(cgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(cgst_d_<?php echo $i; ?>);
+                                                    console.log('cgst_d_'+<?php echo $i; ?>+' : '+cgst_d_<?php echo $i; ?>);
                                                     cgst_d_total[<?php echo $i; ?>] = parseFloat(cgst_d_<?php echo $i; ?>);
-                                                    console.log(cgst_d_total);
+                                                    console.log('cgst_d_total : '+cgst_d_total);
 
                                                     var cgst_d_j;
                                                     var cgst_d_k=parseFloat(0);
@@ -407,9 +431,9 @@ elseif($action == 'update')
 
                                                     sgst_d_<?php echo $i; ?> = parseFloat(0);
                                                     sgst_d_<?php echo $i; ?> = parseFloat(sgst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(sgst_d_<?php echo $i; ?>);
+                                                    console.log('sgst_d_'+<?php echo $i; ?>+' : '+sgst_d_<?php echo $i; ?>);
                                                     sgst_d_total[<?php echo $i; ?>] = parseFloat(sgst_d_<?php echo $i; ?>);
-                                                    console.log(sgst_d_total);
+                                                    console.log('sgst_d_total : '+sgst_d_total);
 
                                                     var sgst_d_j;
                                                     var sgst_d_k=parseFloat(0);
@@ -423,9 +447,9 @@ elseif($action == 'update')
 
                                                     igst_d_<?php echo $i; ?> = parseFloat(0);
                                                     igst_d_<?php echo $i; ?> = parseFloat(igst_<?php echo $i; ?> * netTotal * 0.01)
-                                                    console.log(igst_d_<?php echo $i; ?>);
+                                                    console.log('igst_d_'+<?php echo $i; ?>+' : '+igst_d_<?php echo $i; ?>);
                                                     igst_d_total[<?php echo $i; ?>] = parseFloat(igst_d_<?php echo $i; ?>);
-                                                    console.log(igst_d_total);
+                                                    console.log('igst_d_total : '+igst_d_total);
 
                                                     var igst_d_j;
                                                     var igst_d_k=parseFloat(0);
@@ -436,7 +460,6 @@ elseif($action == 'update')
 
                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
                                                     $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
-
                                                 });                           
 
 

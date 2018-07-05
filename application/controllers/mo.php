@@ -13,9 +13,46 @@
 		{
 			parent::__construct();
 			$this->load->model('Model');
+             $this->load->model('mo_m');
 			$this->model = 'Model';
 			date_default_timezone_set('Asia/Kolkata');
 		}
+        
+        public function view_table()
+        {			
+            $data['controller'] = $this->controller;
+            $model = $this->model;
+            $result = $this->mo_m->show_all_data();
+            if ($result != false) {
+                return $result;
+            } else {
+                return 'Database is empty !';
+            }
+        }
+        
+        public function select_by_id() 
+        {
+            $model = $this->model;
+			$data['controller'] = $this->controller;
+            $sid = $this->input->post('sid');
+            if ($sid != "") {
+                $result = $this->mo_m->show_data_by_id($sid);
+                if ($result != false) {
+                    $data['result_display'] = $result;
+                } else 
+                    {
+                    $data['result_display'] = "No record found !";
+                    }
+            } 
+            else {
+                $data = array(
+                    'id_error_message' => "Id field is required"
+                );
+                }
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['show_table'] = $this->view_table();
+            $this->load->view('mo/index', $data);
+        }
 	
 		public function index()
 		{

@@ -183,13 +183,14 @@
 			redirect('Rtv');
 		}
         
-        		public function browse()
 		{
 			/* File Select */
 			$model = $this->model;
 			$data['controller'] = $this->controller;
 			/* Database In Data Count */
 			$data['Count'] = $this->$model->countTableRecords('rtv_master',array());
+
+			$this->load->view('rtv/excel',$data);
 			$this->load->view('excel',$data);
 		}
 		
@@ -216,7 +217,7 @@
 			if(!$this->upload->do_upload('excel'))
 			{
 				$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-				redirect('My_controller/browse');
+				redirect('rtv/browse');
 			}
 			/* file check else condition is file upload */
 			else
@@ -390,10 +391,5 @@
 						);
 			echo json_encode($json_data);
 		}
-	}
-?>
-
-
-
 	}
 ?>

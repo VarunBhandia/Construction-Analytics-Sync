@@ -2,6 +2,7 @@
 error_reporting(0);
 $this->load->view('include/header');
 
+
 if($action == 'insert')
 {
     $btn = 'Save';
@@ -10,6 +11,8 @@ elseif($action == 'update')
 {
     $btn = 'Update';
 }
+
+
 ?>
 
 <div class="right_col" role="main">          
@@ -19,7 +22,7 @@ elseif($action == 'update')
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Construction</h2>
+                        <h2>Construction<?php echo $action; ?></h2>
                         <div class="clearfix"></div>
                     </div>
 
@@ -600,7 +603,7 @@ elseif($action == 'update')
 
 
                                             });
-                                            
+
                                             $('#frieght_amount').keyup(function() {
 
                                                 netTotal = parseFloat(quantity * unit_price);
@@ -687,7 +690,7 @@ elseif($action == 'update')
 
 
                                             });  
-                                            
+
                                             $('#frieght_gst').keyup(function() {
 
                                                 netTotal = parseFloat(quantity * unit_price);
@@ -830,35 +833,66 @@ elseif($action == 'update')
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Bill No.
+                                </label>
+                                <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                    <input class="form-control" id="bill_no" name="bill_no" type="text" value="" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Bill Date
+                                </label>
+                                <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                    <input class="form-control" id="bill_date" name="bill_date" type="date" value="" autocomplete="off" >
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Bill Type
+                                </label>
+                                <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                    <select name="bill_type" id="bill_type" class="form-control select_width">
+                                        <option value="purchase">Purchase</option>
+                                        <option value="asset">Asset</option>
+                                        <option value="maintenance">Maintenance</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
                                 <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
                                 </label>
                                 <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                                    <input class="form-control" id="invoice_to" name="invoice_to" type="text" value="" autocomplete="off" >
+                                    <select name="bill_type" id="bill_type" class="form-control select_width">
+                                        <?php
+                                                foreach($office_details as $office_detail)
+                                                { ?>
+                                                    <option value="<?php echo $office_detail->oid?>"><?php echo $office_detail->oname.' ('.$office_detail->oaddress.' )'; ?></option>
+                                                    <?php }	?>
+
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact Name
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Payment Days (After Bill Date)
                                 </label>
                                 <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                                    <input class="form-control" id="contact_name" name="contact_name" type="text" value="" autocomplete="off" >
+                                    <input class="form-control" id="payment_days" name="payment_days" type="text" value="60" autocomplete="off" >
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact No.
+                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Remarks
                                 </label>
                                 <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                                    <input class="form-control" id="contact_no" name="contact_no" type="text" value="" autocomplete="off" >
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-2 col-sm-3 col-xs-12">Terms & Conditions
-                                </label>
-                                <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                                    <input class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
+                                    <input class="form-control" id="vbremarks" name="vbremarks" type="text" autocomplete="off" >
                                 </div>
                             </div>
                         </div>
                         <?php   } ?>
+                            <div class="form-group">
+                                <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
+                                    <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>
+                                    <a href="<?php echo base_url().$controller;?>" class="btn btn-danger">Cancel</a>
+                                </div>
+                            </div>
                         <?php  }
                         ?>
                     </div>
@@ -866,7 +900,6 @@ elseif($action == 'update')
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>
 </html>

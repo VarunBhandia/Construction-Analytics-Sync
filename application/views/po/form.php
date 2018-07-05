@@ -2763,8 +2763,7 @@ elseif($action == 'update')
                                                         total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
                                                         $('#total_<?php echo $i; ?>').val(total_<?php echo $i; ?>);
                                                         total_total[<?php echo $i; ?>] = parseFloat(total_<?php echo $i; ?>);
-                                                        console.log('total_total');
-                                                        console.log(total_total);
+                                                        console.log('total_total: '+total_total);
 
                                                         var total_d_j;
                                                         var total_d_k=parseFloat(0);

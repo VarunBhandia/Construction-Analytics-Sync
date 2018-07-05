@@ -46,10 +46,10 @@ error_reporting(0);
                         </div>
                       </div>
 					  <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Receive Date
+                        <label class="control-label col-md-2 col-sm-3 col-xs-12">Date
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="date" name="date" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y",strtotime($row[0]->receive_date)) :  date("d-m-Y"); ?>" autocomplete="off">
+                          <input class="form-control" id="date" name="date" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y H:i:s",strtotime($row[0]->receive_date)) :  date("d-m-Y H:i:s"); ?>" autocomplete="off">
 						</div>
                       </div>
 	<div class="table-responsive">		  

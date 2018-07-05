@@ -12,13 +12,8 @@
                 <div class="x_panel">
                   <div class="x_title">
                     <h2>Construction</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <li><a href="<?php echo base_url()?>material_rqst/form"><button class="btn btn-primary">Add New MR</button></a>
-                      </li>
-                    </ul>
                     <div class="clearfix"></div>
                   </div>
-                  
                 <div class="x_content">
                     <br />
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/excel';?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">

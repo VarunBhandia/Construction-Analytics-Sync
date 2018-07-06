@@ -111,9 +111,11 @@ elseif($action == 'update')
                                     <tr class="pending-user">
                                         <td style="width: 6em;">
                                             <?php echo $result_display[0]->grnrefid; ?>
+                                            <input type="hidden" id="grnrefid" name="grnrefid" class="amountonly form-control" value="<?php echo $result_display[0]->grnrefid; ?>">
                                         </td>
                                         <td style="width: 6em;">
                                             <?php echo $result_display[0]->grnreceivedate ; ?>
+                                            <input type="hidden" id="grnreceivedate" name="grnreceivedate" class="amountonly form-control" value="<?php echo $result_display[0]->grnreceivedate; ?>">
                                         </td>
                                         <td style="width: 6em;">
                                             <?php echo $grnlinechallan[$i]; ?>

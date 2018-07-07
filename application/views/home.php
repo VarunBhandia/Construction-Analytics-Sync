@@ -34,7 +34,6 @@
              </div>
          </div>
      </div>
-         
      <div class="row padding1">
          <div class="col-md-2">
              <a href="<?php echo base_url(); ?>user" target="_blank">
@@ -50,25 +49,6 @@
              <div class="ModuleTile">
                  <div class="ModuleHeading">
                      SITE
-                 </div>
-             </div>
-             </a>
-         </div>
-         <div class="col-md-2">
-            <a href="<?php echo base_url(); ?>unit" target="_blank">
-             <div class="ModuleTile">
-                 <div class="ModuleHeading">
-                     Units
-
-                 </div>
-             </div>
-             </a>
-         </div>
-         <div class="col-md-2">
-            <a href="<?php echo base_url(); ?>category" target="_blank">
-             <div class="ModuleTile">
-                 <div class="ModuleHeading">
-                     Category
                  </div>
              </div>
              </a>
@@ -91,9 +71,6 @@
              </div>
              </a>
          </div>
-     </div>
-          
-     <div class="row padding1">
          <div class="col-md-2">
             <a href="<?php echo base_url(); ?>material_rqst" target="_blank">
              <div class="ModuleTile">
@@ -148,9 +125,6 @@
              </div>
             </a>
     </div>        
-     </div>
-          
-     <div class="row padding1">
          <div class="col-md-2">
             <a href="<?php echo base_url(); ?>" target="_blank">
              <div class="ModuleTile">
@@ -205,9 +179,6 @@
              </div>
              </a>
          </div>
-     </div>
-          
-     <div class="row padding1">
          <div class="col-md-2">
             <a href="<?php echo base_url(); ?>workitem" target="_blank">
              <div class="ModuleTile">

@@ -863,7 +863,7 @@ elseif($action == 'update')
                                 <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
                                 </label>
                                 <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                                    <select name="bill_type" id="bill_type" class="form-control select_width">
+                                    <select name="invoice_to" id="invoice_to" class="form-control select_width">
                                         <?php
                                                 foreach($office_details as $office_detail)
                                                 { ?>

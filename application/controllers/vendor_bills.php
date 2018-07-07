@@ -75,84 +75,76 @@ class Vendor_bills extends CI_Controller {
     {
         $model = $this->model;
         $vid = $this->input->post('vid');
-        $vid = $this->input->post('sid');
+        $sid = $this->input->post('sid');
         $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+        $frieght_gst = $this->input->post('frieght_gst');
         $gross_amount = $this->input->post('gross_amount');
+        $bill_no = $this->input->post('bill_no');
+        $bill_date = $this->input->post('bill_date');
+        $bill_type = $this->input->post('bill_type');
         $invoice_to = $this->input->post('invoice_to');
-        $contact_name = $this->input->post('contact_name');
-        $contact_no = $this->input->post('contact_no');
-        $tandc = $this->input->post('tandc');
+        $payment_days = $this->input->post('payment_days');
+        $vbremarks = $this->input->post('vbremarks');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
-
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
-        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
-        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
+        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
+        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');	
+        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');	
         $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
-
-        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
-        $vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
-
+        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total'); 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
         $data = array(
-            'sid'  => $site,
-            'mid'  => $mid,
+            'sid'  => $vid,
+            'mid'  => $sid,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-            'gst_frieght_amount' => $gst_frieght_amount,
+            'frieght_gst' => $frieght_gst,
             'gross_amount'  => $gross_amount,
+            'bill_no'  => $bill_no,
+            'bill_date'  => $bill_date,
+            'bill_type'  => $bill_type,
             'invoice_to'  => $invoice_to,
-            'contact_name'  => $contact_name,
-            'contact_no'  => $contact_no,
-            'tandc'  => $tandc,
             'pocreatedon'  => $date,
-            'm_unit'  => $m_unit,
-            'qty'  => $qty,
-            'app_qty'  => $app_qty,
+            'payment_days'  => $payment_days,
+            'vbremarks'  => $vbremarks,
+            'date'  => $date,
             'unit'  => $unit,
-            'dtid'  => $discount_type,
-            'discount'  => $discount,
             'cgst'  => $cgst,
             'sgst'  => $sgst,
             'igst'  => $igst,
             'total'  => $total,
-            'vid'  => $vendor,
             'remark'  => $remark
-
         );
 
         $this->$model->insert($data,$this->table);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
 
-        redirect('po/index');
+        redirect('vendor_bills/table');
     }
 
-    public function edit($poid)
+    public function edit($vbid)
     {
-        $poid = $this->uri->segment(3);
-        //			echo '<h1>'.$poid.'</h1>';
+        $vbid = $this->uri->segment(3);
         $model = $this->model;
-        $data['action'] = "update";
-        $data['row_po'] = $this->$model->select(array(),$this->table,array('poid'=>$poid),'');
-        $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
         $data['controller'] = $this->controller;
+        $data['action'] = "insert";
+        $data['show_table'] = $this->view_table();
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $this->load->view('po/form',$data);
-        //            echo '<pre>';
-        //            print_r($data['row_po']);
-        //            echo '</pre>';
+        $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
+        $data['show_table'] = $this->view_table();
+        $this->load->view('vendor_bills/index', $data);
     }
 
     public function update()
@@ -227,21 +219,21 @@ class Vendor_bills extends CI_Controller {
         );
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
 
-        $poid = $this->input->post('poid');
-        $where = array($this->primary_id=>$poid);
+        $poid = $this->input->post('vbid');
+        $where = array($this->primary_id=>$vbid);
         $this->$model->update($this->table,$data,$where);
 
         redirect('po/index');
     }
 
-    public function delete($poid)
+    public function delete($vbid)
     {
         $model = $this->model;
-        $condition = array($this->primary_id=>$poid);
+        $condition = array($this->primary_id=>$vbid);
         $this->$model->delete($this->table,$condition);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-        redirect('po/index');
+        redirect('vendor_bills/index');
     }
 
 }

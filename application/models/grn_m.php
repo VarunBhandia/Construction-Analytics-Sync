@@ -16,9 +16,17 @@ return $query->result();
 return false;
 }
 }
-public function show_data_by_id($grnid) {
+public function show_data_by_id($data) {
     
-$condition = "grnid =" . "'" . $grnid . "'";
+if($data['sid'] == ''){
+$condition = "vid=". "'". $data['vid']."'";
+    }
+   else if($data['vid'] == ''){
+$condition = "sid=". "'". $data['sid']."'";
+    }
+    else if($data['vid'] !='' && $data['sid'] !='') {
+$condition = "sid=". "'". $data['sid']."' AND vid=". "'". $data['vid']."'";
+    }
 $this->db->select('*');
 $this->db->from('grn_master');
 $this->db->where($condition);

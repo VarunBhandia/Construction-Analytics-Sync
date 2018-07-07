@@ -54,10 +54,15 @@
 echo form_open('grn/select_by_id');
 echo form_label('Select By ID : ');
 $data = array(
-    'name' => 'grnid',
+    'name' => 'sid',
     'placeholder' => 'Please Enter ID'
 );
 
+echo form_input($data);
+$data = array(
+    'name' => 'vid',
+    'placeholder' => 'Vid'
+ );
 echo form_input($data);
 echo "<div class='error_msg'>";
 

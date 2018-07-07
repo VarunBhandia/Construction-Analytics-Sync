@@ -57,13 +57,60 @@
 	
 		public function index()
 		{
-			$model = $this->model;
+            $this->load->model("consumption_m");
+            $data["cons_data"] = $this->consumption_m->fetch_data();
+            $model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
 
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
 			$this->load->view('consumption/index',$data);
 		}
+        
+        function action()
+            
+	    {
+		$this->load->model("consumption_m");
+		$this->load->library("excel");
+		$object = new PHPExcel();
+
+		$object->setActiveSheetIndex(0);
+
+		$table_columns = array("consid",  "sid", "muid", "consunitprice", "consremark", "conscreatedby", "conscreatedby", "consissuedate" );
+
+		$column = 0;
+
+		foreach($table_columns as $field)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+			$column++;
+		}
+
+		$cons_data = $this->consumption_m->fetch_data();
+
+		$excel_row = 2;
+
+		foreach($cons_data as $row)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->consid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->consqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->consunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->consremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->conscreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->conscreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->consissuedate);
+			$excel_row++;
+		}
+
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		$object_writer->save('php://output');
+            
+        }
         
 
 		public function form()
@@ -170,219 +217,5 @@ $model = $this->model;
 			redirect('consumption');
 		}
 
-
-	}
-
-		public function browse()
-		{
-			/* File Select */
-			$model = $this->model;
-			$data['controller'] = $this->controller;
-			/* Database In Data Count */
-			$data['Count'] = $this->$model->countTableRecords('cp_master',array());
-			$this->load->view('cp/excel',$data);
-		}
-		
-		public function excel()
-		{
-			$model = $this->model;
-			
-			/* Excel File Upload folder Directory: /assets/database */
-			/* Excel File Upload configuration */
-			$file_excel = $_FILES['excel']['name'];
-			$config = Array();
-			$config['upload_path'] = FCPATH.'/Database/recovery';
-			$config['max_size'] = '102400';
-			$config['allowed_types'] = 'xlsx';
-			$config['overwrite'] = FALSE;
-			$config['remove_spaces'] = true;
-			$file_name = $_FILES['excel']['name'];
-			$config['file_name'] = $file_name;
-			
-			$this->load->library('upload', $config);
-			$this->upload->initialize($config);
-			
-			/* file check if condition is file not upload */
-			if(!$this->upload->do_upload('excel'))
-			{
-				$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-				redirect('My_controller/browse');
-			}
-			/* file check else condition is file upload */
-			else
-			{
-				$data_upload = $this->upload->data();
-			
-				/* excel file read */
-				include(APPPATH.'/libraries/simplexlsx.class.php');
-				$xlsx = new SimpleXLSX($data_upload['full_path']);
-				
-				$table = 'cp_master';
-				
-				$xlsxData = $xlsx->rows(); //excel rows data
-				
-				$sid  = 0;
-				$arr = array();
-				$data = array();				
-				
-				/* excel file write */
-				foreach($xlsxData as $key => $row)
-				{
-					/* excel sheet in first line break (heading) */
-					if(strtolower($row[0]) == 'id')
-					{
-						continue;
-					}
-					else
-					{
-						/* excel sheet in second line to start 
-							if condition is check sid == '' and key ==0 then break */
-						if($key == 0 && $row[2] =="")
-						{
-							break;
-						}
-						/* if in key > 0 and sid== '' then condition true */
-						if($key > 0 && $row[2] =="")
-						{
-								$arr[$mid]['mid'][] = $row[3];
-								$arr[$mid]['mrqty'][] = $row[4];
-								$arr[$mid]['muid'][] = $row[5];
-								$arr[$mid]['mrunitprice'][] = $row[6];
-								$arr[$mid]['mrremarks'][] = $row[7];
-								$arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-								$arr[$mid]['mrcreatedby'] = $row[12];
-						}
-						
-						/* else in sid != '' then condition true */
-						
-						else
-						{
-							if($row[2] != "")
-							{
-								$sid = $row[1];
-								$mid = $row[2];
-								$arr[$mid]['sid'] = $sid;
-								$arr[$mid]['mrrefid'] = $row[2];
-								$arr[$mid]['mid'][] = $row[3];
-								$arr[$mid]['mrqty'][] = $row[4];
-								$arr[$mid]['muid'][] = $row[5];
-								$arr[$mid]['mrunitprice'][] = $row[6];
-								$arr[$mid]['mrremarks'][] = $row[7];
-								$arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-								$arr[$mid]['mrcreatedby'] = $row[12];
-							}
-						}
-					}
-				}
-				
-				foreach($arr as $key=>$val)
-				{
-					/* Database Is Comma seprate Store */
-					$sid = $arr[$key]['sid'];
-					$q_mrrefid = $arr[$key]['mrrefid'];
-					$q_mid = implode(",",$arr[$key]['mid']);
-					$q_qty = implode(",",$arr[$key]['mrqty']);
-					$q_muid = implode(",",$arr[$key]['muid']);
-					$q_mrremarks = implode(",",$arr[$key]['mrremarks']);
-					$q_mrunit = implode(",",$arr[$key]['mrunitprice']);
-					$q_mrcreatedon = $arr[$key]['mrcreatedon'];
-					$q_mrcreatedby = $arr[$key]['mrcreatedby'];
-					
-					$data[] = array(
-						'sid' => $sid,
-						'mid' => $q_mid,
-						'mrqty' => $q_qty,
-						'mrunitprice' => $q_mrunit,
-						'mrrefid' => $q_mrrefid,
-						'muid' => $q_muid,
-						'mrremarks' => $q_mrremarks,
-						'mrcreatedon' => $q_mrcreatedon,
-						'mrcreatedby' => $q_mrcreatedby,
-
-					);
-					
-					
-				}
-				/* if condition is true then data insert database */
-				if(count($data) > 0)
-				{
-					$this->db->trans_start();
-					$this->$model->insert_batch($data, $table);
-					$this->db->trans_complete();
-					
-					/* if condition is true then excel file data not insert then data rollback */
-					if($this->db->trans_status() == FALSE)
-					{
-						$this->db->trans_rollback();
-						$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
-					}
-					/* else condition is true then data success fully excel file inserted */
-					else
-					{
-						$this->db->trans_commit();
-						$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Successfully Excel File Inserted</div>');
-					}
-					
-				} 
-				/* else condition is true then data not insert database */
-				else {
-					$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
-				}
-			}
-				redirect('My_controller/browse');
-		}
-		/* database in data display */
-		public function server_data()
-		{
-			$model = $this->model;
-
-			/* datatable in sorting */
-			$order_col_id = $_POST['order'][0]['column'];
-			$order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
-
-			/* datatable recordsTotal And recordsFiltered */
-			$totalData = $this->$model->countTableRecords('material_rqst',array());
-
-			$start = $_POST['start'];
-			$limit = $_POST['length'];
-			
-			/* datatable in limited data display */
-			$q = $this->db->query("SELECT * FROM `material_rqst`  Order By $order LIMIT $start, $limit")->result();
-			
-			$data = array();
-			
-			if(!empty($q))
-				{
-					foreach ($q as $key=>$value)
-					{
-						/* records Datatable */
-						$id = $this->primary_id;
-						
-						$nestedData['mrid'] = $value->mrid;
-						$nestedData['sid'] = $value->sid;
-						$nestedData['mid'] = $value->mid;
-						$nestedData['mrqty'] = $value->mrqty;
-						$nestedData['mrunitprice'] = $value->mrunitprice;
-						$nestedData['mrrefid'] = $value->mrrefid;
-						$nestedData['muid'] = $value->muid;
-						$nestedData['mrremarks'] =str_replace(",", "", $value->mrremarks);
-						$nestedData['mrcreatedon'] = $value->mrcreatedon;
-						$nestedData['mrcreatedby'] = $value->mrcreatedby;
-						$data[] = $nestedData;
-					}
-				}
-
-			$json_data = array(
-						"draw" => intval($this->input->post('draw')),
-						"recordsTotal"    => intval($totalData),
-						"recordsFiltered" => intval($totalData),
-						"data" => $data
-						);
-			echo json_encode($json_data);
-		}
-	}
-?>
-
-
-
+    }
 ?>

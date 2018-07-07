@@ -56,12 +56,62 @@
 	
 		public function index()
 		{
-			$model = $this->model;
+			$this->load->model("mo_m");
+		    $data["mo_data"] = $this->mo_m->fetch_data();
+            $model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
 			$this->load->view('mo/index',$data);
 		}
+        
+        function action()
+            
+	    {
+		$this->load->model("mo_m");
+		$this->load->library("excel");
+		$object = new PHPExcel();
+
+		$object->setActiveSheetIndex(0);
+
+		$table_columns = array("moid",  "morefid", "sid", "mochallan", "mid", "muid", "modate", "moqty", "movehicle", "tid", "moremark", "mocreatedon", "mocreatedby");
+
+		$column = 0;
+
+		foreach($table_columns as $field)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+			$column++;
+		}
+
+		$mo_data = $this->mo_m->fetch_data();
+
+		$excel_row = 2;
+
+		foreach($mo_data as $row)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->moid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->morefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mochallan);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->mid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->muid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->modate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->moqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->movehicle);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->moremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->mocreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->mocreatedby);
+			$excel_row++;
+		}
+
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		$object_writer->save('php://output');
+            
+        }
 		
 		public function form()
 		{

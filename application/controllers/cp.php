@@ -18,6 +18,115 @@
 			date_default_timezone_set('Asia/Kolkata');
 		}
         
+		public function index()
+		{
+			$this->load->model("cp_m");
+		    $data["cp_data"] = $this->cp_m->fetch_data();
+            $model = $this->model;
+			$data['controller'] = $this->controller;
+			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
+			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
+			$this->load->view('cp/index',$data);
+		}
+        
+        function action()
+            
+	    {
+		$this->load->model("cp_m");
+		$this->load->library("excel");
+		$object = new PHPExcel();
+
+		$object->setActiveSheetIndex(0);
+
+		$table_columns = array("Cpid",  "cprefid", "sid", "vid", "cppurchasedate","cpchallan", "mid", "muid", "cpunitprice",  "cplinechallan", "cpremark", "cpcreatedon", "cpcreatedby", "cpqty");
+
+		$column = 0;
+
+		foreach($table_columns as $field)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+			$column++;
+		}
+
+		$cp_data = $this->cp_m->fetch_data();
+
+		$excel_row = 2;
+
+		foreach($cp_data as $row)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cpid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->cprefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->cppurchasedate);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->cpchallan);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->cpunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->cplinechallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->cpremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->cpcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->cpcreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->cpqty);
+			$excel_row++;
+		}
+
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		$object_writer->save('php://output');
+            
+        }
+        
+        function action_id()
+            
+	    {
+		$this->load->model("cp_m");
+		$this->load->library("excel");
+		$object = new PHPExcel();
+
+		$object->setActiveSheetIndex(0);
+
+		$table_columns = array("Cpid",  "cprefid", "sid", "vid", "cppurchasedate","cpchallan", "mid", "muid", "cpunitprice",  "cplinechallan", "cpremark", "cpcreatedon", "cpcreatedby", "cpqty");
+
+		$column = 0;
+
+		foreach($table_columns as $field)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+			$column++;
+		}
+
+		$result_display = $this->cp_m->fetch_data();
+
+		$excel_row = 2;
+
+		foreach($result_display as $value)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $value->cpid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $value->cprefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $value->sid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $value->vid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $value->cppurchasedate);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $value->cpchallan);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $value->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $value->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $value->cpunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $value->cplinechallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $value->cpremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $value->cpcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $value->cpcreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $value->cpqty);
+			$excel_row++;
+		}
+
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		$object_writer->save('php://output');
+            
+        }
+
         public function view_table()
         {			
             $data['controller'] = $this->controller;
@@ -35,8 +144,15 @@
             $model = $this->model;
 			$data['controller'] = $this->controller;
             $sid = $this->input->post('sid');
-            if ($sid != "") {
-                $result = $this->cp_m->show_data_by_id($sid);
+            $vid = $this->input->post('vid');
+            $data = array(
+            'sid' => $sid,
+            'vid' => $vid
+            );
+            
+            if ($sid != "" or $vid != "") 
+            {
+                $result = $this->cp_m->show_data_by_id($data);
                 if ($result != false) {
                     $data['result_display'] = $result;
                 } else 
@@ -52,17 +168,41 @@
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['show_table'] = $this->view_table();
             $this->load->view('cp/index', $data);
+            
         }
 	
-		public function index()
-		{
-			$model = $this->model;
+        public function action_select_by_id() 
+        {
+            $model = $this->model;
 			$data['controller'] = $this->controller;
-			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
-			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
-			$this->load->view('cp/index',$data);
-		}
-		
+            $sid = $this->input->post('sid');
+            $vid = $this->input->post('vid');
+            $data = array(
+            'sid' => $sid,
+            'vid' => $vid
+            );
+            
+            if ($sid != "" or $vid != "") 
+            {
+                $result = $this->cp_m->show_data_by_id($data);
+                if ($result != false) {
+                    $data['result_display'] = $result;
+                } else 
+                    {
+                    $data['result_display'] = "No record found !";
+                    }
+            } 
+            else {
+                $data = array(
+                    'id_error_message' => "Id field is required"
+                );
+                }
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['show_table'] = $this->view_table();
+            $this->load->view('cp/index', $data);
+            
+        }
+        
 		public function form()
 		{
 			$model = $this->model;
@@ -178,5 +318,7 @@
 			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
 			redirect('Cp');
 		}
+        
+        
 	}
 ?>

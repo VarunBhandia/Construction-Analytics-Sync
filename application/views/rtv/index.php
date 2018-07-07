@@ -59,6 +59,11 @@ $data = array(
 );
 
 echo form_input($data);
+$data = array(
+    'name' => 'vid',
+    'placeholder' => 'Vid'
+ );
+echo form_input($data);
 echo "<div class='error_msg'>";
 
 if (isset($id_error_message))

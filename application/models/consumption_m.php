@@ -30,5 +30,11 @@ return $query->result();
 return false;
 }
 }
+    function fetch_data()
+	{
+		$this->db->order_by("consid", "DESC");
+		$query = $this->db->get("consumption");
+		return $query->result();
+	}
 }
 ?>

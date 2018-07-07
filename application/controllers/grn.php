@@ -35,9 +35,10 @@
         {
             $model = $this->model;
 			$data['controller'] = $this->controller;
-            $grnid = $this->input->post('grnid');
-            if ($grnid != "") {
-                $result = $this->grn_m->show_data_by_id($grnid);
+            $sid = $this->input->post('sid');
+            $vid = $this->input->post('vid');
+            if ($sid != "") {
+                $result = $this->grn_m->show_data_by_id($data);
                 if ($result != false) {
                     $data['result_display'] = $result;
                 } else 

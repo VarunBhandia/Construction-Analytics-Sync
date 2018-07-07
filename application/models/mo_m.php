@@ -30,5 +30,11 @@ return $query->result();
 return false;
 }
 }
+    function fetch_data()
+	{
+		$this->db->order_by("moid", "DESC");
+		$query = $this->db->get("mo_master");
+		return $query->result();
+	}
 }
 ?>

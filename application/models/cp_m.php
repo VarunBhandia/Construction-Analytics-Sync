@@ -16,9 +16,17 @@ return $query->result();
 return false;
 }
 }
-public function show_data_by_id($sid) {
+public function show_data_by_id($data) {
     
-$condition = "sid =" . "'" . $sid . "'";
+    if($data['sid'] == ''){
+$condition = "vid=". "'". $data['vid']."'";
+    }
+   else if($data['vid'] == ''){
+$condition = "sid=". "'". $data['sid']."'";
+    }
+    else if($data['vid'] !='' && $data['sid'] !='') {
+$condition = "sid=". "'". $data['sid']."' AND vid=". "'". $data['vid']."'";
+    }
 $this->db->select('*');
 $this->db->from('cp_master');
 $this->db->where($condition);
@@ -30,5 +38,11 @@ return $query->result();
 return false;
 }
 }
+    function fetch_data()
+	{
+		$this->db->order_by("cpid", "DESC");
+		$query = $this->db->get("cp_master");
+		return $query->result();
+	}
 }
 ?>

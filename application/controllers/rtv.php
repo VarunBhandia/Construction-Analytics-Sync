@@ -35,8 +35,9 @@
             $model = $this->model;
 			$data['controller'] = $this->controller;
             $sid = $this->input->post('sid');
+            $vid = $this->input->post('vid');
             if ($sid != "") {
-                $result = $this->rtv_m->show_data_by_id($sid);
+                $result = $this->rtv_m->show_data_by_id($data);
                 if ($result != false) {
                     $data['result_display'] = $result;
                 } else 

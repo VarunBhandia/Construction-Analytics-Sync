@@ -57,7 +57,6 @@ $data = array(
     'name' => 'sid',
     'placeholder' => 'Please Enter ID'
 );
-
 echo form_input($data);
 echo "<div class='error_msg'>";
 
@@ -131,6 +130,9 @@ if (isset($result_display))
     else
     { ?>
 			<div id="table-scroll" class="table-scroll">
+              <div align="right">
+                    <form method="post" action="<?php echo base_url()?>consumption/action">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
 			  <div class="table-wrap">
 					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
 							<thead>
@@ -158,6 +160,8 @@ if (isset($result_display))
 							</tbody>
 					</table>
 				</div>
+                  </form>
+                </div>
 			</div>
                <?php }
 }

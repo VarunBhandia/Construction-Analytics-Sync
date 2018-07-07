@@ -7,8 +7,11 @@ Class Category extends CI_Controller{
 		$this->load->model('category_m', 'm');
 	}
 
-	function index(){
-		$this->load->view('layout/header');
+	function index()
+    {
+		$this->load->model("category_m");
+        $data["category_data"] = $this->category_m->fetch_data();
+        $this->load->view('layout/header');
 		$this->load->view('category/index');
 		$this->load->view('layout/footer');
 	}
@@ -17,6 +20,43 @@ Class Category extends CI_Controller{
 		$result = $this->m->showAllCategory();
 		echo json_encode($result);
 	}
+    
+    function action()
+            
+	    {
+		$this->load->model("category_m");
+		$this->load->library("excel");
+		$object = new PHPExcel();
+
+		$object->setActiveSheetIndex(0);
+
+		$table_columns = array("Cid",  "cname" );
+
+		$column = 0;
+
+		foreach($table_columns as $field)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+			$column++;
+		}
+
+		$category_data = $this->category_m->fetch_data();
+
+		$excel_row = 2;
+
+		foreach($category_data as $row)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->cname);
+			$excel_row++;
+		}
+
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		$object_writer->save('php://output');
+            
+        }
 
 	public function addCategory(){
 		$result = $this->m->addCategory();

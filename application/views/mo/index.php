@@ -118,6 +118,11 @@ echo form_close();
                     <h2>Construction</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a href="<?php echo base_url()?>mo/form"><button class="btn btn-primary">Add New MO</button></a>
+                       <div align="right">
+                    <form method="post" action="<?php echo base_url()?>mo/action">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
+        </form>
+    </div>
                       </li>
                     </ul>
                     <div class="clearfix"></div>

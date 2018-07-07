@@ -51,13 +51,18 @@
               <div id="show_form">
           
             <?php
-echo form_open('cp/select_by_id');
+echo form_open(base_url().$this->controller.'/select_by_id');
 echo form_label('Select By ID : ');
 $data = array(
     'name' => 'sid',
-    'placeholder' => 'Please Enter ID'
+    'placeholder' => 'sid'
 );
 
+echo form_input($data);
+ $data = array(
+    'name' => 'vid',
+    'placeholder' => 'Vid'
+ );
 echo form_input($data);
 echo "<div class='error_msg'>";
 
@@ -111,7 +116,7 @@ echo form_close();
                       </li>
                     </ul>
                     <div class="clearfix"></div>
-                 </div>
+                    
 				 <?php
 					echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
 				  ?>
@@ -129,6 +134,9 @@ if (isset($result_display))
     { ?>	  
 				  
 			<div id="table-scroll" class="table-scroll">
+             <div align="right">
+                    <form method="post" action="<?php echo base_url()?>cp/action_id">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
 			  <div class="table-wrap">
 					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
 							<thead>
@@ -152,7 +160,7 @@ if (isset($result_display))
 									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->cppurchasedate));?></td>
 									  <td><?php echo $test->cppurchasedate;?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->cpid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->cpid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger">Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php
@@ -161,6 +169,7 @@ if (isset($result_display))
 							</tbody>
 					</table>
 				</div>
+                 </form>
 			</div>
     <?php }
 }
@@ -173,6 +182,9 @@ if (isset($result_display))
                     
 ?>
         <div id="table-scroll" class="table-scroll">
+         <div align="right">
+                    <form method="post" action="<?php echo base_url()?>cp/action">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
 			  <div class="table-wrap">
 					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
 							<thead>
@@ -205,6 +217,8 @@ if (isset($result_display))
 							</tbody>
 					</table>
 				</div>
+             </form>
+            </div>
 			</div> <?php } ?>           
                
                 </div>

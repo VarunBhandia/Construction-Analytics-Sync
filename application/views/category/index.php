@@ -8,8 +8,12 @@
 
     </div>
     <button id="btnAdd" class="btn btn-success">Add New category</button>
+    <div align="right">
+                    <form method="post" action="<?php echo base_url()?>category/action">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
+        </form>
+    </div>
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
-
         <thead>
             <tr>
                 <td>ID</td>
@@ -51,7 +55,6 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
-
 <div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -71,8 +74,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<!-- /.modal -->
-
+<!-- /.modal -->                  
 <script>
     $(function() {
         showAllCategory();

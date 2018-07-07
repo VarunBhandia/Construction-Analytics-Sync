@@ -59,4 +59,12 @@ class Category_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    function fetch_data()
+	{
+		$this->db->order_by("cid", "DESC");
+		$query = $this->db->get("category");
+		return $query->result();
+	}
 }
+?>

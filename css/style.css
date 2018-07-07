@@ -2,42 +2,56 @@
 /*Home Page */
 
 .topHeader{
-    padding: 1em;   
-    background-color: gray;
+    padding-top: 1em;
+    padding-bottom: 1em;
+    padding-left: 3em;
+    padding-right: 3em;
+background-image: radial-gradient(circle at 0 0, #3ba5ff, #4784ff 98%);}
+
+.topSecondHeader{
+    font-weight: 700;
+        padding-top: 3em;
+    font-family: Poppins-Regular;
+    padding-left: 3em;
+    color: black;
 }
+
+.consAnal{
+    font-weight: 700;
+    color: black;
+    letter-spacing: 5px;}
 
 .welcomeUser{
     color: white;
+font-family: Poppins-Regular;
 }
 
 .Logout{
-    font-family: Poppins-Regular;
-    font-size: 14px;
+        letter-spacing: 2px;
+font-family: Poppins-Regular;
+    font-size: 1em;
     line-height: 1.7;
     color: white;
-    margin: 1em;
-    transition: all .8s;
-    -webkit-transition: all 0.4s;
-}
+    margin: 1em;}
 
 .Logout:hover{
     color: white;
 }
 
 .ModuleTile{
+    font-weight: 700;
     display: block;
     margin-bottom: 2px;
-    color: white;
+    color: #111;
     font-size: 1em;
-    transition: all .2s ease-in-out;
+    transition: all .1s ease-in-out;
     height: 12.5em;
-    width: 100%;
-}
+    width: 100%;}
 
 .ModuleTile:hover{
     color: black;
     background-color: white;
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .ModuleHeading{
@@ -49,7 +63,7 @@
 
 
 .padding1{
-    padding: .1em;
+    padding: 3em;
 }
 
 

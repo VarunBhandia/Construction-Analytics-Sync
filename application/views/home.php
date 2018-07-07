@@ -40,7 +40,14 @@
                     <h4 class="welcomeUser">Welcome - <?php echo $username ?></h4>
                 </div>
                 <div class="col-md-2">
-                    <button class="btn btn-info" style="background-color: #0aa7ff;float: right;"><a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">Logout</a></button>
+                    <button class="btn btn-info" style="background-color: black;float: right;"><a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">Logout</a></button>
+                </div>
+            </div>
+        </div>
+        <div class="topSecondHeader">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="consAnal">CONSRUCTION ANALYTICS</h4>
                 </div>
             </div>
         </div>
@@ -166,7 +173,7 @@
             </div>
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>transporter" target="_blank">
-                    <div class="ModuleTile" style="background-color:#8ec127">
+                    <div class="ModuleTile" style="background-color:#26f7f4">
                         <div class="ModuleHeading">
                             Transporters
                         </div>
@@ -175,7 +182,7 @@
             </div>
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>workorder" target="_blank">
-                    <div class="ModuleTile" style="background-color:#8ec127">
+                    <div class="ModuleTile" style="background-color:#ff00bf">
                         <div class="ModuleHeading">
                             Work Order
                         </div>
@@ -184,7 +191,7 @@
             </div>
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>workitem" target="_blank">
-                    <div class="ModuleTile" style="background-color:#8ec127">
+                    <div class="ModuleTile" style="background-color:#ffc107">
                         <div class="ModuleHeading">
                             Work Items
                         </div>
@@ -193,18 +200,8 @@
             </div>
             <div class="col-md-2">
                 <a href="#" target="_blank">
-
-                    <div class="ModuleTile" style="background-color:#8ec127">
-                        <div class="ModuleHeading">
-                            Work Order
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-2">
-                <a href="#" target="_blank">
                     <a href="<?php echo base_url(); ?>consumption" target="_blank">
-                        <div class="ModuleTile" style="background-color:#8ec127">
+                        <div class="ModuleTile" style="background-color:#28a745">
                             <div class="ModuleHeading">
                                 Consumption
                             </div>
@@ -213,7 +210,7 @@
                 </a></div>
             <div class="col-md-2">
                 <a href="#" target="_blank">
-                    <div class="ModuleTile" style="background-color:#8ec127">
+                    <div class="ModuleTile" style="background-color:#17a2b8">
                         <div class="ModuleHeading">
                             Reporting
                         </div>

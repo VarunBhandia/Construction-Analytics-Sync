@@ -25,11 +25,10 @@
 }
 
 .ModuleTile{
-
-        color: white;
+    display: block;
+    margin-bottom: 20px;
+    color: white;
     font-size: 1em;
-
-    background-color: black;
     transition: all .2s ease-in-out;
     height: 12.5em;
     width: 17.2em;
@@ -56,32 +55,32 @@
 
 /*Resizable Table*/
 body {
-  font-family: Arial;
-  font-size: 10pt;
+    font-family: Arial;
+    font-size: 10pt;
 }
 table#demo-table th {
-  background-color: #006;
-  color: #fff;
+    background-color: #006;
+    color: #fff;
 }
 table#demo-table th, 
 table#demo-table td {
-  white-space: nowrap;
-  padding: 3px 6px;
+    white-space: nowrap;
+    padding: 3px 6px;
 }
 table.cellpadding-0 td {
-	padding: 0;
+    padding: 0;
 }
 table.cellspacing-0 {
-	border-spacing: 0;
-	border-collapse: collapse;
+    border-spacing: 0;
+    border-collapse: collapse;
 }
 table.bordered th, 
 table.bordered td {
-  border: 1px solid #ccc;
-  border-right: none;
-  text-align: center;
+    border: 1px solid #ccc;
+    border-right: none;
+    text-align: center;
 }
 table.bordered th:last, 
 table.bordered td:last {
-  border-right: 1px solid #ccc;
+    border-right: 1px solid #ccc;
 }

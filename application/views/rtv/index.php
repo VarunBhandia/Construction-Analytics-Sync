@@ -124,6 +124,11 @@ echo form_close();
                     <h2>Construction</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a href="<?php echo base_url()?>rtv/form"><button class="btn btn-primary">Add New RTV</button></a>
+                      <div align="right">
+                    <form method="post" action="<?php echo base_url()?>rtv/action">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
+                    </form>
+                       </div>
                       </li>
                     </ul>
                     <div class="clearfix"></div>

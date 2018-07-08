@@ -73,4 +73,11 @@ class Material_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    function fetch_data()
+	{
+		$this->db->order_by("mid", "DESC");
+		$query = $this->db->get("materials");
+		return $query->result();
+	}
 }

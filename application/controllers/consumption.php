@@ -76,7 +76,7 @@
 
 		$object->setActiveSheetIndex(0);
 
-		$table_columns = array("consid",  "sid", "muid", "consunitprice", "consremark", "conscreatedby", "conscreatedby", "consissuedate" );
+		$table_columns = array("consid",  "sid", "mid", "muid", "consqty", "consunitprice", "consremark", "conscreatedby", "conscreatedon", "consissuedate" );
 
 		$column = 0;
 

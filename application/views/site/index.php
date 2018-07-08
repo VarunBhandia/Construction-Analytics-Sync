@@ -8,6 +8,11 @@
 
     </div>
     <button id="btnAdd" class="btn btn-success">Add New Site</button>
+    <div align="right">
+                    <form method="post" action="<?php echo base_url()?>site/action">
+				    <input type="submit" name="export" class="btn btn-success" value="Export" />
+                    </form>
+                       </div>
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
 
         <thead>

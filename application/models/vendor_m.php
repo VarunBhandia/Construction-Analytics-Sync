@@ -71,4 +71,13 @@ class Vendor_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    function fetch_data()
+	{
+		$this->db->order_by("vid", "DESC");
+		$query = $this->db->get("vendordetails");
+		return $query->result();
+	}
+    
+    
 }

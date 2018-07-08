@@ -39,16 +39,16 @@ class Grn extends CI_Controller
         $vid = $this->input->post('vid');
         $data['sid'] = $sid;          
         $data['vid'] = $vid;       
-            if ($sid != "" || $vid != "") {
-                $result = $this->grn_m->show_data_by_id($data);
-                if ($result != false) {
-                    $data['result_display'] = $result;
-                }
-                else 
-                {
-                    $data['result_display'] = "No record found !";
-                }
-            } 
+        if ($sid != "" || $vid != "") {
+            $result = $this->grn_m->show_data_by_id($data);
+            if ($result != false) {
+                $data['result_display'] = $result;
+            }
+            else 
+            {
+                $data['result_display'] = "No record found !";
+            }
+        } 
         else {
             $data = array(
                 'id_error_message' => "Id field is required"

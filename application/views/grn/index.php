@@ -92,18 +92,24 @@
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title">
-                                                <h2>Good Reciept Note</h2>
-                                                <form method="post" action="<?php echo base_url()?>grn/select_by_id">
-                                                    <input type="text" name="sid" class="form=control" >
-                                                    <input type="text" name="vid" class="form=control" >
-                                                    <input type="submit" value="Show Record" >
-                                                </form>
-                                                <ul class="nav navbar-right panel_toolbox">
-                                                    <li><a href="<?php echo base_url();?>grn/form"><button class="btn btn-primary">Add New GRN</button></a>
-                                                        <div align="right">
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                <h1>Good Reciept Note</h1>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <form method="post" action="<?php echo base_url()?>grn/select_by_id">
+                                                            <input type="text" name="sid" class="form=control" >
+                                                            <input type="text" name="vid" class="form=control" >
+                                                            <input type="submit" value="Show Record" class="btn btn-success" >
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                                <div align="right">
+                                                        <ul class="nav navbar-right panel_toolbox">
+                                                            <li><a href="<?php echo base_url();?>grn/form"><button class="btn btn-primary">Add New GRN</button></a>
+                                                            </li>
+                                                        </ul>
+                                                                </div>
+                                                    </div>
+                                                </div>
                                                 <div class="clearfix"></div>
                                             </div>
                                             <?php
@@ -113,10 +119,10 @@
                                                 <?php
                                                 if (isset($result_display))
                                                 {
-                                                    echo "<p><u>Result</u></p>";
+                                                    
                                                     if ($result_display == 'No record found !')
                                                     {
-                                                        echo $result_display;
+                                                        echo '<h2>No record found !</h2>';
                                                     }
                                                     else
                                                     { ?>

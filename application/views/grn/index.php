@@ -47,7 +47,7 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url();?>" class="site_title"><i class="fa fa-home"></i>Construction Analytics</a>
+                            <a href="<?php echo base_url();?>" class="site_title">Construction Analytics</a>
                         </div>
 
                         <!-- sidebar menu -->

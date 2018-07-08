@@ -470,10 +470,9 @@ body .container.body .right_col {
 
 .nav_title {
     width: 230px;
-    float: left;
     background: #1abb9c;
     border-radius: 0;
-    height: 5em
+    height: 10em
 }
 
 @media (max-width:991px) {
@@ -626,7 +625,7 @@ body .container.body .right_col {
 body {
     color: #73879C;
     background: #2A3F54;
-    font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+    font-family: Poppins-Regular;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.471
@@ -999,14 +998,15 @@ a:visited {
 }
 
 .site_title {
+    text-transform: uppercase;
+    font-family: Poppins-Regular;
     font-weight: 400;
-    font-size: 22px;
+    font-size: 1.5em;
     width: 100%;
-    line-height: 59px;
     display: block;
-    height: 55px;
+    height: 5em;
     margin: 0;
-    padding-left: 10px
+    padding: 1em;
 }
 
 .nav.navbar-nav > li > a {
@@ -2198,7 +2198,7 @@ h4.graph_title {
     width: 26px;
     opacity: .99;
     display: inline-block;
-    font-family: FontAwesome;
+    font-family: Poppins-Regular;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -2944,7 +2944,9 @@ span.tag {
     margin-right: 5px;
     font-weight: 500;
     margin-bottom: 5px;
-    font-family: helvetica
+    font-family: Poppins-Regular;
+
+    font-size: 13px;
 }
 
 span.tag a {
@@ -2960,7 +2962,7 @@ span.tag a {
 .tagsinput input {
     width: 80px;
     margin: 0;
-    font-family: helvetica;
+    font-family: Poppins-Regular;
     font-size: 13px;
     border: 1px solid transparent;
     padding: 3px;
@@ -3744,7 +3746,7 @@ ul.project_files li a i {
 }
 
 .view p {
-    font-family: Georgia, serif;
+    font-family: Poppins-Regular;
     font-size: 12px;
     color: #fff;
     padding: 10px 20px 20px;
@@ -3940,7 +3942,7 @@ ul.project_files li a i {
     color: #666;
     background: rgba(243, 242, 243, .8);
     border: 2px solid rgba(195, 194, 196, .8);
-    font-family: sans-serif;
+    font-family: Poppins-Regular;
     font-size: 12px;
     text-align: center
 }

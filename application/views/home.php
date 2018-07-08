@@ -181,7 +181,7 @@
                 </a>
             </div>
             <div class="col-md-2">
-                <a href="<?php echo base_url(); ?>workorder" target="_blank">
+                <a href="<?php echo base_url(); ?>wo" target="_blank">
                     <div class="ModuleTile" style="background-color:#ff00bf">
                         <div class="ModuleHeading">
                             Work Order

@@ -71,4 +71,11 @@ class Site_m extends CI_Model{
 			return false;
 		}
 	}
+    function fetch_data()
+	{
+		$this->db->order_by("sid", "DESC");
+		$query = $this->db->get("sitedetails");
+		return $query->result();
+	}
 }
+?>

@@ -38,5 +38,11 @@ return $query->result();
 return false;
 }
 }
+    function fetch_data()
+	{
+		$this->db->order_by("rtvid", "DESC");
+		$query = $this->db->get("rtv_master");
+		return $query->result();
+	}
 }
 ?>

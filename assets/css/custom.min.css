@@ -207,7 +207,7 @@ a:hover {
 }
 
 .left_col {
-    background: white;
+/*    background: white;*/
 }
 
 .nav-sm .container.body .col-md-3.left_col {
@@ -444,6 +444,7 @@ table.tile_info td p {
 }
 
 .nav-md .container.body .col-md-3.left_col {
+    background-color: #546a94;
     min-height: 100%;
     width: 230px;
     padding: 0;
@@ -470,9 +471,9 @@ body .container.body .right_col {
 .nav_title {
     width: 230px;
     float: left;
-    background: black;
+    background: #1abb9c;
     border-radius: 0;
-    height: 57px
+    height: 5em
 }
 
 @media (max-width:991px) {
@@ -1055,7 +1056,7 @@ a:visited {
 .toggle {
     float: left;
     margin: 0;
-    padding-top: 16px;
+    padding: 1em;
     width: 70px
 }
 
@@ -3816,12 +3817,12 @@ ul.project_files li a i {
 }
 
 /*!
- * bootstrap-vertical-tabs - v1.2.1
- * https://dbtek.github.io/bootstrap-vertical-tabs
- * 2014-11-07
- * Copyright (c) 2014 İsmail Demirbilek
- * License: MIT
- */
+* bootstrap-vertical-tabs - v1.2.1
+* https://dbtek.github.io/bootstrap-vertical-tabs
+* 2014-11-07
+* Copyright (c) 2014 İsmail Demirbilek
+* License: MIT
+*/
 
 .tabs-left,
 .tabs-right {

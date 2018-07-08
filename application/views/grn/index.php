@@ -47,20 +47,12 @@
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
                         <div class="navbar nav_title" style="border: 0;">
-
+                            <a href="<?php echo base_url();?>" class="site_title"><i class="fa fa-home"></i>Construction Analytics</a>
                         </div>
-
-                        <div class="clearfix"></div>
-
-                        <br />
 
                         <!-- sidebar menu -->
                         <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                             <div class="menu_section">
-                                <ul class="nav side-menu">
-
-                                    <li><a href="<?php echo base_url().$this->controller;?>">Construction</a></li>
-                                </ul>
                             </div>
 
                         </div>
@@ -102,12 +94,12 @@
                                                         </form>
                                                     </div>
                                                     <div class="col-md-3">
-                                                                <div align="right">
-                                                        <ul class="nav navbar-right panel_toolbox">
-                                                            <li><a href="<?php echo base_url();?>grn/form"><button class="btn btn-primary">Add New GRN</button></a>
-                                                            </li>
-                                                        </ul>
-                                                                </div>
+                                                        <div align="right">
+                                                            <ul class="nav navbar-right panel_toolbox">
+                                                                <li><a href="<?php echo base_url();?>grn/form"><button class="btn btn-primary">Add New GRN</button></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -119,7 +111,7 @@
                                                 <?php
                                                 if (isset($result_display))
                                                 {
-                                                    
+
                                                     if ($result_display == 'No record found !')
                                                     {
                                                         echo '<h2>No record found !</h2>';

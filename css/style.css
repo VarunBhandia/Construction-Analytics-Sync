@@ -101,3 +101,69 @@ table.bordered th:last,
 table.bordered td:last {
     border-right: 1px solid #ccc;
 }
+
+/*Sidebar*/
+.vertical-menu {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+}
+
+.vertical-menu a {
+  display: block;
+  position: relative;
+  padding: 1rem;
+  background-image: linear-gradient(to right, #212529 0%, #212529 50%, #6c757d 50.9999%);
+  background-size: 200% 100%;
+  background-position: 100% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 18px;
+  font-weight: normal;
+  text-decoration: none;
+  transition: all .4s ease-in-out;
+}
+
+.vertical-menu a:hover {
+  background-position: 0% 0%;
+}
+
+.vertical-menu a.active {
+  /* background-image: linear-gradient(to right, #0038A8, #9B4F96, #D60270); */
+  background-image: linear-gradient(to right, #0038A8, #D60270);
+  background-size: 100% 100%;
+  background-position: 0% 0%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: bold;
+}
+
+.vertical-menu a::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: .875rem;
+  left: .125rem;
+  width: 0;
+  height: 1.5rem;
+  background-color: #6c757d;
+  transition: all .2s ease-in-out;
+}
+
+.vertical-menu a:hover::before {
+  width: .25rem;
+  background-color: #212529;
+}
+
+.indicator {
+  display: block;
+  position: absolute;
+  top: .875rem;
+  left: .125rem;
+  width: .375rem;
+  height: 1.5rem;
+  background-color: #0038A8;
+  z-index: 1;
+}

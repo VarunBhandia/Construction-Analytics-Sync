@@ -1,8 +1,7 @@
  <!-- footer content -->
         <footer>
-          <div class="pull-right">
-            Bootstrap - Codeigniter
-          </div>
+          <div class="">
+Made with by Varun Bhandia | Tushar Goyal          </div>
           <div class="clearfix"></div>
         </footer>
         <!-- /footer content -->

@@ -207,7 +207,7 @@ a:hover {
 }
 
 .left_col {
-/*    background: white;*/
+    /*    background: white;*/
 }
 
 .nav-sm .container.body .col-md-3.left_col {
@@ -472,7 +472,7 @@ body .container.body .right_col {
     width: 230px;
     background: #1abb9c;
     border-radius: 0;
-    height: 10em
+    height: 8em
 }
 
 @media (max-width:991px) {
@@ -625,7 +625,7 @@ body .container.body .right_col {
 body {
     color: #73879C;
     background: #2A3F54;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     font-size: 13px;
     font-weight: 400;
     line-height: 1.471
@@ -998,16 +998,17 @@ a:visited {
 }
 
 .site_title {
+    line-height: 150%;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    font-family: Poppins-Regular;
-    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
     font-size: 1.5em;
     width: 100%;
     display: block;
     height: 5em;
     margin: 0;
-    padding: 1em;
-}
+    padding: 1em;}
 
 .nav.navbar-nav > li > a {
     color: #515356 !important
@@ -2198,7 +2199,7 @@ h4.graph_title {
     width: 26px;
     opacity: .99;
     display: inline-block;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
@@ -2944,7 +2945,7 @@ span.tag {
     margin-right: 5px;
     font-weight: 500;
     margin-bottom: 5px;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
 
     font-size: 13px;
 }
@@ -2962,7 +2963,7 @@ span.tag a {
 .tagsinput input {
     width: 80px;
     margin: 0;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     font-size: 13px;
     border: 1px solid transparent;
     padding: 3px;
@@ -3746,7 +3747,7 @@ ul.project_files li a i {
 }
 
 .view p {
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12px;
     color: #fff;
     padding: 10px 20px 20px;
@@ -3942,7 +3943,7 @@ ul.project_files li a i {
     color: #666;
     background: rgba(243, 242, 243, .8);
     border: 2px solid rgba(195, 194, 196, .8);
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     font-size: 12px;
     text-align: center
 }

@@ -74,6 +74,8 @@
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
 			$this->load->view('po/index',$data);
 		}
+        
+        
 		
 		public function form($poid)
 		{

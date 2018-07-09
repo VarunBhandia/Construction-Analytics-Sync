@@ -9,7 +9,7 @@
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
         <title>Codeigniter | </title>
-
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,900" rel="stylesheet">
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo base_url();?>assets/css/mycss.css" rel="stylesheet">
@@ -48,31 +48,31 @@
             <div class="main_container">
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
-                <div class="col-md-3 left_col">
-                    <div class="left_col scroll-view">
-                        <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
+                        <div class="col-md-3 left_col">
+                            <div class="left_col scroll-view">
+                                <div class="navbar nav_title" style="border: 0;">
+                                    <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
+                                </div>
+
+                                <!-- sidebar menu -->
+                                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                                    <div class="menu_section">
+                                    </div>
+
+                                </div>
+                                <!-- /sidebar menu -->
+                            </div>
                         </div>
 
-                        <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                            <div class="menu_section">
-                            </div>
+                        <!-- top navigation -->
+                        <div class="top_nav">
+                            <div class="nav_menu">
+                                <nav>
+                                    <div class="nav toggle">
+                                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                                    </div>
 
+                                </nav>
+                            </div>
                         </div>
-                        <!-- /sidebar menu -->
-                    </div>
-                </div>
-
-                <!-- top navigation -->
-                <div class="top_nav">
-                    <div class="nav_menu">
-                        <nav>
-                            <div class="nav toggle">
-                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                            </div>
-
-                        </nav>
-                    </div>
-                </div>
-                <!-- /top navigation -->
+                        <!-- /top navigation -->

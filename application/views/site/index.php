@@ -2,7 +2,6 @@
 
 <div class="container">
     <h3>Site Lists
-        <?php echo $uid; ?>
     </h3>
     <div class="alert alert-success" style="display: none;">
 

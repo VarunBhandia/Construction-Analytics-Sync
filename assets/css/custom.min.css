@@ -2570,12 +2570,25 @@ span.section {
 }
 
 .form-horizontal .control-label {
+/*    text-align: left;*/
     padding-top: 8px
 }
 
 .form-control:focus {
     border-color: #CCD0D7;
     box-shadow: none !important
+}
+
+input[type=radio] {
+    border: 0px;
+    width: 15%;
+    height: 2em;
+}
+
+input[type=checkbox] {
+    border: 0px;
+    width: 15%;
+    height: 1.5em;
 }
 
 legend {

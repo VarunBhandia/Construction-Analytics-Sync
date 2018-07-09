@@ -61,10 +61,7 @@ class Main extends CI_Controller {
         {
             $username = $this->session->userdata('username');
             $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-            echo '<pre>';
-            print_r($data);
-            echo '</pre>';
-            $this->load->view("home"); 
+            $this->load->view("home", $data); 
         }  
         else  
         {  

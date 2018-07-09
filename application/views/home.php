@@ -261,7 +261,7 @@
             <?php } ?>
             <?php if($vendorbills_module != 0){ ?>
             <div class="col-md-2">
-                <a href="<?php echo base_url(); ?>mo" target="_blank">
+                <a href="<?php echo base_url(); ?>vendor_bills" target="_blank">
                     <div class="ModuleTile" style="background-color:#db2c00">
                         <div class="ModuleHeading">
                             Vendor Bills

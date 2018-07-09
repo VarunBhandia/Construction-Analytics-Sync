@@ -30,5 +30,11 @@ return $query->result();
 return false;
 }
 }
+    function fetch_data()
+    {
+        $this->db->order_by("mrid", "DESC");
+        $query = $this->db->get("material_rqst");
+        return $query->result();
+    }
 }
 ?>

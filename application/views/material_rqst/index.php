@@ -47,49 +47,31 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
+              <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
+              </div>
               
-              <div id="show_form">
-          
-            <?php
-echo form_open('material_rqst/select_by_id');
-echo form_label('Select By ID : ');
-$data = array(
-    'name' => 'sid',
-    'placeholder' => 'Please Enter ID'
-);
-
-echo form_input($data);
-echo "<div class='error_msg'>";
-
-if (isset($id_error_message))
-{
-    echo $id_error_message;
-}
-
-echo "</div>";
-echo form_submit('submit', 'Show Record');
-echo form_close();
-                  ?>
-              </div>
-              </div>
-
-            <div class="clearfix"></div>
-
-            <br />
-
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <ul class="nav side-menu">
-                  
-					<li><a href="<?php echo base_url().$this->controller;?>">Construction</a></li>
-				  </ul>
               </div>
 
             </div>
             <!-- /sidebar menu -->
           </div>
         </div>
+        
+        <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            </div>
+
+                        </nav>
+                    </div>
+                </div>
+   
+                 <!-- /top navigation -->             
 <body class="nav-md">
     <div class="container body">
       <div class="main_container">
@@ -102,16 +84,22 @@ echo form_close();
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
 				<div class="x_title">
-                    <h2>Construction</h2>
-                    <ul class="nav navbar-right panel_toolbox">
+                    <h1>Material Request</h1>
+                    <div class="row">
+                                                    <div class="col-md-8">
+                                                        <form method="post" action="<?php echo base_url()?>material_rqst/select_by_id">
+                                                            <input type="text" name="sid" class="form=control" placeholder="sitename">
+                                                            <input type="submit" value="Show Record" class="btn btn-success" >
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div align="right">
+                                                            <ul class="nav navbar-right panel_toolbox">
                       <li><a href="<?php echo base_url()?>material_rqst/form"><button class="btn btn-primary">Add New MR</button></a>
-                       <div align="right">
-                    <form method="post" action="<?php echo base_url()?>material_rqst/action">
-				    <input type="submit" name="export" class="btn btn-success" value="Export" />
-                    </form>
-                       </div>
                       </li>
                     </ul>
+                                                        </div>
+                        </div>
                     <div class="clearfix"></div>
                  </div>
 				 <?php
@@ -128,7 +116,11 @@ if (isset($result_display))
     }
     else
     { ?>	  
-			<div id="table-scroll" class="table-scroll">
+		<form method="post" action="<?php echo base_url()?>material_rqst/select_by_id_action">
+                                                    <input type="hidden" value="<?php echo $sid; ?>" name="sid" placeholder="sitename"> <input type="submit" name="export" class="btn btn-success" value="Export" />
+                                                </form>	
+          
+          <div id="table-scroll" class="table-scroll">
 			  <div class="table-wrap">
 					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
 							<thead>
@@ -171,6 +163,9 @@ if (isset($result_display))
                     if($showtable != 'select_by_id'){
                     
 ?>
+    <form method="post" action="<?php echo base_url()?>material_rqst/action">
+                                                <input type="submit" name="export" class="btn btn-success" value="Export" />
+                                            </form>
     
 			<div id="table-scroll" class="table-scroll">
 			  <div class="table-wrap">
@@ -211,6 +206,7 @@ if (isset($result_display))
               </div>
           </div>
         </div>
+    </div>
     </div>
     </div>
   </body>

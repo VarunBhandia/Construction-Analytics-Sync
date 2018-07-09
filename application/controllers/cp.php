@@ -78,10 +78,16 @@
             
         }
         
-        function action_id()
+        function select_by_id_action()
             
 	    {
-		$this->load->model("cp_m");
+		$sid = $this->input->post('sid');
+        $vid = $this->input->post('vid');
+        $data['sid'] = $sid;          
+        $data['vid'] = $vid;     
+             
+        
+        $this->load->model("cp_m");
 		$this->load->library("excel");
 		$object = new PHPExcel();
 
@@ -97,26 +103,26 @@
 			$column++;
 		}
 
-		$result_display = $this->cp_m->fetch_data();
+		$cp_data = $this->cp_m->show_data_by_id($data);
 
 		$excel_row = 2;
 
-		foreach($result_display as $value)
+		foreach($cp_data as $row)
 		{
-			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $value->cpid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $value->cprefid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $value->sid);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $value->vid);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $value->cppurchasedate);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $value->cpchallan);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $value->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $value->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $value->cpunitprice);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $value->cplinechallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $value->cpremark);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $value->cpcreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $value->cpcreatedby);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $value->cpqty);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cpid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->cprefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->cppurchasedate);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->cpchallan);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->cpunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->cplinechallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->cpremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->cpcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->cpcreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->cpqty);
 			$excel_row++;
 		}
 
@@ -145,12 +151,9 @@
 			$data['controller'] = $this->controller;
             $sid = $this->input->post('sid');
             $vid = $this->input->post('vid');
-            $data = array(
-            'sid' => $sid,
-            'vid' => $vid
-            );
-            
-            if ($sid != "" or $vid != "") 
+            $data['sid'] = $sid;
+            $data['vid'] = $vid;
+            if ($sid != "" || $vid != "") 
             {
                 $result = $this->cp_m->show_data_by_id($data);
                 if ($result != false) {
@@ -171,37 +174,6 @@
             
         }
 	
-        public function action_select_by_id() 
-        {
-            $model = $this->model;
-			$data['controller'] = $this->controller;
-            $sid = $this->input->post('sid');
-            $vid = $this->input->post('vid');
-            $data = array(
-            'sid' => $sid,
-            'vid' => $vid
-            );
-            
-            if ($sid != "" or $vid != "") 
-            {
-                $result = $this->cp_m->show_data_by_id($data);
-                if ($result != false) {
-                    $data['result_display'] = $result;
-                } else 
-                    {
-                    $data['result_display'] = "No record found !";
-                    }
-            } 
-            else {
-                $data = array(
-                    'id_error_message' => "Id field is required"
-                );
-                }
-            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-            $data['show_table'] = $this->view_table();
-            $this->load->view('cp/index', $data);
-            
-        }
         
 		public function form()
 		{

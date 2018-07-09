@@ -36,6 +36,7 @@
             $model = $this->model;
 			$data['controller'] = $this->controller;
             $sid = $this->input->post('sid');
+            $data['sid'] = $sid;
             if ($sid != "") {
                 $result = $this->mr_m->show_data_by_id($sid);
                 if ($result != false) {
@@ -57,13 +58,107 @@
 	
 		public function index()
 		{
-			$model = $this->model;
+			$this->load->model("mr_m");
+            $data["mr_data"] = $this->mr_m->fetch_data();
+            $model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),$this->table,array(),'');
 
 			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
 			$this->load->view('material_rqst/index',$data);
 		}
+        
+        function action()
+
+    {
+        $this->load->model("mr_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("mrid",  "mrrefid", "sid", "mid", "muid", "mrunitprice", "mrqty", "mrremarks", "mrcreatedon", "mrcreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $mr_data = $this->mr_m->fetch_data();
+
+        $excel_row = 2;
+
+        foreach($mr_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mrremarks);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+    function select_by_id_action()
+
+    {
+        $sid = $this->input->post('sid');
+        $data['sid'] = $sid;          
+        $this->load->model("mr_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("mrid",  "mrrefid", "sid", "mid", "muid", "mrunitprice", "mrqty", "mrremarks", "mrcreatedon", "mrcreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $mr_data = $this->mr_m->show_data_by_id($sid);
+
+        $excel_row = 2;
+
+        foreach($mr_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mrremarks);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="GRN Data.xls"');
+        $object_writer->save('php://output');
+
+    }
 		
 		public function form()
 		{

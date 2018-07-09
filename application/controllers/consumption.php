@@ -36,6 +36,7 @@
             $model = $this->model;
 			$data['controller'] = $this->controller;
             $sid = $this->input->post('sid');
+            $data['sid'] = $sid;
             if ($sid != "") {
                 $result = $this->consumption_m->show_data_by_id($sid);
                 if ($result != false) {
@@ -111,6 +112,53 @@
 		$object_writer->save('php://output');
             
         }
+        
+        function select_by_id_action()
+
+    {
+        $sid = $this->input->post('sid');
+        $data['sid'] = $sid;          
+        $this->load->model("consumption_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("consid",  "sid", "mid", "muid", "consqty", "consunitprice", "consremark", "conscreatedby", "conscreatedon", "consissuedate" );
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $cons_data = $this->consumption_m->show_data_by_id($sid);
+
+        $excel_row = 2;
+
+        foreach($cons_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->consid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->consqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->consunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->consremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->conscreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->conscreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->consissuedate);
+			$excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="GRN Data.xls"');
+        $object_writer->save('php://output');
+
+    }
         
 
 		public function form()

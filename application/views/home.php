@@ -25,14 +25,14 @@
         <style>
             .col, .col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-auto, .col-lg, .col-lg-1, .col-lg-10, .col-lg-11, .col-lg-12, .col-lg-2, .col-lg-3, .col-lg-4, .col-lg-5, .col-lg-6, .col-lg-7, .col-lg-8, .col-lg-9, .col-lg-auto, .col-md, .col-md-1, .col-md-10, .col-md-11, .col-md-12, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-auto, .col-sm, .col-sm-1, .col-sm-10, .col-sm-11, .col-sm-12, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-auto, .col-xl, .col-xl-1, .col-xl-10, .col-xl-11, .col-xl-12, .col-xl-2, .col-xl-3, .col-xl-4, .col-xl-5, .col-xl-6, .col-xl-7, .col-xl-8, .col-xl-9, .col-xl-auto{
                 position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 1px;
-    padding-left: 1px;
+                width: 100%;
+                min-height: 1px;
+                padding-right: 1px;
+                padding-left: 1px;
             }
         </style>
     </head>  
-    
+
     <body>  
         <div class="topHeader">
             <div class="row">
@@ -51,7 +51,29 @@
                 </div>
             </div>
         </div>
+        <?php
+    $user_module = $user_roles[0]->user_role;
+    $site_module = $user_roles[0]->site_role;
+    $material_module = $user_roles[0]->material;
+    $vendor_module = $user_roles[0]->vendor;
+    $mr_module = $user_roles[0]->mr;
+    $po_module = $user_roles[0]->po;
+    $rtv_module = $user_roles[0]->rtv;
+    $cp_module = $user_roles[0]->cp;
+    $uogrn_module = $user_roles[0]->uogrn;
+    $vendorbills_module = $user_roles[0]->vendorbills;
+    $vendorbillpayment_module = $user_roles[0]->vendorbillpayment;
+    $moveorder_module = $user_roles[0]->moveorder;
+    $officegstdetails_module = $user_roles[0]->officegstdetails;
+    $subcontractor_module = $user_roles[0]->subcontractor;
+    $transporter_module = $user_roles[0]->transporter;
+    $workorder_module = $user_roles[0]->workorder;
+    $reporting_module = $user_roles[0]->reporting;
+    $workordermaterials_module = $user_roles[0]->workordermaterials;
+    $consumption_module = $user_roles[0]->consumption;
+                                ?>
         <div class="row padding1">
+            <?php if($user_module != 0){ ?>
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>user" target="_blank">
                     <div class="ModuleTile" style="background-color:#8ec127">
@@ -61,6 +83,7 @@
                     </div>
                 </a>
             </div>
+            <?php } ?>
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>site" target="_blank">
                     <div class="ModuleTile" style="background-color:#00aba9">
@@ -151,16 +174,16 @@
                     </div>
                 </a>
             </div>
-<!--
-            <div class="col-md-2">
-                <a href="<?php echo base_url(); ?>office" target="_blank">
-                    <div class="ModuleTile" style="background-color:#8ec127">
-                        <div class="ModuleHeading">
-                            New Offices
-                        </div>
-                    </div>
-                </a>
-            </div>
+            <!--
+<div class="col-md-2">
+<a href="<?php echo base_url(); ?>office" target="_blank">
+<div class="ModuleTile" style="background-color:#8ec127">
+<div class="ModuleHeading">
+New Offices
+</div>
+</div>
+</a>
+</div>
 -->
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>subcont" target="_blank">

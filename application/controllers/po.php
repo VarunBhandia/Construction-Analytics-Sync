@@ -36,8 +36,11 @@
             $model = $this->model;
 			$data['controller'] = $this->controller;
             $sid = $this->input->post('sid');
-            if ($sid != "") {
-                $result = $this->po_m->show_data_by_id($sid);
+            $vid = $this->input->post('vid');
+            $data['sid'] = $sid;          
+            $data['vid'] = $vid;  
+            if ($sid != "" || $vid != "") {
+            $result = $this->po_m->show_data_by_id($data);
                 if ($result != false) {
                     $data['result_display'] = $result;
                 } else 
@@ -57,7 +60,9 @@
 	
 		public function index()
 		{
-			$model = $this->model;
+			$this->load->model("po_m");
+            $data["po_data"] = $this->po_m->fetch_data();
+            $model = $this->model;
 			$data['controller'] = $this->controller;
 			$data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
 			$data['po_row'] = $this->$model->select(array(),$this->table,array(),'');

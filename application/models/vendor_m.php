@@ -72,12 +72,23 @@ class Vendor_m extends CI_Model{
 		}
 	}
     
-    function fetch_data()
-	{
-		$this->db->order_by("vid", "DESC");
-		$query = $this->db->get("vendordetails");
-		return $query->result();
-	}
+    function fetch_data($query)
+ {
+  $this->db->select("*");
+  $this->db->from("vendordetails");
+  if($query != '')
+  {
+   $this->db->like('vname', $query);
+   $this->db->or_like('vmobile', $query);
+   $this->db->or_like('valtmobile', $query);
+   $this->db->or_like('vemail', $query);
+   $this->db->or_like('vgst', $query);
+   $this->db->or_like('vaddress', $query);
+   $this->db->or_like('vdesc', $query); 
+  }
+  $this->db->order_by('vid', 'DESC');
+  return $this->db->get();
+ }
     
     
 }

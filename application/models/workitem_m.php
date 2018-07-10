@@ -69,4 +69,21 @@ class Workitem_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    function fetch_data($query)
+ {
+  $this->db->select("*");
+  $this->db->from("workitems");
+  if($query != '')
+  {
+   $this->db->like('winame', $query);
+   $this->db->or_like('widesc', $query);
+   $this->db->or_like('wigst', $query);
+   $this->db->or_like('wibase', $query);
+   $this->db->or_like('wicategory', $query);
+   $this->db->or_like('witype', $query); 
+  }
+  $this->db->order_by('wiid', 'DESC');
+  return $this->db->get();
+ }
 }

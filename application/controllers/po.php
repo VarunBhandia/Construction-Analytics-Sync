@@ -178,7 +178,6 @@ class Po extends CI_Controller
         //            print_r($data['po_row']);
         //            echo '</pre>';
 
-        //$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
         $this->load->view('po/index',$data);
     }
 
@@ -396,7 +395,7 @@ class Po extends CI_Controller
         $model = $this->model;
         $data['controller'] = $this->controller;
         /* Database In Data Count */
-        $data['Count'] = $this->$model->countTableRecords('material_rqst_test',array());
+        $data['Count'] = $this->$model->countTableRecords('po_master',array());
         $this->load->view('po/excel',$data);
     }
 
@@ -423,7 +422,7 @@ class Po extends CI_Controller
         if(!$this->upload->do_upload('excel'))
         {
             $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-            redirect('material_rqst/browse');
+            redirect('po/browse');
         }
         /* file check else condition is file upload */
         else
@@ -434,7 +433,7 @@ class Po extends CI_Controller
             include(APPPATH.'/libraries/simplexlsx.class.php');
             $xlsx = new SimpleXLSX($data_upload['full_path']);
 
-            $table = 'material_rqst_test';
+            $table = 'po_master';
 
             $xlsxData = $xlsx->rows(); //excel rows data
 
@@ -454,39 +453,61 @@ class Po extends CI_Controller
                 {
                     /* excel sheet in second line to start 
 							if condition is check sid == '' and key ==0 then break */
-                    if($key == 0 && $row[2] =="")
+                    if($key == 0 && $row[10] =="")
                     {
                         break;
                     }
                     /* if in key > 0 and sid== '' then condition true */
-                    if($key > 0 && $row[2] =="")
+                    if($key > 0 && $row[10] =="")
                     {
-                        $arr[$mid]['mid'][] = $row[3];
-                        $arr[$mid]['mrqty'][] = $row[4];
-                        $arr[$mid]['muid'][] = $row[5];
-                        $arr[$mid]['mrunitprice'][] = $row[6];
-                        $arr[$mid]['mrremarks'][] = $row[7];
-                        $arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-                        $arr[$mid]['mrcreatedby'] = $row[12];
+                        $arr[$mid]['mid'][] = $row[11];
+                        $arr[$mid]['app_qty'][] = $row[12];
+                        $arr[$mid]['pocreatedby'][] = $row[13];
+                        $arr[$mid]['unit'][] = $row[14];
+                        $arr[$mid]['dtid'][] = $row[15];
+                        $arr[$mid]['discount'] = $row[16];
+                        $arr[$mid]['cgst'] = $row[17];
+                        $arr[$mid]['sgst'] = $row[18];
+                        $arr[$mid]['igst'] = $row[19];
+                        $arr[$mid]['remark'] = $row[20];
                     }
 
                     /* else in sid != '' then condition true */
 
                     else
                     {
-                        if($row[2] != "")
+                        if($row[10] != "")
                         {
-                            $sid = $row[1];
+                            $porefid = $row[1];
                             $mid = $row[2];
-                            $arr[$mid]['sid'] = $sid;
+                            $vid = $row[3];
+                            $sid = $row[4];
+                            $frieght_amount = $row[5];
+                            $csgt_total = $row[6];
+                            $ssgt_total = $row[7];
+                            $isgt_total = $row[8];
+                            $gross_amount = $row[9];
+                            $pocreatedon = $row[10];
+                            $arr[$mid]['porefid'] = $row[1];
                             $arr[$mid]['mrrefid'] = $row[2];
-                            $arr[$mid]['mid'][] = $row[3];
-                            $arr[$mid]['mrqty'][] = $row[4];
-                            $arr[$mid]['muid'][] = $row[5];
-                            $arr[$mid]['mrunitprice'][] = $row[6];
-                            $arr[$mid]['mrremarks'][] = $row[7];
-                            $arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-                            $arr[$mid]['mrcreatedby'] = $row[12];
+                            $arr[$mid]['vid'] = $row[3];
+                            $arr[$mid]['sid'] = $row[4];
+                            $arr[$mid]['frieght_amount'] = $row[5];
+                            $arr[$mid]['csgt_total'] = $row[6];
+                            $arr[$mid]['ssgt_total'] = $row[7];
+                            $arr[$mid]['isgt_total'] = $row[8];
+                            $arr[$mid]['gross_amount'] = $row[9];
+                            $arr[$mid]['pocreatedon'] = $row[10];
+                            $arr[$mid]['mid'][] = $row[11];
+                            $arr[$mid]['app_qty'][] = $row[12];
+                            $arr[$mid]['pocreatedby'][] = $row[13];
+                            $arr[$mid]['unit'][] = $row[14];
+                            $arr[$mid]['dtid'][] = $row[15];
+                            $arr[$mid]['discount'] = $row[16];
+                            $arr[$mid]['cgst'] = $row[17];
+                            $arr[$mid]['sgst'] = $row[18];
+                            $arr[$mid]['igst'] = $row[19];
+                            $arr[$mid]['remark'] = $row[20];
                         }
                     }
                 }
@@ -495,27 +516,48 @@ class Po extends CI_Controller
             foreach($arr as $key=>$val)
             {
                 /* Database Is Comma seprate Store */
+                $porefid = $arr[$key]['porefid'];
+                $mrrefid = $arr[$key]['mrrefid'];
+                $vid = $arr[$key]['vid'];
                 $sid = $arr[$key]['sid'];
-                $q_mrrefid = $arr[$key]['mrrefid'];
-                $q_mid = implode(",",$arr[$key]['mid']);
-                $q_qty = implode(",",$arr[$key]['mrqty']);
-                $q_muid = implode(",",$arr[$key]['muid']);
-                $q_mrremarks = implode(",",$arr[$key]['mrremarks']);
-                $q_mrunit = implode(",",$arr[$key]['mrunitprice']);
-                $q_mrcreatedon = $arr[$key]['mrcreatedon'];
-                $q_mrcreatedby = $arr[$key]['mrcreatedby'];
+                $frieght_amount = $arr[$key]['frieght_amount'];
+                $csgt_total = $arr[$key]['csgt_total'];
+                $ssgt_total = $arr[$key]['ssgt_total'];
+                $isgt_total = $arr[$key]['isgt_total'];
+                $gross_amount = $arr[$key]['gross_amount'];
+                $pocreatedon = $arr[$key]['pocreatedon'];
+                $mid = implode(",",$arr[$key]['mid']);
+                $app_qty = implode(",",$arr[$key]['app_qty']);
+                $pocreatedby = implode(",",$arr[$key]['pocreatedby']);
+                $unit = implode(",",$arr[$key]['unit']);
+                $dtid = implode(",",$arr[$key]['dtid']);
+                $discount = $arr[$key]['discount'];
+                $cgst = $arr[$key]['cgst'];
+                $sgst = $arr[$key]['sgst'];
+                $igst = $arr[$key]['igst'];
+                $remark = $arr[$key]['remark'];
 
                 $data[] = array(
+                    'porefid' => $porefid,
+                    'mrrefid' => $mrrefid,
+                    'vid' => $vid,
                     'sid' => $sid,
-                    'mid' => $q_mid,
-                    'mrqty' => $q_qty,
-                    'mrunitprice' => $q_mrunit,
-                    'mrrefid' => $q_mrrefid,
-                    'muid' => $q_muid,
-                    'mrremarks' => $q_mrremarks,
-                    'mrcreatedon' => $q_mrcreatedon,
-                    'mrcreatedby' => $q_mrcreatedby,
-
+                    'frieght_amount' => $frieght_amount,
+                    'csgt_total' => $csgt_total,
+                    'ssgt_total' => $ssgt_total,
+                    'isgt_total' => $isgt_total,
+                    'gross_amount' => $gross_amount,
+                    'pocreatedon' => $pocreatedon,
+                    'mid' => $mid,
+                    'app_qty' => $app_qty,
+                    'pocreatedby' => $pocreatedby,
+                    'unit' => $unit,
+                    'dtid' => $dtid,
+                    'discount' => $discount,
+                    'cgst' => $cgst,
+                    'sgst' => $sgst,
+                    'igst' => $igst,
+                    'remark' => $remark,
                 );
 
 
@@ -558,13 +600,13 @@ class Po extends CI_Controller
         $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
 
         /* datatable recordsTotal And recordsFiltered */
-        $totalData = $this->$model->countTableRecords('material_rqst_test',array());
+        $totalData = $this->$model->countTableRecords('po_master',array());
 
         $start = $_POST['start'];
         $limit = $_POST['length'];
 
         /* datatable in limited data display */
-        $q = $this->db->query("SELECT * FROM `material_rqst_test`  Order By $order LIMIT $start, $limit")->result();
+        $q = $this->db->query("SELECT * FROM `po_master`  Order By $order LIMIT $start, $limit")->result();
 
         $data = array();
 
@@ -575,16 +617,26 @@ class Po extends CI_Controller
                 /* records Datatable */
                 $id = 'poid';
 
-                $nestedData['mrid'] = $value->mrid;
-                $nestedData['sid'] = $value->sid;
-                $nestedData['mid'] = $value->mid;
-                $nestedData['mrqty'] = $value->mrqty;
-                $nestedData['mrunitprice'] = $value->mrunitprice;
+                $nestedData['porefid'] = $value->porefid;
                 $nestedData['mrrefid'] = $value->mrrefid;
-                $nestedData['muid'] = $value->muid;
-                $nestedData['mrremarks'] =str_replace(",", "", $value->mrremarks);
-                $nestedData['mrcreatedon'] = $value->mrcreatedon;
-                $nestedData['mrcreatedby'] = $value->mrcreatedby;
+                $nestedData['vid'] = $value->vid;
+                $nestedData['sid'] = $value->sid;
+                $nestedData['frieght_amount'] = $value->frieght_amount;
+                $nestedData['csgt_total'] = $value->csgt_total;
+                $nestedData['ssgt_total'] = $value->ssgt_total;
+                $nestedData['isgt_total'] = $value->isgt_total;
+                $nestedData['gross_amount'] = $value->gross_amount;
+                $nestedData['pocreatedon'] = $value->pocreatedon;
+                $nestedData['mid'] = $value->mid;
+                $nestedData['app_qty'] = $value->app_qty;
+                $nestedData['pocreatedby'] = $value->pocreatedby;
+                $nestedData['unit'] = $value->unit;
+                $nestedData['dtid'] = $value->dtid;
+                $nestedData['discount'] = $value->discount;
+                $nestedData['cgst'] = $value->cgst;
+                $nestedData['sgst'] = $value->sgst;
+                $nestedData['igst'] = $value->igst;
+                $nestedData['remark'] = $value->remark;
                 $data[] = $nestedData;
             }
         }

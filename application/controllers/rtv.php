@@ -365,12 +365,12 @@ class Rtv extends CI_Controller
                     /* if in key > 0 and sid== '' then condition true */
                     if($key > 0 && $row[6] =="")
                     {
-                        $arr[$rtvqty]['rtvqty'][] = $row[7];
-                        $arr[$rtvqty]['muid'][] = $row[8];
-                        $arr[$rtvqty]['rtvtruck'][] = $row[9];
-                        $arr[$rtvqty]['rtvremark'][] = $row[10];
-                        $arr[$rtvqty]['rtvcreatedon'][] = $row[11];
-                        $arr[$rtvqty]['rtvcreatedby'] = $row[12];
+                        $arr[$rtvrefid]['rtvqty'][] = $row[7];
+                        $arr[$rtvrefid]['muid'][] = $row[8];
+                        $arr[$rtvrefid]['rtvtruck'][] = $row[9];
+                        $arr[$rtvrefid]['rtvremark'][] = $row[10];
+                        $arr[$rtvrefid]['rtvcreatedon'] = $row[11];
+                        $arr[$rtvrefid]['rtvcreatedby'] = $row[12];
                     }
 
                     /* else in sid != '' then condition true */
@@ -395,8 +395,8 @@ class Rtv extends CI_Controller
                             $arr[$rtvrefid]['muid'][] = $row[8];
                             $arr[$rtvrefid]['rtvtruck'][] = $row[9];
                             $arr[$rtvrefid]['rtvremark'][] = $row[10];
-                            $arr[$rtvrefid]['rtvcreatedon'][] = $row[11];
-                            $arr[$rtvrefid]['rtvcreatedby'] = $row[12];
+                            $arr[$rtvrefid]['rtvcreatedon'] = $row[11];
+                            $arr[$rtvrefid]['rtvcreatedby'][] = $row[12];
                         }
                     }
                 }
@@ -415,7 +415,7 @@ class Rtv extends CI_Controller
                 $muid = implode(",",$arr[$key]['muid']);
                 $rtvtruck = implode(",",$arr[$key]['rtvtruck']);
                 $rtvremark = implode(",",$arr[$key]['rtvremark']);
-                $rtvcreatedon = implode(",",$arr[$key]['rtvcreatedon']);
+                $rtvcreatedon = $arr[$key]['rtvcreatedon'];
                 $rtvcreatedby = implode(",",$arr[$key]['rtvcreatedby']);
 
                 $data[] = array(

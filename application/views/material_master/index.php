@@ -8,11 +8,30 @@
 
     </div>
     <button id="btnAdd" class="btn btn-success">Add New Material</button>
+    <div class="container">
+   <br />
+   <br />
+   <br />
+   <h2 align="center">Live Data Search in Codeigniter using Ajax JQuery</h2><br />
+   <div class="form-group">
+    <div class="input-group">
+     <span class="input-group-addon">Search</span>
+     <input type="text" name="search_text" id="search_text" placeholder="Search by materials Details" class="form-control" />
+    </div>
+   </div>
+   <br />
+   <div id="result"></div>
+   
+  </div>
+  <div style="clear:both"></div>
     <div align="right">
+                   
                     <form method="post" action="<?php echo base_url()?>material/action">
 				    <input type="submit" name="export" class="btn btn-success" value="Export" />
                     </form>
                        </div>
+    
+    
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
 
         <thead>
@@ -147,6 +166,36 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+$(document).ready(function(){
+
+ load_data();
+
+ function load_data(query)
+ {
+  $.ajax({
+   url:"<?php echo base_url(); ?>material/fetch",
+   method:"POST",
+   data:{query:query},
+   success:function(data){
+    $('#result').html(data);
+   }
+  })
+ }
+
+ $('#search_text').keyup(function(){
+  var search = $(this).val();
+  if(search != '')
+  {
+   load_data(search);
+  }
+  else
+  {
+   load_data();
+  }
+ });
+});
+</script>
 
 <script>
     $(function() {
@@ -320,23 +369,3 @@
         }
     });
 </script>
-
-<!--
-<button id="run" class="btn btn-primary">Convert!</button>
-<p id="demo"></p>
-
-<script>
-
- var table = $('#example-table').tableToJSON();
-var myJSON = JSON.stringify(table);
-document.getElementById("demo").innerHTML = myJSON;
-
-</script>
-<script>
-$('#run').click( function() {
- var table = $('#example-table').tableToJSON();
- alert(JSON.stringify(table));  
-
-});
-    </script>
--->

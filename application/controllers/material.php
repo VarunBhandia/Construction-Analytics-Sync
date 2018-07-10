@@ -52,6 +52,7 @@ Class Material extends CI_Controller{
        <th>Material Name</th>
        <th>Material unit</th>
        <th>Material Category</th>
+       <th>Material Description</th>
        <th>HSN Code</th>
        <th>GST Rate</th>
        <th>Base Rate</th>
@@ -64,6 +65,7 @@ Class Material extends CI_Controller{
    {
     $output .= '
       <tr>
+       <td>'.$row->mid.'</td>
        <td>'.$row->mname.'</td>
        <td>'.$row->munit.'</td>
        <td>'.$row->mcategory.'</td>

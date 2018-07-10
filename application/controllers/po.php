@@ -396,8 +396,8 @@
 			$model = $this->model;
 			$data['controller'] = $this->controller;
 			/* Database In Data Count */
-			$data['Count'] = $this->$model->countTableRecords('material_rqst',array());
-			$this->load->view('material_rqst/excel',$data);
+			$data['Count'] = $this->$model->countTableRecords('po_master',array());
+			$this->load->view('po/excel',$data);
 		}
 		
 		public function excel()
@@ -423,7 +423,7 @@
 			if(!$this->upload->do_upload('excel'))
 			{
 				$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-				redirect('material_rqst/browse');
+				redirect('po/browse');
 			}
 			/* file check else condition is file upload */
 			else
@@ -434,7 +434,7 @@
 				include(APPPATH.'/libraries/simplexlsx.class.php');
 				$xlsx = new SimpleXLSX($data_upload['full_path']);
 				
-				$table = 'material_rqst';
+				$table = 'po_master';
 				
 				$xlsxData = $xlsx->rows(); //excel rows data
 				
@@ -461,13 +461,21 @@
 						/* if in key > 0 and sid== '' then condition true */
 						if($key > 0 && $row[2] =="")
 						{
-								$arr[$mid]['mid'][] = $row[3];
-								$arr[$mid]['mrqty'][] = $row[4];
-								$arr[$mid]['muid'][] = $row[5];
-								$arr[$mid]['mrunitprice'][] = $row[6];
-								$arr[$mid]['mrremarks'][] = $row[7];
-								$arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-								$arr[$mid]['mrcreatedby'] = $row[12];
+								$arr[$mid]['mid'][] = $row[5];
+								$arr[$mid]['app_qty'][] = $row[6];
+								$arr[$mid]['pouid'][] = $row[7];
+								$arr[$mid]['unit'][] = $row[8];
+								$arr[$mid]['dtid'][] = $row[9];
+								$arr[$mid]['discount'] = $row[10];
+								$arr[$mid]['cgst'] = $row[11];
+								$arr[$mid]['sgst'] = $row[12];
+								$arr[$mid]['igst'] = $row[13];
+								$arr[$mid]['cgst_amount'] = $row[14];
+								$arr[$mid]['sgst_amount'] = $row[15];
+								$arr[$mid]['igst_amount'] = $row[16];
+								$arr[$mid]['total'] = $row[17];
+								$arr[$mid]['pocreatedon'] = $row[18];
+								$arr[$mid]['remark'] = $row[19];
 						}
 						
 						/* else in sid != '' then condition true */
@@ -476,17 +484,26 @@
 						{
 							if($row[2] != "")
 							{
-								$sid = $row[1];
-								$mid = $row[2];
+								$poid = $row[0];
+                                $vid = $row[1];
+								$sid = $row[2];
 								$arr[$mid]['sid'] = $sid;
-								$arr[$mid]['mrrefid'] = $row[2];
-								$arr[$mid]['mid'][] = $row[3];
-								$arr[$mid]['mrqty'][] = $row[4];
-								$arr[$mid]['muid'][] = $row[5];
-								$arr[$mid]['mrunitprice'][] = $row[6];
-								$arr[$mid]['mrremarks'][] = $row[7];
-								$arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-								$arr[$mid]['mrcreatedby'] = $row[12];
+								$arr[$mid]['vid'] = $vid;
+								$arr[$mid]['porefid'][] = $poid;
+								$arr[$mid]['app_qty'][] = $row[6];
+								$arr[$mid]['pouid'][] = $row[7];
+								$arr[$mid]['unit'][] = $row[8];
+								$arr[$mid]['dtid'][] = $row[9];
+								$arr[$mid]['discount'] = $row[10];
+								$arr[$mid]['cgst'] = $row[11];
+								$arr[$mid]['sgst'] = $row[12];
+								$arr[$mid]['igst'] = $row[13];
+								$arr[$mid]['cgst_amount'] = $row[14];
+								$arr[$mid]['sgst_amount'] = $row[15];
+								$arr[$mid]['igst_amount'] = $row[16];
+								$arr[$mid]['total'] = $row[17];
+								$arr[$mid]['pocreatedon'] = $row[18];
+								$arr[$mid]['remark'] = $row[19];
 							}
 						}
 					}
@@ -546,7 +563,7 @@
 					$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
 				}
 			}
-				redirect('material_rqst/browse');
+				redirect('po/browse');
 		}
 		/* database in data display */
 		public function server_data()
@@ -564,7 +581,7 @@
 			$limit = $_POST['length'];
 			
 			/* datatable in limited data display */
-			$q = $this->db->query("SELECT * FROM `material_rqst`  Order By $order LIMIT $start, $limit")->result();
+			$q = $this->db->query("SELECT * FROM `po_master`  Order By $order LIMIT $start, $limit")->result();
 			
 			$data = array();
 			
@@ -575,16 +592,14 @@
 						/* records Datatable */
 						$id = $this->primary_id;
 						
-						$nestedData['mrid'] = $value->mrid;
-						$nestedData['sid'] = $value->sid;
-						$nestedData['mid'] = $value->mid;
-						$nestedData['mrqty'] = $value->mrqty;
-						$nestedData['mrunitprice'] = $value->mrunitprice;
+						$nestedData['poid'] = $value->poid;
 						$nestedData['mrrefid'] = $value->mrrefid;
-						$nestedData['muid'] = $value->muid;
-						$nestedData['mrremarks'] =str_replace(",", "", $value->mrremarks);
-						$nestedData['mrcreatedon'] = $value->mrcreatedon;
-						$nestedData['mrcreatedby'] = $value->mrcreatedby;
+						$nestedData['vid'] = $value->vid;
+						$nestedData['sid'] = $value->sid;
+						$nestedData['frieght_amount'] = $value->frieght_amount;
+						$nestedData['app_qty'] = $value->app_qty;
+						$nestedData['pouid'] = $value->pouid;
+						$nestedData['pouid'] = $value->pouid;
 						$data[] = $nestedData;
 					}
 				}

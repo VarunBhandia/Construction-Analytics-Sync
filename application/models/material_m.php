@@ -62,6 +62,34 @@ class Material_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    
+    public function show_all_data() {
+$this->db->select('*');
+$this->db->from('materials');
+$query = $this->db->get();
+if ($query->num_rows() > 0) {
+return $query->result();
+} else {
+return false;
+}
+}
+
+    public function show_data_by_id($mid) {
+    
+$condition = "mid =" . "'" . $mid . "'";
+$this->db->select('*');
+$this->db->from('materials');
+$this->db->where($condition);
+$this->db->limit(null);
+$query = $this->db->get();
+if ($query->num_rows() > 0) {
+return $query->result();
+} else {
+return false;
+}
+}
+
 
 	function deleteMaterial(){
 		$mid = $this->input->get('mid');
@@ -74,10 +102,23 @@ class Material_m extends CI_Model{
 		}
 	}
     
-    function fetch_data()
-	{
-		$this->db->order_by("mid", "DESC");
-		$query = $this->db->get("materials");
-		return $query->result();
-	}
+    
+ function fetch_data($query)
+ {
+  $this->db->select("*");
+  $this->db->from("materials");
+  if($query != '')
+  {
+   $this->db->like('mname', $query);
+   $this->db->or_like('munit', $query);
+   $this->db->or_like('mcategory', $query);
+   $this->db->or_like('mdesc', $query);
+   $this->db->or_like('hsn', $query);
+   $this->db->or_like('mgst', $query); 
+   $this->db->or_like('mtype', $query);
+  }
+  $this->db->order_by('mid', 'DESC');
+  return $this->db->get();
+ }
 }
+?>

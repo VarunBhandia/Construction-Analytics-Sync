@@ -57,6 +57,113 @@
             $data['show_table'] = $this->view_table();
             $this->load->view('po/index', $data);
         }
+        
+        function action()
+
+    {
+        $this->load->model("po_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("poid",  "mrrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremark", "tid", "grncreatedon", "grncreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $grn_data = $this->grn_m->fetch_data();
+
+        $excel_row = 2;
+
+        foreach($grn_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->grnid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->grnrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->grnchallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->grnreceivedate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->grnunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->grnqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->grntruck);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->grnlinechallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->grnremarks);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->grncreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $row->grncreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+    function select_by_id_action()
+
+    {
+        $sid = $this->input->post('sid');
+        $vid = $this->input->post('vid');
+        $data['sid'] = $sid;          
+        $data['vid'] = $vid;       
+
+        $this->load->model("grn_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremark", "tid", "grncreatedon", "grncreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $grn_data = $this->grn_m->show_data_by_id($data);
+
+        $excel_row = 2;
+
+        foreach($grn_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->grnid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->grnrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->grnchallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->grnreceivedate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->grnunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->grnqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->grntruck);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->grnlinechallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->grnremarks);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->grncreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $row->grncreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="GRN Data.xls"');
+        $object_writer->save('php://output');
+
+    }
 	
 		public function index()
 		{

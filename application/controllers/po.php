@@ -1,64 +1,64 @@
 <?php
-	defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-	class Po extends CI_Controller
-	{
-		public $table = 'po_master';
-		public $sitetable = 'sitedetails';
-		public $controller = 'Po';
-		public $message = 'Construction';
-		public $primary_id = "poid";
-		public $model;
-		
-		public function __construct()
-		{
-			parent::__construct();
-            $this->load->model('po_m');
-			$this->load->model('Model');
-			$this->model = 'Model';
-			date_default_timezone_set('Asia/Kolkata');
-		}
-        
-        public function view_table()
-        {			
-            $data['controller'] = $this->controller;
-            $model = $this->model;
-            $result = $this->po_m->show_all_data();
-            if ($result != false) {
-                return $result;
-            } else {
-                return 'Database is empty !';
-            }
+class Po extends CI_Controller
+{
+    public $table = 'po_master';
+    public $sitetable = 'sitedetails';
+    public $controller = 'Po';
+    public $message = 'Construction';
+    public $primary_id = "poid";
+    public $model;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('po_m');
+        $this->load->model('Model');
+        $this->model = 'Model';
+        date_default_timezone_set('Asia/Kolkata');
+    }
+
+    public function view_table()
+    {			
+        $data['controller'] = $this->controller;
+        $model = $this->model;
+        $result = $this->po_m->show_all_data();
+        if ($result != false) {
+            return $result;
+        } else {
+            return 'Database is empty !';
         }
-        
-        public function select_by_id() 
-        {
-            $model = $this->model;
-			$data['controller'] = $this->controller;
-            $sid = $this->input->post('sid');
-            $vid = $this->input->post('vid');
-            $data['sid'] = $sid;          
-            $data['vid'] = $vid;  
-            if ($sid != "" || $vid != "") {
+    }
+
+    public function select_by_id() 
+    {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $sid = $this->input->post('sid');
+        $vid = $this->input->post('vid');
+        $data['sid'] = $sid;          
+        $data['vid'] = $vid;  
+        if ($sid != "" || $vid != "") {
             $result = $this->po_m->show_data_by_id($data);
-                if ($result != false) {
-                    $data['result_display'] = $result;
-                } else 
-                    {
-                    $data['result_display'] = "No record found !";
-                    }
-            } 
-            else {
-                $data = array(
-                    'id_error_message' => "Id field is required"
-                );
-                }
-            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-            $data['show_table'] = $this->view_table();
-            $this->load->view('po/index', $data);
+            if ($result != false) {
+                $data['result_display'] = $result;
+            } else 
+            {
+                $data['result_display'] = "No record found !";
+            }
+        } 
+        else {
+            $data = array(
+                'id_error_message' => "Id field is required"
+            );
         }
-        
-        function action()
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $this->load->view('po/index', $data);
+    }
+
+    function action()
 
     {
         $this->load->model("po_m");
@@ -164,453 +164,438 @@
         $object_writer->save('php://output');
 
     }
-	
-		public function index()
-		{
-			$this->load->model("po_m");
-            $data["po_data"] = $this->po_m->fetch_data();
-            $model = $this->model;
-			$data['controller'] = $this->controller;
-			$data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
-			$data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
-			$data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-//            echo '<pre>';
-//            print_r($data['po_row']);
-//            echo '</pre>';
 
-			//$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
-			$this->load->view('po/index',$data);
-		}
-        
-        
-		
-		public function form($poid)
-		{
-			$model = $this->model;
-//            echo $poid;
-            $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
-			$data['action'] = "insert";
-			$data['controller'] = $this->controller;
-			$data['units'] = $this->$model->select(array(),'munits',array(),'');
-			$data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-			$data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
-            $poid = $this->uri->segment(3);
-			$this->load->view('po/form',$data);
-            $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
-//            echo '<pre>';
-//            print_r($data[material_rqsts]);
-//            echo '</pre>';
+    public function index()
+    {
+        $this->load->model("po_m");
+        $data["po_data"] = $this->po_m->fetch_data();
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
+        $data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
+        //            echo '<pre>';
+        //            print_r($data['po_row']);
+        //            echo '</pre>';
+
+        //$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
+        $this->load->view('po/index',$data);
+    }
 
 
-		}
 
-		public function insert()
-		{
-			$model = $this->model;
-			$site = $this->input->post('site');
-			$csgt_total = $this->input->post('csgt_total');
-			$ssgt_total = $this->input->post('ssgt_total');
-			$isgt_total = $this->input->post('isgt_total');
-			$total_amount = $this->input->post('total_amount');
-			$frieght_amount = $this->input->post('frieght_amount');
-			$gst_frieght_amount = $this->input->post('gst_frieght_amount');
-			$gross_amount = $this->input->post('gross_amount');
-			$invoice_to = $this->input->post('invoice_to');
-			$contact_name = $this->input->post('contact_name');
-			$contact_no = $this->input->post('contact_no');
-			$tandc = $this->input->post('tandc');
-			$date = date('Y-m-d',strtotime($this->input->post('date')));
-            
-			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
-            
-			$m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-            
-			$qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');	
-            
-			$app_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');		
-            
-			$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
-            
-			$discount_type = count($this->input->post('discount_type')) > 0 ? implode(",",$this->input->post('discount_type')) : $this->input->post('discount_type');		
-            
-			$discount = count($this->input->post('discount')) > 0 ? implode(",",$this->input->post('discount')) : $this->input->post('discount');	
-            
-			$cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
-			$sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
-			$igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
-            
-			$total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
-			$vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
-            
-			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
-			$data = array(
-					'sid'  => $site,
-					'mid'  => $mid,
-					'csgt_total'  => $csgt_total,
-					'ssgt_total'  => $ssgt_total,
-					'isgt_total'  => $isgt_total,
-					'total_amount'  => $total_amount,
-					'frieght_amount'  => $frieght_amount,
-					'gst_frieght_amount' => $gst_frieght_amount,
-					'gross_amount'  => $gross_amount,
-					'invoice_to'  => $invoice_to,
-					'contact_name'  => $contact_name,
-					'contact_no'  => $contact_no,
-					'tandc'  => $tandc,
-					'pocreatedon'  => $date,
-					'm_unit'  => $m_unit,
-					'qty'  => $qty,
-					'app_qty'  => $app_qty,
-					'unit'  => $unit,
-					'dtid'  => $discount_type,
-					'discount'  => $discount,
-					'cgst'  => $cgst,
-					'sgst'  => $sgst,
-					'igst'  => $igst,
-					'total'  => $total,
-					'vid'  => $vendor,
-					'remark'  => $remark
+    public function form($poid)
+    {
+        $model = $this->model;
+        //            echo $poid;
+        $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+        $data['action'] = "insert";
+        $data['controller'] = $this->controller;
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $poid = $this->uri->segment(3);
+        $this->load->view('po/form',$data);
+        $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+        //            echo '<pre>';
+        //            print_r($data[material_rqsts]);
+        //            echo '</pre>';
 
-				);
-			
-			$this->$model->insert($data,$this->table);
-			
-			$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
-			
-			redirect('po/index');
-		}
-        
-        public function edit($poid)
-		{
-			$poid = $this->uri->segment(3);
-//			echo '<h1>'.$poid.'</h1>';
-			$model = $this->model;
-			$data['action'] = "update";
-			$data['row_po'] = $this->$model->select(array(),$this->table,array('poid'=>$poid),'');
-            $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
-			$data['controller'] = $this->controller;
-			$data['units'] = $this->$model->select(array(),'munits',array(),'');
-			$data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-			$data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-			$data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-			$data['materials'] = $this->$model->select(array(),'materials',array(),'');
-			$this->load->view('po/form',$data);
-//            echo '<pre>';
-//            print_r($data['row_po']);
-//            echo '</pre>';
-		}
 
-		public function update()
-		{
-            $model = $this->model;
-			
-			$site = $this->input->post('site');
-			$csgt_total = $this->input->post('csgt_total');
-			$ssgt_total = $this->input->post('ssgt_total');
-			$isgt_total = $this->input->post('isgt_total');
-			$total_amount = $this->input->post('total_amount');
-			$frieght_amount = $this->input->post('frieght_amount');
-			$gst_frieght_amount = $this->input->post('gst_frieght_amount');
-			$gross_amount = $this->input->post('gross_amount');
-			$invoice_to = $this->input->post('invoice_to');
-			$contact_name = $this->input->post('contact_name');
-			$vendor = $this->input->post('vendor');
-			$contact_no = $this->input->post('contact_no');
-			$tandc = $this->input->post('tandc');
-			$date = date('Y-m-d',strtotime($this->input->post('date')));
-            
-			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
-            
-			$m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-            
-			$qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');	
-            
-			$app_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');		
-            
-			$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
-            
-			$discount_type = count($this->input->post('discount_type')) > 0 ? implode(",",$this->input->post('discount_type')) : $this->input->post('discount_type');		
-            
-			$discount = count($this->input->post('discount')) > 0 ? implode(",",$this->input->post('discount')) : $this->input->post('discount');	
-            
-			$cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
-			$sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
-			$igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
-            
-			$total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
-			$vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
-            
-			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
-			$data = array(
-					'sid'  => $site,
-					'csgt_total'  => $csgt_total,
-					'ssgt_total'  => $ssgt_total,
-					'isgt_total'  => $isgt_total,
-					'total_amount'  => $total_amount,
-					'frieght_amount'  => $frieght_amount,
-					'gst_frieght_amount' => $gst_frieght_amount,
-					'gross_amount'  => $gross_amount,
-					'invoice_to'  => $invoice_to,
-					'contact_name'  => $contact_name,
-					'contact_no'  => $contact_no,
-					'tandc'  => $tandc,
-					'pocreatedon'  => $date,
-					'mid'  => $mid,
-					'm_unit'  => $m_unit,
-					'qty'  => $qty,
-					'app_qty'  => $app_qty,
-					'unit'  => $unit,
-					'dtid'  => $discount_type,
-					'discount'  => $discount,
-					'cgst'  => $cgst,
-					'sgst'  => $sgst,
-					'igst'  => $igst,
-					'total'  => $total,
-					'vid'  => $vendor,
-					'remark'  => $remark
+    }
 
-				);
-			$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
-			
-			$poid = $this->input->post('poid');
-			$where = array($this->primary_id=>$poid);
-			$this->$model->update($this->table,$data,$where);
-			
-			redirect('po/index');
-		}
+    public function insert()
+    {
+        $model = $this->model;
+        $site = $this->input->post('site');
+        $csgt_total = $this->input->post('csgt_total');
+        $ssgt_total = $this->input->post('ssgt_total');
+        $isgt_total = $this->input->post('isgt_total');
+        $total_amount = $this->input->post('total_amount');
+        $frieght_amount = $this->input->post('frieght_amount');
+        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+        $gross_amount = $this->input->post('gross_amount');
+        $invoice_to = $this->input->post('invoice_to');
+        $contact_name = $this->input->post('contact_name');
+        $contact_no = $this->input->post('contact_no');
+        $tandc = $this->input->post('tandc');
+        $date = date('Y-m-d',strtotime($this->input->post('date')));
 
-		public function delete($poid)
-		{
-			$model = $this->model;
-			$condition = array($this->primary_id=>$poid);
-			$this->$model->delete($this->table,$condition);
-			
-			$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-			redirect('po/index');
-		}
-        public function browse()
-		{
-			/* File Select */
-			$model = $this->model;
-			$data['controller'] = $this->controller;
-			/* Database In Data Count */
-			$data['Count'] = $this->$model->countTableRecords('po_master',array());
-			$this->load->view('po/excel',$data);
-		}
-		
-		public function excel()
-		{
-			$model = $this->model;
-			
-			/* Excel File Upload folder Directory: /assets/database */
-			/* Excel File Upload configuration */
-			$file_excel = $_FILES['excel']['name'];
-			$config = Array();
-			$config['upload_path'] = FCPATH.'/Database/recovery';
-			$config['max_size'] = '102400';
-			$config['allowed_types'] = 'xlsx';
-			$config['overwrite'] = FALSE;
-			$config['remove_spaces'] = true;
-			$file_name = $_FILES['excel']['name'];
-			$config['file_name'] = $file_name;
-			
-			$this->load->library('upload', $config);
-			$this->upload->initialize($config);
-			
-			/* file check if condition is file not upload */
-			if(!$this->upload->do_upload('excel'))
-			{
-				$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-				redirect('po/browse');
-			}
-			/* file check else condition is file upload */
-			else
-			{
-				$data_upload = $this->upload->data();
-			
-				/* excel file read */
-				include(APPPATH.'/libraries/simplexlsx.class.php');
-				$xlsx = new SimpleXLSX($data_upload['full_path']);
-				
-				$table = 'po_master';
-				
-				$xlsxData = $xlsx->rows(); //excel rows data
-				
-				$sid  = 0;
-				$arr = array();
-				$data = array();				
-				
-				/* excel file write */
-				foreach($xlsxData as $key => $row)
-				{
-					/* excel sheet in first line break (heading) */
-					if(strtolower($row[0]) == 'id')
-					{
-						continue;
-					}
-					else
-					{
-						/* excel sheet in second line to start 
+        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+
+        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
+
+        $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');	
+
+        $app_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');		
+
+        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
+
+        $discount_type = count($this->input->post('discount_type')) > 0 ? implode(",",$this->input->post('discount_type')) : $this->input->post('discount_type');		
+
+        $discount = count($this->input->post('discount')) > 0 ? implode(",",$this->input->post('discount')) : $this->input->post('discount');	
+
+        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
+        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
+        $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
+
+        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
+        $vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
+
+        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
+        $data = array(
+            'sid'  => $site,
+            'mid'  => $mid,
+            'csgt_total'  => $csgt_total,
+            'ssgt_total'  => $ssgt_total,
+            'isgt_total'  => $isgt_total,
+            'total_amount'  => $total_amount,
+            'frieght_amount'  => $frieght_amount,
+            'gst_frieght_amount' => $gst_frieght_amount,
+            'gross_amount'  => $gross_amount,
+            'invoice_to'  => $invoice_to,
+            'contact_name'  => $contact_name,
+            'contact_no'  => $contact_no,
+            'tandc'  => $tandc,
+            'pocreatedon'  => $date,
+            'm_unit'  => $m_unit,
+            'qty'  => $qty,
+            'app_qty'  => $app_qty,
+            'unit'  => $unit,
+            'dtid'  => $discount_type,
+            'discount'  => $discount,
+            'cgst'  => $cgst,
+            'sgst'  => $sgst,
+            'igst'  => $igst,
+            'total'  => $total,
+            'vid'  => $vendor,
+            'remark'  => $remark
+
+        );
+
+        $this->$model->insert($data,$this->table);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
+
+        redirect('po/index');
+    }
+
+    public function edit($poid)
+    {
+        $poid = $this->uri->segment(3);
+        //			echo '<h1>'.$poid.'</h1>';
+        $model = $this->model;
+        $data['action'] = "update";
+        $data['row_po'] = $this->$model->select(array(),$this->table,array('poid'=>$poid),'');
+        $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+        $data['controller'] = $this->controller;
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $this->load->view('po/form',$data);
+        //            echo '<pre>';
+        //            print_r($data['row_po']);
+        //            echo '</pre>';
+    }
+
+    public function update()
+    {
+        $model = $this->model;
+
+        $site = $this->input->post('site');
+        $csgt_total = $this->input->post('csgt_total');
+        $ssgt_total = $this->input->post('ssgt_total');
+        $isgt_total = $this->input->post('isgt_total');
+        $total_amount = $this->input->post('total_amount');
+        $frieght_amount = $this->input->post('frieght_amount');
+        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+        $gross_amount = $this->input->post('gross_amount');
+        $invoice_to = $this->input->post('invoice_to');
+        $contact_name = $this->input->post('contact_name');
+        $vendor = $this->input->post('vendor');
+        $contact_no = $this->input->post('contact_no');
+        $tandc = $this->input->post('tandc');
+        $date = date('Y-m-d',strtotime($this->input->post('date')));
+
+        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+
+        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
+
+        $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');	
+
+        $app_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');		
+
+        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
+
+        $discount_type = count($this->input->post('discount_type')) > 0 ? implode(",",$this->input->post('discount_type')) : $this->input->post('discount_type');		
+
+        $discount = count($this->input->post('discount')) > 0 ? implode(",",$this->input->post('discount')) : $this->input->post('discount');	
+
+        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
+        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
+        $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
+
+        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
+        $vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
+
+        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
+        $data = array(
+            'sid'  => $site,
+            'csgt_total'  => $csgt_total,
+            'ssgt_total'  => $ssgt_total,
+            'isgt_total'  => $isgt_total,
+            'total_amount'  => $total_amount,
+            'frieght_amount'  => $frieght_amount,
+            'gst_frieght_amount' => $gst_frieght_amount,
+            'gross_amount'  => $gross_amount,
+            'invoice_to'  => $invoice_to,
+            'contact_name'  => $contact_name,
+            'contact_no'  => $contact_no,
+            'tandc'  => $tandc,
+            'pocreatedon'  => $date,
+            'mid'  => $mid,
+            'm_unit'  => $m_unit,
+            'qty'  => $qty,
+            'app_qty'  => $app_qty,
+            'unit'  => $unit,
+            'dtid'  => $discount_type,
+            'discount'  => $discount,
+            'cgst'  => $cgst,
+            'sgst'  => $sgst,
+            'igst'  => $igst,
+            'total'  => $total,
+            'vid'  => $vendor,
+            'remark'  => $remark
+
+        );
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
+
+        $poid = $this->input->post('poid');
+        $where = array($this->primary_id=>$poid);
+        $this->$model->update($this->table,$data,$where);
+
+        redirect('po/index');
+    }
+
+    public function delete($poid)
+    {
+        $model = $this->model;
+        $condition = array($this->primary_id=>$poid);
+        $this->$model->delete($this->table,$condition);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('po/index');
+    }
+    public function browse()
+    {
+        /* File Select */
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        /* Database In Data Count */
+        $data['Count'] = $this->$model->countTableRecords('material_rqst_test',array());
+        $this->load->view('po/excel',$data);
+    }
+
+    public function excel()
+    {
+        $model = $this->model;
+
+        /* Excel File Upload folder Directory: /assets/database */
+        /* Excel File Upload configuration */
+        $file_excel = $_FILES['excel']['name'];
+        $config = Array();
+        $config['upload_path'] = FCPATH.'/Database/recovery';
+        $config['max_size'] = '102400';
+        $config['allowed_types'] = 'xlsx';
+        $config['overwrite'] = FALSE;
+        $config['remove_spaces'] = true;
+        $file_name = $_FILES['excel']['name'];
+        $config['file_name'] = $file_name;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        /* file check if condition is file not upload */
+        if(!$this->upload->do_upload('excel'))
+        {
+            $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
+            redirect('material_rqst/browse');
+        }
+        /* file check else condition is file upload */
+        else
+        {
+            $data_upload = $this->upload->data();
+
+            /* excel file read */
+            include(APPPATH.'/libraries/simplexlsx.class.php');
+            $xlsx = new SimpleXLSX($data_upload['full_path']);
+
+            $table = 'material_rqst_test';
+
+            $xlsxData = $xlsx->rows(); //excel rows data
+
+            $sid  = 0;
+            $arr = array();
+            $data = array();				
+
+            /* excel file write */
+            foreach($xlsxData as $key => $row)
+            {
+                /* excel sheet in first line break (heading) */
+                if(strtolower($row[0]) == 'id')
+                {
+                    continue;
+                }
+                else
+                {
+                    /* excel sheet in second line to start 
 							if condition is check sid == '' and key ==0 then break */
-						if($key == 0 && $row[2] =="")
-						{
-							break;
-						}
-						/* if in key > 0 and sid== '' then condition true */
-						if($key > 0 && $row[2] =="")
-						{
-								$arr[$mid]['mid'][] = $row[5];
-								$arr[$mid]['app_qty'][] = $row[6];
-								$arr[$mid]['pouid'][] = $row[7];
-								$arr[$mid]['unit'][] = $row[8];
-								$arr[$mid]['dtid'][] = $row[9];
-								$arr[$mid]['discount'] = $row[10];
-								$arr[$mid]['cgst'] = $row[11];
-								$arr[$mid]['sgst'] = $row[12];
-								$arr[$mid]['igst'] = $row[13];
-								$arr[$mid]['cgst_amount'] = $row[14];
-								$arr[$mid]['sgst_amount'] = $row[15];
-								$arr[$mid]['igst_amount'] = $row[16];
-								$arr[$mid]['total'] = $row[17];
-								$arr[$mid]['pocreatedon'] = $row[18];
-								$arr[$mid]['remark'] = $row[19];
-						}
-						
-						/* else in sid != '' then condition true */
-						
-						else
-						{
-							if($row[2] != "")
-							{
-								$poid = $row[0];
-                                $vid = $row[1];
-								$sid = $row[2];
-								$arr[$mid]['sid'] = $sid;
-								$arr[$mid]['vid'] = $vid;
-								$arr[$mid]['porefid'][] = $poid;
-								$arr[$mid]['app_qty'][] = $row[6];
-								$arr[$mid]['pouid'][] = $row[7];
-								$arr[$mid]['unit'][] = $row[8];
-								$arr[$mid]['dtid'][] = $row[9];
-								$arr[$mid]['discount'] = $row[10];
-								$arr[$mid]['cgst'] = $row[11];
-								$arr[$mid]['sgst'] = $row[12];
-								$arr[$mid]['igst'] = $row[13];
-								$arr[$mid]['cgst_amount'] = $row[14];
-								$arr[$mid]['sgst_amount'] = $row[15];
-								$arr[$mid]['igst_amount'] = $row[16];
-								$arr[$mid]['total'] = $row[17];
-								$arr[$mid]['pocreatedon'] = $row[18];
-								$arr[$mid]['remark'] = $row[19];
-							}
-						}
-					}
-				}
-				
-				foreach($arr as $key=>$val)
-				{
-					/* Database Is Comma seprate Store */
-					$sid = $arr[$key]['sid'];
-					$q_mrrefid = $arr[$key]['mrrefid'];
-					$q_mid = implode(",",$arr[$key]['mid']);
-					$q_qty = implode(",",$arr[$key]['mrqty']);
-					$q_muid = implode(",",$arr[$key]['muid']);
-					$q_mrremarks = implode(",",$arr[$key]['mrremarks']);
-					$q_mrunit = implode(",",$arr[$key]['mrunitprice']);
-					$q_mrcreatedon = $arr[$key]['mrcreatedon'];
-					$q_mrcreatedby = $arr[$key]['mrcreatedby'];
-					
-					$data[] = array(
-						'sid' => $sid,
-						'mid' => $q_mid,
-						'mrqty' => $q_qty,
-						'mrunitprice' => $q_mrunit,
-						'mrrefid' => $q_mrrefid,
-						'muid' => $q_muid,
-						'mrremarks' => $q_mrremarks,
-						'mrcreatedon' => $q_mrcreatedon,
-						'mrcreatedby' => $q_mrcreatedby,
+                    if($key == 0 && $row[2] =="")
+                    {
+                        break;
+                    }
+                    /* if in key > 0 and sid== '' then condition true */
+                    if($key > 0 && $row[2] =="")
+                    {
+                        $arr[$mid]['mid'][] = $row[3];
+                        $arr[$mid]['mrqty'][] = $row[4];
+                        $arr[$mid]['muid'][] = $row[5];
+                        $arr[$mid]['mrunitprice'][] = $row[6];
+                        $arr[$mid]['mrremarks'][] = $row[7];
+                        $arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
+                        $arr[$mid]['mrcreatedby'] = $row[12];
+                    }
 
-					);
-					
-					
-				}
-				/* if condition is true then data insert database */
-				if(count($data) > 0)
-				{
-					$this->db->trans_start();
-					$this->$model->insert_batch($data, $table);
-					$this->db->trans_complete();
-					
-					/* if condition is true then excel file data not insert then data rollback */
-					if($this->db->trans_status() == FALSE)
-					{
-						$this->db->trans_rollback();
-						$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
-					}
-					/* else condition is true then data success fully excel file inserted */
-					else
-					{
-						$this->db->trans_commit();
-						$this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Successfully Excel File Inserted</div>');
-					}
-					
-				} 
-				/* else condition is true then data not insert database */
-				else {
-					$this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
-				}
-			}
-				redirect('po/browse');
-		}
-		/* database in data display */
-		public function server_data()
-		{
-			$model = $this->model;
+                    /* else in sid != '' then condition true */
 
-			/* datatable in sorting */
-			$order_col_id = $_POST['order'][0]['column'];
-			$order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
+                    else
+                    {
+                        if($row[2] != "")
+                        {
+                            $sid = $row[1];
+                            $mid = $row[2];
+                            $arr[$mid]['sid'] = $sid;
+                            $arr[$mid]['mrrefid'] = $row[2];
+                            $arr[$mid]['mid'][] = $row[3];
+                            $arr[$mid]['mrqty'][] = $row[4];
+                            $arr[$mid]['muid'][] = $row[5];
+                            $arr[$mid]['mrunitprice'][] = $row[6];
+                            $arr[$mid]['mrremarks'][] = $row[7];
+                            $arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
+                            $arr[$mid]['mrcreatedby'] = $row[12];
+                        }
+                    }
+                }
+            }
 
-			/* datatable recordsTotal And recordsFiltered */
-			$totalData = $this->$model->countTableRecords('material_rqst',array());
+            foreach($arr as $key=>$val)
+            {
+                /* Database Is Comma seprate Store */
+                $sid = $arr[$key]['sid'];
+                $q_mrrefid = $arr[$key]['mrrefid'];
+                $q_mid = implode(",",$arr[$key]['mid']);
+                $q_qty = implode(",",$arr[$key]['mrqty']);
+                $q_muid = implode(",",$arr[$key]['muid']);
+                $q_mrremarks = implode(",",$arr[$key]['mrremarks']);
+                $q_mrunit = implode(",",$arr[$key]['mrunitprice']);
+                $q_mrcreatedon = $arr[$key]['mrcreatedon'];
+                $q_mrcreatedby = $arr[$key]['mrcreatedby'];
 
-			$start = $_POST['start'];
-			$limit = $_POST['length'];
-			
-			/* datatable in limited data display */
-			$q = $this->db->query("SELECT * FROM `po_master`  Order By $order LIMIT $start, $limit")->result();
-			
-			$data = array();
-			
-			if(!empty($q))
-				{
-					foreach ($q as $key=>$value)
-					{
-						/* records Datatable */
-						$id = $this->primary_id;
-						
-						$nestedData['poid'] = $value->poid;
-						$nestedData['mrrefid'] = $value->mrrefid;
-						$nestedData['vid'] = $value->vid;
-						$nestedData['sid'] = $value->sid;
-						$nestedData['frieght_amount'] = $value->frieght_amount;
-						$nestedData['app_qty'] = $value->app_qty;
-						$nestedData['pouid'] = $value->pouid;
-						$nestedData['pouid'] = $value->pouid;
-						$data[] = $nestedData;
-					}
-				}
+                $data[] = array(
+                    'sid' => $sid,
+                    'mid' => $q_mid,
+                    'mrqty' => $q_qty,
+                    'mrunitprice' => $q_mrunit,
+                    'mrrefid' => $q_mrrefid,
+                    'muid' => $q_muid,
+                    'mrremarks' => $q_mrremarks,
+                    'mrcreatedon' => $q_mrcreatedon,
+                    'mrcreatedby' => $q_mrcreatedby,
 
-			$json_data = array(
-						"draw" => intval($this->input->post('draw')),
-						"recordsTotal"    => intval($totalData),
-						"recordsFiltered" => intval($totalData),
-						"data" => $data
-						);
-			echo json_encode($json_data);
-		}
-	}
+                );
+
+
+            }
+            /* if condition is true then data insert database */
+            if(count($data) > 0)
+            {
+                $this->db->trans_start();
+                $this->$model->insert_batch($data, $table);
+                $this->db->trans_complete();
+
+                /* if condition is true then excel file data not insert then data rollback */
+                if($this->db->trans_status() == FALSE)
+                {
+                    $this->db->trans_rollback();
+                    $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
+                }
+                /* else condition is true then data success fully excel file inserted */
+                else
+                {
+                    $this->db->trans_commit();
+                    $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Successfully Excel File Inserted</div>');
+                }
+
+            } 
+            /* else condition is true then data not insert database */
+            else {
+                $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
+            }
+        }
+        redirect('po/browse');
+    }
+    /* database in data display */
+    public function server_data()
+    {
+        $model = $this->model;
+
+        /* datatable in sorting */
+        $order_col_id = $_POST['order'][0]['column'];
+        $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
+
+        /* datatable recordsTotal And recordsFiltered */
+        $totalData = $this->$model->countTableRecords('material_rqst_test',array());
+
+        $start = $_POST['start'];
+        $limit = $_POST['length'];
+
+        /* datatable in limited data display */
+        $q = $this->db->query("SELECT * FROM `material_rqst_test`  Order By $order LIMIT $start, $limit")->result();
+
+        $data = array();
+
+        if(!empty($q))
+        {
+            foreach ($q as $key=>$value)
+            {
+                /* records Datatable */
+                $id = 'poid';
+
+                $nestedData['mrid'] = $value->mrid;
+                $nestedData['sid'] = $value->sid;
+                $nestedData['mid'] = $value->mid;
+                $nestedData['mrqty'] = $value->mrqty;
+                $nestedData['mrunitprice'] = $value->mrunitprice;
+                $nestedData['mrrefid'] = $value->mrrefid;
+                $nestedData['muid'] = $value->muid;
+                $nestedData['mrremarks'] =str_replace(",", "", $value->mrremarks);
+                $nestedData['mrcreatedon'] = $value->mrcreatedon;
+                $nestedData['mrcreatedby'] = $value->mrcreatedby;
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw" => intval($this->input->post('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalData),
+            "data" => $data
+        );
+        echo json_encode($json_data);
+    }
+}
 ?>

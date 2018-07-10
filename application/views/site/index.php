@@ -16,15 +16,15 @@
 
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Name</td>
-                <td>Start Date</td>
-                <td>Unique ID</td>
-                <td>Contact Name</td>
-                <td>Mobile</td>
-                <td>Email</td>
-                <td>Addres</td>
-                <td>Action</td>
+                <td><b>ID</b></td>
+                <td><b>Name</b></td>
+                <td><b>Start Date</b></td>
+                <td><b>Unique ID</b></td>
+                <td><b>Contact Name</b></td>
+                <td><b>Mobile</b></td>
+                <td><b>Email</b></td>
+                <td><b>Addres</b></td>
+                <td><b>Action</b></td>
             </tr>
         </thead>
         <tbody id="showdata">

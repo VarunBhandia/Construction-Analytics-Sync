@@ -2,36 +2,34 @@
 
 <div class="container">
     <h3>All Materials List
-        <?php echo $uid; ?>
     </h3>
     <div class="alert alert-success" style="display: none;">
 
     </div>
     <button id="btnAdd" class="btn btn-success">Add New Material</button>
     <div class="container">
-   <br />
-   <br />
-   <br />
-   <h2 align="center">Live Data Search in Codeigniter using Ajax JQuery</h2><br />
-   <div class="form-group">
-    <div class="input-group">
-     <span class="input-group-addon">Search</span>
-     <input type="text" name="search_text" id="search_text" placeholder="Search by materials Details" class="form-control" />
+        <br />
+        <br />
+        <div align="right">
+
+            <form method="post" action="<?php echo base_url()?>material/action">
+                <input type="submit" name="export" class="btn btn-success" value="Export" />
+            </form>
+        </div>
+
+        <br />
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">Search</span>
+                <input type="text" name="search_text" id="search_text" placeholder="Search by materials Details" class="form-control" />
+            </div>
+        </div>
+        <br />
+        <div id="result"></div>
+
     </div>
-   </div>
-   <br />
-   <div id="result"></div>
-   
-  </div>
-  <div style="clear:both"></div>
-    <div align="right">
-                   
-                    <form method="post" action="<?php echo base_url()?>material/action">
-				    <input type="submit" name="export" class="btn btn-success" value="Export" />
-                    </form>
-                       </div>
-    
-    
+    <div style="clear:both"></div>
+
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
 
         <thead>
@@ -74,33 +72,33 @@
                         <label for="munit" class="label-control col-md-4">Material Unit</label>
                         <div class="col-md-8">
                             <select class=" form-control" id="munit" name="munit">
-								<option value="">---Unit name----</option>
-								<?php
-								foreach($munits as $munit)
-								{ ?>
-									<option value="<?php echo $munit->muid; ?>"><?php echo $munit->muname;?></option>
-								<?php }	?>
-							</select>
+                                <option value="">---Unit name----</option>
+                                <?php
+    foreach($munits as $munit)
+    { ?>
+                                <option value="<?php echo $munit->muid; ?>"><?php echo $munit->muname;?></option>
+                                <?php }	?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group">
-<!--
-                        <label for="mcategory" class="label-control col-md-4">Category</label>
-                        <div class="col-md-8">
-                            <input type="text" name="mcategory" class="form-control">
-                        </div>
+                        <!--
+<label for="mcategory" class="label-control col-md-4">Category</label>
+<div class="col-md-8">
+<input type="text" name="mcategory" class="form-control">
+</div>
 -->
                         <label for="mdesc" class="label-control col-md-4">Category</label>
                         <div class="col-md-8">
-                           <select class=" form-control" id="mcategory" name="mcategory">
-								<option value="">---category name----</option>
-								<?php
-								foreach($mcategorys as $mcategory)
-								{ ?>
-									<option value="<?php echo $mcategory->cid; ?>"><?php echo $mcategory->cname;?></option>
-								<?php }	?>
-							</select>
-                    </div>
+                            <select class=" form-control" id="mcategory" name="mcategory">
+                                <option value="">---category name----</option>
+                                <?php
+                                foreach($mcategorys as $mcategory)
+                                { ?>
+                                <option value="<?php echo $mcategory->cid; ?>"><?php echo $mcategory->cname;?></option>
+                                <?php }	?>
+                            </select>
+                        </div>
                     </div>
 
                     <div class="form-group">
@@ -167,34 +165,34 @@
 </div>
 <!-- /.modal -->
 <script>
-$(document).ready(function(){
+    $(document).ready(function(){
 
- load_data();
+        load_data();
 
- function load_data(query)
- {
-  $.ajax({
-   url:"<?php echo base_url(); ?>material/fetch",
-   method:"POST",
-   data:{query:query},
-   success:function(data){
-    $('#result').html(data);
-   }
-  })
- }
+        function load_data(query)
+        {
+            $.ajax({
+                url:"<?php echo base_url(); ?>material/fetch",
+                method:"POST",
+                data:{query:query},
+                success:function(data){
+                    $('#showdata').html(data);
+                }
+            })
+        }
 
- $('#search_text').keyup(function(){
-  var search = $(this).val();
-  if(search != '')
-  {
-   load_data(search);
-  }
-  else
-  {
-   load_data();
-  }
- });
-});
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+                load_data(search);
+            }
+            else
+            {
+                load_data();
+            }
+        });
+    });
 </script>
 
 <script>
@@ -228,7 +226,7 @@ $(document).ready(function(){
                 mname.parent().parent().removeClass('has-error');
                 result += '1';
             }
-            
+
             if (munit.val() == '') {
                 munit.parent().parent().addClass('has-error');
             } else {
@@ -236,7 +234,7 @@ $(document).ready(function(){
                 result += '2';
             }
 
-            
+
             if (result == '12') {
                 $.ajax({
                     type: 'ajax',
@@ -251,9 +249,9 @@ $(document).ready(function(){
                             $('#myForm')[0].reset();
                             if (response.type == 'add') {
                                 var type = 'added'
-                            } else if (response.type == 'update') {
-                                var type = "updated"
-                            }
+                                } else if (response.type == 'update') {
+                                    var type = "updated"
+                                    }
                             $('.alert-success').html('Material ' + type + ' successfully').fadeIn().delay(4000).fadeOut('slow');
                             showAllMaterial();
                         } else {
@@ -285,9 +283,9 @@ $(document).ready(function(){
                 success: function(data) {
                     $('input[name=mname]').val(data.mname);
                     $('input[name=munit]').val(<?php foreach($munits as $munit)
-								{ } ?>data.munit);
+{ } ?>data.munit);
                     $('input[name=mcategory]').val(<?php foreach($mcategorys as $mcategory)
-								{ } ?>data.mcategory);
+{ } ?>data.mcategory);
                     $('input[name=mdesc]').val(data.mdesc);
                     $('input[name=hsn]').val(data.hsn);
                     $('input[name=mgst]').val(data.mgst);

@@ -111,12 +111,6 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <!--
-<label for="mcategory" class="label-control col-md-4">Category</label>
-<div class="col-md-8">
-<input type="text" name="mcategory" class="form-control">
-</div>
--->
                         <label for="mdesc" class="label-control col-md-4">Category</label>
                         <div class="col-md-8">
                             <select class=" form-control" id="mcategory" name="mcategory">

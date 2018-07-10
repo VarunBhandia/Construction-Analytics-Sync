@@ -12,12 +12,8 @@ elseif($action == 'update')
     $btn = 'Update';
 }
 
+
 ?>
-<style>
-	.select2{
-		width:100%;
-	}
-</style>
 
 <div class="right_col" role="main">          
     <div class="row">
@@ -31,34 +27,30 @@ elseif($action == 'update')
                     </div>
 
                     <?php
-                    echo form_open('vendor_bills/show_data_by_site_vendor');
+
+                    echo form_open('Vendor_bills/show_data_by_site_vendor');
                     echo form_label('Select Site and Vendor : ');
-					
-					$valueSite = array();
-					foreach($sites as $value)
-					{
-						$valueSite[$value->sid] = $value->sname;
-					}
-					
-					echo form_dropdown('vid', array('0' => '-- Select Site --') + $valueSite, '','class="select2"');
-					echo '<br /><br />';
-					
-					$valueVendor = array();
-					foreach($vendors as $value)
-					{
-						$valueVendor[$value->vid] = $value->vname;
-					}
-					
-					echo form_dropdown('sid', array('0' => '-- Select Vendor --') + $valueVendor, '','class="select2"');
-					echo '<br /><br />';
-					
+
+                    $data = array(
+                        'type' => 'text',
+                        'name' => 'sid',
+                        'class' =>'form-control',
+                        'placeholder' => 'Sid'
+                    );
+                    echo form_input($data);
+                    $data = array(
+                        'type' => 'text',
+                        'name' => 'vid',
+                        'class' =>'form-control',
+                        'placeholder' => 'Vid'
+                    );
+                    echo form_input($data);
                     echo "<div class='error_msg'>";
                     if (isset($date_range_error_message)) {
                         echo $date_range_error_message;
                     }
                     echo form_submit('submit', 'Show Record');
                     echo form_close();
-					$this->load->view('include/footer');
                     ?>
 
                     <div class="message">
@@ -69,10 +61,7 @@ elseif($action == 'update')
                             { echo $result_display; } 
                             else 
                             { ?>
-						
-						<?php 
-						 echo form_open('Vendor_bills/insert');
-						?>
+
                         <div class="datatable-responsive">
                             <table id="datatable1" class="table table-striped table-bordered">
                                 <thead>
@@ -103,12 +92,11 @@ elseif($action == 'update')
                                     </script>
 
                                     <?php
-								$c=0;
-                                foreach($result_display as $value) {
+
+                                foreach ($result_display as $value) {
                                     ?>
 
-                                    <input type="hidden" name="vid" value="<?php echo $value->vid; ?>"/>
-                                    <input type="hidden" name="sid" value="<?php echo $value->sid; ?>"/>
+                                    <input type="hidden" name="vbid" value="<?php echo $row[0]->vbid; ?>"/>
                                     <?php 
 
                                     $material = explode(",",$value->mid);
@@ -122,13 +110,12 @@ elseif($action == 'update')
                                     ?>
                                     <tr class="pending-user">
                                         <td style="width: 6em;">
-											<input type="hidden" name="uindex[]" value="<?php echo $c; ?>" />
-                                            <?php echo $value->grnrefid; ?>
-                                            <input type="hidden" id="grnrefid" name="grnrefid" class="amountonly form-control" value="<?php echo $value->grnrefid; ?>">
+                                            <?php echo $result_display[0]->grnrefid; ?>
+                                            <input type="hidden" id="grnrefid" name="grnrefid" class="amountonly form-control" value="<?php echo $result_display[0]->grnrefid; ?>">
                                         </td>
                                         <td style="width: 6em;">
-                                            <?php echo $value->grnreceivedate ; ?>
-                                            <input type="hidden" id="grnreceivedate" name="grnreceivedate" class="amountonly form-control" value="<?php echo $value->grnreceivedate; ?>">
+                                            <?php echo $result_display[0]->grnreceivedate ; ?>
+                                            <input type="hidden" id="grnreceivedate" name="grnreceivedate" class="amountonly form-control" value="<?php echo $result_display[0]->grnreceivedate; ?>">
                                         </td>
                                         <td style="width: 6em;">
                                             <?php echo $grnlinechallan[$i]; ?>
@@ -142,9 +129,9 @@ elseif($action == 'update')
                                         </td>
                                         <td style="width: 5em;">
                                             <?php
-                                        foreach($units as $val)
+                                        foreach($units as $value)
                                         { ?>
-                                            <?php if($m_unit[$i]==$val->muid){echo $val->muname;} ?> 
+                                            <?php if($m_unit[$i]==$value->muid){echo $value->muname;} ?> 
                                             <?php }	?>
                                         </td>
                                         <td style="width: 5em;">
@@ -153,7 +140,7 @@ elseif($action == 'update')
 
                                         </td>
                                         <td style="width: 7em;">
-                                            <input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control remove_unit" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+                                            <input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
                                         </td>
                                         <td style="width: 5em;">
                                             <input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0" value="">
@@ -168,16 +155,15 @@ elseif($action == 'update')
                                             <input type="text" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
                                         </td>
                                         <td>
-                                            <input type="text" id="remarks_<?php echo $i; ?>" name="remarks[]" value="<?php echo $remarks[$i]; ?>" class="form-control">
+                                            <input type="text" id="remarks_<?php echo $i; ?>" name="remarks[]" value="<?php echo $remarks[$i]; ?>" class="amountonly form-control">
                                         </td>
                                         <td>
                                             <a class="btn btn-sm btn-danger" id="minus">-</a>
                                         </td>
                                     </tr>
-									<?php //$this->load->view('include/footer');?>
                                     <script>
 
-                                        jQuery(document).ready(function(){
+                                        $(function(){
 
                                             var quantity = $('#app_qty_<?php echo $i; ?>').val();
                                             var unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
@@ -354,6 +340,9 @@ elseif($action == 'update')
                                                 console.log('frieght_amount_total : '+frieght_amount_total);
 
                                                 $('#gross_amount').val(frieght_amount_total);
+
+
+
                                             }); 
 
                                             $('#cgst_<?php echo $i; ?>').keyup(function() {
@@ -793,8 +782,7 @@ elseif($action == 'update')
                                         });
 
                                     </script>                                        
-                                    <?php $c++; }
-									} ?>
+                                    <?php } } ?>
                                 </tbody>
                             </table>
                             <div class="form-group">
@@ -900,8 +888,6 @@ elseif($action == 'update')
                                 </div>
                             </div>
                         </div>
-						
-						
                         <?php   } ?>
                             <div class="form-group">
                                 <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
@@ -911,7 +897,6 @@ elseif($action == 'update')
                             </div>
                         <?php  }
                         ?>
-						<?php  echo form_close(); ?>
                     </div>
                 </div>
             </div>
@@ -920,19 +905,3 @@ elseif($action == 'update')
 </div>
 </body>
 </html>
-<script>
-jQuery(document).ready(function(){
-	$('body').on('click',".btn-danger",function()
-	{
-		var count= $('.pending-user').length; 
-		var value=count-1;
-		if(value>=1)
-		{
-			$(this).closest('.pending-user').fadeOut('fast', function(){$(this).	closest('.pending-user').remove();
-			});
-			$('.remove_unit').trigger('keyup');
-		}
-	});
- });
-</script>
-

@@ -71,11 +71,22 @@ class Site_m extends CI_Model{
 			return false;
 		}
 	}
-    function fetch_data()
-	{
-		$this->db->order_by("sid", "DESC");
-		$query = $this->db->get("sitedetails");
-		return $query->result();
-	}
+    function fetch_data($query)
+ {
+  $this->db->select("*");
+  $this->db->from("sitedetails");
+  if($query != '')
+  {
+   $this->db->like('sname', $query);
+   $this->db->or_like('uniquesid', $query);
+   $this->db->or_like('sitestartdate', $query);
+   $this->db->or_like('contactname', $query);
+   $this->db->or_like('mobile', $query);
+   $this->db->or_like('email', $query);
+   $this->db->or_like('address', $query); 
+  }
+  $this->db->order_by('sid', 'DESC');
+  return $this->db->get();
+ }
 }
 ?>

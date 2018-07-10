@@ -1,17 +1,66 @@
 <?php $uid = $this->session->userdata('username'); ?>
+<!DOCTYPE html>
+<html>
 
+    <head>
+        <title>Site List</title>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-theme.min.css') ?>">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,900" rel="stylesheet">
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.tabletojson.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    </head>
+
+    <body style="font-family: 'Montserrat', sans-serif;">
+
+        <div class="navbar navbar-default">
+            <div class="container">
+                <h2><span class="glyphicon glyphicon-home"></span> Construction Analytics</h2>
+            </div>
+        </div>
+        <div class="container">
 <div class="container">
-    <h3>Site Lists
+    <h3>All Sites List
     </h3>
+    <br />
     <div class="alert alert-success" style="display: none;">
 
     </div>
+    <div class="row">
+       <div class="col-md-9">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">Search</span>
+                <input type="text" name="search_text" id="search_text" placeholder="Search by Site Details" class="form-control" />
+            </div>
+        </div>
+            
+        </div>
+         <div class="col-md-1">
+        <div align="right">
+            <form method="post" action="<?php echo base_url()?>site/action">
+                <input type="submit" name="export" class="btn btn-success" value="Export" />
+            </form>
+        </div>
+        </div>
+        <div class="col-md-2">
     <button id="btnAdd" class="btn btn-success">Add New Site</button>
-    <div align="right">
-                    <form method="post" action="<?php echo base_url()?>site/action">
-				    <input type="submit" name="export" class="btn btn-success" value="Export" />
-                    </form>
-                       </div>
+    </div>
+        
+       
+    </div>
+    <div class="container">
+        <br />
+        <br />
+        <div id="result"></div>
+
+    </div>
+    <div style="clear:both"></div>
+
     <table class="table table-bordered table-responsive" style="margin-top: 20px;" id='example-table'>
 
         <thead>
@@ -118,6 +167,36 @@
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->
+<script>
+    $(document).ready(function(){
+
+        load_data();
+
+        function load_data(query)
+        {
+            $.ajax({
+                url:"<?php echo base_url(); ?>site/fetch",
+                method:"POST",
+                data:{query:query},
+                success:function(data){
+                    $('#showdata').html(data);
+                }
+            })
+        }
+
+        $('#search_text').keyup(function(){
+            var search = $(this).val();
+            if(search != '')
+            {
+                load_data(search);
+            }
+            else
+            {
+                load_data();
+            }
+        });
+    });
+</script>
 
 <script>
     $(function() {

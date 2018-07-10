@@ -1,29 +1,58 @@
 <?php $uid = $this->session->userdata('username'); ?>
+<!DOCTYPE html>
+<html>
 
+    <head>
+        <title>Material List</title>
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-theme.min.css') ?>">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,900" rel="stylesheet">
+        <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery.tabletojson.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    </head>
+
+    <body style="font-family: 'Montserrat', sans-serif;">
+
+        <div class="navbar navbar-default">
+            <div class="container">
+                <h2><span class="glyphicon glyphicon-home"></span> Construction Analytics</h2>
+            </div>
+        </div>
+        <div class="container">
 <div class="container">
     <h3>All Materials List
     </h3>
+    <br />
     <div class="alert alert-success" style="display: none;">
 
     </div>
-    <button id="btnAdd" class="btn btn-success">Add New Material</button>
-    <div class="container">
-        <br />
-        <br />
-        <div align="right">
-
-            <form method="post" action="<?php echo base_url()?>material/action">
-                <input type="submit" name="export" class="btn btn-success" value="Export" />
-            </form>
-        </div>
-
-        <br />
+    <div class="row">
+        <div class="col-md-9">
         <div class="form-group">
             <div class="input-group">
                 <span class="input-group-addon">Search</span>
                 <input type="text" name="search_text" id="search_text" placeholder="Search by materials Details" class="form-control" />
             </div>
         </div>
+            
+        </div>
+        <div class="col-md-1">
+        <div align="right">
+            <form method="post" action="<?php echo base_url()?>material/action">
+                <input type="submit" name="export" class="btn btn-success" value="Export" />
+            </form>
+        </div>
+        </div>
+        <div class="col-md-2">
+    <button id="btnAdd" class="btn btn-success">Add New Material</button>
+        </div>
+    </div>
+    <div class="container">
+        <br />
         <br />
         <div id="result"></div>
 
@@ -34,16 +63,16 @@
 
         <thead>
             <tr>
-                <td>ID</td>
-                <td>Material Name</td>
-                <td>Material Unit</td>
-                <td>Material Category</td>
-                <td>Material Description</td>
-                <td>HSN Code</td>
-                <td>GST Rate</td>
-                <td>Base Rate</td>
-                <td>Material type</td>
-                <td>Action</td>
+                <td><b>ID</b></td>
+                <td><b>Material Name</b></td>
+                <td><b>Material Unit</b></td>
+                <td><b>Material Category</b></td>
+                <td><b>Material Description</b></td>
+                <td><b>HSN Code</b></td>
+                <td><b>GST Rate</b></td>
+                <td><b>Base Rate</b></td>
+                <td><b>Material type</b></td>
+                <td><b>Action</b></td>
             </tr>
         </thead>
         <tbody id="showdata">

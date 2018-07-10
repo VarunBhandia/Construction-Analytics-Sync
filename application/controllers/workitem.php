@@ -12,6 +12,50 @@ Class Workitem extends CI_Controller{
 		$this->load->view('witem_master/index');
 		$this->load->view('layout/footer');
 	}
+    
+    function fetch()
+    {
+        $output = '';
+        $query = '';
+        $this->load->model('workitem_m');
+        if($this->input->post('query'))
+        {
+            $query = $this->input->post('query');
+        }
+
+        $data = $this->workitem_m->fetch_data($query);
+        $output .= '
+  <div class="table-responsive">
+     <table class="table table-bordered table-striped">  ';
+        if($data->num_rows() > 0)
+        {
+            foreach($data->result() as $row)
+            {
+                $output .= '
+      <tr>
+       <td>'.$row->wiid.'</td>
+       <td>'.$row->winame.'</td>
+       <td>'.$row->widesc.'</td>
+       <td>'.$row->wigst.'</td>
+       <td>'.$row->wibase.'</td>
+       <td>'.$row->wicategory.'</td>
+       <td>'.$row->witype.'</td>
+       <td>
+       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->wiid.'">Edit</a>
+       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->wiid.'">Delete</a></td>
+
+      </tr>';
+            }
+        }
+        else
+        {
+            $output .= '<tr>
+       <td colspan="5">No Data Found</td>
+      </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
+    }
 
 	public function showAllWorkItem(){
 		$result = $this->m->showAllWorkItem();

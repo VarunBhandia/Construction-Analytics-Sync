@@ -73,4 +73,23 @@ class Transporter_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    function fetch_data($query)
+ {
+  $this->db->select("*");
+  $this->db->from("transporters");
+  if($query != '')
+  {
+   $this->db->like('tname', $query);
+   $this->db->or_like('tmobile', $query);
+   $this->db->or_like('taltmobile', $query);   
+   $this->db->or_like('tconame', $query);
+   $this->db->or_like('temail', $query);
+   $this->db->or_like('tgst', $query);
+   $this->db->or_like('taddress', $query);
+   $this->db->or_like('tdesc', $query); 
+  }
+  $this->db->order_by('tid', 'DESC');
+  return $this->db->get();
+ }
 }

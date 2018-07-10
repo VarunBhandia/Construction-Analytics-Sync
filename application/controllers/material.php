@@ -12,7 +12,6 @@ Class Material extends CI_Controller{
     function index(){
         $this->load->model("material_m");
         $this->load->model('Model');
-        $this->load->view('layout/header');
         $this->load->view('layout/footer');
         $data['row'] = $this->Model->select(array(),'materials',array(),'');
         $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');

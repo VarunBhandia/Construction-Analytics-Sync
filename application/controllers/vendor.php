@@ -4,15 +4,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 Class Vendor extends CI_Controller{
 	function __construct(){
 		parent:: __construct();
+        $this->model = 'Model';
 		$this->load->model('vendor_m', 'm');
 	}
 
 	function index(){
         $this->load->model("vendor_m");
-        $data["v_data"] = $this->vendor_m->fetch_data();
-		$this->load->view('layout/header');
-		$this->load->view('vendor_master/index');
+        $this->load->model('Model');
 		$this->load->view('layout/footer');
+		$this->load->view('vendor_master/index');
 	}
     
     function action()
@@ -57,6 +57,49 @@ Class Vendor extends CI_Controller{
 		$object_writer->save('php://output');
             
         }
+    
+    function fetch()
+    {
+        $output = '';
+        $query = '';
+        $this->load->model('vendor_m');
+        if($this->input->post('query'))
+        {
+            $query = $this->input->post('query');
+        }
+
+        $data = $this->vendor_m->fetch_data($query);
+        $output .= '
+  <div class="table-responsive">
+     <table class="table table-bordered table-striped">  ';
+        if($data->num_rows() > 0)
+        {
+            foreach($data->result() as $row)
+            {
+                $output .= '
+      <tr>
+       <td>'.$row->vid.'</td>
+       <td>'.$row->vname.'</td>
+       <td>'.$row->vmobile.'</td>
+       <td>'.$row->vgst.'</td>
+       <td>'.$row->vaddress.'</td>
+       <td>'.$row->vdesc.'</td>
+       <td>
+       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->vid.'">Edit</a>
+       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->vid.'">Delete</a></td>
+
+      </tr>';
+            }
+        }
+        else
+        {
+            $output .= '<tr>
+       <td colspan="5">No Data Found</td>
+      </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
+    }
 
 	public function showAllVendor(){
 		$result = $this->m->showAllVendor();

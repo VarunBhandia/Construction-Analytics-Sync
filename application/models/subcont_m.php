@@ -69,4 +69,21 @@ class Subcont_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    function fetch_data($query)
+ {
+  $this->db->select("*");
+  $this->db->from("subcontdetails");
+  if($query != '')
+  {
+   $this->db->like('subname', $query);
+   $this->db->or_like('submobile', $query);
+   $this->db->or_like('subaltmobile', $query);
+   $this->db->or_like('subemail', $query);
+   $this->db->or_like('subgst', $query);
+   $this->db->or_like('subaddress', $query); 
+  }
+  $this->db->order_by('subid', 'DESC');
+  return $this->db->get();
+ }
 }

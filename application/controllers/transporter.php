@@ -8,7 +8,8 @@ Class Transporter extends CI_Controller{
 	}
 
 	function index(){
-		$this->load->view('layout/header');
+        $this->load->model("transporter_m");
+        $this->load->model('Model');
 		$this->load->view('transporter_master/index');
 		$this->load->view('layout/footer');
 	}

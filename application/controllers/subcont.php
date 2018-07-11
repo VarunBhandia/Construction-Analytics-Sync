@@ -8,10 +8,55 @@ Class Subcont extends CI_Controller{
 	}
 
 	function index(){
-		$this->load->view('layout/header');
+        $this->load->model("subcont_m");
+        $this->load->model('Model');
 		$this->load->view('subcont/index');
 		$this->load->view('layout/footer');
 	}
+    
+    function fetch()
+    {
+        $output = '';
+        $query = '';
+        $this->load->model('subcont_m');
+        if($this->input->post('query'))
+        {
+            $query = $this->input->post('query');
+        }
+
+        $data = $this->subcont_m->fetch_data($query);
+        $output .= '
+  <div class="table-responsive">
+     <table class="table table-bordered table-striped">  ';
+        if($data->num_rows() > 0)
+        {
+            foreach($data->result() as $row)
+            {
+                $output .= '
+      <tr>
+       <td>'.$row->subid.'</td>
+       <td>'.$row->subname.'</td>
+       <td>'.$row->submobile.'</td>
+       <td>'.$row->subaltmobile.'</td>
+       <td>'.$row->subemail.'</td>
+       <td>'.$row->subgst.'</td>
+       <td>'.$row->subaddress.'</td>
+       <td>
+       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->subid.'">Edit</a>
+       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->subid.'">Delete</a></td>
+
+      </tr>';
+            }
+        }
+        else
+        {
+            $output .= '<tr>
+       <td colspan="5">No Data Found</td>
+      </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
+    }
 
 	public function showAllSubcont(){
 		$result = $this->m->showAllSubcont();

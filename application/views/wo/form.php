@@ -1,3 +1,4 @@
+<?php $uid = $this->session->userdata('username'); ?>
 <?php
 error_reporting(0);
 	$this->load->view('include/header');
@@ -1925,6 +1926,7 @@ error_reporting(0);
                                 </div>
                             </div>
                         </form>
+
                   </div>
                 </div>
               </div>

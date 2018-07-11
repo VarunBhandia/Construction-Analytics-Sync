@@ -191,6 +191,7 @@ class Rtv extends CI_Controller
     {
         $model = $this->model;
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
@@ -208,6 +209,7 @@ class Rtv extends CI_Controller
 
         $data = array(
             'sid'  => $site,
+            'rtvcreatedby'  => $uid,
             'vid'  => $vendor,
             'vchallan' => $vchallan,
             'schallan' => $schallan,
@@ -246,6 +248,7 @@ class Rtv extends CI_Controller
         $model = $this->model;
 
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
@@ -264,6 +267,7 @@ class Rtv extends CI_Controller
 
         $data = array(
             'sid'  => $site,
+            'rtvcreatedby'  => $uid,
             'vid'  => $vendor,
             'tid'  => $transporter,
             'rtvreturndate'  => $date,

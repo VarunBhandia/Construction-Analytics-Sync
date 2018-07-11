@@ -15,6 +15,7 @@ class Workitem_m extends CI_Model{
 	public function addWorkItem(){
 		$field = array(
 			'winame'=>$this->input->post('winame'),
+			'wicreatedby'=>$this->input->post('wicreatedby'),
 			'widesc'=>$this->input->post('widesc'),
 			'wigst'=>$this->input->post('wigst'),
 			'wibase'=>$this->input->post('wibase'),
@@ -44,6 +45,7 @@ class Workitem_m extends CI_Model{
 		$wiid = $this->input->post('wiid');
 		$field = array(
 			'winame'=>$this->input->post('winame'),
+			'wicreatedby'=>$this->input->post('wicreatedby'),
 			'widesc'=>$this->input->post('widesc'),
 			'wigst'=>$this->input->post('wigst'),
 			'wibase'=>$this->input->post('wibase'),

@@ -1,3 +1,4 @@
+
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -197,6 +198,7 @@ class Grn extends CI_Controller
     {
         $model = $this->model;
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $challan = $this->input->post('challan');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
@@ -218,6 +220,7 @@ class Grn extends CI_Controller
 
         $data = array(
             'sid'  => $site,
+            'grncreatedby'  => $uid,
             'vid'  => $vendor,
             'grnchallan' => $challan,
             'grnreceivedate'  => $date,
@@ -257,6 +260,7 @@ class Grn extends CI_Controller
         $model = $this->model;
 
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $challan = $this->input->post('challan');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
@@ -279,6 +283,7 @@ class Grn extends CI_Controller
 
         $data = array(
             'sid'  => $site,
+            'grncreatedby'  => $uid,
             'vid'  => $vendor,
             'grnchallan' => $challan,
             'grnreceivedate'  => $date,

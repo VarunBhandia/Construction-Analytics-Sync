@@ -91,6 +91,7 @@ class Vendor_bills extends CI_Controller {
         $model = $this->model;
         $vid = $this->input->post('vid');
         $sid = $this->input->post('sid');
+        $uid = $this->input->post('uid');
         $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');

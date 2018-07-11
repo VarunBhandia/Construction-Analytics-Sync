@@ -209,6 +209,7 @@ class Po extends CI_Controller
     {
         $model = $this->model;
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');
@@ -246,6 +247,7 @@ class Po extends CI_Controller
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
         $data = array(
             'sid'  => $site,
+            'pocreatedby'  => $uid,
             'mid'  => $mid,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
@@ -306,6 +308,7 @@ class Po extends CI_Controller
         $model = $this->model;
 
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');
@@ -344,6 +347,7 @@ class Po extends CI_Controller
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
         $data = array(
             'sid'  => $site,
+            'pocreatedby'  => $uid,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,

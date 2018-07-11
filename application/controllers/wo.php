@@ -47,6 +47,7 @@
 			$model = $this->model;
 			
 			$sid = $this->input->post('site');
+			$uid = $this->input->post('uid');
 			$subid = $this->input->post('subcontdetail');
 			$csgt_total = $this->input->post('csgt_total');
 			$ssgt_total = $this->input->post('ssgt_total');
@@ -83,6 +84,7 @@
 			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
 			$data = array(
 					'sid'  => $sid,
+					'wocreatedby'  => $uid,
 					'subid'  => $subid,
 					'wodate'  => $date,
                     'wiid'  => $wiid,
@@ -138,6 +140,7 @@
             $model = $this->model;
 			
 			$sid = $this->input->post('site');
+			$uid = $this->input->post('uid');
 			$subid = $this->input->post('subcontdetail');
 			$csgt_total = $this->input->post('csgt_total');
 			$ssgt_total = $this->input->post('ssgt_total');
@@ -174,6 +177,7 @@
 			$remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
 			$data = array(
 					'sid'  => $sid,
+					'woupdatedby'  => $uid,
 					'subid'  => $subid,
 					'wodate'  => $date,
                     'wiid'  => $wiid,

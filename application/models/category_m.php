@@ -15,6 +15,7 @@ class Category_m extends CI_Model{
 	public function addCategory(){
 		$field = array(
 			'cname'=>$this->input->post('cname'),
+			'uid'=>$this->input->post('uid'),
 			);
 		$this->db->insert('category', $field);
 		if($this->db->affected_rows() > 0){
@@ -38,6 +39,7 @@ class Category_m extends CI_Model{
 	public function updateCategory(){
 		$cid = $this->input->post('cid');
 		$field = array(
+			'uid'=>$this->input->post('uid'),
 			'cname'=>$this->input->post('cname'),
             );
 		$this->db->where('cid', $cid);

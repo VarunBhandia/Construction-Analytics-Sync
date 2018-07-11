@@ -1,3 +1,4 @@
+<?php $uid = $this->session->userdata('username'); ?>
 <?php
 error_reporting(0);
 	$this->load->view('include/header');
@@ -227,7 +228,7 @@ error_reporting(0);
 				</tbody>
 			</table>
 	</div>
-					  
+					  <input type="hidden" value="<?php echo $uid; ?>" name="uid">
                       <div class="form-group">
                         <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
                           <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>

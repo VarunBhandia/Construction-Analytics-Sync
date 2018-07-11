@@ -53,6 +53,9 @@ class Material_rqst extends CI_Controller
         }
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/index', $data);
     }
 
@@ -63,8 +66,9 @@ class Material_rqst extends CI_Controller
         $model = $this->model;
         $data['controller'] = $this->controller;
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-
-        //$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/index',$data);
     }
 

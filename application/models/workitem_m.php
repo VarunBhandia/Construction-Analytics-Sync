@@ -86,4 +86,11 @@ class Workitem_m extends CI_Model{
   $this->db->order_by('wiid', 'DESC');
   return $this->db->get();
  }
+    
+   function fetch()
+    {
+        $this->db->order_by("wiid", "DESC");
+        $query = $this->db->get("workitems");
+        return $query->result();
+    }  
 }

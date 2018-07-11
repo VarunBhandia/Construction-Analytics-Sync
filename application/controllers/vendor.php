@@ -10,10 +10,24 @@ Class Vendor extends CI_Controller{
 
 	function index(){
         $this->load->model("vendor_m");
+        $data["v_data"] = $this->vendor_m->fetch();
         $this->load->model('Model');
 		$this->load->view('layout/footer');
 		$this->load->view('vendor_master/index');
 	}
+    
+    public function view_table()
+    {			
+        $data['controller'] = $this->controller;
+        $model = $this->model;
+        $result = $this->vendor_m->show_all_data();
+        if ($result != false) {
+            return $result;
+        } else {
+            return 'Database is empty !';
+        }
+    }
+
     
     function action()
             
@@ -34,7 +48,7 @@ Class Vendor extends CI_Controller{
 			$column++;
 		}
 
-		$v_data = $this->vendor_m->fetch_data();
+		$v_data = $this->vendor_m->fetch();
 
 		$excel_row = 2;
 

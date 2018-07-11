@@ -92,4 +92,11 @@ class Transporter_m extends CI_Model{
   $this->db->order_by('tid', 'DESC');
   return $this->db->get();
  }
+    
+    function fetch()
+    {
+        $this->db->order_by("tid", "DESC");
+        $query = $this->db->get("transporters");
+        return $query->result();
+    }  
 }

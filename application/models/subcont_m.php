@@ -86,4 +86,12 @@ class Subcont_m extends CI_Model{
   $this->db->order_by('subid', 'DESC');
   return $this->db->get();
  }
+    
+    function fetch()
+    {
+        $this->db->order_by("subid", "DESC");
+        $query = $this->db->get("subcontdetails");
+        return $query->result();
+    }  
+    
 }

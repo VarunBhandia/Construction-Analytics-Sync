@@ -42,6 +42,7 @@ Class Workitem extends CI_Controller{
        <td>'.$row->wigst.'</td>
        <td>'.$row->wibase.'</td>
        <td>'.$row->wicategory.'</td>
+       <td>'.$row->wicreatedby.'</td>
        <td>'.$row->witype.'</td>
        <td>
        <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->wiid.'">Edit</a>

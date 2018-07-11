@@ -69,6 +69,7 @@
                 <td>GST Rate</td>
                 <td>Base Rate</td>
                 <td>Category</td>
+                <td>WI Created By</td>
                 <td>Material type</td>
                 <td>Action</td>
             </tr>
@@ -127,6 +128,7 @@
                     </div>
                 </form>
             </div>
+            <input type="hidden" name="wicreatedby" value="<?php echo 0 ?>">
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>

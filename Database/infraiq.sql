@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2018 at 03:04 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Jul 11, 2018 at 08:18 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -394,16 +394,6 @@ CREATE TABLE `grn_master` (
   `porefid` varchar(50) NOT NULL,
   `uid` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `grn_master`
---
-
-INSERT INTO `grn_master` (`grnid`, `sid`, `vid`, `grnchallan`, `grnreceivedate`, `grncreatedon`, `grncreatedby`, `mid`, `grnqty`, `grnunitprice`, `muid`, `grntruck`, `grnlinechallan`, `tid`, `grnremarks`, `grnrefid`, `porefid`, `uid`) VALUES
-(1, '5', '21', '43', '2018-07-05', '2018-07-11 08:13:15.004829', NULL, '3403', '3236', '313', '7', '33', '333', '6', '', NULL, '', 'tushar'),
-(2, '4', '30', '4442', '2018-07-05', '2018-07-11 09:12:54.094104', 'tushar', '3393', '42', '42', '17', '24', '24', '7', '', NULL, '', ''),
-(3, '2', '8', '', '2018-07-09', NULL, NULL, '3423', '21132', '3', '5', '33', '32', '7', '21', NULL, '', ''),
-(4, '174', '27', '45', '2018-07-11', NULL, NULL, '3408', '1', '400', '1', '', '50', '7', 'hp', NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -8161,187 +8151,156 @@ ALTER TABLE `workitems`
 --
 ALTER TABLE `category`
   MODIFY `cid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
 --
 -- AUTO_INCREMENT for table `consumption`
 --
 ALTER TABLE `consumption`
   MODIFY `consid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `cp_master`
 --
 ALTER TABLE `cp_master`
   MODIFY `cpid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
 --
 -- AUTO_INCREMENT for table `dyform`
 --
 ALTER TABLE `dyform`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fruits`
 --
 ALTER TABLE `fruits`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `grn_master`
 --
 ALTER TABLE `grn_master`
   MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `import`
 --
 ALTER TABLE `import`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `material_rqst`
 --
 ALTER TABLE `material_rqst`
   MODIFY `mrid` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2096;
-
 --
 -- AUTO_INCREMENT for table `mo_master`
 --
 ALTER TABLE `mo_master`
   MODIFY `moid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `munits`
 --
 ALTER TABLE `munits`
   MODIFY `muid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `performance`
 --
 ALTER TABLE `performance`
   MODIFY `performance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
   MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `rtv_master`
 --
 ALTER TABLE `rtv_master`
   MODIFY `rtvid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
 ALTER TABLE `sitedetails`
   MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
-
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
   MODIFY `Student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `subcontdetails`
 --
 ALTER TABLE `subcontdetails`
   MODIFY `subid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
   MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 --
 -- AUTO_INCREMENT for table `tbl_employees`
 --
 ALTER TABLE `tbl_employees`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendordetails`
 --
 ALTER TABLE `vendordetails`
   MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1484;
-
 --
 -- AUTO_INCREMENT for table `vendor_bills_master`
 --
 ALTER TABLE `vendor_bills_master`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

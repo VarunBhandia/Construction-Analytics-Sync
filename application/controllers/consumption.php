@@ -177,6 +177,8 @@
 			$model = $this->model;
 			
 			$site = $this->input->post('site');
+			$uid = $this->input->post('uid');
+
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
 
 			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -191,6 +193,7 @@
 			
 			$data = array(
 					'sid'  => $site,
+					'conscreatedby'  => $uid,
 					'consissuedate'  => $date,
 					'mid' => $mid,
 					'consqty'  => $qty,
@@ -222,9 +225,11 @@
 
 		public function update()
 		{
-$model = $this->model;
+            $model = $this->model;
 			
 			$site = $this->input->post('site');
+            $uid = $this->input->post('uid');
+
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
 
 			$mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -239,6 +244,7 @@ $model = $this->model;
 			
 			$data = array(
 					'sid'  => $site,
+					'conscreatedby'  => $uid,
 					'consissuedate'  => $date,
 					'mid' => $mid,
 					'consqty'  => $qty,

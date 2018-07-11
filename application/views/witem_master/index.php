@@ -127,6 +127,7 @@
                     </div>
                 </form>
             </div>
+                                 <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
@@ -211,6 +212,7 @@
             var wibase = $('input[name=wibase]');
             var wicategory = $('input[name=wicategory]');
             var witype = $('input[name=witype]');
+            var wicreatedby = $('input[name=wicreatedby]');
             var result = '';
             if (winame.val() == '') {
                 winame.parent().parent().addClass('has-error');
@@ -239,7 +241,7 @@
                             $('.alert-success').html('Work Item ' + type + ' successfully').fadeIn().delay(4000).fadeOut('slow');
                             showAllWorkItem();
                         } else {
-                            alert('Error');
+                            alert('Nothing to Update');
                         }
                     },
                     error: function() {
@@ -272,6 +274,7 @@
                     $('input[name=wicategory]').val(data.wicategory);
                     $('input[name=witype]').val(data.witype);
                     $('input[name=wiid]').val(data.wiid);
+                    $('input[name=wicreatedby]').val(data.wicreatedby);
                 },
                 error: function() {
                     alert('Could not Edit Data');
@@ -331,6 +334,7 @@
                             '<td>' + data[i].wibase + '</td>' +
                             '<td>' + data[i].wicategory + '</td>' +
                             '<td>' + data[i].witype + '</td>' +
+                            '<td>' + data[i].wicreatedby + '</td>' +
                             '<td>' +
                             '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].wiid + '">Edit</a>' +
                             '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].wiid + '">Delete</a>' +

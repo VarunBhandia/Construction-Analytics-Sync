@@ -1,3 +1,4 @@
+<?php $uid = $this->session->userdata('username'); ?>
 <?php
 error_reporting(0);
 $this->load->view('include/header');
@@ -997,7 +998,6 @@ elseif($action == 'update')
                                                 }); 
 
                                                 $('#frieght_gst').keyup(function() {
-                                                    alert('test');
                                                     dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
                                                     discount = parseFloat($('#discount_<?php echo $i; ?>').val());
                                                     if (!discount){ discount = parseFloat(0); }
@@ -2434,7 +2434,6 @@ elseif($action == 'update')
 
                                                     }
                                                 });                           
-
                                                 $('#frieght_amount').keyup(function() {
 
                                                     dicount_Type = parseFloat(document.getElementById("discount_type_<?php echo $i; ?>").value);
@@ -3415,7 +3414,8 @@ elseif($action == 'update')
                                     <input class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
                                 </div>
                             </div>
-
+                
+                           	<input type="hidden" value="<?php echo $uid; ?>" name="uid"> 
                             <div class="form-group">
                                 <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
                                     <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>

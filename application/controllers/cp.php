@@ -191,6 +191,7 @@
 		{
 			$model = $this->model;
 			$site = $this->input->post('site');
+			$uid = $this->input->post('uid');
 			$vendor = $this->input->post('vendor');
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
             $challan = $this->input->post('challan');
@@ -208,6 +209,7 @@
 			
 			$data = array(
 					'sid'  => $site,
+					'cpcreatedby'  => $uid,
 					'vid'  => $vendor,
                     'cppurchasedate'  => $date,
 					'cpchallan' => $challan,
@@ -244,6 +246,7 @@
 			$model = $this->model;
 
 			$site = $this->input->post('site');
+			$uid = $this->input->post('uid');
 			$vendor = $this->input->post('vendor');
             $date = date('Y-m-d',strtotime($this->input->post('date')));
 			$challan = $this->input->post('challan');
@@ -262,6 +265,7 @@
 			
 			$data = array(
 					'sid'  => $site,
+					'cpcreatedby'  => $uid,
 					'vid'  => $vendor,
 					'cppurchasedate'  => $date,
                     'cpchallan' => $challan,

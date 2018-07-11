@@ -176,6 +176,7 @@ class Material_rqst extends CI_Controller
         $model = $this->model;
 
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -190,6 +191,7 @@ class Material_rqst extends CI_Controller
 
         $data = array(
             'sid'  => $site,
+            'mrcreatedby'  => $uid,
             'mrcreatedon'  => $date,
             'mid' => $mid,
             'mrqty'  => $qty,
@@ -224,6 +226,7 @@ class Material_rqst extends CI_Controller
         $model = $this->model;
 
         $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -238,6 +241,7 @@ class Material_rqst extends CI_Controller
 
         $data = array(
             'sid'  => $site,
+            'mrcreatedby'  => $uid,
             'mrcreatedon'  => $date,
             'mid' => $mid,
             'mrqty'  => $qty,

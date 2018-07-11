@@ -131,6 +131,7 @@
 			$model = $this->model;
 			$tsite = $this->input->post('tsite');
             $rsite = $this->input->post('rsite');
+            $uid = $this->input->post('uid');
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
             $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 			
@@ -149,6 +150,7 @@
 			$data = array(
 					'sid'  => $tsite,
                     'sid'  => $rsite,
+                    'mocreatedby'  => $uid,
 					'modate'  => $date,
 					'mid' => $material,
 					'moqty'  => $qty,
@@ -186,6 +188,7 @@
 
 			$tsite = $this->input->post('tsite');
             $rsite = $this->input->post('rsite');
+            $uid = $this->input->post('uid');
 			$date = date('Y-m-d',strtotime($this->input->post('date')));
 
 			$material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -205,6 +208,7 @@
 			$data = array(
 					'sid'  => $tsite,
                     'sid'  => $rsite,
+                    'mocreatedby'  => $uid,
 					'modate'  => $date,
 					'mid' => $material,
 					'moqty'  => $qty,

@@ -79,15 +79,15 @@
                             <div class="right_col" role="main">          
                                 <div class="clearfix"></div>
 
-                                <div class="row">
+                                <div class="row"  >
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title">
                                                 <h1>Material Request</h1>
-                            <?php
-$user_sites = explode(",",$user_details[0]->site);
-$count_site =  count($user_sites);
-                                ?>
+                                                <?php 
+                                                $user_sites = explode(",",$user_details[0]->site);
+                                                $count_site =  count($user_sites);
+                                                ?>
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <form method="post" action="<?php echo base_url()?>material_rqst/select_by_id">
@@ -98,13 +98,13 @@ $count_site =  count($user_sites);
     foreach($sites as $site)
     {                                                                   for($i=0;$i < $count_site;$i++){
         if($user_sites[$i] == $site->sid ){ ?>
-                                                                            <option value="<?php echo $site->sid; ?>" >
+                                                                <option value="<?php echo $site->sid; ?>" >
                                                                     <?php echo $site->sname;?>
                                                                 </option>
 
-      <?php  }
-                                                                       
-                                                                  }
+                                                                <?php  }
+
+    }
 
                                                                 ?>
                                                                 <?php }	?>
@@ -153,8 +153,12 @@ $count_site =  count($user_sites);
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                         $no = 1;
-                                                         foreach($result_display as $test) {?>
+                                                         foreach($sites as $site)
+                                                         {                                                                   for($i=0;$i < $count_site;$i++){
+                                                             if($user_sites[$i] == $site->sid ){
+                                                                 $no = 1;
+
+                                                                 foreach($result_display as $test) {?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
                                                                         <td><?php echo $test->sid;?></td>
@@ -167,8 +171,11 @@ $count_site =  count($user_sites);
                                                                         <?php $no++;?>
                                                                     </tr>
                                                                     <?php
-                                                                                           }
-                                                                    ?>
+                                                                                                   }
+
+                                                             }}} ?>
+
+
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -202,7 +209,10 @@ $count_site =  count($user_sites);
                                                             <tbody>
                                                                 <?php
                                                     $no = 1;
-                                                    foreach($row as $test) {?>
+                                                    foreach($row as $test) {
+                                                        for($i=0;$i < $count_site;$i++){
+                                                            if($user_sites[$i] == $test->sid ){
+                                                                ?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->sid;?></td>
@@ -214,13 +224,19 @@ $count_site =  count($user_sites);
                                                                     </td>
                                                                     <?php $no++;?>
                                                                 </tr>
+
                                                                 <?php
-                                                                           }
+
+                                                            }
+                                                        }
+
+                                                    } 
                                                                 ?>
                                                             </tbody>
                                                         </table>
                                                     </div>
-                                                </div> <?php } ?>  
+                                                </div> <?php 
+                                                } ?>  
 
                                             </div>
                                         </div>

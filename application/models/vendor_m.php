@@ -11,6 +11,17 @@ class Vendor_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    public function show_all_data() {
+$this->db->select('*');
+$this->db->from('vendordetails');
+$query = $this->db->get();
+if ($query->num_rows() > 0) {
+return $query->result();
+} else {
+return false;
+}
+}
 
 	public function addVendor(){
 		$field = array(
@@ -81,7 +92,6 @@ class Vendor_m extends CI_Model{
    $this->db->like('vname', $query);
    $this->db->or_like('vmobile', $query);
    $this->db->or_like('valtmobile', $query);
-   $this->db->or_like('vemail', $query);
    $this->db->or_like('vgst', $query);
    $this->db->or_like('vaddress', $query);
    $this->db->or_like('vdesc', $query); 
@@ -89,6 +99,13 @@ class Vendor_m extends CI_Model{
   $this->db->order_by('vid', 'DESC');
   return $this->db->get();
  }
+    
+  function fetch()
+    {
+        $this->db->order_by("vid", "DESC");
+        $query = $this->db->get("vendordetails");
+        return $query->result();
+    }  
     
     
 }

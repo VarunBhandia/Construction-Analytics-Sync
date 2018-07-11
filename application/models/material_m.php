@@ -120,5 +120,12 @@ return false;
   $this->db->order_by('mid', 'DESC');
   return $this->db->get();
  }
+    
+    function fetch()
+    {
+        $this->db->order_by("mid", "DESC");
+        $query = $this->db->get("materials");
+        return $query->result();
+    }
 }
 ?>

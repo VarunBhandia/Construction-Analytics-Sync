@@ -4,11 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 Class Workitem extends CI_Controller{
 	function __construct(){
 		parent:: __construct();
+        $this->model = 'Model';
 		$this->load->model('workitem_m', 'm');
 	}
 
 	function index(){
-		$this->load->view('layout/header');
+        $this->load->model("workitem_m");
+        $data["wi_data"] = $this->workitem_m->fetch();
+        $this->load->model('Model');
 		$this->load->view('witem_master/index');
 		$this->load->view('layout/footer');
 	}
@@ -56,6 +59,48 @@ Class Workitem extends CI_Controller{
         $output .= '</table>';
         echo $output;
     }
+    
+    function action()
+            
+	    {
+		$this->load->model("workitem_m");
+		$this->load->library("excel");
+		$object = new PHPExcel();
+
+		$object->setActiveSheetIndex(0);
+
+		$table_columns = array("wiid", "winame", "widesc", "wigst", "wibase", "wicategory", "witype");
+
+		$column = 0;
+
+		foreach($table_columns as $field)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+			$column++;
+		}
+
+		$wi_data = $this->workitem_m->fetch();
+
+		$excel_row = 2;
+
+		foreach($wi_data as $row)
+		{
+			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->wiid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->winame);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->widesc);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->wigst);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->wibase);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->wicategory);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->witype);
+			$excel_row++;
+		}
+
+		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		$object_writer->save('php://output');
+            
+        }
 
 	public function showAllWorkItem(){
 		$result = $this->m->showAllWorkItem();

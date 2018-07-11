@@ -11,6 +11,17 @@ class Site_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    public function show_all_data() {
+$this->db->select('*');
+$this->db->from('sitedetails');
+$query = $this->db->get();
+if ($query->num_rows() > 0) {
+return $query->result();
+} else {
+return false;
+}
+}
 
 	public function addSite(){
 		$field = array(
@@ -88,5 +99,13 @@ class Site_m extends CI_Model{
   $this->db->order_by('sid', 'DESC');
   return $this->db->get();
  }
+    
+    function fetch()
+    {
+        $this->db->order_by("sid", "DESC");
+        $query = $this->db->get("sitedetails");
+        return $query->result();
+    }  
+    
 }
 ?>

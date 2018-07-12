@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2018 at 08:18 PM
+-- Generation Time: Jul 11, 2018 at 08:23 PM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -376,21 +376,21 @@ INSERT INTO `fruits` (`id`, `fruits_name`, `quantity`) VALUES
 
 CREATE TABLE `grn_master` (
   `grnid` int(10) NOT NULL,
-  `sid` varchar(10) DEFAULT NULL,
-  `vid` varchar(10) DEFAULT NULL,
-  `grnchallan` varchar(50) DEFAULT NULL,
-  `grnreceivedate` date DEFAULT NULL,
-  `grncreatedon` timestamp(6) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(6),
-  `grncreatedby` varchar(50) DEFAULT NULL,
-  `mid` varchar(50) DEFAULT NULL,
-  `grnqty` varchar(50) DEFAULT NULL,
-  `grnunitprice` varchar(50) DEFAULT NULL,
-  `muid` varchar(10) DEFAULT NULL,
-  `grntruck` varchar(50) DEFAULT NULL,
-  `grnlinechallan` varchar(50) DEFAULT NULL,
-  `tid` varchar(10) DEFAULT NULL,
-  `grnremarks` varchar(2550) DEFAULT NULL,
-  `grnrefid` varchar(10) DEFAULT NULL,
+  `sid` varchar(10) NOT NULL,
+  `vid` varchar(10) NOT NULL,
+  `grnchallan` varchar(50) NOT NULL,
+  `grnreceivedate` date NOT NULL,
+  `grncreatedon` timestamp(6) NOT NULL DEFAULT '0000-00-00 00:00:00.000000' ON UPDATE CURRENT_TIMESTAMP(6),
+  `grncreatedby` varchar(50) NOT NULL,
+  `mid` varchar(50) NOT NULL,
+  `grnqty` varchar(50) NOT NULL,
+  `grnunitprice` varchar(50) NOT NULL,
+  `muid` varchar(10) NOT NULL,
+  `grntruck` varchar(50) NOT NULL,
+  `grnlinechallan` varchar(50) NOT NULL,
+  `tid` varchar(10) NOT NULL,
+  `grnremarks` varchar(2550) NOT NULL,
+  `grnrefid` varchar(10) NOT NULL,
   `porefid` varchar(50) NOT NULL,
   `uid` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

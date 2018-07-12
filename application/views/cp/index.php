@@ -135,6 +135,7 @@ if (isset($result_display))
 								  <th>Site Name</th>
                                   <th>Vendor Name</th>
 								  <th>Purchase Date</th>
+								  <th>Created On</th>
 								  <th>Action</th>
 								</tr>
 						   </thead>
@@ -149,7 +150,7 @@ if (isset($result_display))
 									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->cppurchasedate));?></td>
 									  <td><?php echo $test->cppurchasedate;?></td>
-									  <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php
@@ -185,6 +186,7 @@ if (isset($result_display))
 								  <th>Site Name</th>
                                   <th>Vendor Name</th>
 								  <th>Purchase Date</th>
+								  <th>Created On</th>
 								  <th>Action</th>
 								</tr>
 						   </thead>
@@ -199,7 +201,7 @@ if (isset($result_display))
 									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->cppurchasedate));?></td>
 									  <td><?php echo $test->cppurchasedate;?></td>
-									  <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php

@@ -49,8 +49,8 @@
 									  <td><?php echo date("d-m-Y",strtotime($test->wocreatedon));?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->wodate));?></td>
 									  <td>
-                                          <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->woid;?>" class="btn btn-success">Edit</a>
-                                          <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger">Delete</a>
+                                          <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->woid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
+                                          <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
                                         </td>
 									  <?php $no++;?>
 									</tr>

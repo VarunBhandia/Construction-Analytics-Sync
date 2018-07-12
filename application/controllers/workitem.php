@@ -109,7 +109,6 @@ Class Workitem extends CI_Controller{
 	}
 
 	public function addWorkItem(){
-        $uid = $this->input->post('uid');
 		$result = $this->m->addWorkItem();
 		$msg['success'] = false;
 		$msg['type'] = 'add';
@@ -125,7 +124,6 @@ Class Workitem extends CI_Controller{
 	}
 
 	public function updateWorkItem(){
-        			$uid = $this->input->post('uid');
 		$result = $this->m->updateWorkItem();
 		$msg['success'] = false;
 		$msg['type'] = 'update';

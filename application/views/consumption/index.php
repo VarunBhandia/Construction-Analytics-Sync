@@ -143,7 +143,7 @@ if (isset($result_display))
 									  <td><?php echo $no;?></td>
 									  <td><?php echo $test->sid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php
@@ -185,7 +185,7 @@ if (isset($result_display))
 									  <td><?php echo $no;?></td>
 									  <td><?php echo $test->sid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
-									  <td><a href="<?php echo base_url()?>consumption/edit/<?php echo $test->consid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>consumption/delete/<?php echo $test->consid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>consumption/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>consumption/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php

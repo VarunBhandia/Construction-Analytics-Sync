@@ -128,7 +128,7 @@
                     </div>
                 </form>
             </div>
-                                 <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
+            <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>

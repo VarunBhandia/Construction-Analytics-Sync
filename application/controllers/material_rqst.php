@@ -245,7 +245,7 @@ class Material_rqst extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'mrcreatedby'  => $uid,
+            'mrupdatedby'  => $uid,
             'mrcreatedon'  => $date,
             'mid' => $mid,
             'mrqty'  => $qty,

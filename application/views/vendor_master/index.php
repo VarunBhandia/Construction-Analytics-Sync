@@ -71,6 +71,7 @@
                 <td>GST Number</td>
                 <td>Address</td>
                 <td>Description/Remarks</td>
+                <td>Created By</td>
                 <td>Action</td>
             </tr>
         </thead>
@@ -130,6 +131,7 @@
                         <label for="vdesc" class="label-control col-md-4">Description</label>
                         <div class="col-md-8">
                             <input type="text" name="vdesc" class="form-control">
+                        <input type="hidden" value="<?php echo $uid; ?>" name="vcreatedby"> 
                         </div>
                     </div>
                 </form>
@@ -218,6 +220,7 @@
             var vgst = $('input[name=vgst]');
             var vaddress = $('input[name=vaddress]');
             var vdesc = $('input[name=vdesc]');
+            var vcreatedby = $('input[name=vcreatedby]');
             var result = '';
             if (vname.val() == '') {
                 vname.parent().parent().addClass('has-error');
@@ -285,6 +288,7 @@
                     $('input[name=vgst]').val(data.vgst);
                     $('input[name=vaddress]').val(data.vaddress);
                     $('input[name=vdesc]').val(data.vdesc);
+                    $('input[name=vcreatedby]').val(data.vcreatedby);
                     $('input[name=vid]').val(data.vid);
                 },
                 error: function() {
@@ -344,9 +348,10 @@
                             '<td>' + data[i].vgst + '</td>' +
                             '<td>' + data[i].vaddress + '</td>' +
                             '<td>' + data[i].vdesc + '</td>' +
+                            '<td>' + data[i].vcreatedby + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].vid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].vid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].vid + '"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].vid + '"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

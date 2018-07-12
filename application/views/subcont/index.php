@@ -339,8 +339,8 @@
                             '<td>' + data[i].subgst + '</td>' +
                             '<td>' + data[i].subaddress + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].subid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].subid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].subid + '"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].subid + '"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

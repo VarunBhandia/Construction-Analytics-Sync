@@ -92,8 +92,8 @@ Class Workitem extends CI_Controller{
 			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->wigst);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->wibase);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->wicategory);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->wicreatedby);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->witype);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->wicreatedby);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->witype);
 			$excel_row++;
 		}
 

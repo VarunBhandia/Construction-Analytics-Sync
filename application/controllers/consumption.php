@@ -244,7 +244,7 @@
 			
 			$data = array(
 					'sid'  => $site,
-					'conscreatedby'  => $uid,
+					'consupdatedby'  => $uid,
 					'consissuedate'  => $date,
 					'mid' => $mid,
 					'consqty'  => $qty,

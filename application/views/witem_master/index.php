@@ -124,7 +124,7 @@
                                     <label for="witype" class="label-control col-md-4">Material Type</label>
                                     <div class="col-md-8">
                                         <input type="text" name="witype" class="form-control">
-                        <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
+                                        <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
                                     </div>
                                 </div>
                             </form>
@@ -155,24 +155,6 @@
                             <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
                         </div>
                     </div>
-            </div>
-            <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" id="btnSave" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-<!-- /.modal -->
-
-<div id="deleteModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Confirm Delete</h4>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->

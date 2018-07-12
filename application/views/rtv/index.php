@@ -136,6 +136,7 @@ if (isset($result_display))
 								  <th>Site Name</th>
                                   <th>Vendor Name</th>
 								  <th>Return Date</th>
+								  <th>Created On</th>
 								  <th>Action</th>
 								</tr>
 						   </thead>
@@ -150,7 +151,7 @@ if (isset($result_display))
 									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
 									  <td><?php echo $test->rtvreturndate;?></td>
-									  <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php
@@ -185,6 +186,7 @@ if (isset($result_display))
 								  <th>Site Name</th>
                                   <th>Vendor Name</th>
 								  <th>Return Date</th>
+								   <th>Created On</th>
 								  <th>Action</th>
 								</tr>
 						   </thead>
@@ -199,7 +201,7 @@ if (isset($result_display))
 									  <td><?php echo $test->vid;?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
 									  <td><?php echo $test->rtvreturndate;?></td>
-									  <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php

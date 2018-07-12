@@ -44,7 +44,9 @@
 									  <td><?php echo $test->username;?></td>
 									  <td><?php echo $test->uaddress;?></td>
 									  <td><?php echo $test->umobile;?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->uid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->uid;?>" class="btn btn-danger">Delete</a></td>
+
+									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->uid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->uid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+
 									  <?php $no++;?>
 									</tr>
 									<?php

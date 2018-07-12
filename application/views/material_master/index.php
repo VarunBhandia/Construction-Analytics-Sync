@@ -180,6 +180,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 <button type="button" id="btnDelete" class="btn btn-danger">Delete</button>
+<!--           <i class="glyphicon glyphicon-trash icon-white"></i> Delete-->
             </div>
         </div>
         <!-- /.modal-content -->

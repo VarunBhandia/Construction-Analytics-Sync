@@ -164,9 +164,9 @@
                                                                         <td><?php echo $test->sid;?></td>
                                                                         <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrcreatedon));?></td>
                                                                         <td>
-                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success">Edit</a>
+                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
                                                                             <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
-                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger">Delete</a>
+                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
                                                                         </td>
                                                                         <?php $no++;?>
                                                                     </tr>
@@ -218,9 +218,9 @@
                                                                     <td><?php echo $test->sid;?></td>
                                                                     <td><?php echo date("d-m-Y",strtotime($test->mrcreatedon));?></td>
                                                                     <td>
-                                                                        <a href="<?php echo base_url()?>material_rqst/edit/<?php echo $test->mrid;?>" class="btn btn-success">Edit</a>
+                                                                        <a href="<?php echo base_url()?>material_rqst/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
                                                                         <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
-                                                                        <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>material_rqst/delete/<?php echo $test->mrid;?>" class="btn btn-danger">Delete</a>
+                                                                        <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>material_rqst/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
                                                                     </td>
                                                                     <?php $no++;?>
                                                                 </tr>

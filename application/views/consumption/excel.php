@@ -41,16 +41,13 @@
 				  <div class="datatable-responsive">
 					<table id="datatable1" class="table table-striped table-bordered">
 						<thead>
-							<th>mrid</th>
 							<th>sid</th>
+							<th>conscreatedon</th>
 							<th>mid</th>
-							<th>mrqty</th>
-							<th>mrunitprice</th>
-							<th>mrrefid</th>
+							<th>consqty</th>
+							<th>consunitprice</th>
 							<th>muid</th>
-							<th>mrremarks</th>
-							<th>mrcreatedon</th>
-							<th>mrcreatedby</th>
+							<th>consremark</th>
 						</thead>
 
                     <tbody>
@@ -104,26 +101,13 @@ $(document).ready(function (){
             "type": "POST",
             },
         "columns": [
-          { "data": "porefid",},
-          { "data": "mrrefid",},
-          { "data": "vid"},
-          { "data": "sid"},
-          { "data": "frieght_amount"},
-          { "data": "csgt_total"},
-          { "data": "ssgt_total"},
-          { "data": "isgt_total"},
-          { "data": "gross_amount"},
-          { "data": "pocreatedon"},
+          { "data": "sid",},
+          { "data": "conscreatedon",},
           { "data": "mid"},
-          { "data": "app_qty"},
-          { "data": "pocreatedby"},
-          { "data": "unit"},
-          { "data": "dtid"},
-          { "data": "discount"},
-          { "data": "cgst"},
-          { "data": "sgst"},
-          { "data": "igst"},
-          { "data": "remark"},
+          { "data": "consqty"},
+          { "data": "consunitprice"},
+          { "data": "muid"},
+          { "data": "consremark"},
         ],
 		"columnDefs": [ {
 			"targets": [2,3,4,5,6,7],

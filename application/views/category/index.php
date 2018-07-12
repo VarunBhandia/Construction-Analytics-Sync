@@ -217,21 +217,3 @@
         }
     });
 </script>
-<!--
-<button id="run" class="btn btn-primary">Convert!</button>
-<p id="demo"></p>
-
-<script>
-
- var table = $('#example-table').tableToJSON();
-var myJSON = JSON.stringify(table);
-document.getElementById("demo").innerHTML = myJSON;
-
-</script>
-<script>
-$('#run').click( function() {
- var table = $('#example-table').tableToJSON();
- alert(JSON.stringify(table));  
-
-});
-    </script>-->

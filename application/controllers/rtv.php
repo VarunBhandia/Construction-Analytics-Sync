@@ -305,7 +305,7 @@ class Rtv extends CI_Controller
         $data['controller'] = $this->controller;
         /* Database In Data Count */
         $data['Count'] = $this->$model->countTableRecords('rtv_master',array());
-        $this->load->view('po/excel',$data);
+        $this->load->view('rtv/excel',$data);
     }
 
     public function excel()
@@ -419,7 +419,7 @@ class Rtv extends CI_Controller
                 $muid = implode(",",$arr[$key]['muid']);
                 $rtvtruck = implode(",",$arr[$key]['rtvtruck']);
                 $rtvremark = implode(",",$arr[$key]['rtvremark']);
-                $rtvcreatedon = $arr[$key]['rtvcreatedon'];
+                $rtvcreatedon = implode(",",$arr[$key]['rtvcreatedon']);
                 $rtvcreatedby = implode(",",$arr[$key]['rtvcreatedby']);
 
                 $data[] = array(

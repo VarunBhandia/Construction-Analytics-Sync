@@ -124,7 +124,7 @@
                                     <label for="witype" class="label-control col-md-4">Material Type</label>
                                     <div class="col-md-8">
                                         <input type="text" name="witype" class="form-control">
-                        <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
+                                        <input type="hidden" value="<?php echo $uid; ?>" name="wicreatedby"> 
                                     </div>
                                 </div>
                             </form>

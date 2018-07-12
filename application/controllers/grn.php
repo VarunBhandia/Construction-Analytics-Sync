@@ -14,8 +14,8 @@ class Grn extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('Model');
         $this->load->model('grn_m');
+        $this->load->model('Model');
         $this->model = 'Model';
         date_default_timezone_set('Asia/Kolkata');
     }

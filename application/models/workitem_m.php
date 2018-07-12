@@ -15,12 +15,12 @@ class Workitem_m extends CI_Model{
 	public function addWorkItem(){
 		$field = array(
 			'winame'=>$this->input->post('winame'),
-			'wicreatedby'=>$this->input->post('wicreatedby'),
 			'widesc'=>$this->input->post('widesc'),
 			'wigst'=>$this->input->post('wigst'),
 			'wibase'=>$this->input->post('wibase'),
 			'wicategory'=>$this->input->post('wicategory'),
 			'witype'=>$this->input->post('witype'),
+			'wicreatedby'=>$this->input->post('wicreatedby'),
 			);
 		$this->db->insert('workitems', $field);
 		if($this->db->affected_rows() > 0){
@@ -45,12 +45,12 @@ class Workitem_m extends CI_Model{
 		$wiid = $this->input->post('wiid');
 		$field = array(
 			'winame'=>$this->input->post('winame'),
-			'wicreatedby'=>$this->input->post('wicreatedby'),
 			'widesc'=>$this->input->post('widesc'),
 			'wigst'=>$this->input->post('wigst'),
 			'wibase'=>$this->input->post('wibase'),
 			'wicategory'=>$this->input->post('wicategory'),
 			'witype'=>$this->input->post('witype'),
+			'wicreatedby'=>$this->input->post('wicreatedby'),
 			);
 		$this->db->where('wiid', $wiid);
 		$this->db->update('workitems', $field);
@@ -84,6 +84,7 @@ class Workitem_m extends CI_Model{
    $this->db->or_like('wibase', $query);
    $this->db->or_like('wicategory', $query);
    $this->db->or_like('witype', $query); 
+   $this->db->or_like('wicreatedby', $query);
   }
   $this->db->order_by('wiid', 'DESC');
   return $this->db->get();

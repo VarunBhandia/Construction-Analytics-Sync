@@ -329,7 +329,7 @@
             <?php } ?>
             <?php if($reporting_module != 0){ ?>
             <div class="col-md-2">
-                <a href="#" target="_blank">
+                <a href="<?php echo base_url(); ?>reporting" target="_blank">
                     <div class="ModuleTile" style="background-color:#17a2b8">
                         <div class="ModuleHeading">
                             Reporting

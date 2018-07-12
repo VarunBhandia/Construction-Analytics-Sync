@@ -13,7 +13,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
 				<div class="x_title">
-                    <h2>Construction</h2>
+                    <h2>User List</h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a href="<?php echo base_url().$controller;?>/form"><button class="btn btn-primary">Add New</button></a>
                       </li>
@@ -25,7 +25,7 @@
 				  ?>
 			<div id="table-scroll" class="table-scroll">
 			  <div class="table-wrap">
-					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
+					<table id="datatable" class="main-table table table-striped table-bordered">
 							<thead>
 								<tr>
 								  <th>No</th>
@@ -44,7 +44,7 @@
 									  <td><?php echo $test->username;?></td>
 									  <td><?php echo $test->uaddress;?></td>
 									  <td><?php echo $test->umobile;?></td>
-									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->uid;?>" class="btn btn-success">Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->uid;?>" class="btn btn-danger">Delete</a></td>
+									  <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->uid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->uid;?>" class="btn btn-danger">Delete</a></td>
 									  <?php $no++;?>
 									</tr>
 									<?php

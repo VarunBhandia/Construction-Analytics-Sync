@@ -70,7 +70,7 @@ Class Workitem extends CI_Controller{
 
 		$object->setActiveSheetIndex(0);
 
-		$table_columns = array("wiid", "winame", "widesc", "wigst", "wibase", "wicategory", "witype");
+		$table_columns = array("wiid", "winame", "widesc", "wigst", "wibase", "wicategory","wicreatedby", "witype");
 
 		$column = 0;
 
@@ -92,13 +92,14 @@ Class Workitem extends CI_Controller{
 			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->wigst);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->wibase);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->wicategory);
+			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->wicreatedby);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->witype);
 			$excel_row++;
 		}
 
 		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="Employee Data.xls"');
+		header('Content-Disposition: attachment;filename="Work Item.xls"');
 		$object_writer->save('php://output');
             
         }
@@ -109,7 +110,6 @@ Class Workitem extends CI_Controller{
 	}
 
 	public function addWorkItem(){
-        $uid = $this->input->post('uid');
 		$result = $this->m->addWorkItem();
 		$msg['success'] = false;
 		$msg['type'] = 'add';
@@ -125,7 +125,6 @@ Class Workitem extends CI_Controller{
 	}
 
 	public function updateWorkItem(){
-        			$uid = $this->input->post('uid');
 		$result = $this->m->updateWorkItem();
 		$msg['success'] = false;
 		$msg['type'] = 'update';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2018 at 08:23 PM
+-- Generation Time: Jul 12, 2018 at 10:34 AM
 -- Server version: 10.1.25-MariaDB
 -- PHP Version: 7.1.7
 
@@ -6291,7 +6291,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`uid`, `username`, `password`, `uemail`, `uaddress`, `umobile`, `user_role`, `site_role`, `material`, `vendor`, `mr`, `po`, `rtv`, `cp`, `uogrn`, `vendorbills`, `vendorbillpayment`, `moveorder`, `officegstdetails`, `subcontractor`, `transporter`, `workorder`, `reporting`, `workordermaterials`, `consumption`, `site`, `ucreatedon`, `ucreatedby`) VALUES
 (2, 'varun', 'varun', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00', ''),
 (3, 'tushar', 'tushar', '4634@gmail.com', '3456', '47737', '2', '2', '2', '1', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '6', '0000-00-00', ''),
-(11, 'varunbhandia', 'varun', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '0', '1', '2', '0', '0', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1', '2', '0', '1,2,4,7,9,13,70', '0000-00-00', ''),
+(11, 'varunbhandia', 'varun', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '1,2,4,7,9,13,70', '0000-00-00', ''),
 (12, 'mitesh1', 'varun', 'adfadf@dfh.dsg', 'asfasf', '9000', '2', '0', '1', '2', '0', '1', '2', '0', '1', '0', '0', '1', '2', '0', '1', '2', '0', '1', '2', '1,2,171,175,177', '0000-00-00', ''),
 (13, 'deekay', 'deekay', 'rtyui@gmail.com', 'qwerty', '123456789', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,', '0000-00-00', '');
 
@@ -8190,7 +8190,7 @@ ALTER TABLE `fruits`
 -- AUTO_INCREMENT for table `grn_master`
 --
 ALTER TABLE `grn_master`
-  MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `import`
 --
@@ -8300,7 +8300,7 @@ ALTER TABLE `vendor_bills_master`
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

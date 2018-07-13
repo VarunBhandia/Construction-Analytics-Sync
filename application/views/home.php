@@ -152,6 +152,9 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>user" target="_blank">
                     <div class="ModuleTile" style="background-color:#8ec127">
+                        <div class="countData">
+                            <?php echo $Count_users;?>
+                        </div> 
                         <div class="ModuleHeading">
                             USER
                         </div>
@@ -164,6 +167,10 @@
                 <?php if($site_module != 0){ ?>
                 <a href="<?php echo base_url(); ?>site" target="_blank">
                     <div class="ModuleTile" style="background-color:#00aba9">
+                        <div class="countData">
+                            <?php echo $Count_sitedetails;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             SITE
                         </div>
@@ -175,6 +182,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>material" target="_blank">
                     <div class="ModuleTile" style="background-color:#f47835">
+                        <div class="countData">
+                            <?php echo $Count_materials;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Materials
                         </div>
@@ -186,6 +197,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>index.php/vendor" target="_blank">
                     <div class="ModuleTile" style="background-color:#d41243">
+                        <div class="countData">
+                            <?php echo $Count_vendordetails;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Vendors
                         </div>
@@ -197,6 +212,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>material_rqst" target="_blank">
                     <div class="ModuleTile" style="background-color:#00c0ef">
+                        <div class="countData">
+                            <?php echo $Count_material_rqst;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Material Request
                         </div>
@@ -208,6 +227,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>po" target="_blank">
                     <div class="ModuleTile" style="background-color:#36d278">
+                        <div class="countData">
+                            <?php echo $Count_po_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Purchase Order
                         </div>
@@ -219,6 +242,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>rtv" target="_blank">
                     <div class="ModuleTile" style="background-color:#603cba">
+                        <div class="countData">
+                            <?php echo $Count_rtv_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Return To Vendor
                         </div>
@@ -230,6 +257,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>cp" target="_blank">
                     <div class="ModuleTile" style="background-color:#ee0c51">
+                        <div class="countData">
+                            <?php echo $Count_cp_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Cash Purchase
                         </div>
@@ -241,6 +272,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>grn" target="_blank">
                     <div class="ModuleTile" style="background-color:#c127ac">
+                        <div class="countData">
+                            <?php echo $Count_grn_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Goods Received
                         </div>
@@ -252,6 +287,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>mo" target="_blank">
                     <div class="ModuleTile" style="background-color:#db2c00">
+                        <div class="countData">
+                            <?php echo $Count_mo_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Move Order
                         </div>
@@ -263,6 +302,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>vendor_bills" target="_blank">
                     <div class="ModuleTile" style="background-color:#db2c00">
+                        <div class="countData">
+                            <?php echo $Count_vendor_bills_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Vendor Bills
                         </div>
@@ -274,6 +317,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>subcont" target="_blank">
                     <div class="ModuleTile" style="background-color:#005cfb">
+                        <div class="countData">
+                            <?php echo $Count_subcontdetails;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Sub-Contractors
                         </div>
@@ -285,6 +332,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>transporter" target="_blank">
                     <div class="ModuleTile" style="background-color:#26f7f4">
+                        <div class="countData">
+                            <?php echo $Count_transporters;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Transporters
                         </div>
@@ -296,6 +347,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>wo" target="_blank">
                     <div class="ModuleTile" style="background-color:#ff00bf">
+                        <div class="countData">
+                            <?php echo $Count_wo_master;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Work Order
                         </div>
@@ -307,6 +362,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>workitem" target="_blank">
                     <div class="ModuleTile" style="background-color:#ffc107">
+                        <div class="countData">
+                            <?php echo $Count_workitems;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Work Items
                         </div>
@@ -319,6 +378,10 @@
                 <a href="#" target="_blank">
                     <a href="<?php echo base_url(); ?>consumption" target="_blank">
                         <div class="ModuleTile" style="background-color:#28a745">
+                            <div class="countData">
+                                <?php echo $Count_consumption;?>
+                            </div> 
+
                             <div class="ModuleHeading">
                                 Consumption
                             </div>
@@ -331,6 +394,10 @@
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>Reporting" target="_blank">
                     <div class="ModuleTile" style="background-color:#17a2b8">
+                        <div class="countData">
+                            <?php echo $Count_users;?>
+                        </div> 
+
                         <div class="ModuleHeading">
                             Reporting
                         </div>

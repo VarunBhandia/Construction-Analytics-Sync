@@ -83,7 +83,7 @@ class Grn extends CI_Controller
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremark", "tid", "grncreatedon", "grncreatedby");
+        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremarks", "tid", "grncreatedon", "grncreatedby");
 
         $column = 0;
 
@@ -139,7 +139,7 @@ class Grn extends CI_Controller
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremark", "tid", "grncreatedon", "grncreatedby");
+        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremarks", "tid", "grncreatedon", "grncreatedby");
 
         $column = 0;
 
@@ -313,6 +313,232 @@ class Grn extends CI_Controller
 
         $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
         redirect('Grn');
+    }
+
+    public function browse()
+    {
+        /* File Select */
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        /* Database In Data Count */
+        $data['Count'] = $this->$model->countTableRecords('grn_master',array());
+        $this->load->view('Grn/excel',$data);
+    }
+
+    public function excel()
+    {
+        $model = $this->model;
+
+        /* Excel File Upload folder Directory: /assets/database */
+        /* Excel File Upload configuration */
+        $file_excel = $_FILES['excel']['name'];
+        $config = Array();
+        $config['upload_path'] = FCPATH.'/Database/recovery';
+        $config['max_size'] = '102400';
+        $config['allowed_types'] = 'xlsx';
+        $config['overwrite'] = FALSE;
+        $config['remove_spaces'] = true;
+        $file_name = $_FILES['excel']['name'];
+        $config['file_name'] = $file_name;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        /* file check if condition is file not upload */
+        if(!$this->upload->do_upload('excel'))
+        {
+            $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
+            redirect('Grn/browse');
+        }
+        /* file check else condition is file upload */
+        else
+        {
+            $data_upload = $this->upload->data();
+
+            /* excel file read */
+            include(APPPATH.'/libraries/simplexlsx.class.php');
+            $xlsx = new SimpleXLSX($data_upload['full_path']);
+
+            $table = 'grn_master';
+
+            $xlsxData = $xlsx->rows(); //excel rows data
+
+            $sid  = 0;
+            $arr = array();
+            $data = array();				
+
+            /* excel file write */
+            foreach($xlsxData as $key => $row)
+            {
+                /* excel sheet in first line break (heading) */
+                if(strtolower($row[0]) == 'id')
+                {
+                    continue;
+                }
+                else
+                {
+                    /* excel sheet in second line to start 
+							if condition is check sid == '' and key ==0 then break */
+                    if($key == 0 && $row[1] =="")
+                    {
+                        break;
+                    }
+                    /* if in key > 0 and sid== '' then condition true */
+                    if($key > 0 && $row[1] =="")
+                    {
+                        $arr[$grnrefid]['mid'][] = $row[6];
+                        $arr[$grnrefid]['grnqty'][] = $row[7];
+                        $arr[$grnrefid]['grnunitprice'][] = $row[8];
+                        $arr[$grnrefid]['muid'][] = $row[9];
+                        $arr[$grnrefid]['grntruck'][] = $row[10];
+                        $arr[$grnrefid]['grnlinechallan'][] = $row[11];
+                        $arr[$grnrefid]['tid'][] = $row[12];
+                        $arr[$grnrefid]['grnremarks'][] = $row[13];
+                    }
+
+                    /* else in sid != '' then condition true */
+
+                    else
+                    {
+                        if($row[1] != "")
+                        {
+                            $grnrefid = $row[1];
+                            $grnreceivedate = $row[2];
+                            $sid = $row[3];
+                            $vid = $row[4];
+                            $grnchallan = $row[5];
+                            $arr[$grnrefid]['grnrefid'] = $row[1];
+                            $arr[$grnrefid]['grnreceivedate'] = $row[2];
+                            $arr[$grnrefid]['sid'] = $row[3];
+                            $arr[$grnrefid]['vid'] = $row[4];
+                            $arr[$grnrefid]['grnchallan'] = $row[5];
+                            $arr[$grnrefid]['mid'][] = $row[6];
+                            $arr[$grnrefid]['grnqty'][] = $row[7];
+                            $arr[$grnrefid]['grnunitprice'][] = $row[8];
+                            $arr[$grnrefid]['muid'][] = $row[9];
+                            $arr[$grnrefid]['grntruck'][] = $row[10];
+                            $arr[$grnrefid]['grnlinechallan'][] = $row[11];
+                            $arr[$grnrefid]['tid'][] = $row[12];
+                            $arr[$grnrefid]['grnremarks'][] = $row[13];
+                        }
+                    }
+                }
+            }
+
+            foreach($arr as $key=>$val)
+            {
+                /* Database Is Comma seprate Store */
+                $grnrefid = $arr[$key]['grnrefid'];
+                $grnreceivedate = $arr[$key]['grnreceivedate'];
+                $sid = $arr[$key]['sid'];
+                $vid = $arr[$key]['vid'];
+                $grnchallan = $arr[$key]['grnchallan'];
+                $mid = implode(",",$arr[$key]['mid']);
+                $grnqty = implode(",",$arr[$key]['grnqty']);
+                $grnunitprice = implode(",",$arr[$key]['grnunitprice']);
+                $muid = implode(",",$arr[$key]['muid']);
+                $grntruck = implode(",",$arr[$key]['grntruck']);
+                $grnlinechallan = implode(",",$arr[$key]['grnlinechallan']);
+                $tid = implode(",",$arr[$key]['tid']);
+                $grnremarks = implode(",",$arr[$key]['grnremarks']);
+
+                $data[] = array(
+                    'grnrefid' => $grnrefid,
+                    'grnreceivedate' => $grnreceivedate,
+                    'sid' => $sid,
+                    'vid' => $vid,
+                    'grnchallan' => $grnchallan,
+                    'mid' => $mid,
+                    'grnqty' => $grnqty,
+                    'grnunitprice' => $grnunitprice,
+                    'muid' => $muid,
+                    'grntruck' => $grntruck,
+                    'grnlinechallan' => $grnlinechallan,
+                    'tid' => $tid,
+                    'grnremarks' => $grnremarks,
+                );
+
+
+            }
+            /* if condition is true then data insert database */
+            if(count($data) > 0)
+            {
+                $this->db->trans_start();
+                $this->$model->insert_batch($data, $table);
+                $this->db->trans_complete();
+
+                /* if condition is true then excel file data not insert then data rollback */
+                if($this->db->trans_status() == FALSE)
+                {
+                    $this->db->trans_rollback();
+                    $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
+                }
+                /* else condition is true then data success fully excel file inserted */
+                else
+                {
+                    $this->db->trans_commit();
+                    $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Successfully Excel File Inserted</div>');
+                }
+
+            } 
+            /* else condition is true then data not insert database */
+            else {
+                $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
+            }
+        }
+        redirect('Grn/browse');
+    }
+    /* database in data display */
+    public function server_data()
+    {
+        $model = $this->model;
+
+        /* datatable in sorting */
+        $order_col_id = $_POST['order'][0]['column'];
+        $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
+
+        /* datatable recordsTotal And recordsFiltered */
+        $totalData = $this->$model->countTableRecords('po_master',array());
+
+        $start = $_POST['start'];
+        $limit = $_POST['length'];
+
+        /* datatable in limited data display */
+        $q = $this->db->query("SELECT * FROM `grn_master`  Order By $order LIMIT $start, $limit")->result();
+
+        $data = array();
+
+        if(!empty($q))
+        {
+            foreach ($q as $key=>$value)
+            {
+                /* records Datatable */
+                $id = 'grnid';
+
+                $nestedData['grnrefid'] = $value->grnrefid;
+                $nestedData['grnreceivedate'] = $value->grnreceivedate;
+                $nestedData['sid'] = $value->sid;
+                $nestedData['vid'] = $value->vid;
+                $nestedData['grnchallan'] = $value->grnchallan;
+                $nestedData['mid'] = $value->mid;
+                $nestedData['grnqty'] = $value->grnqty;
+                $nestedData['grnunitprice'] = $value->grnunitprice;
+                $nestedData['muid'] = $value->muid;
+                $nestedData['grntruck'] = $value->grntruck;
+                $nestedData['grnlinechallan'] = $value->grnlinechallan;
+                $nestedData['tid'] = $value->tid;
+                $nestedData['grnremarks'] = $value->grnremarks;
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw" => intval($this->input->post('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalData),
+            "data" => $data
+        );
+        echo json_encode($json_data);
     }
 }
 ?>

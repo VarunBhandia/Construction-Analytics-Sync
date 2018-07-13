@@ -73,6 +73,7 @@
                 <td><b>Mobile</b></td>
                 <td><b>Email</b></td>
                 <td><b>Addres</b></td>
+                <td><b>Created By</b></td>
                 <td><b>Action</b></td>
             </tr>
         </thead>
@@ -131,7 +132,7 @@
                     <div class="form-group">
                         <label for="name" class="label-control col-md-4">Address</label>
                         <div class="col-md-8">
-                            <input type="text" name="address" class="form-control">
+                            <input type="text" name="address" class="form-control">                                                    <input type="hidden" value="<?php echo $uid; ?>" name="screatedby"> 
                         </div>
                     </div>
                 </form>
@@ -221,6 +222,7 @@
             var mobile = $('input[name=mobile]');
             var email = $('input[name=email]');
             var address = $('input[name=address]');
+            var screatedby = $('input[name=screatedby]');
             var result = '';
             if (sname.val() == '') {
                 sname.parent().parent().addClass('has-error');
@@ -288,6 +290,7 @@
                     $('input[name=mobile]').val(data.mobile);
                     $('input[name=email]').val(data.email);
                     $('input[name=address]').val(data.address);
+                    $('input[name=screatedby]').val(data.screatedby);
                     $('input[name=sid]').val(data.sid);
                 },
                 error: function() {
@@ -349,9 +352,10 @@
                             '<td>' + data[i].mobile + '</td>' +
                             '<td>' + data[i].email + '</td>' +
                             '<td>' + data[i].address + '</td>' +
+                            '<td>' + data[i].screatedby + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].sid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].sid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].sid + '"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].sid + '"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

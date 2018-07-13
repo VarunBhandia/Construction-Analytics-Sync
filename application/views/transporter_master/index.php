@@ -358,8 +358,8 @@
                             '<td>' + data[i].taddress + '</td>' +
                             '<td>' + data[i].tdesc + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].tid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].tid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].tid + '"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].tid + '"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

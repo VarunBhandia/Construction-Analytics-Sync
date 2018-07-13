@@ -161,6 +161,7 @@ class Consumption extends CI_Controller
     }
 
 
+
     public function form()
     {
         $model = $this->model;

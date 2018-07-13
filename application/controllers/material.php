@@ -42,7 +42,7 @@ Class Material extends CI_Controller{
 
 		$object->setActiveSheetIndex(0);
 
-		$table_columns = array("mid", "mname", "munit", "mcategory", "mdesc", "hsn", "mgst", "mbase", "mtype");
+		$table_columns = array("mid", "mname", "munit", "mcategory", "mdesc", "hsn", "mgst", "mbase", "mtype", "mcreatedby");
 
 		$column = 0;
 
@@ -67,6 +67,7 @@ Class Material extends CI_Controller{
 			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mgst);
             $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mbase);
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mtype);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mcreatedby);
 			$excel_row++;
 		}
 
@@ -106,6 +107,7 @@ Class Material extends CI_Controller{
        <td>'.$row->mgst.'</td>
        <td>'.$row->mbase.'</td>
        <td>'.$row->mtype.'</td>
+       <td>'.$row->mcreatedby.'</td>
        <td>
        <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->mid.'">Edit</a>
        <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->mid.'">Delete</a></td>

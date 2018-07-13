@@ -22,6 +22,7 @@ class Material_m extends CI_Model{
 			'mgst'=>$this->input->post('mgst'),
             'mbase'=>$this->input->post('mbase'),
             'mtype'=>$this->input->post('mtype'),
+            'mcreatedby'=>$this->input->post('mcreatedby'),
 			);
 		$this->db->insert('materials', $field);
 		if($this->db->affected_rows() > 0){
@@ -53,6 +54,7 @@ class Material_m extends CI_Model{
 			'mgst'=>$this->input->post('mgst'),
             'mbase'=>$this->input->post('mbase'),
             'mtype'=>$this->input->post('mtype'),
+            'mcreatedby'=>$this->input->post('mcreatedby'),
 			);
 		$this->db->where('mid', $mid);
 		$this->db->update('materials', $field);
@@ -116,6 +118,7 @@ return false;
    $this->db->or_like('hsn', $query);
    $this->db->or_like('mgst', $query); 
    $this->db->or_like('mtype', $query);
+   $this->db->or_like('mcreatedby', $query);
   }
   $this->db->order_by('mid', 'DESC');
   return $this->db->get();

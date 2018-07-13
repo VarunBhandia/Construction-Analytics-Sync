@@ -32,6 +32,7 @@ return false;
 			'vgst'=>$this->input->post('vgst'),
 			'vaddress'=>$this->input->post('vaddress'),
 			'vdesc'=>$this->input->post('vdesc'),
+			'vcreatedby'=>$this->input->post('vcreatedby'),
 			);
 		$this->db->insert('vendordetails', $field);
 		if($this->db->affected_rows() > 0){
@@ -62,6 +63,7 @@ return false;
 			'vgst'=>$this->input->post('vgst'),
 			'vaddress'=>$this->input->post('vaddress'),
 			'vdesc'=>$this->input->post('vdesc'),
+			'vcreatedby'=>$this->input->post('vcreatedby'),
 			);
 		$this->db->where('vid', $vid);
 		$this->db->update('vendordetails', $field);
@@ -95,6 +97,7 @@ return false;
    $this->db->or_like('vgst', $query);
    $this->db->or_like('vaddress', $query);
    $this->db->or_like('vdesc', $query); 
+   $this->db->or_like('vcreatedby', $query); 
   }
   $this->db->order_by('vid', 'DESC');
   return $this->db->get();

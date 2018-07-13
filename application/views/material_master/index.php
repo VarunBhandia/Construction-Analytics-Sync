@@ -72,6 +72,7 @@
                 <td><b>GST Rate</b></td>
                 <td><b>Base Rate</b></td>
                 <td><b>Material type</b></td>
+                <td><b>Created By</b></td>
                 <td><b>Action</b></td>
             </tr>
         </thead>
@@ -152,6 +153,7 @@
                         <label for="mtype" class="label-control col-md-4">Material Type</label>
                         <div class="col-md-8">
                             <input type="text" name="mtype" class="form-control">
+                        <input type="hidden" value="<?php echo $uid; ?>" name="mcreatedby"> 
                         </div>
                     </div>
                 </form>
@@ -243,6 +245,7 @@
             var mgst = $('input[name=mgst]');
             var mbase = $('input[name=mbase]');
             var mtype = $('input[name=mtype]');
+            var mcreatedby = $('input[name=mcreatedby]');
             var result = '';
             if (mname.val() == '') {
                 mname.parent().parent().addClass('has-error');
@@ -315,6 +318,7 @@
                     $('input[name=mgst]').val(data.mgst);
                     $('input[name=mbase]').val(data.mbase);
                     $('input[name=mtype]').val(data.mtype);
+                    $('input[name=mcreatedby]').val(data.mcreatedby);
                 },
                 error: function() {
                     alert('Could not Edit Data');
@@ -376,9 +380,10 @@
                             '<td>' + data[i].mgst + '</td>' +
                             '<td>' + data[i].mbase + '</td>' +
                             '<td>' + data[i].mtype + '</td>' +
+                            '<td>' + data[i].mcreatedby + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].mid + '">Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].mid + '">Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].mid + '"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].mid + '"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>' +
                             '</td>' +
                             '</tr>';
                     }

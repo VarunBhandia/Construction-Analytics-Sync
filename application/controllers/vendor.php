@@ -38,7 +38,7 @@ Class Vendor extends CI_Controller{
 
 		$object->setActiveSheetIndex(0);
 
-		$table_columns = array("vid", "vname", "vmobile", "valtmobile", "vemail", "vgst", "vaddress", "vdesc");
+		$table_columns = array("vid", "vname", "vmobile", "valtmobile", "vemail", "vgst", "vaddress", "vdesc", "vcreatedby");
 
 		$column = 0;
 
@@ -62,6 +62,7 @@ Class Vendor extends CI_Controller{
 			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->vgst);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->vaddress);
             $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->vdesc);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->vcreatedby);
 			$excel_row++;
 		}
 
@@ -98,6 +99,7 @@ Class Vendor extends CI_Controller{
        <td>'.$row->vgst.'</td>
        <td>'.$row->vaddress.'</td>
        <td>'.$row->vdesc.'</td>
+       <td>'.$row->vcreatedby.'</td>
        <td>
        <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->vid.'">Edit</a>
        <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->vid.'">Delete</a></td>

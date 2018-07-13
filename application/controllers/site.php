@@ -37,7 +37,7 @@ Class Site extends CI_Controller{
 
 		$object->setActiveSheetIndex(0);
 
-		$table_columns = array("sid", "sname", "sitestartdate", "uniquesid", "contactname", "mobile", "email", "address");
+		$table_columns = array("sid", "sname", "sitestartdate", "uniquesid", "contactname", "mobile", "email", "address", "screatedby");
 
 		$column = 0;
 
@@ -61,6 +61,7 @@ Class Site extends CI_Controller{
 			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mobile);
 			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->email);
             $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->address);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->screatedby);
 			$excel_row++;
 		}
 
@@ -99,6 +100,7 @@ Class Site extends CI_Controller{
        <td>'.$row->mobile.'</td>
        <td>'.$row->email.'</td>
        <td>'.$row->address.'</td>
+       <td>'.$row->screatedby.'</td>
        <td>
        <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->sid.'">Edit</a>
        <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->sid.'">Delete</a></td>

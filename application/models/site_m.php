@@ -32,6 +32,7 @@ return false;
 			'mobile'=>$this->input->post('mobile'),
 			'email'=>$this->input->post('email'),
 			'address'=>$this->input->post('address'),
+			'screatedby'=>$this->input->post('screatedby'),
 			);
 		$this->db->insert('sitedetails', $field);
 		if($this->db->affected_rows() > 0){
@@ -62,6 +63,7 @@ return false;
 			'mobile'=>$this->input->post('mobile'),
 			'email'=>$this->input->post('email'),
 			'address'=>$this->input->post('address'),
+			'screatedby'=>$this->input->post('screatedby'),
 			);
 		$this->db->where('sid', $sid);
 		$this->db->update('sitedetails', $field);
@@ -95,6 +97,7 @@ return false;
    $this->db->or_like('mobile', $query);
    $this->db->or_like('email', $query);
    $this->db->or_like('address', $query); 
+   $this->db->or_like('screatedby', $query); 
   }
   $this->db->order_by('sid', 'DESC');
   return $this->db->get();

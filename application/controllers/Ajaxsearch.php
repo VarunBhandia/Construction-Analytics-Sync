@@ -5,19 +5,19 @@ class Ajaxsearch extends CI_Controller {
 
  function index()
  {
-  $this->load->view('ajaxsearch');
+  $this->load->view('Ajaxsearch');
  }
 
  function fetch()
  {
   $output = '';
   $query = '';
-  $this->load->model('ajaxsearch_model');
+  $this->load->model('Ajaxsearch_model');
   if($this->input->post('query'))
   {
    $query = $this->input->post('query');
   }
-  $data = $this->ajaxsearch_model->fetch_data($query);
+  $data = $this->Ajaxsearch_model->fetch_data($query);
   $output .= '
   <div class="table-responsive">
      <table class="table table-bordered table-striped">

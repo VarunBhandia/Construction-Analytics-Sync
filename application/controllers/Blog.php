@@ -10,15 +10,15 @@ class Blog extends CI_Controller{
 
 	function index(){
 		$data['blogs'] = $this->m->getBlog();
-		$this->load->view('Layout/Header');
-		$this->load->view('Blog/Index', $data);
-		$this->load->view('Layout/Footer');
+		$this->load->view('layout/Header');
+		$this->load->view('blog/Index', $data);
+		$this->load->view('layout/Footer');
 	}
 
 	public function add(){
-		$this->load->view('Layout/Header');
-		$this->load->view('Blog/Add');
-		$this->load->view('Layout/Footer');
+		$this->load->view('layout/Header');
+		$this->load->view('blog/Add');
+		$this->load->view('layout/Footer');
 	}
 
 	public function submit(){
@@ -28,14 +28,14 @@ class Blog extends CI_Controller{
 		}else{
 			$this->session->set_flashdata('error_msg', 'Faill to add record');
 		}
-		redirect(base_url('Blog/index'));
+		redirect(base_url('blog/index'));
 	}
 
 	public function edit($id){
 		$data['blog'] = $this->m->getBlogById($id);
-		$this->load->view('Layout/Header');
-		$this->load->view('Blog/Edit', $data);
-		$this->load->view('Layout/Footer');
+		$this->load->view('layout/Header');
+		$this->load->view('blog/Edit', $data);
+		$this->load->view('layout/Footer');
 	}
 
 	public function update(){
@@ -45,7 +45,7 @@ class Blog extends CI_Controller{
 		}else{
 			$this->session->set_flashdata('error_msg', 'Faill to update record');
 		}
-		redirect(base_url('Blog/index'));
+		redirect(base_url('blog/index'));
 	}
 
 	public function delete($id){
@@ -55,7 +55,7 @@ class Blog extends CI_Controller{
 		}else{
 			$this->session->set_flashdata('error_msg', 'Faill to delete record');
 		}
-		redirect(base_url('Blog/index'));
+		redirect(base_url('blog/index'));
 	}
 
 }

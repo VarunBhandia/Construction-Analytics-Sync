@@ -5,7 +5,7 @@ class Consumption extends CI_Controller
 {
     public $table = 'consumption';
     public $sitetable = 'sitedetails';
-    public $controller = 'consumption';
+    public $controller = 'Consumption';
     public $message = 'Construction';
     public $primary_id = "consid";
     public $model;
@@ -14,7 +14,7 @@ class Consumption extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Model');
-        $this->load->model('consumption_m');
+        $this->load->model('Consumption_m');
         $this->model = 'Model';
         date_default_timezone_set('Asia/Kolkata');
     }
@@ -58,7 +58,7 @@ class Consumption extends CI_Controller
 
     public function index()
     {
-        $this->load->model("consumption_m");
+        $this->load->model("Consumption_m");
         $data["cons_data"] = $this->consumption_m->fetch_data();
         $model = $this->model;
         $data['controller'] = $this->controller;
@@ -71,7 +71,7 @@ class Consumption extends CI_Controller
     function action()
 
     {
-        $this->load->model("consumption_m");
+        $this->load->model("Consumption_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 
@@ -118,7 +118,7 @@ class Consumption extends CI_Controller
     {
         $sid = $this->input->post('sid');
         $data['sid'] = $sid;          
-        $this->load->model("consumption_m");
+        $this->load->model("Consumption_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 

@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 Class Category extends CI_Controller{
 	function __construct(){
 		parent:: __construct();
-		$this->load->model('category_m', 'm');
+		$this->load->model('Category_m', 'm');
 	}
 
 	function index()
@@ -30,7 +30,7 @@ Class Category extends CI_Controller{
 
 		$object->setActiveSheetIndex(0);
 
-		$table_columns = array("Cid",  "cname" );
+		$table_columns = array("cid",  "cname" );
 
 		$column = 0;
 

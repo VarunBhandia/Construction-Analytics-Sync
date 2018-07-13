@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Cp extends CI_Controller
 {
     public $table = 'cp_master';
-    public $controller = 'cp';
+    public $controller = 'Cp';
     public $message = 'Construction';
     public $primary_id = "cpid";
     public $model;
@@ -13,7 +13,7 @@ class Cp extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Model');
-        $this->load->model('cp_m');
+        $this->load->model('Cp_m');
         $this->model = 'Model';
         date_default_timezone_set('Asia/Kolkata');
     }

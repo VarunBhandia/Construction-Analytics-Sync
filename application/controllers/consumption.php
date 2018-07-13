@@ -418,7 +418,7 @@ class Consumption extends CI_Controller
                 $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
             }
         }
-        redirect('po/browse');
+        redirect('consumption/browse');
     }
     /* database in data display */
     public function server_data()

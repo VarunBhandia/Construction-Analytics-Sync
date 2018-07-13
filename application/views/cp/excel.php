@@ -41,6 +41,7 @@
 				  <div class="datatable-responsive">
 					<table id="datatable1" class="table table-striped table-bordered">
 						<thead>
+							<th>cprefid</th>
 							<th>sid</th>
 							<th>vid</th>
 							<th>cpchallan</th>
@@ -51,6 +52,8 @@
 							<th>cpunitprice</th>
 							<th>cplinechallan</th>
 							<th>cpremark</th>
+							<th>cpcreatedby</th>
+							<th>cpcreatedon</th>
 						</thead>
 
                     <tbody>
@@ -104,7 +107,8 @@ $(document).ready(function (){
             "type": "POST",
             },
         "columns": [
-          { "data": "sid",},
+          { "data": "cprefid"},
+          { "data": "sid"},
           { "data": "vid"},
           { "data": "cpchallan"},
           { "data": "cppurchasedate"},
@@ -114,6 +118,8 @@ $(document).ready(function (){
           { "data": "cpunitprice"},
           { "data": "cplinechallan"},
           { "data": "cpremark"},
+          { "data": "cpcreatedby"},
+          { "data": "cpcreatedon"},
         ],
 		"columnDefs": [ {
 			"targets": [2,3,4,5,6,7],

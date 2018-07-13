@@ -358,27 +358,29 @@ class Cp extends CI_Controller
                 {
                     /* excel sheet in second line to start 
 							if condition is check sid == '' and key ==0 then break */
-                    if($key == 0 && $row[4] =="")
+                    if($key == 0 && $row[1] =="")
                     {
                         break;
                     }
                     /* if in key > 0 and sid== '' then condition true */
-                    if($key > 0 && $row[4] =="")
+                    if($key > 0 && $row[1] =="")
                     {
-                        $arr[$cprefid]['cppurchasedate'][] = $row[3];
-                        $arr[$cprefid]['mid'][] = $row[4];
-                        $arr[$cprefid]['muid'][] = $row[5];
-                        $arr[$cprefid]['cpqty'][] = $row[6];
-                        $arr[$cprefid]['cpunitprice'][] = $row[7];
-                        $arr[$cprefid]['cplinechallan'][] = $row[8];
-                        $arr[$cprefid]['cpremark'][] = $row[9];
+                        $arr[$cprefid]['cppurchasedate'][] = $row[5];
+                        $arr[$cprefid]['mid'][] = $row[6];
+                        $arr[$cprefid]['muid'][] = $row[7];
+                        $arr[$cprefid]['cpqty'][] = $row[8];
+                        $arr[$cprefid]['cpunitprice'][] = $row[9];
+                        $arr[$cprefid]['cplinechallan'][] = $row[10];
+                        $arr[$cprefid]['cpremark'][] = $row[11];
+                        $arr[$cprefid]['cpcreatedby'][] = $row[12];
+                        $arr[$cprefid]['cpcreatedon'][] = $row[13];
                     }
 
                     /* else in sid != '' then condition true */
 
                     else
                     {
-                        if($row[4] != "")
+                        if($row[1] != "")
                         {
                             $cprefid = $row[1];
                             $sid = $row[2];
@@ -395,6 +397,8 @@ class Cp extends CI_Controller
                             $arr[$cprefid]['cpunitprice'][] = $row[9];
                             $arr[$cprefid]['cplinechallan'][] = $row[10];
                             $arr[$cprefid]['cpremark'][] = $row[11];
+                            $arr[$cprefid]['cpcreatedby'][] = $row[12];
+                            $arr[$cprefid]['cpcreatedon'][] = $row[13];
                         }
                     }
                 }
@@ -414,6 +418,8 @@ class Cp extends CI_Controller
                 $cpunitprice = implode(",",$arr[$key]['cpunitprice']);
                 $cplinechallan = implode(",",$arr[$key]['cplinechallan']);
                 $cpremark = implode(",",$arr[$key]['cpremark']);
+                $cpcreatedby = implode(",",$arr[$key]['cpcreatedby']);
+                $cpcreatedon = implode(",",$arr[$key]['cpcreatedon']);
 
                 $data[] = array(
                     'cprefid' => $cprefid,
@@ -427,6 +433,8 @@ class Cp extends CI_Controller
                     'cpunitprice' => $cpunitprice,
                     'cplinechallan' => $cplinechallan,
                     'cpremark' => $cpremark,
+                    'cpcreatedby' => $cpcreatedby,
+                    'cpcreatedon' => $cpcreatedon,
                 );
 
 
@@ -469,7 +477,7 @@ class Cp extends CI_Controller
         $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
 
         /* datatable recordsTotal And recordsFiltered */
-        $totalData = $this->$model->countTableRecords('cp_master',array());
+        $totalData = $this->$model->countTableRecords('po_master',array());
 
         $start = $_POST['start'];
         $limit = $_POST['length'];
@@ -497,6 +505,8 @@ class Cp extends CI_Controller
                 $nestedData['cpunitprice'] = $value->cpunitprice;
                 $nestedData['cplinechallan'] = $value->cplinechallan;
                 $nestedData['cpremark'] = $value->cpremark;
+                $nestedData['cpcreatedby'] = $value->cpcreatedby;
+                $nestedData['cpcreatedon'] = $value->cpcreatedon;
                 $data[] = $nestedData;
             }
         }

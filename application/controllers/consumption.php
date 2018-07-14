@@ -23,7 +23,7 @@ class Consumption extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
-        $result = $this->consumption_m->show_all_data();
+        $result = $this->Consumption_m->show_all_data();
         if ($result != false) {
             return $result;
         } else {
@@ -41,7 +41,7 @@ class Consumption extends CI_Controller
         $sid = $this->input->post('sid');
         $data['sid'] = $sid;
         if ($sid != "") {
-            $result = $this->consumption_m->show_data_by_id($sid);
+            $result = $this->Consumption_m->show_data_by_id($sid);
             if ($result != false) {
                 $data['result_display'] = $result;
             } else 
@@ -61,16 +61,24 @@ class Consumption extends CI_Controller
 
     public function index()
     {
-        $this->load->model("Consumption_m");
-        $data["cons_data"] = $this->Consumption_m->fetch_data();
-        $model = $this->model;
-        $data['controller'] = $this->controller;
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->model("Consumption_m");
+            $data["cons_data"] = $this->Consumption_m->fetch_data();
+            $model = $this->model;
+            $data['controller'] = $this->controller;
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
 
-        $this->load->view('consumption/index',$data);
+            $this->load->view('consumption/index',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
     }
 
     function action()
@@ -92,7 +100,7 @@ class Consumption extends CI_Controller
             $column++;
         }
 
-        $cons_data = $this->consumption_m->fetch_data();
+        $cons_data = $this->Consumption_m->fetch_data();
 
         $excel_row = 2;
 
@@ -139,7 +147,7 @@ class Consumption extends CI_Controller
             $column++;
         }
 
-        $cons_data = $this->consumption_m->show_data_by_id($sid);
+        $cons_data = $this->Consumption_m->show_data_by_id($sid);
 
         $excel_row = 2;
 

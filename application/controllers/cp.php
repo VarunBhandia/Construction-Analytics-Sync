@@ -20,15 +20,22 @@ class Cp extends CI_Controller
 
     public function index()
     {
-        $this->load->model("cp_m");
-        $data["cp_data"] = $this->cp_m->fetch_data();
-        $model = $this->model;
-        $data['controller'] = $this->controller;
-        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('cp/index',$data);
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->model("cp_m");
+            $data["cp_data"] = $this->cp_m->fetch_data();
+            $model = $this->model;
+            $data['controller'] = $this->controller;
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('cp/index',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
     }
 
     function action()

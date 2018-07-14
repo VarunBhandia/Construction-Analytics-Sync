@@ -3,22 +3,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ajaxsearch extends CI_Controller {
 
- function index()
- {
-  $this->load->view('Ajaxsearch');
- }
+    function index()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->view('Ajaxsearch');
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+    }
 
- function fetch()
- {
-  $output = '';
-  $query = '';
-  $this->load->model('Ajaxsearch_model');
-  if($this->input->post('query'))
-  {
-   $query = $this->input->post('query');
-  }
-  $data = $this->Ajaxsearch_model->fetch_data($query);
-  $output .= '
+    function fetch()
+    {
+        $output = '';
+        $query = '';
+        $this->load->model('Ajaxsearch_model');
+        if($this->input->post('query'))
+        {
+            $query = $this->input->post('query');
+        }
+        $data = $this->Ajaxsearch_model->fetch_data($query);
+        $output .= '
   <div class="table-responsive">
      <table class="table table-bordered table-striped">
       <tr>
@@ -29,11 +36,11 @@ class Ajaxsearch extends CI_Controller {
        <th>Country</th>
       </tr>
   ';
-  if($data->num_rows() > 0)
-  {
-   foreach($data->result() as $row)
-   {
-    $output .= '
+        if($data->num_rows() > 0)
+        {
+            foreach($data->result() as $row)
+            {
+                $output .= '
       <tr>
        <td>'.$row->CustomerName.'</td>
        <td>'.$row->Address.'</td>
@@ -42,16 +49,16 @@ class Ajaxsearch extends CI_Controller {
        <td>'.$row->Country.'</td>
       </tr>
     ';
-   }
-  }
-  else
-  {
-   $output .= '<tr>
+            }
+        }
+        else
+        {
+            $output .= '<tr>
        <td colspan="5">No Data Found</td>
       </tr>';
-  }
-  $output .= '</table>';
-  echo $output;
- }
- 
+        }
+        $output .= '</table>';
+        echo $output;
+    }
+
 }

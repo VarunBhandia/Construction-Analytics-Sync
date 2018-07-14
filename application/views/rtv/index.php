@@ -111,8 +111,7 @@
 
     }
 
-                                                        ?>
-                                                        <?php }	?>
+                                                         }	?>
                                                     </select>
 
                                                     <script type="text/javascript">
@@ -219,9 +218,12 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <?php
-                                            $no = 1;
-                                            foreach($row as $test) {?>
+                                                                    <?php
+                                                    $no = 1;
+                                                    foreach($row as $test) {
+                                                        for($i=0;$i < $count_site;$i++){
+                                                            if($user_sites[$i] == $test->sid ){
+                                                                    ?>
                                                         <tr>
                                                             <td><?php echo $no;?></td>
                                                             <td><?php echo $test->rtvid;?></td>
@@ -232,14 +234,18 @@
                                                             <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                             <?php $no++;?>
                                                         </tr>
-                                                        <?php
-                                                                   }
-                                                        ?>
+                                                                <?php
+
+                                                            }
+                                                        }
+                                                    }
+                                                     
+                                                                ?>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                        </div> <?php } ?>   
-                                    </div>
+                                        </div>   
+                                    </div><?php } ?>
                                 </div>
                             </div>
                         </div>

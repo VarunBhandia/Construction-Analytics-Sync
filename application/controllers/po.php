@@ -170,20 +170,28 @@ class Po extends CI_Controller
 
     public function index()
     {
-        $this->load->model("po_m");
-        $data["po_data"] = $this->po_m->fetch_data();
-        $model = $this->model;
-        $data['controller'] = $this->controller;
-        $data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
-        $data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
-        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('po/index',$data);
+        if($this->session->userdata('username') != '')  
+        {
+
+            $this->load->model("po_m");
+            $data["po_data"] = $this->po_m->fetch_data();
+            $model = $this->model;
+            $data['controller'] = $this->controller;
+            $data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
+            $data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('po/index',$data);
+
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
     }
-
-
 
     public function form($poid)
     {

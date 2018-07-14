@@ -61,15 +61,23 @@ class Material_rqst extends CI_Controller
 
     public function index()
     {
-        $this->load->model("mr_m");
-        $data["mr_data"] = $this->mr_m->fetch_data();
-        $model = $this->model;
-        $data['controller'] = $this->controller;
-        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('material_rqst/index',$data);
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->model("mr_m");
+            $data["mr_data"] = $this->mr_m->fetch_data();
+            $model = $this->model;
+            $data['controller'] = $this->controller;
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('material_rqst/index',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
     }
 
     function action()

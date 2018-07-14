@@ -35,6 +35,9 @@ class Po extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $sid = $this->input->post('sid');
         $vid = $this->input->post('vid');
         $data['sid'] = $sid;          
@@ -174,10 +177,9 @@ class Po extends CI_Controller
         $data['row'] = $this->$model->select(array(),'material_rqst',array(),'');
         $data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-        //            echo '<pre>';
-        //            print_r($data['po_row']);
-        //            echo '</pre>';
-
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('po/index',$data);
     }
 

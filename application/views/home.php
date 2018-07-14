@@ -25,6 +25,7 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/main.css">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>css/style.css">
         <!--===============================================================================================-->
+<!--
         <style>
             .col,
             .col-1,
@@ -104,17 +105,18 @@
             }
 
         </style>
+-->
     </head>
 
     <body>
         <div class="topHeader">
             <div class="row">
-                <div class="col-md-10">
+                <div class="col-md-9 col-xs-8 ">
                     <h4 class="welcomeUser">Welcome -
                         <?php echo $username ?>
                     </h4>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3 col-md-3">
                     <button class="btn btn-info" style="background-color: black;float: right;"><a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">Logout</a></button>
                 </div>
             </div>
@@ -149,7 +151,7 @@
         ?>
         <div class="row padding1">
             <?php if($user_module != 0){ ?>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-6">
                 <a href="<?php echo base_url(); ?>user" target="_blank">
                     <div class="ModuleTile" style="background-color:#8ec127">
                         <div class="countData">
@@ -163,7 +165,7 @@
             </div>
             <?php } ?>
 
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-6">
                 <?php if($site_module != 0){ ?>
                 <a href="<?php echo base_url(); ?>site" target="_blank">
                     <div class="ModuleTile" style="background-color:#00aba9">
@@ -179,7 +181,7 @@
             </div>
             <?php } ?>
             <?php if($material_module != 0){ ?>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-6">
                 <a href="<?php echo base_url(); ?>material" target="_blank">
                     <div class="ModuleTile" style="background-color:#f47835">
                         <div class="countData">
@@ -194,7 +196,7 @@
             </div>
             <?php } ?>
             <?php if($vendor_module != 0){ ?>
-            <div class="col-md-2">
+            <div class="col-md-2 col-xs-6">
                 <a href="<?php echo base_url(); ?>index.php/vendor" target="_blank">
                     <div class="ModuleTile" style="background-color:#d41243">
                         <div class="countData">

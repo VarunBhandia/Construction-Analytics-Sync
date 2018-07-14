@@ -54,7 +54,7 @@ error_reporting(0);
 						</div>
                       </div>
 				  <div class="datatable-responsive">
-					<table id="datatable1" class="table table-striped table-bordered">
+					<table id="datatable" class="table table-striped table-bordered">
 				<thead>
 					<tr class="headings">
 					<th class="column-title">Material Name</th>

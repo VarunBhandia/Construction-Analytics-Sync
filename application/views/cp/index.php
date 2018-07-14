@@ -127,7 +127,7 @@ if (isset($result_display))
 			<div id="table-scroll" class="table-scroll">
              <div align="right">
 			  <div class="table-wrap">
-					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
+					<table id="datatable" class="main-table table table-striped table-bordered">
 							<thead>
 								<tr>
 								  <th>No</th>
@@ -178,7 +178,7 @@ if (isset($result_display))
         <div id="table-scroll" class="table-scroll">
          <div align="right">
 			  <div class="table-wrap">
-					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
+					<table id="datatable" class="main-table table table-striped table-bordered">
 							<thead>
 								<tr>
 								  <th>No</th>

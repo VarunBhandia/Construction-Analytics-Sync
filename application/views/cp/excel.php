@@ -41,16 +41,19 @@
 				  <div class="datatable-responsive">
 					<table id="datatable1" class="table table-striped table-bordered">
 						<thead>
-							<th>mrid</th>
+							<th>cprefid</th>
 							<th>sid</th>
+							<th>vid</th>
+							<th>cpchallan</th>
+							<th>cppurchasedate</th>
 							<th>mid</th>
-							<th>mrqty</th>
-							<th>mrunitprice</th>
-							<th>mrrefid</th>
 							<th>muid</th>
-							<th>mrremarks</th>
-							<th>mrcreatedon</th>
-							<th>mrcreatedby</th>
+							<th>cpqty</th>
+							<th>cpunitprice</th>
+							<th>cplinechallan</th>
+							<th>cpremark</th>
+							<th>cpcreatedby</th>
+							<th>cpcreatedon</th>
 						</thead>
 
                     <tbody>
@@ -104,26 +107,19 @@ $(document).ready(function (){
             "type": "POST",
             },
         "columns": [
-          { "data": "porefid",},
-          { "data": "mrrefid",},
-          { "data": "vid"},
+          { "data": "cprefid"},
           { "data": "sid"},
-          { "data": "frieght_amount"},
-          { "data": "csgt_total"},
-          { "data": "ssgt_total"},
-          { "data": "isgt_total"},
-          { "data": "gross_amount"},
-          { "data": "pocreatedon"},
+          { "data": "vid"},
+          { "data": "cpchallan"},
+          { "data": "cppurchasedate"},
           { "data": "mid"},
-          { "data": "app_qty"},
-          { "data": "pocreatedby"},
-          { "data": "unit"},
-          { "data": "dtid"},
-          { "data": "discount"},
-          { "data": "cgst"},
-          { "data": "sgst"},
-          { "data": "igst"},
-          { "data": "remark"},
+          { "data": "muid"},
+          { "data": "cpqty"},
+          { "data": "cpunitprice"},
+          { "data": "cplinechallan"},
+          { "data": "cpremark"},
+          { "data": "cpcreatedby"},
+          { "data": "cpcreatedon"},
         ],
 		"columnDefs": [ {
 			"targets": [2,3,4,5,6,7],

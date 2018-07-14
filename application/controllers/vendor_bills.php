@@ -17,14 +17,21 @@ class Vendor_bills extends CI_Controller {
         $this->model = 'Model';
         $this->load->model('vendor_bills_m');
     }
-	public function index()
-	{
-		$model = $this->model;
-        $data['controller'] = $this->controller;
-        $data['result'] = $this->$model->db_query("select `".$this->table."`.*,`sitedetails`.sname,`vendordetails`.vname from `".$this->table."` INNER JOIN `sitedetails` ON `sitedetails`.sid = `".$this->table."`.sid INNER JOIN `vendordetails` ON `vendordetails`.vid = `".$this->table."`.vid ");
-        $this->load->view('vendor_bills/manage',$data);
-	}
-	
+    public function index()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+            $model = $this->model;
+            $data['controller'] = $this->controller;
+            $data['result'] = $this->$model->db_query("select `".$this->table."`.*,`sitedetails`.sname,`vendordetails`.vname from `".$this->table."` INNER JOIN `sitedetails` ON `sitedetails`.sid = `".$this->table."`.sid INNER JOIN `vendordetails` ON `vendordetails`.vid = `".$this->table."`.vid ");
+            $this->load->view('vendor_bills/manage',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+    }
+
 
     public function add() {
         $model = $this->model;
@@ -34,12 +41,12 @@ class Vendor_bills extends CI_Controller {
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-        
-		$user = $this->$model->select(array(),'users',array('uid' => 11),'');
-		
-		$data['sites'] = $this->$model->db_query("SELECT * FROM `sitedetails` WHERE sid IN(".$user[0]->site.")");
 
-		
+        $user = $this->$model->select(array(),'users',array('uid' => 11),'');
+
+        $data['sites'] = $this->$model->db_query("SELECT * FROM `sitedetails` WHERE sid IN(".$user[0]->site.")");
+
+
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $this->load->view('vendor_bills/index', $data);
     }
@@ -86,8 +93,8 @@ class Vendor_bills extends CI_Controller {
     }
     public function insert()
     {
-		$user_id = 11;
-		
+        $user_id = 11;
+
         $model = $this->model;
         $vid = $this->input->post('vid');
         $sid = $this->input->post('sid');
@@ -113,20 +120,20 @@ class Vendor_bills extends CI_Controller {
         $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
         $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total'); 
         $remark = count($this->input->post('remarks')) > 0 ? implode(",",$this->input->post('remarks')) : $this->input->post('remarks');    
-		
-		$create_date = date('Y-m-d H:i:s');
-		
-		$status = array();
-		for($t=0; $t<count($this->input->post('total'));$t++)
-		{
-			$status[] = 'Pending';
-		}
-		$status = implode(",",$status);
-		
+
+        $create_date = date('Y-m-d H:i:s');
+
+        $status = array();
+        for($t=0; $t<count($this->input->post('total'));$t++)
+        {
+            $status[] = 'Pending';
+        }
+        $status = implode(",",$status);
+
         $data = array(
             'vid'  => $vid,
             'sid'  => $sid,
-			'order_index' => $uindex,
+            'order_index' => $uindex,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,
@@ -147,10 +154,10 @@ class Vendor_bills extends CI_Controller {
             'sgst'  => $sgst,
             'igst'  => $igst,
             'total'  => $total,
-			'remark' => $remark,
-			'status' => $status,
-			'created_at' => $create_date,
-			'created_by' => $user_id
+            'remark' => $remark,
+            'status' => $status,
+            'created_at' => $create_date,
+            'created_by' => $user_id
         );
 
         $this->$model->insert($data,$this->table);
@@ -168,7 +175,7 @@ class Vendor_bills extends CI_Controller {
         $data['action'] = "insert";
         $data['show_table'] = $this->view_table();
         $data['result'] = $this->$model->select(array(),$this->table,array('id'=>$vbid),'');
-		$data['grn_data'] = $this->$model->select(array(),'grn_master',array('sid'=>$data['result'][0]->sid,'vid'=>$data['result'][0]->vid),'');
+        $data['grn_data'] = $this->$model->select(array(),'grn_master',array('sid'=>$data['result'][0]->sid,'vid'=>$data['result'][0]->vid),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
@@ -248,9 +255,9 @@ class Vendor_bills extends CI_Controller {
             'remark'  => $remark
 
         ); */
-		
-		$vendor_id = $this->input->post('vendor_id');
-		$csgt_total = $this->input->post('csgt_total');
+
+        $vendor_id = $this->input->post('vendor_id');
+        $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
@@ -271,12 +278,12 @@ class Vendor_bills extends CI_Controller {
         $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
         $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total'); 
         $remark = count($this->input->post('remarks')) > 0 ? implode(",",$this->input->post('remarks')) : $this->input->post('remarks');    
-		
-		$create_date = date('Y-m-d H:i:s');
-		$user_id = 11;
-		
+
+        $create_date = date('Y-m-d H:i:s');
+        $user_id = 11;
+
         $data = array(
-			'order_index' => $uindex,
+            'order_index' => $uindex,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,
@@ -297,11 +304,11 @@ class Vendor_bills extends CI_Controller {
             'sgst'  => $sgst,
             'igst'  => $igst,
             'total'  => $total,
-			'remark' => $remark,
-			'updated_at' => $create_date,
-			'updated_by' => $user_id
+            'remark' => $remark,
+            'updated_at' => $create_date,
+            'updated_by' => $user_id
         );
-		
+
         $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Vendor Updated Successfully!</div>');
 
         $where = array($this->primary_id=>$vendor_id);
@@ -317,27 +324,27 @@ class Vendor_bills extends CI_Controller {
         $this->$model->delete($this->table,$condition);
 
         $this->session->set_flashdata('dispMessage','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-        
-		redirect('Vendor_bills');
+
+        redirect('Vendor_bills');
     }
-	public function Status($id,$type)
-	{
-		$model = $this->model;
-		$where = array($this->primary_id=>$id);
-		
-		if($type == 1){
-			$data = array('u_status'=>'Approved');
-			$msg = 'Approved';
-		}else{
-			$data = array('u_status'=>'Disapprove');
-			$msg = 'Disapprove';
-		}
+    public function Status($id,$type)
+    {
+        $model = $this->model;
+        $where = array($this->primary_id=>$id);
+
+        if($type == 1){
+            $data = array('u_status'=>'Approved');
+            $msg = 'Approved';
+        }else{
+            $data = array('u_status'=>'Disapprove');
+            $msg = 'Disapprove';
+        }
         $this->$model->update($this->table,$data,$where);
-	   
+
 
         $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>'.$msg.' Successfully!</div>');
-        
-		redirect('Vendor_bills');
-	}
+
+        redirect('Vendor_bills');
+    }
 
 }

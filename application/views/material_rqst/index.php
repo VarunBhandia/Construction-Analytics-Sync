@@ -89,8 +89,10 @@
                                                 $count_site =  count($user_sites);
                                                 ?>
                                                 <div class="row">
-                                                    <div class="col-md-8">
+                                                    <div class="col-md-10">
                                                         <form method="post" action="<?php echo base_url()?>material_rqst/select_by_id">
+                                                            <div class="row">
+                                                            <div class="col-md-8">
                                                             <select class="itemname form-control" id="sid" name="sid">
                                                                 <option value="">---site name----</option>
                                                                 <?php
@@ -109,10 +111,20 @@
                                                                 ?>
                                                                 <?php }	?>
                                                             </select>
-                                                            <input type="submit" value="Show Record" class="btn btn-success" >
+                                                            </div>
+                                                            
+                                                            <script type="text/javascript">
+                                                                $('#sid').select2({
+                                                                    placeholder: '--- Select Sites ---',
+                                                                });
+                                                            </script>
+                                                            
+                                                            <div class="col-md-3">
+                                                                <input type="submit" value="Show Record" class="btn btn-success" style="float:  right;">
+                                                            </div></div>
                                                         </form>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-2">
                                                         <div align="right">
                                                             <ul class="nav navbar-right panel_toolbox">
                                                                 <li><a href="<?php echo base_url()?>material_rqst/form"><button class="btn btn-primary">Add New MR</button></a>
@@ -120,7 +132,6 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                    <div class="clearfix"></div>
                                                 </div>
                                                 <?php
     echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
@@ -137,10 +148,11 @@
                                                         else
                                                         { ?>	  
                                                     <form method="post" action="<?php echo base_url()?>material_rqst/select_by_id_action">
-                                                        <input type="hidden" value="<?php echo $sid; ?>" name="sid" placeholder="sitename"> <input type="submit" name="export" class="btn btn-success" value="Export" />
+                                                        <input type="hidden" value="<?php echo $sid; ?>" name="sid" placeholder="sitename"> 
+                                                        <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                     </form>	
 
-                                                    <div id="table-scroll" class="table-scroll">
+                                                    <div id="datatable" class="table-scroll">
                                                         <div class="table-wrap">
                                                             <table id="datatable" class="main-table table table-striped table-bordered">
                                                                 <thead>

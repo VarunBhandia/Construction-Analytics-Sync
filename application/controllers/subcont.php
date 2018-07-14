@@ -2,20 +2,27 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Subcont extends CI_Controller{
-	function __construct(){
-		parent:: __construct();
+    function __construct(){
+        parent:: __construct();
         $this->model = 'Model';
-		$this->load->model('subcont_m', 'm');
-	}
+        $this->load->model('subcont_m', 'm');
+    }
 
-	function index(){
-        $this->load->model("subcont_m");
-        $data["sub_data"] = $this->subcont_m->fetch();
-        $this->load->model('Model');
-		$this->load->view('subcont/index');
-		$this->load->view('layout/footer');
-	}
-    
+    function index(){
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->model("subcont_m");
+            $data["sub_data"] = $this->subcont_m->fetch();
+            $this->load->model('Model');
+            $this->load->view('subcont/index');
+            $this->load->view('layout/footer');
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+    }
+
     function fetch()
     {
         $output = '';
@@ -59,87 +66,87 @@ Class Subcont extends CI_Controller{
         $output .= '</table>';
         echo $output;
     }
-    
+
     function action()
-            
-	    {
-		$this->load->model("subcont_m");
-		$this->load->library("excel");
-		$object = new PHPExcel();
 
-		$object->setActiveSheetIndex(0);
+    {
+        $this->load->model("subcont_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
 
-		$table_columns = array("subid", "subname", "submobile", "subaltmobile", "subemail", "subgst", "subaddress");
+        $object->setActiveSheetIndex(0);
 
-		$column = 0;
+        $table_columns = array("subid", "subname", "submobile", "subaltmobile", "subemail", "subgst", "subaddress");
 
-		foreach($table_columns as $field)
-		{
-			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-			$column++;
-		}
+        $column = 0;
 
-		$sub_data = $this->subcont_m->fetch();
-
-		$excel_row = 2;
-
-		foreach($sub_data as $row)
-		{
-			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->subid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->subname);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->submobile);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->subaltmobile);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->subemail);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->subgst);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->subaddress);
-			$excel_row++;
-		}
-
-		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="Employee Data.xls"');
-		$object_writer->save('php://output');
-            
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
         }
 
-	public function showAllSubcont(){
-		$result = $this->m->showAllSubcont();
-		echo json_encode($result);
-	}
+        $sub_data = $this->subcont_m->fetch();
 
-	public function addSubcont(){
-		$result = $this->m->addSubcont();
-		$msg['success'] = false;
-		$msg['type'] = 'add';
-		if($result){
-			$msg['success'] = true;
-		}
-		echo json_encode($msg);
-	}
+        $excel_row = 2;
 
-	public function editSubcont(){
-		$result = $this->m->editSubcont();
-		echo json_encode($result);
-	}
+        foreach($sub_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->subid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->subname);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->submobile);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->subaltmobile);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->subemail);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->subgst);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->subaddress);
+            $excel_row++;
+        }
 
-	public function updateSubcont(){
-		$result = $this->m->updateSubcont();
-		$msg['success'] = false;
-		$msg['type'] = 'update';
-		if($result){
-			$msg['success'] = true;
-		}
-		echo json_encode($msg);
-	}
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
 
-	public function deleteSubcont(){
-		$result = $this->m->deleteSubcont();
-		$msg['success'] = false;
-		if($result){
-			$msg['success'] = true;
-		}
-		echo json_encode($msg);
-	}
+    }
+
+    public function showAllSubcont(){
+        $result = $this->m->showAllSubcont();
+        echo json_encode($result);
+    }
+
+    public function addSubcont(){
+        $result = $this->m->addSubcont();
+        $msg['success'] = false;
+        $msg['type'] = 'add';
+        if($result){
+            $msg['success'] = true;
+        }
+        echo json_encode($msg);
+    }
+
+    public function editSubcont(){
+        $result = $this->m->editSubcont();
+        echo json_encode($result);
+    }
+
+    public function updateSubcont(){
+        $result = $this->m->updateSubcont();
+        $msg['success'] = false;
+        $msg['type'] = 'update';
+        if($result){
+            $msg['success'] = true;
+        }
+        echo json_encode($msg);
+    }
+
+    public function deleteSubcont(){
+        $result = $this->m->deleteSubcont();
+        $msg['success'] = false;
+        if($result){
+            $msg['success'] = true;
+        }
+        echo json_encode($msg);
+    }
 
 }
 ?>

@@ -5,13 +5,19 @@ class Access_uid extends CI_Controller{
 
 	function __construct(){
 		parent:: __construct();
-		$this->load->model('main_model', 'm');
+		$this->load->model('Main_model', 'm');
 	}
 
 	function index(){
+        if($this->session->userdata('username') != '')  
+        {
 		$result = $this->m->access_uid('tushar');
-//        print_r($result) ;
         echo $result[0]->uid;
+        }  
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
 	}
 
 

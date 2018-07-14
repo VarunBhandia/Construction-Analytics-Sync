@@ -20,43 +20,50 @@ class Reporting extends CI_Controller
 
     public function index()
     {
-        $model = $this->model;
-        $data['action'] = "report_insert";
-        $data['controller'] = $this->controller; 
-        $site_id = 0;
-        $user_id =11;
-        $query = $this->$model->select(array(),'users',array('uid'=> $user_id),'','');
-        if(count($query) > 0) {
-            $site_id = $query[0]->site;
-        } 
+        if($this->session->userdata('username') != '')  
+        {
+            $model = $this->model;
+            $data['action'] = "report_insert";
+            $data['controller'] = $this->controller; 
+            $site_id = 0;
+            $user_id =11;
+            $query = $this->$model->select(array(),'users',array('uid'=> $user_id),'','');
+            if(count($query) > 0) {
+                $site_id = $query[0]->site;
+            } 
 
-        $data['site'] = $this->$model->db_query("select * from sitedetails where sid IN (".$site_id.") ");
-        $data['vendor'] = $this->$model->select(array(),'vendordetails',array(),'','');
-
-
-        // $que = $this->$model->select(array(),,array('mid'=>$mid),'','');
-        // $data['material'] = $this->$model->db_query("select * from '".$tablename."' where mid IN(".$que[0]->mid.") ");
-
-        $data['material'] = $this->$model->select(array(),'materials',array(),'','');
-        $data['category'] = $this->$model->select(array(),'category',array(),'','');
+            $data['site'] = $this->$model->db_query("select * from sitedetails where sid IN (".$site_id.") ");
+            $data['vendor'] = $this->$model->select(array(),'vendordetails',array(),'','');
 
 
-        $arr = Array();
-        $arr[]["data"] = "cpid";
-        $arr[]["data"] = "cppurchasedate";
-        $arr[]["data"] = "cprefid";
-        $arr[]["data"] = "vid";
-        $arr[]["data"] = "sid";
-        $arr[]["data"] = "mid";
-        $arr[]["data"] = "muid";
-        $arr[]["data"] = "cpqty";
-        $arr[]["data"] = "cpunitprice";
-        $arr[]["data"] = "total";
-        $arr[]["data"] = "cpchallan";
-        $arr[]["data"] = "cpremark";
-        $data['disData'] = json_encode($arr);
+            // $que = $this->$model->select(array(),,array('mid'=>$mid),'','');
+            // $data['material'] = $this->$model->db_query("select * from '".$tablename."' where mid IN(".$que[0]->mid.") ");
 
-        $this->load->view('report',$data);
+            $data['material'] = $this->$model->select(array(),'materials',array(),'','');
+            $data['category'] = $this->$model->select(array(),'category',array(),'','');
+
+
+            $arr = Array();
+            $arr[]["data"] = "cpid";
+            $arr[]["data"] = "cppurchasedate";
+            $arr[]["data"] = "cprefid";
+            $arr[]["data"] = "vid";
+            $arr[]["data"] = "sid";
+            $arr[]["data"] = "mid";
+            $arr[]["data"] = "muid";
+            $arr[]["data"] = "cpqty";
+            $arr[]["data"] = "cpunitprice";
+            $arr[]["data"] = "total";
+            $arr[]["data"] = "cpchallan";
+            $arr[]["data"] = "cpremark";
+            $data['disData'] = json_encode($arr);
+
+            $this->load->view('report',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
     }
     public function get_tables()
     {

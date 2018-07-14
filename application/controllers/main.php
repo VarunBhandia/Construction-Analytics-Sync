@@ -56,11 +56,29 @@ class Main extends CI_Controller {
         }  
     }  
     function enter(){  
-            $model = $this->model;
+        $model = $this->model;
         if($this->session->userdata('username') != '')  
         {
             $username = $this->session->userdata('username');
             $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['Count_users'] = $this->$model->countTableRecords('users',array());
+            $data['Count_sitedetails'] = $this->$model->countTableRecords('sitedetails',array());
+            $data['Count_materials'] = $this->$model->countTableRecords('materials',array());
+            $data['Count_material_rqst'] = $this->$model->countTableRecords('material_rqst',array());
+            $data['Count_mo_master'] = $this->$model->countTableRecords('mo_master',array());
+            $data['Count_category'] = $this->$model->countTableRecords('category',array());
+            $data['Count_consumption'] = $this->$model->countTableRecords('consumption',array());
+            $data['Count_cp_master'] = $this->$model->countTableRecords('cp_master',array());
+            $data['Count_grn_master'] = $this->$model->countTableRecords('grn_master',array());
+            $data['Count_officedetails'] = $this->$model->countTableRecords('officedetails',array());
+            $data['Count_po_master'] = $this->$model->countTableRecords('po_master',array());
+            $data['Count_rtv_master'] = $this->$model->countTableRecords('rtv_master',array());
+            $data['Count_subcontdetails'] = $this->$model->countTableRecords('subcontdetails',array());
+            $data['Count_transporters'] = $this->$model->countTableRecords('transporters',array());
+            $data['Count_vendordetails'] = $this->$model->countTableRecords('vendordetails',array());
+            $data['Count_vendor_bills_master'] = $this->$model->countTableRecords('vendor_bills_master',array());
+            $data['Count_workitems'] = $this->$model->countTableRecords('workitems',array());
+            $data['Count_wo_master'] = $this->$model->countTableRecords('wo_master',array());
             $this->load->view("home", $data); 
         }  
         else  

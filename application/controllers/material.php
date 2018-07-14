@@ -10,14 +10,21 @@ Class Material extends CI_Controller{
     }
 
     function index(){
-        $this->load->model("material_m");
-        $data["m_data"] = $this->material_m->fetch();
-        $this->load->model('Model');
-        $this->load->view('layout/footer');
-        $data['row'] = $this->Model->select(array(),'materials',array(),'');
-        $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');
-        $data['munits'] = $this->Model->select(array(),'munits',array(),'');
-        $this->load->view('material_master/index',$data);
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->model("material_m");
+            $data["m_data"] = $this->material_m->fetch();
+            $this->load->model('Model');
+            $this->load->view('layout/footer');
+            $data['row'] = $this->Model->select(array(),'materials',array(),'');
+            $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');
+            $data['munits'] = $this->Model->select(array(),'munits',array(),'');
+            $this->load->view('material_master/index',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
 
     }
 
@@ -32,51 +39,51 @@ Class Material extends CI_Controller{
             return 'Database is empty !';
         }
     }
-    
+
     function action()
-            
-	    {
-		$this->load->model("material_m");
-		$this->load->library("excel");
-		$object = new PHPExcel();
 
-		$object->setActiveSheetIndex(0);
+    {
+        $this->load->model("material_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
 
-		$table_columns = array("mid", "mname", "munit", "mcategory", "mdesc", "hsn", "mgst", "mbase", "mtype", "mcreatedby");
+        $object->setActiveSheetIndex(0);
 
-		$column = 0;
+        $table_columns = array("mid", "mname", "munit", "mcategory", "mdesc", "hsn", "mgst", "mbase", "mtype", "mcreatedby");
 
-		foreach($table_columns as $field)
-		{
-			$object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-			$column++;
-		}
+        $column = 0;
 
-		$m_data = $this->material_m->fetch();
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
 
-		$excel_row = 2;
+        $m_data = $this->material_m->fetch();
 
-		foreach($m_data as $row)
-		{
-			$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mid);
+        $excel_row = 2;
+
+        foreach($m_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mname);
             $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->munit);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mcategory);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->mdesc);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->hsn);
-			$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mgst);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mcategory);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->mdesc);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->hsn);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mgst);
             $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mbase);
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mtype);
             $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mcreatedby);
-			$excel_row++;
-		}
-
-		$object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename="Employee Data.xls"');
-		$object_writer->save('php://output');
-            
+            $excel_row++;
         }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
 
     function fetch()
     {

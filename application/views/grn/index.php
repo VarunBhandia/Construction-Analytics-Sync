@@ -85,10 +85,36 @@
                                         <div class="x_panel">
                                             <div class="x_title">
                                                 <h1>Good Reciept Note</h1>
+                                                <?php 
+                                                $user_sites = explode(",",$user_details[0]->site);
+                                                $count_site =  count($user_sites);
+                                                ?>
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <form method="post" action="<?php echo base_url()?>grn/select_by_id">
-                                                            <input type="text" name="sid" class="form=control" >
+                                                            <select class="itemname form-control" id="sid" name="sid">
+                                                                <option value="">---site name----</option>
+                                                                <?php
+
+    foreach($sites as $site)
+    {                                                                   for($i=0;$i < $count_site;$i++){
+        if($user_sites[$i] == $site->sid ){ ?>
+                                                                <option value="<?php echo $site->sid; ?>" >
+                                                                    <?php echo $site->sname;?>
+                                                                </option>
+
+                                                                <?php  }
+
+    }
+
+    }	?>
+                                                            </select>
+
+                                                            <script type="text/javascript">
+                                                                $('#sid').select2({
+                                                                    placeholder: '--- Select Sites ---',
+                                                                });
+                                                            </script>
                                                             <input type="text" name="vid" class="form=control" >
                                                             <input type="submit" value="Show Record" class="btn btn-success" >
                                                         </form>
@@ -173,7 +199,7 @@
                                             </form>
                                             <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">
-                                                    <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                    <table id="datatable" class="main-table table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
@@ -188,7 +214,10 @@
                                                         <tbody>
                                                             <?php
                                                 $no = 1;
-                                                foreach($row as $test) {?>
+                                                foreach($row as $test) {
+                                                    for($i=0;$i < $count_site;$i++){
+                                                        if($user_sites[$i] == $test->sid ){
+                                                            ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->grnid;?></td>
@@ -199,9 +228,10 @@
                                                                 <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>
-                                                            <?php
-                                                                       }
-                                                            ?>
+                                                                    <?php
+                                                            }
+                                                        }}
+                                                                    ?>
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -214,7 +244,7 @@
                     </div>
                 </body>
                 <?php
-                $this->load->view('include/footer');
+                                                    $this->load->view('include/footer');
                 ?>
                 <script>
                     jQuery(document).ready(function() {

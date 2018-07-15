@@ -47,10 +47,6 @@
             <div class="main_container">
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
-                        <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
-
-                        </div>
 
 
                         <!-- sidebar menu -->

@@ -20,6 +20,10 @@ $workordermaterials_module = $user_roles[0]->workordermaterials;
 $consumption_module = $user_roles[0]->consumption;
 ?>
 
+<div class="navbar nav_title">
+    <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
+
+</div>
 
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
@@ -32,7 +36,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -42,7 +46,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -52,7 +56,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -62,7 +66,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -72,7 +76,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -82,7 +86,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -92,7 +96,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -102,7 +106,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -112,7 +116,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -122,7 +126,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -132,7 +136,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -142,7 +146,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -152,7 +156,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -162,7 +166,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -172,7 +176,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -182,7 +186,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -192,7 +196,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -202,7 +206,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -212,7 +216,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -222,7 +226,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -232,7 +236,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -242,7 +246,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -252,7 +256,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -262,7 +266,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -272,7 +276,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -282,7 +286,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -292,7 +296,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -302,7 +306,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -312,7 +316,7 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
+
         <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
@@ -322,8 +326,8 @@ $consumption_module = $user_roles[0]->consumption;
             </div>
         </a>
         <?php } ?>
-        
-        
+
+
     </div>
 
 </div>

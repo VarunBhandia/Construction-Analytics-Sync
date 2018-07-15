@@ -227,7 +227,10 @@
                                                                 ?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
-                                                                    <td><?php echo $test->sid;?></td>
+                                                                    <td><?php foreach($sites as $site){
+                                                                    if($site->sid == $test->sid ){echo $site->sname; }
+                                                                    
+                                                                } ?></td>
                                                                     <td><?php echo date("d-m-Y",strtotime($test->mrcreatedon));?></td>
                                                                     <td>
                                                                         <a href="<?php echo base_url()?>material_rqst/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>

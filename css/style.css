@@ -57,7 +57,7 @@
 .ModuleHeading{
     text-transform: uppercase;
     text-align: center;
-/*    padding-top: 30%;*/
+    /*    padding-top: 30%;*/
     letter-spacing: 2px;
 }
 
@@ -77,6 +77,13 @@
     padding-left: 3em;
 }
 
+/*Sidebar*/
+
+.SidebarModuleTile{
+    padding: 15px;
+    color: white;
+    font-size: 1.5em;
+}
 
 /*Resizable Table*/
 body {

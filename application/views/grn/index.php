@@ -92,9 +92,11 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <form method="post" action="<?php echo base_url()?>grn/select_by_id">
-                                                            <select class="itemname form-control" id="sid" name="sid">
-                                                                <option value="">---site name----</option>
-                                                                <?php
+                                                           <div class="row">
+                                                                <div class="col-md-5">
+                                                                    <select class="itemname form-control" id="sid" name="sid">
+                                                                    <option value="">---site name----</option>
+                                                                    <?php
 
     foreach($sites as $site)
     {                                                                   for($i=0;$i < $count_site;$i++){
@@ -115,8 +117,31 @@
                                                                     placeholder: '--- Select Sites ---',
                                                                 });
                                                             </script>
-                                                            <input type="text" name="vid" class="form=control" >
-                                                            <input type="submit" value="Show Record" class="btn btn-success" >
+                                                               </div>
+<div class="col-md-1"></div>
+                                                                <div class="col-md-4">
+                                                                    <select class="itemname form-control" id="vid" name="vid">
+                                                                        <option value="">---Vendor name----</option>
+                                                                        <?php
+                                                                        foreach($vendors as $vendor)
+                                                                        {?>
+                                                                        <option value="<?php echo $vendor->vid; ?>" >
+                                                                            <?php echo $vendor->vname;?>
+                                                                        </option>
+
+
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('#vid').select2({
+                                                                            placeholder: '--- Select Vendor ---',
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-1">                                                            <input type="submit" value="Show Record" class="btn btn-success" >
+                                                               </div>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                     <div class="col-md-3">
@@ -171,8 +196,13 @@
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->grnid;?></td>
-                                                                    <td><?php echo $test->sid;?></td>
-                                                                    <td><?php echo $test->vid;?></td>
+                                                        <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>                                                                    <td><?php foreach($vendors as $vendor){
+                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                     } ?></td>
                                                                     <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
                                                                     <td><?php echo $test->grnreceivedate;?></td>
                                                                     <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
@@ -221,9 +251,13 @@
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->grnid;?></td>
-                                                                <td><?php echo $test->sid;?></td>
-                                                                <td><?php echo $test->vid;?></td>
-                                                                <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
+                                                                 <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>                                                            <td><?php foreach($vendors as $vendor){
+                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                     } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
                                                                 <td><?php echo $test->grnreceivedate;?></td>
                                                                 <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>

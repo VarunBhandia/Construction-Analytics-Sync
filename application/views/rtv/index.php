@@ -96,6 +96,8 @@
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <form method="post" action="<?php echo base_url()?>rtv/select_by_id">
+                                                   <div class="row">
+                                                        <div class="col-md-5">
                                                     <select class="itemname form-control" id="sid" name="sid">
                                                         <option value="">---site name----</option>
                                                         <?php
@@ -119,9 +121,32 @@
                                                             placeholder: '--- Select Sites ---',
                                                         });
                                                     </script>
+                                                       </div>
+                                                   <div class="col-md-1"></div>
+                                                                <div class="col-md-4">
+                                                                    <select class="itemname form-control" id="vid" name="vid">
+                                                                        <option value="">---Vendor name----</option>
+                                                                        <?php
+                                                                        foreach($vendors as $vendor)
+                                                                        {?>
+                                                                        <option value="<?php echo $vendor->vid; ?>" >
+                                                                            <?php echo $vendor->vname;?>
+                                                                        </option>
 
-                                                    <input type="text" name="vid" class="form=control" placeholder="vendorname">
+
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('#vid').select2({
+                                                                            placeholder: '--- Select Vendor ---',
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-1">
                                                     <input type="submit" value="Show Record" class="btn btn-success" >
+                                                       </div>
+                                                    </div>
                                                 </form>
                                             </div>
                                             <div class="col-md-3">
@@ -156,7 +181,7 @@
                                             </form>		    
                                             <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">
-                                                    <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                    <table id="datatable" class="main-table table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
@@ -175,9 +200,14 @@
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->rtvid;?></td>
-                                                                <td><?php echo $test->sid;?></td>
-                                                                <td><?php echo $test->vid;?></td>
-                                                                <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
+                                                                <td><?php foreach($sites as $site){
+                                                                     if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                                 } ?></td>                                                                
+                                                                <td><?php foreach($vendors as $vendor){
+                                                                    if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                                } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
                                                                 <td><?php echo $test->rtvreturndate;?></td>
                                                                 <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
@@ -206,7 +236,7 @@
 
                                         <div id="table-scroll" class="table-scroll">
                                             <div class="table-wrap">
-                                                <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                <table id="datatable" class="main-table table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
                                                             <th>No</th>
@@ -228,8 +258,13 @@
                                                         <tr>
                                                             <td><?php echo $no;?></td>
                                                             <td><?php echo $test->rtvid;?></td>
-                                                            <td><?php echo $test->sid;?></td>
-                                                            <td><?php echo $test->vid;?></td>
+                                                            <td><?php foreach($sites as $site){
+                                                                    if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                                } ?></td>                                                             <td><?php foreach($vendors as $vendor){
+                                                                    if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                                } ?></td>
                                                             <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
                                                             <td><?php echo $test->rtvreturndate;?></td>
                                                             <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>

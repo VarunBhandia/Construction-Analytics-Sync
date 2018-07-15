@@ -95,6 +95,8 @@
                                             <div class="row">
                                                 <div class="col-md-8">
                                                     <form method="post" action="<?php echo base_url()?>consumption/select_by_id">
+                                                       <div class="row">
+                                                                <div class="col-md-5">
                                                         <select class="itemname form-control" id="sid" name="sid">
                                                             <option value="">---site name----</option>
                                                             <?php
@@ -117,7 +119,9 @@
                                                                     placeholder: '--- Select Sites ---',
                                                                 });
                                                             </script>
+                                                           </div>
                                                         <input type="submit" value="Show Record" class="btn btn-success" >
+                                                        </div>
                                                     </form>
                                                 </div>
                                                 <div class="col-md-3">
@@ -167,8 +171,10 @@
                                                      foreach($result_display as $test) {?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
-                                                                    <td><?php echo $test->sid;?></td>
-                                                                    <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
+                                                                     <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>                                                                    <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
                                                                     <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
@@ -213,8 +219,10 @@
                                                             ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
-                                                                <td><?php echo $test->sid;?></td>
-                                                                <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
+                                                             <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
                                                                 <td><a href="<?php echo base_url()?>consumption/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>consumption/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>

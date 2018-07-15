@@ -141,8 +141,10 @@ if (isset($result_display))
 									<tr>
 									  <td><?php echo $no;?></td>
 									  <td><?php echo $test->moid;?></td>
-									  <td><?php echo $test->sid;?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
+ <td><?php foreach($sites as $site){
+                                                                if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                            } ?></td>									  <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
 									  <td><?php echo $test->modate;?></td>
 									  <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>
@@ -185,8 +187,10 @@ if (isset($result_display))
 									<tr>
 									  <td><?php echo $no;?></td>
 									  <td><?php echo $test->moid;?></td>
-									  <td><?php echo $test->sid;?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
+                                      <td><?php foreach($sites as $site){
+                                                                if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                            } ?></td>									  <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
 									  <td><?php echo $test->modate;?></td>
 									  <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
 									  <?php $no++;?>

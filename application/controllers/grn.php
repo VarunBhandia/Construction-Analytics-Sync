@@ -37,6 +37,7 @@ class Grn extends CI_Controller
         $model = $this->model;
         $data['controller'] = $this->controller;
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $sid = $this->input->post('sid');
@@ -73,6 +74,7 @@ class Grn extends CI_Controller
             $data['controller'] = $this->controller;
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
             $username = $this->session->userdata('username');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('grn/index',$data);

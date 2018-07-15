@@ -23,6 +23,7 @@ $consumption_module = $user_roles[0]->consumption;
 
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
     <div class="menu_section">
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -30,6 +31,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -37,6 +41,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -44,6 +51,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -51,6 +61,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -58,6 +71,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -65,6 +81,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -72,6 +91,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -79,6 +101,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -86,6 +111,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -93,6 +121,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -100,6 +131,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -107,6 +141,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -114,6 +151,9 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
         <a href="<?php echo base_url(); ?>user" target="_blank">
             <div class="SidebarModuleTile">
                 <div class="SidebarModuleHeading">
@@ -121,6 +161,169 @@ $consumption_module = $user_roles[0]->consumption;
                 </div>
             </div>
         </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        <?php if($user_module != 0){ ?>
+        <a href="<?php echo base_url(); ?>user" target="_blank">
+            <div class="SidebarModuleTile">
+                <div class="SidebarModuleHeading">
+                    USER
+                </div>
+            </div>
+        </a>
+        <?php } ?>
+        
+        
     </div>
 
 </div>

@@ -96,32 +96,56 @@
                                                 <div class="row">
                                                     <div class="col-md-8">
                                                         <form method="post" action="<?php echo base_url()?>po/select_by_id">
-                                                            <select class="itemname form-control" id="sid" name="sid">
-                                                                <option value="">---site name----</option>
-                                                                <?php
+                                                            <div class="row">
+                                                                <div class="col-md-5">
+                                                                    <select class="itemname form-control" id="sid" name="sid">
+                                                                        <option value="">---site name----</option>
+                                                                        <?php
 
     foreach($sites as $site)
     {                                                                   for($i=0;$i < $count_site;$i++){
         if($user_sites[$i] == $site->sid ){ ?>
-                                                                <option value="<?php echo $site->sid; ?>" >
-                                                                    <?php echo $site->sname;?>
-                                                                </option>
+                                                                        <option value="<?php echo $site->sid; ?>" >
+                                                                            <?php echo $site->sname;?>
+                                                                        </option>
 
-                                                                <?php  }
+                                                                        <?php  }
 
     }
 
-                                                                ?>
-                                                                <?php }	?>
-                                                            </select>
-                                                            <script type="text/javascript">
-                                                                $('#sid').select2({
-                                                                    placeholder: '--- Select Sites ---',
-                                                                });
-                                                            </script>
+                                                                        ?>
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('#sid').select2({
+                                                                            placeholder: '--- Select Sites ---',
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-4">
+                                                                    <select class="itemname form-control" id="vid" name="vid">
+                                                                        <option value="">---Vendor name----</option>
+                                                                        <?php
+                                                                        foreach($vendors as $vendor)
+                                                                        {?>
+                                                                        <option value="<?php echo $vendor->vid; ?>" >
+                                                                            <?php echo $vendor->vname;?>
+                                                                        </option>
 
-                                                            <input type="text" name="vid" class="form=control" placeholder="vendor">
-                                                            <input type="submit" value="Show Record" class="btn btn-success" >
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('#vid').select2({
+                                                                            placeholder: '--- Select Vendor ---',
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-1">
+                                                                    <input type="submit" value="Show Record" class="btn btn-success" >
+                                                                </div>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                     <div class="col-md-3">
@@ -215,12 +239,12 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                                <?php
-                                                    $no = 1;
-                                                    foreach($po_row as $test) {
-                                                        for($i=0;$i < $count_site;$i++){
-                                                            if($user_sites[$i] == $test->sid ){
-                                                                ?>
+                                                            <?php
+                                                $no = 1;
+                                                foreach($po_row as $test) {
+                                                    for($i=0;$i < $count_site;$i++){
+                                                        if($user_sites[$i] == $test->sid ){
+                                                            ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->poid;?></td>
@@ -231,13 +255,13 @@
                                                                 <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>
-                                                                <?php
+                                                            <?php
 
-                                                            }
                                                         }
+                                                    }
 
-                                                    } 
-                                                                ?>
+                                                } 
+                                                            ?>
                                                         </tbody>
                                                     </table>
                                                 </div>

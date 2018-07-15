@@ -181,6 +181,7 @@ class Po extends CI_Controller
             $data['po_row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
             $username = $this->session->userdata('username');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('po/index',$data);
@@ -195,23 +196,25 @@ class Po extends CI_Controller
 
     public function form($poid)
     {
-        $model = $this->model;
-        //            echo $poid;
-        $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
-        $data['action'] = "insert";
-        $data['controller'] = $this->controller;
-        $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $poid = $this->uri->segment(3);
-        $this->load->view('po/form',$data);
-        $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
-        //            echo '<pre>';
-        //            print_r($data[material_rqsts]);
-        //            echo '</pre>';
-
+        if($this->session->userdata('username') != '')  
+        {
+            $model = $this->model;
+            $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+            $data['action'] = "insert";
+            $data['controller'] = $this->controller;
+            $data['units'] = $this->$model->select(array(),'munits',array(),'');
+            $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+            $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+            $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+            $poid = $this->uri->segment(3);
+            $this->load->view('po/form',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
 
     }
 

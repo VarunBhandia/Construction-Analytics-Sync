@@ -57,7 +57,7 @@
 .ModuleHeading{
     text-transform: uppercase;
     text-align: center;
-/*    padding-top: 30%;*/
+    /*    padding-top: 30%;*/
     letter-spacing: 2px;
 }
 
@@ -77,6 +77,25 @@
     padding-left: 3em;
 }
 
+/*Sidebar*/
+
+.SidebarModuleTile{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    color: white;
+    font-size: 1.5em;
+}
+
+.SidebarModuleTile:hover{
+    transition: .2s;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 15px;
+    color: white;
+    font-size: 1.5em;
+    background-color: #1abb9c;
+}
 
 /*Resizable Table*/
 body {

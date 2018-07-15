@@ -120,7 +120,25 @@
                                                                 });
                                                             </script>
 
-                                                            <input type="text" name="vid" class="form=control" placeholder="vendor">
+                                                            <div class="form-group">
+                                    <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">
+                                    </label>
+                                                    <div class="col-md-8">
+
+                                        <select class="vendorname form-control select_width" id="vendor" name="vendor[]">
+                                            <?php
+                                            foreach($vendors as $value)
+                                            {?>
+           
+                                       
+                                        </select>
+                                        <script type="text/javascript">
+                                            $('.vendorname').select2({
+                                                placeholder: '--- Select Vendors ---',
+                                            });
+                                        </script>    
+                                    </div>
+                                </div>
                                                             <input type="submit" value="Show Record" class="btn btn-success" >
                                                         </form>
                                                     </div>
@@ -155,7 +173,7 @@
 
                                                 <div id="table-scroll" class="table-scroll">
                                                     <div class="table-wrap">
-                                                        <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                        <table id="datatable" class="main-table table table-striped table-bordered">
                                                             <thead>
                                                                 <tr>
                                                                     <th>No</th>

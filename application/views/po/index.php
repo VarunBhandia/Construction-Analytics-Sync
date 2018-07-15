@@ -179,7 +179,7 @@
 
                                                 <div id="table-scroll" class="table-scroll">
                                                     <div class="table-wrap">
-                                                        <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                        <table id="datatable" class="main-table table table-striped table-bordered">
                                                             <thead>
                                                                 <tr>
                                                                     <th>No</th>
@@ -228,7 +228,7 @@
 
                                             <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">
-                                                    <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                    <table id="datatable" class="main-table table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>

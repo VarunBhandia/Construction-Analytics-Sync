@@ -85,7 +85,7 @@
                                             <div class="x_title">
                                                 <h1>Material Request</h1>
                                                 <?php 
-                                                $user_sites = explode(",",$user_details->site);
+                                                $user_sites = explode(",",$user_details[0]->site);
                                                 $count_site =  count($user_sites);
                                                 ?>
                                                 <div class="row">

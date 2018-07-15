@@ -85,7 +85,7 @@
                                             <div class="x_title">
                                                 <h1>Material Request</h1>
                                                 <?php 
-                                                $user_sites = explode(",",$user_details[0]->site);
+                                                $user_sites = explode(",",$user_details->site);
                                                 $count_site =  count($user_sites);
                                                 ?>
                                                 <div class="row">
@@ -154,7 +154,7 @@
 
                                                     <div id="datatable" class="table-scroll">
                                                         <div class="table-wrap">
-                                                            <table id="datatable-buttons" class="main-table table table-striped table-bordered">
+                                                            <table id="datatable" class="main-table table table-striped table-bordered">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>

@@ -48,28 +48,7 @@
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
               
-              <div id="show_form">
-          
-            <?php
-echo form_open('mo/select_by_id');
-echo form_label('Select By ID : ');
-$data = array(
-    'name' => 'sid',
-    'placeholder' => 'Please Enter ID'
-);
-
-echo form_input($data);
-echo "<div class='error_msg'>";
-
-if (isset($id_error_message))
-{
-    echo $id_error_message;
-}
-
-echo "</div>";
-echo form_submit('submit', 'Show Record');
-echo form_close();
-                  ?>
+              
               </div>
               </div>
 
@@ -144,7 +123,7 @@ if (isset($result_display))
     
 			<div id="table-scroll" class="table-scroll">
 			  <div class="table-wrap">
-					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
+					<table id="datatable" class="main-table table table-striped table-bordered">
 							<thead>
 								<tr>
 								  <th>No</th>
@@ -188,7 +167,7 @@ if (isset($result_display))
     
 			<div id="table-scroll" class="table-scroll">
 			  <div class="table-wrap">
-					<table id="datatable-buttons" class="main-table table table-striped table-bordered">
+					<table id="datatable" class="main-table table table-striped table-bordered">
 							<thead>
 								<tr>
 								  <th>No</th>

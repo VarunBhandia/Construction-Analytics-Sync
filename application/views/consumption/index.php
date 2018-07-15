@@ -150,6 +150,7 @@
                                                     <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                 </form>
                                                 <div id="table-scroll" class="table-scroll">
+
                                                     <div class="table-wrap">
                                                         <table id="datatable" class="main-table table table-striped table-bordered">
                                                             <thead>
@@ -192,6 +193,7 @@
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
                                             </form>
                                             <div id="table-scroll" class="table-scroll">
+
                                                 <div class="table-wrap">
                                                     <table id="datatable" class="main-table table table-striped table-bordered">
                                                         <thead>

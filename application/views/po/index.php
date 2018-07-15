@@ -176,6 +176,7 @@
                                                     <input type="hidden" value="<?php echo $vid; ?>" name="vid" >
                                                     <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                 </form>	
+
                                                 <div id="table-scroll" class="table-scroll">
                                                     <div class="table-wrap">
                                                         <table id="datatable-buttons" class="main-table table table-striped table-bordered">
@@ -224,6 +225,7 @@
                                             <form method="post" action="<?php echo base_url()?>po/action">
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
                                             </form>
+
                                             <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">
                                                     <table id="datatable-buttons" class="main-table table table-striped table-bordered">

@@ -126,6 +126,7 @@
                                                                 </li>
                                                             </ul>
                                                         </div>
+
                                                     </div>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -148,6 +149,7 @@
                                                 <input type="hidden" value="<?php echo $sid; ?>" name="sid" >
                                                 <input type="hidden" value="<?php echo $vid; ?>" name="vid" >
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
+
                                                 </form>  
 
                                                 <div id="table-scroll" class="table-scroll">

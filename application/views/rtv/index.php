@@ -152,6 +152,7 @@
                                                 <input type="hidden" value="<?php echo $sid; ?>" name="sid" placeholder="sitename">
                                                 <input type="hidden" value="<?php echo $vid; ?>" name="vid" placeholder="vendorname">
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
+
                                             </form>		    
                                             <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">

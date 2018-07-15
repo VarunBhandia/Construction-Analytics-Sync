@@ -199,8 +199,14 @@
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->poid;?></td>
-                                                                    <td><?php echo $test->sid;?></td>
-                                                                    <td><?php echo $test->vid;?></td>
+                                                                    <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>
+                                                                    <td><?php foreach($vendors as $vendor){
+                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                     } ?></td>
                                                                     <td><?php echo $test->pocreatedby;?></td>
                                                                     <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
                                                                     <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
@@ -251,8 +257,14 @@
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->poid;?></td>
-                                                                <td><?php echo $test->sid;?></td>
-                                                                <td><?php echo $test->vid;?></td>
+                                                                <td><?php foreach($sites as $site){
+                                                                if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                            } ?></td>
+                                                                <td><?php foreach($vendors as $vendor){
+                                                                if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                            } ?></td>
                                                                 <td><?php echo $test->pocreatedby;?></td>
                                                                 <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
                                                                 <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>

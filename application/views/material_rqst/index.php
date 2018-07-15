@@ -92,36 +92,36 @@
                                                     <div class="col-md-10">
                                                         <form method="post" action="<?php echo base_url()?>material_rqst/select_by_id">
                                                             <div class="row">
-                                                            <div class="col-md-8">
-                                                            <select class="itemname form-control" id="sid" name="sid">
-                                                                <option value="">---site name----</option>
-                                                                <?php
+                                                                <div class="col-md-8">
+                                                                    <select class="itemname form-control" id="sid" name="sid">
+                                                                        <option value="">---site name----</option>
+                                                                        <?php
 
     foreach($sites as $site)
     {                                                                   for($i=0;$i < $count_site;$i++){
         if($user_sites[$i] == $site->sid ){ ?>
-                                                                <option value="<?php echo $site->sid; ?>" >
-                                                                    <?php echo $site->sname;?>
-                                                                </option>
+                                                                        <option value="<?php echo $site->sid; ?>" >
+                                                                            <?php echo $site->sname;?>
+                                                                        </option>
 
-                                                                <?php  }
+                                                                        <?php  }
 
     }
 
-                                                                ?>
-                                                                <?php }	?>
-                                                            </select>
-                                                            </div>
-                                                            
-                                                            <script type="text/javascript">
-                                                                $('#sid').select2({
-                                                                    placeholder: '--- Select Sites ---',
-                                                                });
-                                                            </script>
-                                                            
-                                                            <div class="col-md-3">
-                                                                <input type="submit" value="Show Record" class="btn btn-success" style="float:  right;">
-                                                            </div></div>
+                                                                        ?>
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                </div>
+
+                                                                <script type="text/javascript">
+                                                                    $('#sid').select2({
+                                                                        placeholder: '--- Select Sites ---',
+                                                                    });
+                                                                </script>
+
+                                                                <div class="col-md-3">
+                                                                    <input type="submit" value="Show Record" class="btn btn-success" style="float:  right;">
+                                                                </div></div>
                                                         </form>
                                                     </div>
                                                     <div class="col-md-2">
@@ -173,7 +173,10 @@
                                                                  foreach($result_display as $test) {?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
-                                                                        <td><?php echo $test->sid;?></td>
+                                                                        <td><?php foreach($sites as $site){
+                                                                     if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                                 } ?></td>
                                                                         <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrcreatedon));?></td>
                                                                         <td>
                                                                             <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
@@ -229,7 +232,7 @@
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php foreach($sites as $site){
                                                                     if($site->sid == $test->sid ){echo $site->sname; }
-                                                                    
+
                                                                 } ?></td>
                                                                     <td><?php echo date("d-m-Y",strtotime($test->mrcreatedon));?></td>
                                                                     <td>

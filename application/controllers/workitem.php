@@ -16,6 +16,7 @@ Class Workitem extends CI_Controller{
             $this->load->model('Model');
             $this->load->view('witem_master/index');
             $this->load->view('layout/footer');
+        }
             else  
             {  
                 redirect(base_url() . 'main/login');  

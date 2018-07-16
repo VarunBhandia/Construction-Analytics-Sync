@@ -176,7 +176,7 @@ error_reporting(0);
 				?>
 				<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="itemname form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -184,6 +184,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
+							 <script type="text/javascript">
+      $('.itemname').select2({
+        placeholder: '--- Select Materials ---',
+        });
+</script>
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
@@ -208,7 +213,7 @@ error_reporting(0);
 							<input type="text" id="challannum_0" name="challannum[]" class="amountonly form-control" placeholder="Enter challan Number" value="<?php echo $challannum[$i]; ?>">
 						</td>
 						<td>
-							<select class="form-control select_width" id="transporter_0" name="transporter[]">
+							<select class="tname form-control select_width" id="transporter_0" name="transporter[]">
 								<option value=""></option>
 								<?php
 								foreach($transporters as $value)
@@ -216,6 +221,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo ($value->tid == $transporter[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->tid?>"><?php echo $value->tname;?></option>
 								<?php }	?>
 							</select>
+							 <script type="text/javascript">
+      $('.tname').select2({
+        placeholder: '--- Select Transporters ---',
+        });
+</script>
 						</td>
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remark[$i]; ?>">

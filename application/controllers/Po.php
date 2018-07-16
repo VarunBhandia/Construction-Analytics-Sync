@@ -256,7 +256,7 @@ class Po extends CI_Controller
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+//        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
         $gross_amount = $this->input->post('gross_amount');
         $invoice_to = $this->input->post('invoice_to');
         $contact_name = $this->input->post('contact_name');
@@ -295,7 +295,7 @@ class Po extends CI_Controller
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-            'gst_frieght_amount' => $gst_frieght_amount,
+//            'gst_frieght_amount' => $gst_frieght_amount,
             'gross_amount'  => $gross_amount,
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,
@@ -327,7 +327,6 @@ class Po extends CI_Controller
     public function edit($poid)
     {
         $poid = $this->uri->segment(3);
-        //			echo '<h1>'.$poid.'</h1>';
         $model = $this->model;
         $data['action'] = "update";
         $data['row_po'] = $this->$model->select(array(),$this->table,array('poid'=>$poid),'');
@@ -339,9 +338,6 @@ class Po extends CI_Controller
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $this->load->view('po/form',$data);
-        //            echo '<pre>';
-        //            print_r($data['row_po']);
-        //            echo '</pre>';
     }
 
     public function update()
@@ -355,7 +351,7 @@ class Po extends CI_Controller
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+//        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
         $gross_amount = $this->input->post('gross_amount');
         $invoice_to = $this->input->post('invoice_to');
         $contact_name = $this->input->post('contact_name');
@@ -394,7 +390,7 @@ class Po extends CI_Controller
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-            'gst_frieght_amount' => $gst_frieght_amount,
+//            'gst_frieght_amount' => $gst_frieght_amount,
             'gross_amount'  => $gross_amount,
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,

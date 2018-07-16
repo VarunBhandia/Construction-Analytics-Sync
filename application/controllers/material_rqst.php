@@ -222,7 +222,6 @@ class Material_rqst extends CI_Controller
     public function edit($mrid)
     {
         $mrid = $this->uri->segment(3);
-        echo '<h1>'.$mrid.'</h1>';
         $model = $this->model;
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mrid),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');

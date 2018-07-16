@@ -32,7 +32,7 @@
 
         <!-- Custom Theme Style -->
         <link href="<?php echo base_url();?>assets/css/custom.min.css" rel="stylesheet">
-
+        <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
         <!--     Select2 JS and CSS Files -->
         <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js')?>" type='text/javascript'></script>
         <script src="<?php echo base_url('assets/select2/dist/js/select2.min.js')?>" type='text/javascript'></script>
@@ -53,11 +53,9 @@
                         </div>
 
                         <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                            <div class="menu_section">
-                            </div>
-
-                        </div>
+                        <?php
+                        $this->load->view('include/sidebar');
+                        ?>
                         <!-- /sidebar menu -->
                     </div>
                 </div>

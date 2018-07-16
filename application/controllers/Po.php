@@ -23,6 +23,8 @@ class Po extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->po_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -35,6 +37,8 @@ class Po extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
@@ -230,6 +234,8 @@ class Po extends CI_Controller
             $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
             $data['action'] = "insert";
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['units'] = $this->$model->select(array(),'munits',array(),'');
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
             $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
@@ -256,7 +262,7 @@ class Po extends CI_Controller
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-//        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+        //        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
         $gross_amount = $this->input->post('gross_amount');
         $invoice_to = $this->input->post('invoice_to');
         $contact_name = $this->input->post('contact_name');
@@ -295,7 +301,7 @@ class Po extends CI_Controller
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-//            'gst_frieght_amount' => $gst_frieght_amount,
+            //            'gst_frieght_amount' => $gst_frieght_amount,
             'gross_amount'  => $gross_amount,
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,
@@ -332,6 +338,8 @@ class Po extends CI_Controller
         $data['row_po'] = $this->$model->select(array(),$this->table,array('poid'=>$poid),'');
         $data['row'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
@@ -351,7 +359,7 @@ class Po extends CI_Controller
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-//        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
+        //        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
         $gross_amount = $this->input->post('gross_amount');
         $invoice_to = $this->input->post('invoice_to');
         $contact_name = $this->input->post('contact_name');
@@ -390,7 +398,7 @@ class Po extends CI_Controller
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-//            'gst_frieght_amount' => $gst_frieght_amount,
+            //            'gst_frieght_amount' => $gst_frieght_amount,
             'gross_amount'  => $gross_amount,
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,
@@ -435,7 +443,10 @@ class Po extends CI_Controller
         /* File Select */
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         /* Database In Data Count */
+
         $data['Count'] = $this->$model->countTableRecords('po_master',array());
         $this->load->view('po/excel',$data);
     }

@@ -1,20 +1,19 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Material_rqst extends CI_Controller
+class Rtv extends CI_Controller
 {
-    public $table = 'material_rqst';
-    public $sitetable = 'sitedetails';
-    public $controller = 'material_rqst';
+    public $table = 'rtv_master';
+    public $controller = 'rtv';
     public $message = 'Construction';
-    public $primary_id = "mrid";
+    public $primary_id = "rtvid";
     public $model;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('Model');
-        $this->load->model('mr_m');
+        $this->load->model('rtv_m');
         $this->model = 'Model';
         date_default_timezone_set('Asia/Kolkata');
     }
@@ -23,7 +22,7 @@ class Material_rqst extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
-        $result = $this->mr_m->show_all_data();
+        $result = $this->rtv_m->show_all_data();
         if ($result != false) {
             return $result;
         } else {
@@ -35,10 +34,16 @@ class Material_rqst extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $sid = $this->input->post('sid');
-        $data['sid'] = $sid;
-        if ($sid != "") {
-            $result = $this->mr_m->show_data_by_id($sid);
+        $vid = $this->input->post('vid');
+        $data['sid'] = $sid;          
+        $data['vid'] = $vid;       
+        if ($sid != "" || $vid != "") {
+            $result = $this->rtv_m->show_data_by_id($data);
             if ($result != false) {
                 $data['result_display'] = $result;
             } else 
@@ -53,25 +58,23 @@ class Material_rqst extends CI_Controller
         }
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('material_rqst/index', $data);
+        $this->load->view('rtv/index', $data);
     }
 
     public function index()
     {
         if($this->session->userdata('username') != '')  
         {
-            $this->load->model("mr_m");
-            $data["mr_data"] = $this->mr_m->fetch_data();
+            $this->load->model("rtv_m");
+            $data["rtv_data"] = $this->rtv_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
             $username = $this->session->userdata('username');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-            $this->load->view('material_rqst/index',$data);
+            $this->load->view('rtv/index',$data);
         }
         else  
         {  
@@ -83,13 +86,13 @@ class Material_rqst extends CI_Controller
     function action()
 
     {
-        $this->load->model("mr_m");
+        $this->load->model("rtv_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("mrid",  "mrrefid", "sid", "mid", "muid", "mrunitprice", "mrqty", "mrremarks", "mrcreatedon", "mrcreatedby");
+        $table_columns = array("rtvid",  "rtvrefid", "sid", "vid", "rtvreturndate", "vchallan", "schallan", "mid", "muid", "rtvqty",  "rtvtruck", "rtvremark", "tid", "rtvcreatedon", "trvcreatedby");
 
         $column = 0;
 
@@ -99,22 +102,27 @@ class Material_rqst extends CI_Controller
             $column++;
         }
 
-        $mr_data = $this->mr_m->fetch_data();
+        $rtv_data = $this->rtv_m->fetch_data();
 
         $excel_row = 2;
 
-        foreach($mr_data as $row)
+        foreach($rtv_data as $row)
         {
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->rtvid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->rtvrefid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mrremarks);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->schallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->vchallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->rtvreturndate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->rtvqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->rtvtruck);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->rtvremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->rtvcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->rtvcreatedby);
             $excel_row++;
         }
 
@@ -129,14 +137,17 @@ class Material_rqst extends CI_Controller
 
     {
         $sid = $this->input->post('sid');
+        $vid = $this->input->post('vid');
         $data['sid'] = $sid;          
-        $this->load->model("mr_m");
+        $data['vid'] = $vid;       
+
+        $this->load->model("rtv_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("mrid",  "mrrefid", "sid", "mid", "muid", "mrunitprice", "mrqty", "mrremarks", "mrcreatedon", "mrcreatedby");
+        $table_columns = array("rtvid",  "rtvrefid", "sid", "vid", "rtvreturndate", "vchallan", "schallan", "mid", "muid", "rtvqty",  "rtvtruck", "rtvremark", "tid", "rtvcreatedon", "trvcreatedby");
 
         $column = 0;
 
@@ -146,31 +157,37 @@ class Material_rqst extends CI_Controller
             $column++;
         }
 
-        $mr_data = $this->mr_m->show_data_by_id($sid);
+        $rtv_data = $this->rtv_m->show_data_by_id($data);
 
         $excel_row = 2;
 
-        foreach($mr_data as $row)
+        foreach($rtv_data as $row)
         {
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->rtvid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->rtvrefid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mrremarks);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->schallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->vchallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->rtvreturndate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->rtvqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->rtvtruck);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->rtvremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->rtvcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->rtvcreatedby);
             $excel_row++;
         }
 
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="GRN Data.xls"');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
         $object_writer->save('php://output');
 
     }
+
 
     public function form()
     {
@@ -179,57 +196,66 @@ class Material_rqst extends CI_Controller
         $data['controller'] = $this->controller;
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $this->load->view('material_rqst/form',$data);
+        $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $this->load->view('rtv/form',$data);
     }
 
     public function insert()
     {
         $model = $this->model;
-
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
+        $vendor = $this->input->post('vendor');
+        $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
-
-        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+        $vchallan = $this->input->post('vchallan');
+        $schallan = $this->input->post('schallan');
+        $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
-
         $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
+
+        $truck = count($this->input->post('truck')) > 0 ? implode(",",$this->input->post('truck')) : $this->input->post('truck');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
             'sid'  => $site,
-            'mrcreatedby'  => $uid,
-            'mrcreatedon'  => $date,
-            'mid' => $mid,
-            'mrqty'  => $qty,
-            'mrunitprice'  => $unit,
+            'rtvcreatedby'  => $uid,
+            'vid'  => $vendor,
+            'vchallan' => $vchallan,
+            'schallan' => $schallan,
+            'tid' => $transporter,
+            'rtvreturndate'  => $date,
+            'mid' => $material,
+            'rtvqty'  => $qty,
             'muid'  => $m_unit,
-            'mrremarks'  => $remark
+            'rtvtruck'  => $truck,
+            'rtvremark'  => $remark
         );
 
         $this->$model->insert($data,$this->table);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
 
-        redirect('material_rqst');
+        redirect('Rtv');
     }
 
-    public function edit($mrid)
+    public function edit($rtvid)
     {
-        $mrid = $this->uri->segment(3);
         $model = $this->model;
-        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mrid),'');
-        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$rtvid),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['materials'] = $this->$model->select(array(),'materials',array(),'');		
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
         $data['action'] = "update";
         $data['controller'] = $this->controller;
-        $this->load->view('material_rqst/form',$data);
+        $this->load->view('rtv/form',$data);
     }
 
     public function update()
@@ -238,45 +264,53 @@ class Material_rqst extends CI_Controller
 
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
+        $vendor = $this->input->post('vendor');
+        $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $vchallan = $this->input->post('vchallan');
+        $schallan = $this->input->post('schallan');
 
-        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+        $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
-
         $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
+
+        $truck = count($this->input->post('truck')) > 0 ? implode(",",$this->input->post('truck')) : $this->input->post('truck');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
             'sid'  => $site,
-            'mrupdatedby'  => $uid,
-            'mrcreatedon'  => $date,
-            'mid' => $mid,
-            'mrqty'  => $qty,
-            'mrunitprice'  => $unit,
+            'rtvcreatedby'  => $uid,
+            'vid'  => $vendor,
+            'tid'  => $transporter,
+            'rtvreturndate'  => $date,
+            'vchallan' => $vchallan,
+            'schallan' => $schallan,
+            'mid' => $material,
+            'rtvqty'  => $qty,
             'muid'  => $m_unit,
-            'mrremarks'  => $remark
-        );			
+            'rtvtruck'  => $truck,
+            'rtvremark'  => $remark
+        );
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
 
-        $mrid = $this->input->post('mrid');
-        $where = array($this->primary_id=>$mrid);
+        $rtvid = $this->input->post('rtvid');
+        $where = array($this->primary_id=>$rtvid);
         $this->$model->update($this->table,$data,$where);
 
-        redirect('material_rqst');
+        redirect('Rtv');
     }
 
-    public function delete($mrid)
+    public function delete($rtvid)
     {
         $model = $this->model;
-        $condition = array($this->primary_id=>$mrid);
+        $condition = array($this->primary_id=>$rtvid);
         $this->$model->delete($this->table,$condition);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-        redirect('material_rqst');
+        redirect('Rtv');
     }
 
     public function browse()
@@ -285,8 +319,8 @@ class Material_rqst extends CI_Controller
         $model = $this->model;
         $data['controller'] = $this->controller;
         /* Database In Data Count */
-        $data['Count'] = $this->$model->countTableRecords('material_rqst',array());
-        $this->load->view('material_rqst/excel',$data);
+        $data['Count'] = $this->$model->countTableRecords('rtv_master',array());
+        $this->load->view('rtv/excel',$data);
     }
 
     public function excel()
@@ -312,7 +346,7 @@ class Material_rqst extends CI_Controller
         if(!$this->upload->do_upload('excel'))
         {
             $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-            redirect('material_rqst/browse');
+            redirect('rtv/browse');
         }
         /* file check else condition is file upload */
         else
@@ -323,7 +357,7 @@ class Material_rqst extends CI_Controller
             include(APPPATH.'/libraries/simplexlsx.class.php');
             $xlsx = new SimpleXLSX($data_upload['full_path']);
 
-            $table = 'material_rqst';
+            $table = 'rtv_master';
 
             $xlsxData = $xlsx->rows(); //excel rows data
 
@@ -343,39 +377,45 @@ class Material_rqst extends CI_Controller
                 {
                     /* excel sheet in second line to start 
 							if condition is check sid == '' and key ==0 then break */
-                    if($key == 0 && $row[2] =="")
+                    if($key == 0 && $row[6] =="")
                     {
                         break;
                     }
                     /* if in key > 0 and sid== '' then condition true */
-                    if($key > 0 && $row[2] =="")
+                    if($key > 0 && $row[6] =="")
                     {
-                        $arr[$mid]['mid'][] = $row[3];
-                        $arr[$mid]['mrqty'][] = $row[4];
-                        $arr[$mid]['muid'][] = $row[5];
-                        $arr[$mid]['mrunitprice'][] = $row[6];
-                        $arr[$mid]['mrremarks'][] = $row[7];
-                        $arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-                        $arr[$mid]['mrcreatedby'] = $row[12];
+                        $arr[$rtvrefid]['rtvqty'][] = $row[7];
+                        $arr[$rtvrefid]['muid'][] = $row[8];
+                        $arr[$rtvrefid]['rtvtruck'][] = $row[9];
+                        $arr[$rtvrefid]['rtvremark'][] = $row[10];
+                        $arr[$rtvrefid]['rtvcreatedon'] = $row[11];
+                        $arr[$rtvrefid]['rtvcreatedby'] = $row[12];
                     }
 
                     /* else in sid != '' then condition true */
 
                     else
                     {
-                        if($row[2] != "")
+                        if($row[6] != "")
                         {
                             $sid = $row[1];
-                            $mid = $row[2];
-                            $arr[$mid]['sid'] = $sid;
-                            $arr[$mid]['mrrefid'] = $row[2];
-                            $arr[$mid]['mid'][] = $row[3];
-                            $arr[$mid]['mrqty'][] = $row[4];
-                            $arr[$mid]['muid'][] = $row[5];
-                            $arr[$mid]['mrunitprice'][] = $row[6];
-                            $arr[$mid]['mrremarks'][] = $row[7];
-                            $arr[$mid]['mrcreatedon'] = date('Y-m-d H:i:s',strtotime($row[11]));
-                            $arr[$mid]['mrcreatedby'] = $row[12];
+                            $rtvrefid = $row[2];
+                            $vid = $row[3];
+                            $tid = $row[4];
+                            $vchallan = $row[5];
+                            $rtvreturndate = $row[6];
+                            $arr[$rtvrefid]['sid'] = $row[1];
+                            $arr[$rtvrefid]['rtvrefid'] = $row[2];
+                            $arr[$rtvrefid]['vid'] = $row[3];
+                            $arr[$rtvrefid]['tid'] = $row[4];
+                            $arr[$rtvrefid]['vchallan'] = $row[5];
+                            $arr[$rtvrefid]['rtvreturndate'] = $row[6];
+                            $arr[$rtvrefid]['rtvqty'][] = $row[7];
+                            $arr[$rtvrefid]['muid'][] = $row[8];
+                            $arr[$rtvrefid]['rtvtruck'][] = $row[9];
+                            $arr[$rtvrefid]['rtvremark'][] = $row[10];
+                            $arr[$rtvrefid]['rtvcreatedon'] = $row[11];
+                            $arr[$rtvrefid]['rtvcreatedby'][] = $row[12];
                         }
                     }
                 }
@@ -385,26 +425,31 @@ class Material_rqst extends CI_Controller
             {
                 /* Database Is Comma seprate Store */
                 $sid = $arr[$key]['sid'];
-                $q_mrrefid = $arr[$key]['mrrefid'];
-                $q_mid = implode(",",$arr[$key]['mid']);
-                $q_qty = implode(",",$arr[$key]['mrqty']);
-                $q_muid = implode(",",$arr[$key]['muid']);
-                $q_mrremarks = implode(",",$arr[$key]['mrremarks']);
-                $q_mrunit = implode(",",$arr[$key]['mrunitprice']);
-                $q_mrcreatedon = $arr[$key]['mrcreatedon'];
-                $q_mrcreatedby = $arr[$key]['mrcreatedby'];
+                $rtvrefid = $arr[$key]['rtvrefid'];
+                $vid = $arr[$key]['vid'];
+                $tid = $arr[$key]['tid'];
+                $vchallan = $arr[$key]['vchallan'];
+                $rtvreturndate = $arr[$key]['rtvreturndate'];
+                $rtvqty = implode(",",$arr[$key]['rtvqty']);
+                $muid = implode(",",$arr[$key]['muid']);
+                $rtvtruck = implode(",",$arr[$key]['rtvtruck']);
+                $rtvremark = implode(",",$arr[$key]['rtvremark']);
+                $rtvcreatedon = implode(",",$arr[$key]['rtvcreatedon']);
+                $rtvcreatedby = implode(",",$arr[$key]['rtvcreatedby']);
 
                 $data[] = array(
                     'sid' => $sid,
-                    'mid' => $q_mid,
-                    'mrqty' => $q_qty,
-                    'mrunitprice' => $q_mrunit,
-                    'mrrefid' => $q_mrrefid,
-                    'muid' => $q_muid,
-                    'mrremarks' => $q_mrremarks,
-                    'mrcreatedon' => $q_mrcreatedon,
-                    'mrcreatedby' => $q_mrcreatedby,
-
+                    'rtvrefid' => $rtvrefid,
+                    'vid' => $vid,
+                    'tid' => $tid,
+                    'vchallan' => $vchallan,
+                    'rtvreturndate' => $rtvreturndate,
+                    'rtvqty' => $rtvqty,
+                    'muid' => $muid,
+                    'rtvtruck' => $rtvtruck,
+                    'rtvremark' => $rtvremark,
+                    'rtvcreatedon' => $rtvcreatedon,
+                    'rtvcreatedby' => $rtvcreatedby,
                 );
 
 
@@ -435,7 +480,7 @@ class Material_rqst extends CI_Controller
                 $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
             }
         }
-        redirect('material_rqst/browse');
+        redirect('rtv/browse');
     }
     /* database in data display */
     public function server_data()
@@ -447,13 +492,13 @@ class Material_rqst extends CI_Controller
         $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
 
         /* datatable recordsTotal And recordsFiltered */
-        $totalData = $this->$model->countTableRecords('material_rqst',array());
+        $totalData = $this->$model->countTableRecords('rtv_master',array());
 
         $start = $_POST['start'];
         $limit = $_POST['length'];
 
         /* datatable in limited data display */
-        $q = $this->db->query("SELECT * FROM `material_rqst`  Order By $order LIMIT $start, $limit")->result();
+        $q = $this->db->query("SELECT * FROM `rtv_master`  Order By $order LIMIT $start, $limit")->result();
 
         $data = array();
 
@@ -462,18 +507,20 @@ class Material_rqst extends CI_Controller
             foreach ($q as $key=>$value)
             {
                 /* records Datatable */
-                $id = $this->primary_id;
+                $id = 'rtvid';
 
-                $nestedData['mrid'] = $value->mrid;
                 $nestedData['sid'] = $value->sid;
-                $nestedData['mid'] = $value->mid;
-                $nestedData['mrqty'] = $value->mrqty;
-                $nestedData['mrunitprice'] = $value->mrunitprice;
-                $nestedData['mrrefid'] = $value->mrrefid;
+                $nestedData['rtvrefid'] = $value->rtvrefid;
+                $nestedData['vid'] = $value->vid;
+                $nestedData['tid'] = $value->tid;
+                $nestedData['vchallan'] = $value->vchallan;
+                $nestedData['rtvreturndate'] = $value->rtvreturndate;
+                $nestedData['rtvqty'] = $value->rtvqty;
                 $nestedData['muid'] = $value->muid;
-                $nestedData['mrremarks'] =str_replace(",", "", $value->mrremarks);
-                $nestedData['mrcreatedon'] = $value->mrcreatedon;
-                $nestedData['mrcreatedby'] = $value->mrcreatedby;
+                $nestedData['rtvtruck'] = $value->rtvtruck;
+                $nestedData['rtvremark'] = $value->rtvremark;
+                $nestedData['rtvcreatedon'] = $value->rtvcreatedon;
+                $nestedData['rtvcreatedby'] = $value->rtvcreatedby;
                 $data[] = $nestedData;
             }
         }

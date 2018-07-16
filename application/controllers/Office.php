@@ -1,32 +1,34 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class Unit extends CI_Controller{
+Class Office extends CI_Controller{
     function __construct(){
         parent:: __construct();
-        $this->load->model('unit_m', 'm');
+        $this->load->model('office_m', 'm');
     }
 
     function index(){
         if($this->session->userdata('username') != '')  
         {
+
             $this->load->view('layout/header');
-            $this->load->view('unit_master/index');
+            $this->load->view('officegst/index');
             $this->load->view('layout/footer');
         }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
+
     }
 
-    public function showAllUnit(){
-        $result = $this->m->showAllUnit();
+    public function showAllOffice(){
+        $result = $this->m->showAllOffice();
         echo json_encode($result);
     }
 
-    public function addUnit(){
-        $result = $this->m->addUnit();
+    public function addOffice(){
+        $result = $this->m->addOffice();
         $msg['success'] = false;
         $msg['type'] = 'add';
         if($result){
@@ -35,13 +37,13 @@ Class Unit extends CI_Controller{
         echo json_encode($msg);
     }
 
-    public function editUnit(){
-        $result = $this->m->editUnit();
+    public function editOffice(){
+        $result = $this->m->editOffice();
         echo json_encode($result);
     }
 
-    public function updateUnit(){
-        $result = $this->m->updateUnit();
+    public function updateOffice(){
+        $result = $this->m->updateOffice();
         $msg['success'] = false;
         $msg['type'] = 'update';
         if($result){
@@ -50,8 +52,8 @@ Class Unit extends CI_Controller{
         echo json_encode($msg);
     }
 
-    public function deleteUnit(){
-        $result = $this->m->deleteUnit();
+    public function deleteOffice(){
+        $result = $this->m->deleteOffice();
         $msg['success'] = false;
         if($result){
             $msg['success'] = true;

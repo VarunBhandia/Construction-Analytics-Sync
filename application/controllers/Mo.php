@@ -81,7 +81,7 @@ class Mo extends CI_Controller
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("moid",  "morefid", "sid", "mochallan", "mid", "muid", "modate", "moqty", "movehicle", "tid", "moremark", "mocreatedon", "mocreatedby");
+        $table_columns = array("moid",  "morefid", "tsid", "rsid", "mochallan", "mid", "muid", "modate", "moqty", "movehicle", "tid", "moremark", "mocreatedon", "mocreatedby");
 
         $column = 0;
 
@@ -99,17 +99,18 @@ class Mo extends CI_Controller
         {
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->moid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->morefid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mochallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->modate);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->moqty);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->movehicle);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->tid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->moremark);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->mocreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->mocreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->tsid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->rsid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->mochallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->modate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->moqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->movehicle);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->moremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->mocreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->mocreatedby);
             $excel_row++;
         }
 
@@ -155,8 +156,8 @@ class Mo extends CI_Controller
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
-            'sid'  => $tsite,
-            'sid'  => $rsite,
+            'tsid'  => $tsite,
+            'rsid'  => $rsite,
             'mocreatedby'  => $uid,
             'modate'  => $date,
             'mid' => $material,
@@ -213,8 +214,8 @@ class Mo extends CI_Controller
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
-            'sid'  => $tsite,
-            'sid'  => $rsite,
+            'tsid'  => $tsite,
+            'rsid'  => $rsite,
             'mocreatedby'  => $uid,
             'modate'  => $date,
             'mid' => $material,

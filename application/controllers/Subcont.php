@@ -1,20 +1,20 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class Transporter extends CI_Controller{
+Class Subcont extends CI_Controller{
     function __construct(){
         parent:: __construct();
         $this->model = 'Model';
-        $this->load->model('transporter_m', 'm');
+        $this->load->model('subcont_m', 'm');
     }
 
     function index(){
         if($this->session->userdata('username') != '')  
         {
-            $this->load->model("transporter_m");
-            $data["t_data"] = $this->transporter_m->fetch();
+            $this->load->model("subcont_m");
+            $data["sub_data"] = $this->subcont_m->fetch();
             $this->load->model('Model');
-            $this->load->view('transporter_master/index');
+            $this->load->view('subcont/index');
             $this->load->view('layout/footer');
         }
         else  
@@ -27,13 +27,13 @@ Class Transporter extends CI_Controller{
     {
         $output = '';
         $query = '';
-        $this->load->model('transporter_m');
+        $this->load->model('subcont_m');
         if($this->input->post('query'))
         {
             $query = $this->input->post('query');
         }
 
-        $data = $this->transporter_m->fetch_data($query);
+        $data = $this->subcont_m->fetch_data($query);
         $output .= '
   <div class="table-responsive">
      <table class="table table-bordered table-striped">  ';
@@ -43,18 +43,16 @@ Class Transporter extends CI_Controller{
             {
                 $output .= '
       <tr>
-       <td>'.$row->tid.'</td>
-       <td>'.$row->tname.'</td>
-       <td>'.$row->tmobile.'</td>
-       <td>'.$row->taltmobile.'</td>
-       <td>'.$row->tconame.'</td>
-       <td>'.$row->temail.'</td>
-       <td>'.$row->tgst.'</td>
-       <td>'.$row->taddress.'</td>
-       <td>'.$row->tdesc.'</td>
+       <td>'.$row->subid.'</td>
+       <td>'.$row->subname.'</td>
+       <td>'.$row->submobile.'</td>
+       <td>'.$row->subaltmobile.'</td>
+       <td>'.$row->subemail.'</td>
+       <td>'.$row->subgst.'</td>
+       <td>'.$row->subaddress.'</td>
        <td>
-       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->tid.'">Edit</a>
-       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->tid.'">Delete</a></td>
+       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->subid.'">Edit</a>
+       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->subid.'">Delete</a></td>
 
       </tr>';
             }
@@ -72,13 +70,13 @@ Class Transporter extends CI_Controller{
     function action()
 
     {
-        $this->load->model("transporter_m");
+        $this->load->model("subcont_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("tid", "tname", "tmobile", "taltmobile", "temail", "tgst", "taddress", "tdesc");
+        $table_columns = array("subid", "subname", "submobile", "subaltmobile", "subemail", "subgst", "subaddress");
 
         $column = 0;
 
@@ -88,20 +86,19 @@ Class Transporter extends CI_Controller{
             $column++;
         }
 
-        $t_data = $this->transporter_m->fetch();
+        $sub_data = $this->subcont_m->fetch();
 
         $excel_row = 2;
 
-        foreach($t_data as $row)
+        foreach($sub_data as $row)
         {
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->tid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->tname);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->tmobile);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->taltmobile);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->temail);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->tgst);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->taddress);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->tdesc);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->subid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->subname);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->submobile);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->subaltmobile);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->subemail);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->subgst);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->subaddress);
             $excel_row++;
         }
 
@@ -112,13 +109,13 @@ Class Transporter extends CI_Controller{
 
     }
 
-    public function showAllTransporter(){
-        $result = $this->m->showAllTransporter();
+    public function showAllSubcont(){
+        $result = $this->m->showAllSubcont();
         echo json_encode($result);
     }
 
-    public function addTransporter(){
-        $result = $this->m->addTransporter();
+    public function addSubcont(){
+        $result = $this->m->addSubcont();
         $msg['success'] = false;
         $msg['type'] = 'add';
         if($result){
@@ -127,13 +124,13 @@ Class Transporter extends CI_Controller{
         echo json_encode($msg);
     }
 
-    public function editTransporter(){
-        $result = $this->m->editTransporter();
+    public function editSubcont(){
+        $result = $this->m->editSubcont();
         echo json_encode($result);
     }
 
-    public function updateTransporter(){
-        $result = $this->m->updateTransporter();
+    public function updateSubcont(){
+        $result = $this->m->updateSubcont();
         $msg['success'] = false;
         $msg['type'] = 'update';
         if($result){
@@ -142,8 +139,8 @@ Class Transporter extends CI_Controller{
         echo json_encode($msg);
     }
 
-    public function deleteTransporter(){
-        $result = $this->m->deleteTransporter();
+    public function deleteSubcont(){
+        $result = $this->m->deleteSubcont();
         $msg['success'] = false;
         if($result){
             $msg['success'] = true;

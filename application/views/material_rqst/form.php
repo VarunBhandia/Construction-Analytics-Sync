@@ -122,7 +122,7 @@ elseif($action == 'update')
                                         ?>
                                         <tr class="pending-user">
                                             <td>
-                                                <select class="form-control select_width" id="material_0" name="material[]">
+                                                <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                     <option value=""></option>
                                                     <?php
                                              foreach($materials as $value)
@@ -136,6 +136,11 @@ elseif($action == 'update')
                                                         ?></option>
                                                     <?php }	?>
                                                 </select>
+                                                <script type="text/javascript">
+                                            $('.materialname').select2({
+                                                placeholder: '--- Select Material ---',
+                                            });
+                                        </script> 
                                             </td>
                                             <td>
                                                 <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">

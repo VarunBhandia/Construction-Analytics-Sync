@@ -73,7 +73,7 @@ error_reporting(0);
 				<?php if($action == 'insert') { ?>
 					<tr class="pending-user">
 						<td>
-							<select class=" materialname form-control select_width" id="material_0" name="material[]">
+							<select class="materialname form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -125,7 +125,7 @@ error_reporting(0);
 				?>
 				<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="item form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -133,6 +133,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
+							 <script type="text/javascript">
+      $('.item').select2({
+        placeholder: '--- Select Material ---',
+        });
+</script>	
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">

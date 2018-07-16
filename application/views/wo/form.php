@@ -30,7 +30,7 @@ error_reporting(0);
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
-                        <div class="col-md-10 col-sm-6 col-xs-12">
+                        <div class="sitename col-md-10 col-sm-6 col-xs-12">
                            <select class="form-control" id="site" name="site">
 								<option value="">---site name----</option>
 								<?php
@@ -39,13 +39,18 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
 								<?php }	?>
 							</select>
+                       <script type="text/javascript">
+      $('.sitename').select2({
+        placeholder: '--- Select Sitename ---',
+        });
+</script>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Subcontractor
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="subcontdetail" name="subcontdetail">
+                           <select class="subcont form-control" id="subcontdetail" name="subcontdetail">
 								<option value="">---Subcontractor name----</option>
 								<?php
 								foreach($subcontdetails as $subcontdetail)
@@ -53,6 +58,11 @@ error_reporting(0);
 									<option <?php if($action == 'update'){  echo $subcontdetail->subid == $row[0]->subid ? 'selected' : '' ; }?> value="<?php echo $subcontdetail->subid?>"><?php echo $subcontdetail->subname;?></option>
 								<?php }	?>
 							</select>
+                        <script type="text/javascript">
+      $('.subcont').select2({
+        placeholder: '--- Select Subcont ---',
+        });
+</script>
                         </div>
                       </div>
 					  <div class="form-group">
@@ -87,7 +97,7 @@ error_reporting(0);
 { ?>
 					<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="workitem_0" name="workitem[]">
+							<select class="witem form-control select_width" id="workitem_0" name="workitem[]">
 								<option value=""></option>
 								<?php
 								foreach($workitems as $value)
@@ -95,6 +105,11 @@ error_reporting(0);
 									<option value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
 								<?php }	?>
 							</select>
+							 <script type="text/javascript">
+      $('.witem').select2({
+        placeholder: '--- Select Workitems ---',
+        });
+</script>
 						</td>
 						<td>
 							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
@@ -167,7 +182,7 @@ error_reporting(0);
                                         ?>
                                         <tr class="pending-user">
                                             <td>
-                                                <select class="form-control select_width" id="material_0" name="material[]">
+                                                <select class="witem form-control select_width" id="material_0" name="material[]">
                                                     <option value=""></option>
                                                     <?php
                                                 foreach($materials as $value)
@@ -175,6 +190,11 @@ error_reporting(0);
                                                     <option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
                                                     <?php }	?>
                                                 </select>
+                                                <script type="text/javascript">
+      $('.witem').select2({
+        placeholder: '--- Select Workitems ---',
+        });
+</script>
                                             </td>
                                             <td>
                                                 <input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">

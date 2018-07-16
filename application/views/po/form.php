@@ -126,7 +126,7 @@ elseif($action == 'update')
 
                                         <tr class="pending-user">
                                             <td>
-                                                <select class="form-control select_width" id="material_<?php echo $i; ?>" name="material[]">
+                                                <select class="materialname form-control select_width" id="material_<?php echo $i; ?>" name="material[]">
                                                     <option value=""></option>
                                                     <?php
         foreach($materials as $value)
@@ -134,6 +134,11 @@ elseif($action == 'update')
                                                     <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
                                                     <?php }	?>
                                                 </select>
+                                                <script type="text/javascript">
+                                            $('.materialname').select2({
+                                                placeholder: '--- Select Material ---',
+                                            });
+                                        </script>  
                                             </td>
                                             <td>
                                                 <select class="form-control select_width" id="m_unit_<?php echo $i; ?>" name="m_unit[]">
@@ -1835,7 +1840,7 @@ elseif($action == 'update')
                                         ?>
                                         <tr class="pending-user">
                                             <td>
-                                                <select class="form-control select_width" id="material_0" name="material[]">
+                                                <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                     <option value=""></option>
                                                     <?php
                                                 foreach($materials as $value)
@@ -1843,6 +1848,11 @@ elseif($action == 'update')
                                                     <option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
                                                     <?php }	?>
                                                 </select>
+                                                <script type="text/javascript">
+                                            $('.materialname').select2({
+                                                placeholder: '--- Select Material ---',
+                                            });
+                                        </script> 
                                             </td>
                                             <td>
                                                 <select class="form-control select_width" id="m_unit_0" name="m_unit[]">

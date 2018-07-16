@@ -197,8 +197,6 @@ class Material_rqst extends CI_Controller
 
         $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
 
-        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
@@ -208,7 +206,6 @@ class Material_rqst extends CI_Controller
             'mid' => $mid,
             'mrqty'  => $qty,
             'mrunitprice'  => $unit,
-            'muid'  => $m_unit,
             'mrremarks'  => $remark
         );
 
@@ -246,8 +243,6 @@ class Material_rqst extends CI_Controller
 
         $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
 
-        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
@@ -257,7 +252,6 @@ class Material_rqst extends CI_Controller
             'mid' => $mid,
             'mrqty'  => $qty,
             'mrunitprice'  => $unit,
-            'muid'  => $m_unit,
             'mrremarks'  => $remark
         );			
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');

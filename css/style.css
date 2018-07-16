@@ -11,7 +11,7 @@
 .topSecondHeader{
     font-weight: 700;
     padding-top: 3em;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     padding-left: 3em;
     color: black;
 }
@@ -23,12 +23,12 @@
 
 .welcomeUser{
     color: white;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .Logout{
     letter-spacing: 2px;
-    font-family: Poppins-Regular;
+    font-family: 'Montserrat', sans-serif;
     font-size: 1em;
     line-height: 1.7;
     color: white;
@@ -80,26 +80,22 @@
 /*Sidebar*/
 
 .SidebarModuleTile{
+    text-transform: uppercase;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 15px;
+    padding-left: 2em;
     color: white;
-    font-size: 1.5em;
+    font-size: 1em;
 }
 
 .SidebarModuleTile:hover{
     transition: .2s;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 15px;
     color: white;
-    font-size: 1.5em;
-    background-color: #1abb9c;
+    background-color: #337ab7;
 }
 
 /*Resizable Table*/
 body {
-    font-family: Arial;
     font-size: 10pt;
 }
 table#demo-table th {

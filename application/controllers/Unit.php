@@ -1,34 +1,32 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-Class Office extends CI_Controller{
+Class Unit extends CI_Controller{
     function __construct(){
         parent:: __construct();
-        $this->load->model('office_m', 'm');
+        $this->load->model('unit_m', 'm');
     }
 
     function index(){
         if($this->session->userdata('username') != '')  
         {
-
             $this->load->view('layout/header');
-            $this->load->view('officegst/index');
+            $this->load->view('unit_master/index');
             $this->load->view('layout/footer');
         }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
-
     }
 
-    public function showAllOffice(){
-        $result = $this->m->showAllOffice();
+    public function showAllUnit(){
+        $result = $this->m->showAllUnit();
         echo json_encode($result);
     }
 
-    public function addOffice(){
-        $result = $this->m->addOffice();
+    public function addUnit(){
+        $result = $this->m->addUnit();
         $msg['success'] = false;
         $msg['type'] = 'add';
         if($result){
@@ -37,13 +35,13 @@ Class Office extends CI_Controller{
         echo json_encode($msg);
     }
 
-    public function editOffice(){
-        $result = $this->m->editOffice();
+    public function editUnit(){
+        $result = $this->m->editUnit();
         echo json_encode($result);
     }
 
-    public function updateOffice(){
-        $result = $this->m->updateOffice();
+    public function updateUnit(){
+        $result = $this->m->updateUnit();
         $msg['success'] = false;
         $msg['type'] = 'update';
         if($result){
@@ -52,8 +50,8 @@ Class Office extends CI_Controller{
         echo json_encode($msg);
     }
 
-    public function deleteOffice(){
-        $result = $this->m->deleteOffice();
+    public function deleteUnit(){
+        $result = $this->m->deleteUnit();
         $msg['success'] = false;
         if($result){
             $msg['success'] = true;

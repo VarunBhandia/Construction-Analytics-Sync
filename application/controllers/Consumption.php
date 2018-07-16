@@ -1,21 +1,20 @@
-
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Grn extends CI_Controller
+class Consumption extends CI_Controller
 {
-    public $table = 'grn_master';
-    public $controller = 'grn';
+    public $table = 'consumption';
+    public $sitetable = 'sitedetails';
+    public $controller = 'Consumption';
     public $message = 'Construction';
-    public $primary_id = "grnid";
+    public $primary_id = "consid";
     public $model;
-    public $module_name = "GRN";
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('grn_m');
         $this->load->model('Model');
+        $this->load->model('Consumption_m');
         $this->model = 'Model';
         date_default_timezone_set('Asia/Kolkata');
     }
@@ -24,7 +23,7 @@ class Grn extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
-        $result = $this->grn_m->show_all_data();
+        $result = $this->Consumption_m->show_all_data();
         if ($result != false) {
             return $result;
         } else {
@@ -37,19 +36,15 @@ class Grn extends CI_Controller
         $model = $this->model;
         $data['controller'] = $this->controller;
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $sid = $this->input->post('sid');
-        $vid = $this->input->post('vid');
-        $data['sid'] = $sid;          
-        $data['vid'] = $vid;       
-        if ($sid != "" || $vid != "") {
-            $result = $this->grn_m->show_data_by_id($data);
+        $data['sid'] = $sid;
+        if ($sid != "") {
+            $result = $this->Consumption_m->show_data_by_id($sid);
             if ($result != false) {
                 $data['result_display'] = $result;
-            }
-            else 
+            } else 
             {
                 $data['result_display'] = "No record found !";
             }
@@ -61,40 +56,41 @@ class Grn extends CI_Controller
         }
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
-        $this->load->view('grn/index', $data);
+        $this->load->view('consumption/index', $data);
     }
 
     public function index()
     {
         if($this->session->userdata('username') != '')  
         {
-            $this->load->model("grn_m");
-            $data["grn_data"] = $this->grn_m->fetch_data();
+            $this->load->model("Consumption_m");
+            $data["cons_data"] = $this->Consumption_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
-            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-            $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
             $username = $this->session->userdata('username');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-            $this->load->view('grn/index',$data);
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+
+            $this->load->view('consumption/index',$data);
         }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
+
     }
 
     function action()
 
     {
-        $this->load->model("grn_m");
+        $this->load->model("Consumption_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremarks", "tid", "grncreatedon", "grncreatedby");
+        $table_columns = array("consid",  "sid", "mid", "muid", "consqty", "consunitprice", "consremark", "conscreatedby", "conscreatedon", "consissuedate" );
 
         $column = 0;
 
@@ -104,28 +100,22 @@ class Grn extends CI_Controller
             $column++;
         }
 
-        $grn_data = $this->grn_m->fetch_data();
+        $cons_data = $this->Consumption_m->fetch_data();
 
         $excel_row = 2;
 
-        foreach($grn_data as $row)
+        foreach($cons_data as $row)
         {
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->grnid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->grnrefid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->grnchallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->grnreceivedate);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->grnunitprice);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->grnqty);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->grntruck);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->grnlinechallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->grnremarks);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->tid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->grncreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $row->grncreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->consid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->consqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->consunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->consremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->conscreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->conscreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->consissuedate);
             $excel_row++;
         }
 
@@ -140,17 +130,14 @@ class Grn extends CI_Controller
 
     {
         $sid = $this->input->post('sid');
-        $vid = $this->input->post('vid');
         $data['sid'] = $sid;          
-        $data['vid'] = $vid;       
-
-        $this->load->model("grn_m");
+        $this->load->model("Consumption_m");
         $this->load->library("excel");
         $object = new PHPExcel();
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("grnid",  "grnrefid", "sid", "vid", "grnchallan", "grnreceivedate", "mid", "muid", "grnunitprice", "grnqty",  "grntruck", "grnlinechallan", "grnremarks", "tid", "grncreatedon", "grncreatedby");
+        $table_columns = array("consid",  "sid", "mid", "muid", "consqty", "consunitprice", "consremark", "conscreatedby", "conscreatedon", "consissuedate" );
 
         $column = 0;
 
@@ -160,28 +147,22 @@ class Grn extends CI_Controller
             $column++;
         }
 
-        $grn_data = $this->grn_m->show_data_by_id($data);
+        $cons_data = $this->Consumption_m->show_data_by_id($sid);
 
         $excel_row = 2;
 
-        foreach($grn_data as $row)
+        foreach($cons_data as $row)
         {
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->grnid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->grnrefid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->grnchallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->grnreceivedate);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->grnunitprice);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->grnqty);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->grntruck);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->grnlinechallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->grnremarks);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->tid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->grncreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $row->grncreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->consid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->consqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->consunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->consremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->conscreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->conscreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->consissuedate);
             $excel_row++;
         }
 
@@ -192,6 +173,8 @@ class Grn extends CI_Controller
 
     }
 
+
+
     public function form()
     {
         $model = $this->model;
@@ -199,21 +182,20 @@ class Grn extends CI_Controller
         $data['controller'] = $this->controller;
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
-        $this->load->view('grn/form',$data);
+        $this->load->view('consumption/form',$data);
     }
 
     public function insert()
     {
         $model = $this->model;
+
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
-        $vendor = $this->input->post('vendor');
-        $challan = $this->input->post('challan');
+
         $date = date('Y-m-d',strtotime($this->input->post('date')));
-        $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+
+        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
@@ -221,49 +203,38 @@ class Grn extends CI_Controller
 
         $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
 
-        $truck = count($this->input->post('truck')) > 0 ? implode(",",$this->input->post('truck')) : $this->input->post('truck');
-
-        $challannum = count($this->input->post('challannum')) > 0 ? implode(",",$this->input->post('challannum')) : $this->input->post('challannum');
-
-        $transporter = count($this->input->post('transporter')) > 0 ? implode(",",$this->input->post('transporter')) : $this->input->post('transporter');
-
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
             'sid'  => $site,
-            'grncreatedby'  => $uid,
-            'vid'  => $vendor,
-            'grnchallan' => $challan,
-            'grnreceivedate'  => $date,
-            'mid' => $material,
-            'grnqty'  => $qty,
-            'grnunitprice'  => $unit,
+            'conscreatedby'  => $uid,
+            'consissuedate'  => $date,
+            'mid' => $mid,
+            'consqty'  => $qty,
+            'consunitprice'  => $unit,
             'muid'  => $m_unit,
-            'grntruck'  => $truck,
-            'grnlinechallan'  => $challannum,
-            'tid'  => $transporter,
-            'grnremarks'  => $remark
+            'consremark'  => $remark
         );
 
         $this->$model->insert($data,$this->table);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
 
-        redirect('Grn');
+        redirect('consumption');
     }
 
-    public function edit($grnid)
+    public function edit($consid)
     {
+        $consid = $this->uri->segment(3);
+        echo '<h1>'.$consid.'</h1>';
         $model = $this->model;
-        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$grnid),'');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$consid),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');		
         $data['action'] = "update";
         $data['controller'] = $this->controller;
-        $this->load->view('grn/form',$data);
+        $this->load->view('consumption/form',$data);
     }
 
     public function update()
@@ -272,11 +243,10 @@ class Grn extends CI_Controller
 
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
-        $vendor = $this->input->post('vendor');
-        $challan = $this->input->post('challan');
+
         $date = date('Y-m-d',strtotime($this->input->post('date')));
 
-        $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
@@ -284,46 +254,35 @@ class Grn extends CI_Controller
 
         $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
 
-        $truck = count($this->input->post('truck')) > 0 ? implode(",",$this->input->post('truck')) : $this->input->post('truck');
-
-        $challannum = count($this->input->post('challannum')) > 0 ? implode(",",$this->input->post('challannum')) : $this->input->post('challannum');
-
-        $transporter = count($this->input->post('transporter')) > 0 ? implode(",",$this->input->post('transporter')) : $this->input->post('transporter');
-
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
             'sid'  => $site,
-            'grncreatedby'  => $uid,
-            'vid'  => $vendor,
-            'grnchallan' => $challan,
-            'grnreceivedate'  => $date,
-            'mid' => $material,
-            'grnqty'  => $qty,
-            'grnunitprice'  => $unit,
+            'conscreatedby'  => $uid,
+            'consissuedate'  => $date,
+            'mid' => $mid,
+            'consqty'  => $qty,
+            'consunitprice'  => $unit,
             'muid'  => $m_unit,
-            'grntruck'  => $truck,
-            'grnlinechallan'  => $challannum,
-            'tid'  => $transporter,
-            'grnremarks'  => $remark
-        );
+            'consremark'  => $remark
+        );			
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
 
-        $grnid = $this->input->post('grnid');
-        $where = array($this->primary_id=>$grnid);
+        $consid = $this->input->post('consid');
+        $where = array($this->primary_id=>$consid);
         $this->$model->update($this->table,$data,$where);
 
-        redirect('Grn');
+        redirect('consumption');
     }
 
-    public function delete($grnid)
+    public function delete($consid)
     {
         $model = $this->model;
-        $condition = array($this->primary_id=>$grnid);
+        $condition = array($this->primary_id=>$consid);
         $this->$model->delete($this->table,$condition);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-        redirect('Grn');
+        redirect('consumption');
     }
 
     public function browse()
@@ -332,8 +291,8 @@ class Grn extends CI_Controller
         $model = $this->model;
         $data['controller'] = $this->controller;
         /* Database In Data Count */
-        $data['Count'] = $this->$model->countTableRecords('grn_master',array());
-        $this->load->view('Grn/excel',$data);
+        $data['Count'] = $this->$model->countTableRecords('consumption',array());
+        $this->load->view('consumption/excel',$data);
     }
 
     public function excel()
@@ -359,7 +318,7 @@ class Grn extends CI_Controller
         if(!$this->upload->do_upload('excel'))
         {
             $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
-            redirect('Grn/browse');
+            redirect('consumption/browse');
         }
         /* file check else condition is file upload */
         else
@@ -370,7 +329,7 @@ class Grn extends CI_Controller
             include(APPPATH.'/libraries/simplexlsx.class.php');
             $xlsx = new SimpleXLSX($data_upload['full_path']);
 
-            $table = 'grn_master';
+            $table = 'consumption';
 
             $xlsxData = $xlsx->rows(); //excel rows data
 
@@ -390,47 +349,35 @@ class Grn extends CI_Controller
                 {
                     /* excel sheet in second line to start 
 							if condition is check sid == '' and key ==0 then break */
-                    if($key == 0 && $row[1] =="")
+                    if($key == 0 && $row[2] =="")
                     {
                         break;
                     }
                     /* if in key > 0 and sid== '' then condition true */
-                    if($key > 0 && $row[1] =="")
+                    if($key > 0 && $row[2] =="")
                     {
-                        $arr[$grnrefid]['mid'][] = $row[6];
-                        $arr[$grnrefid]['grnqty'][] = $row[7];
-                        $arr[$grnrefid]['grnunitprice'][] = $row[8];
-                        $arr[$grnrefid]['muid'][] = $row[9];
-                        $arr[$grnrefid]['grntruck'][] = $row[10];
-                        $arr[$grnrefid]['grnlinechallan'][] = $row[11];
-                        $arr[$grnrefid]['tid'][] = $row[12];
-                        $arr[$grnrefid]['grnremarks'][] = $row[13];
+                        $arr[$conscreatedon]['mid'][] = $row[3];
+                        $arr[$conscreatedon]['consqty'][] = $row[4];
+                        $arr[$conscreatedon]['consunitprice'][] = $row[5];
+                        $arr[$conscreatedon]['muid'][] = $row[6];
+                        $arr[$conscreatedon]['consremark'][] = $row[7];
                     }
 
                     /* else in sid != '' then condition true */
 
                     else
                     {
-                        if($row[1] != "")
+                        if($row[2] != "")
                         {
-                            $grnrefid = $row[1];
-                            $grnreceivedate = $row[2];
-                            $sid = $row[3];
-                            $vid = $row[4];
-                            $grnchallan = $row[5];
-                            $arr[$grnrefid]['grnrefid'] = $row[1];
-                            $arr[$grnrefid]['grnreceivedate'] = $row[2];
-                            $arr[$grnrefid]['sid'] = $row[3];
-                            $arr[$grnrefid]['vid'] = $row[4];
-                            $arr[$grnrefid]['grnchallan'] = $row[5];
-                            $arr[$grnrefid]['mid'][] = $row[6];
-                            $arr[$grnrefid]['grnqty'][] = $row[7];
-                            $arr[$grnrefid]['grnunitprice'][] = $row[8];
-                            $arr[$grnrefid]['muid'][] = $row[9];
-                            $arr[$grnrefid]['grntruck'][] = $row[10];
-                            $arr[$grnrefid]['grnlinechallan'][] = $row[11];
-                            $arr[$grnrefid]['tid'][] = $row[12];
-                            $arr[$grnrefid]['grnremarks'][] = $row[13];
+                            $sid = $row[1];
+                            $conscreatedon = $row[2];
+                            $arr[$conscreatedon]['sid'] = $row[1];
+                            $arr[$conscreatedon]['conscreatedon'] = $row[2];
+                            $arr[$conscreatedon]['mid'][] = $row[3];
+                            $arr[$conscreatedon]['consqty'][] = $row[4];
+                            $arr[$conscreatedon]['consunitprice'][] = $row[5];
+                            $arr[$conscreatedon]['muid'][] = $row[6];
+                            $arr[$conscreatedon]['consremark'][] = $row[7];
                         }
                     }
                 }
@@ -439,34 +386,22 @@ class Grn extends CI_Controller
             foreach($arr as $key=>$val)
             {
                 /* Database Is Comma seprate Store */
-                $grnrefid = $arr[$key]['grnrefid'];
-                $grnreceivedate = $arr[$key]['grnreceivedate'];
                 $sid = $arr[$key]['sid'];
-                $vid = $arr[$key]['vid'];
-                $grnchallan = $arr[$key]['grnchallan'];
+                $conscreatedon = $arr[$key]['conscreatedon'];
                 $mid = implode(",",$arr[$key]['mid']);
-                $grnqty = implode(",",$arr[$key]['grnqty']);
-                $grnunitprice = implode(",",$arr[$key]['grnunitprice']);
+                $consqty = implode(",",$arr[$key]['consqty']);
+                $consunitprice = implode(",",$arr[$key]['consunitprice']);
                 $muid = implode(",",$arr[$key]['muid']);
-                $grntruck = implode(",",$arr[$key]['grntruck']);
-                $grnlinechallan = implode(",",$arr[$key]['grnlinechallan']);
-                $tid = implode(",",$arr[$key]['tid']);
-                $grnremarks = implode(",",$arr[$key]['grnremarks']);
+                $consremark = implode(",",$arr[$key]['consremark']);
 
                 $data[] = array(
-                    'grnrefid' => $grnrefid,
-                    'grnreceivedate' => $grnreceivedate,
                     'sid' => $sid,
-                    'vid' => $vid,
-                    'grnchallan' => $grnchallan,
+                    'conscreatedon' => $conscreatedon,
                     'mid' => $mid,
-                    'grnqty' => $grnqty,
-                    'grnunitprice' => $grnunitprice,
+                    'consqty' => $consqty,
+                    'consunitprice' => $consunitprice,
                     'muid' => $muid,
-                    'grntruck' => $grntruck,
-                    'grnlinechallan' => $grnlinechallan,
-                    'tid' => $tid,
-                    'grnremarks' => $grnremarks,
+                    'consremark' => $consremark,
                 );
 
 
@@ -497,7 +432,7 @@ class Grn extends CI_Controller
                 $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
             }
         }
-        redirect('Grn/browse');
+        redirect('consumption/browse');
     }
     /* database in data display */
     public function server_data()
@@ -509,13 +444,13 @@ class Grn extends CI_Controller
         $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
 
         /* datatable recordsTotal And recordsFiltered */
-        $totalData = $this->$model->countTableRecords('po_master',array());
+        $totalData = $this->$model->countTableRecords('consumption',array());
 
         $start = $_POST['start'];
         $limit = $_POST['length'];
 
         /* datatable in limited data display */
-        $q = $this->db->query("SELECT * FROM `grn_master`  Order By $order LIMIT $start, $limit")->result();
+        $q = $this->db->query("SELECT * FROM `consumption`  Order By $order LIMIT $start, $limit")->result();
 
         $data = array();
 
@@ -524,21 +459,15 @@ class Grn extends CI_Controller
             foreach ($q as $key=>$value)
             {
                 /* records Datatable */
-                $id = 'grnid';
+                $id = 'consid';
 
-                $nestedData['grnrefid'] = $value->grnrefid;
-                $nestedData['grnreceivedate'] = $value->grnreceivedate;
                 $nestedData['sid'] = $value->sid;
-                $nestedData['vid'] = $value->vid;
-                $nestedData['grnchallan'] = $value->grnchallan;
+                $nestedData['conscreatedon'] = $value->conscreatedon;
                 $nestedData['mid'] = $value->mid;
-                $nestedData['grnqty'] = $value->grnqty;
-                $nestedData['grnunitprice'] = $value->grnunitprice;
+                $nestedData['consqty'] = $value->consqty;
+                $nestedData['consunitprice'] = $value->consunitprice;
                 $nestedData['muid'] = $value->muid;
-                $nestedData['grntruck'] = $value->grntruck;
-                $nestedData['grnlinechallan'] = $value->grnlinechallan;
-                $nestedData['tid'] = $value->tid;
-                $nestedData['grnremarks'] = $value->grnremarks;
+                $nestedData['consremark'] = $value->consremark;
                 $data[] = $nestedData;
             }
         }

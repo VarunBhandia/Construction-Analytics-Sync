@@ -3660,28 +3660,24 @@ elseif($action == 'update')
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-5 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="invoice_to" name="invoice_to" type="text" value="" autocomplete="off" >
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact Name
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-2 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="contact_name" name="contact_name" type="text" value="" autocomplete="off" >
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact No.
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-2 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="contact_no" name="contact_no" type="text" value="" autocomplete="off" >
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Terms & Conditions
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-5 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
                                                             </div>
                                                         </div>

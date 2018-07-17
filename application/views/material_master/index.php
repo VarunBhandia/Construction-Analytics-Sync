@@ -363,7 +363,7 @@
         function showAllMaterial() {
             $.ajax({
                 type: 'ajax',
-                url: '<?php echo base_url() ?>material/showAllMaterial',
+                url: '<?php echo base_url() ?>Material/showAllMaterial',
                 async: false,
                 dataType: 'json',
                 success: function(data) {
@@ -373,7 +373,7 @@
                         html += '<tr>' +
                             '<td>' + data[i].mid + '</td>' +
                             '<td>' + data[i].mname + '</td>' +
-                            '<td>' + data[i].munit + '</td>' +
+                            '<td>' + data[i].munit + '</td>' + <?php echo 'tet'; ?>
                             '<td>' + data[i].mcategory + '</td>' +
                             '<td>' + data[i].mdesc + '</td>' +
                             '<td>' + data[i].hsn + '</td>' +

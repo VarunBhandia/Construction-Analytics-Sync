@@ -3,6 +3,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Material extends CI_Controller{
 
+    public $table = 'materials';
+    public $sitetable = 'sitedetails';
+    public $controller = 'Material';
+    public $message = 'Construction';
+    public $primary_id = "mid";
+    public $model;
+
     function __construct(){
         parent:: __construct();
         $this->model = 'Model';
@@ -19,6 +26,11 @@ Class Material extends CI_Controller{
             $data['row'] = $this->Model->select(array(),'materials',array(),'');
             $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');
             $data['munits'] = $this->Model->select(array(),'munits',array(),'');
+            $model = $this->model;
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('material_master/index',$data);
         }
         else  
@@ -30,6 +42,8 @@ Class Material extends CI_Controller{
 
     public function view_table()
     {			
+        $this->load->model("material_m");
+        $this->load->model('Model');
         $data['controller'] = $this->controller;
         $model = $this->model;
         $result = $this->material_m->show_all_data();
@@ -87,9 +101,13 @@ Class Material extends CI_Controller{
 
     function fetch()
     {
+        $this->load->model('Model');
+        $data['controller'] = $this->controller;
+        $model = $this->model;
+        $data['units'] = $this->Model->select(array(),'munits',array(),'');
         $output = '';
         $query = '';
-        $this->load->model('material_m');
+        $this->load->model('Material_m');
         if($this->input->post('query'))
         {
             $query = $this->input->post('query');
@@ -107,7 +125,11 @@ Class Material extends CI_Controller{
       <tr>
        <td>'.$row->mid.'</td>
        <td>'.$row->mname.'</td>
-       <td>'.$row->munit.'</td>
+       <td>'; ?> 
+<?php foreach ($units as $unit){
+           if($row->muid == $unit->munit)
+           { echo '$unit->muname'; }} 
+                echo '</td>
        <td>'.$row->mcategory.'</td>
        <td>'.$row->mdesc.'</td>
        <td>'.$row->hsn.'</td>
@@ -116,8 +138,8 @@ Class Material extends CI_Controller{
        <td>'.$row->mtype.'</td>
        <td>'.$row->mcreatedby.'</td>
        <td>
-       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->mid.'">Edit</a>
-       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->mid.'">Delete</a></td>
+       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->mid.'"><i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>
+       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->mid.'"><i class="glyphicon glyphicon-trash icon-white"></i>Delete</a></td>
 
       </tr>';
             }

@@ -94,7 +94,11 @@ elseif($action == 'update')
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="x_panel">
                                                 <div class="x_title">
-                                                    <h2>Constructions <?php echo $action; ?></h2>
+                                                    <h2>Purchase Order</h2>
+                                                    <?php 
+                                                    $user_sites = explode(",",$user_details[0]->site);
+                                                    $count_site =  count($user_sites);
+                                                    ?>
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <div class="x_content">
@@ -103,31 +107,40 @@ elseif($action == 'update')
                                                         <?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
                                                         <div class="table-responsive">
                                                             <div class="form-group">
-                                                                <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
+                                                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Site
                                                                 </label>
-                                                                <div class="col-md-10 col-sm-6 col-xs-12">
+                                                                <div class="col-md-4 col-sm-6 col-xs-12">
 
-                                                                    <select class="sitename form-control" id="site" name="site">
+                                                                    <select class="itemname form-control" id="sid" name="site">
+                                                                        <option value="">---site name----</option>
                                                                         <?php
+
     foreach($sites as $site)
-    { ?>
-                                                                        <option <?php if($action != ''){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> value="<?php echo $site->sid?>"><?php echo $site->sname;?></option>
+    {                                                                   for($i=0;$i < $count_site;$i++){
+        if($user_sites[$i] == $site->sid ){ ?>
+                                                                        <option value="<?php echo $site->sid; ?>" >
+                                                                            <?php echo $site->sname;?>
+                                                                        </option>
+
+                                                                        <?php  }
+
+    }
+
+                                                                        ?>
                                                                         <?php }	?>
                                                                     </select>
                                                                     <script type="text/javascript">
-                                                                        $('.sitename').select2({
+                                                                        $('#sid').select2({
                                                                             placeholder: '--- Select Sites ---',
                                                                         });
-                                                                    </script>     
+                                                                    </script>
                                                                 </div>
-                                                            </div>
 
-                                                            <?php	$vid = explode(",",$row_po[0]->vid); ?>
+                                                                <?php	$vid = explode(",",$row_po[0]->vid); ?>
 
-                                                            <div class="form-group">
-                                                                <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Vendor
+                                                                <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Vendor
                                                                 </label>
-                                                                <div class="col-md-10 col-sm-6 col-xs-12">
+                                                                <div class="col-md-4 col-sm-6 col-xs-12">
 
                                                                     <select class="vendorname form-control select_width" id="vendor" name="vendor[]">
                                                                         <option value=""></option>
@@ -3608,49 +3621,39 @@ elseif($action == 'update')
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">CGST
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-1 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="cgst" name="csgt_total" type="text" value="" autocomplete="off" readonly>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12">SGST
+                                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">SGST
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-1 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="sgst" name="ssgt_total" type="text" value="" autocomplete="off" readonly>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12">IGST
+                                                            <label class="control-label col-md-1 col-sm-3 col-xs-12">IGST
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-1 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="igst" name="isgt_total" type="text" value="" autocomplete="off" readonly>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Total Amount
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-2 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="total_total" name="total_amount" type="text" value="" autocomplete="off" readonly>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Frieght Amount
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-1 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="frieght_amount" name="frieght_amount" type="text" value="" autocomplete="off" >
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">GST on Freight (in %)
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-2 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="frieght_gst" name="frieght_gst" type="text" value="" autocomplete="off" >
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Gross Amount
                                                             </label>
-                                                            <div class="col-md-10 col-sm-6 col-xs-12 form-group">
+                                                            <div class="col-md-2 col-sm-6 col-xs-12 form-group">
                                                                 <input class="form-control" id="gross_amount" name="gross_amount" type="text" value="" autocomplete="off" readonly>
                                                             </div>
                                                         </div>

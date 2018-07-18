@@ -24,6 +24,8 @@ class Wo extends CI_Controller
         {
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
 
             $this->load->view('wo/index',$data);
@@ -39,12 +41,16 @@ class Wo extends CI_Controller
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['workitems'] = $this->$model->select(array(),'workitems',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['subcontdetails'] = $this->$model->select(array(),'subcontdetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('wo/form',$data);
     }
 
@@ -131,6 +137,8 @@ class Wo extends CI_Controller
         $model = $this->model;
         $data['action'] = "update";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['workitems'] = $this->$model->select(array(),'workitems',array(),'');
@@ -138,6 +146,8 @@ class Wo extends CI_Controller
         $data['subcontdetails'] = $this->$model->select(array(),'subcontdetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('wo/form',$data);
     }
 

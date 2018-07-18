@@ -26,6 +26,8 @@ class Cp extends CI_Controller
             $data["cp_data"] = $this->cp_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
@@ -147,6 +149,8 @@ class Cp extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->cp_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -159,6 +163,8 @@ class Cp extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
@@ -191,14 +197,26 @@ class Cp extends CI_Controller
 
     public function form()
     {
+        if($this->session->userdata('username') != '')  
+        {
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('cp/form',$data);
+            }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
     }
 
     public function insert()
@@ -246,12 +264,16 @@ class Cp extends CI_Controller
     {
         $model = $this->model;
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$cpid),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['action'] = "update";
-        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('cp/form',$data);
     }
 
@@ -313,6 +335,8 @@ class Cp extends CI_Controller
         /* File Select */
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         /* Database In Data Count */
         $data['Count'] = $this->$model->countTableRecords('cp_master',array());
         $this->load->view('cp/excel',$data);

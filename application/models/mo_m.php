@@ -16,7 +16,7 @@ return $query->result();
 return false;
 }
 }
-public function show_data_by_id($sid) {
+public function show_data_by_id($data) {
     
 $condition = "sid =" . "'" . $sid . "'";
 $this->db->select('*');

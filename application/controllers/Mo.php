@@ -22,6 +22,8 @@ class Mo extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->mo_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -34,7 +36,13 @@ class Mo extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');       
         $sid = $this->input->post('sid');
+        $data['sid'] = $sid;          
         if ($sid != "") {
             $result = $this->mo_m->show_data_by_id($sid);
             if ($result != false) {
@@ -62,7 +70,12 @@ class Mo extends CI_Controller
             $data["mo_data"] = $this->mo_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             //$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
             $this->load->view('mo/index',$data);
         }  
@@ -120,18 +133,81 @@ class Mo extends CI_Controller
         $object_writer->save('php://output');
 
     }
+    
+    function select_by_id_action()
+
+    {
+        $sid = $this->input->post('sid');
+        $data['sid'] = $sid;                 
+        
+        $this->load->model("mo_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("moid",  "morefid", "tsid", "rsid", "mochallan", "mid", "muid", "modate", "moqty", "movehicle", "tid", "moremark", "mocreatedon", "mocreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $mo_data = $this->mo_m->show_data_by_id($data);
+
+        $excel_row = 2;
+
+        foreach($mo_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->moid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->morefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->tsid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->rsid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->mochallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->modate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->moqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->movehicle);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->moremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->mocreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->mocreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
 
     public function form()
+   {
+        if($this->session->userdata('username') != '') 
     {
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['tsites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['rsites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('mo/form',$data);
+    }
+         else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }
     }
 
     public function insert()
@@ -179,14 +255,18 @@ class Mo extends CI_Controller
     public function edit($moid)
     {
         $model = $this->model;
+        $data['action'] = "update";
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$moid),'');
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['tsites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['rsites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
-        $data['action'] = "update";
-        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('mo/form',$data);
     }
 

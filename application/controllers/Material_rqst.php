@@ -180,6 +180,8 @@ class Material_rqst extends CI_Controller
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/form',$data);
     }
 
@@ -226,6 +228,8 @@ class Material_rqst extends CI_Controller
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');		
         $data['action'] = "update";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/form',$data);
     }
 

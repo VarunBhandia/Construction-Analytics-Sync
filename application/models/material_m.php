@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Material_m extends CI_Model{
     public function showAllMaterial(){
+        
         $this->db->order_by('mid', 'desc');
         $query = $this->db->get('materials');
         if($query->num_rows() > 0){
@@ -120,13 +121,13 @@ class Material_m extends CI_Model{
             $this->db->or_like('mtype', $query);
             $this->db->or_like('mcreatedby', $query);
         }
-        $this->db->order_by('mid', 'DESC');
+        $this->db->order_by('mid', 'asc');
         return $this->db->get();
     }
 
     function fetch()
     {
-        $this->db->order_by("mid", "DESC");
+        $this->db->order_by("mid", "desc");
         $query = $this->db->get("materials");
         return $query->result();
     }

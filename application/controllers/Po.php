@@ -242,6 +242,8 @@ class Po extends CI_Controller
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['materials'] = $this->$model->select(array(),'materials',array(),'');
             $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $poid = $this->uri->segment(3);
             $this->load->view('po/form',$data);
         }
@@ -345,6 +347,8 @@ class Po extends CI_Controller
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('po/form',$data);
     }
 

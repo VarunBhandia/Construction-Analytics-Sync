@@ -1917,7 +1917,7 @@ elseif($action == 'update')
                                                                         $material = explode(",",$row[0]->mid);
                                                                         $qty = explode(",",$row[0]->mrqty);
                                                                         $unit = explode(",",$row[0]->mrunitprice);
-                                                                        $m_unit = explode(",",$row[0]->muid);
+//                                                                        $m_unit = explode(",",$row[0]->muid);
                                                                         $remarks = explode(",",$row[0]->mrremarks);
 
 

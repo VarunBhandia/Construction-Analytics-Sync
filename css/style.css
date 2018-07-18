@@ -41,14 +41,15 @@
 .ModuleTile{
     font-weight: 700;
     display: block;
-    margin-bottom: 2px;
+    margin-bottom: 15px;
     color: white;
     font-size: 1em;
     transition: all .3s ease-in-out;
     height: 11em;
-    width: 100%;}
+    width: 95%;}
 
 .ModuleTile:hover{
+    box-shadow: 8px 8px 17px 0px rgba(0,0,0,0.75);
     font-size: 1em;
     color: black;
     background-color: white;
@@ -57,7 +58,6 @@
 .ModuleHeading{
     text-transform: uppercase;
     text-align: center;
-    /*    padding-top: 30%;*/
     letter-spacing: 2px;
 }
 

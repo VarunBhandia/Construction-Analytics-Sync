@@ -246,7 +246,7 @@
                                                 $no = 1;
                                                 foreach($row as $test) {
                                                     for($i=0;$i < $count_site;$i++){
-                                                        if($user_sites[$i] == $test->tsid ){
+                                                        if($user_sites[$i] == $test->tsid || $user_sites[$i] == $test->rsid ){
                                                             ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>

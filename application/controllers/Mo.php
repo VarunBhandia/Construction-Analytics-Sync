@@ -5,7 +5,7 @@ class Mo extends CI_Controller
 {
     public $table = 'mo_master';
     public $controller = 'mo';
-    public $message = 'Construction';
+    public $message = 'Move Order';
     public $primary_id = "moid";
     public $model;
 
@@ -22,6 +22,8 @@ class Mo extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->mo_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -34,6 +36,8 @@ class Mo extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $sid = $this->input->post('sid');
         if ($sid != "") {
             $result = $this->mo_m->show_data_by_id($sid);
@@ -63,7 +67,9 @@ class Mo extends CI_Controller
             $model = $this->model;
             $data['controller'] = $this->controller;
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-            //$data['row'] = $this->$model->db_query("select * from test INNER JOIN vendor ON `vendor`.id = `test`.vendor");
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('mo/index',$data);
         }  
         else  
@@ -127,10 +133,12 @@ class Mo extends CI_Controller
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['tsites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['rsites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('mo/form',$data);
     }
 
@@ -144,8 +152,6 @@ class Mo extends CI_Controller
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
-
-        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
 
         $vehicle = count($this->input->post('vehicle')) > 0 ? implode(",",$this->input->post('vehicle')) : $this->input->post('$vehicle');
 
@@ -162,7 +168,6 @@ class Mo extends CI_Controller
             'modate'  => $date,
             'mid' => $material,
             'moqty'  => $qty,
-            'muid'  => $m_unit,
             'movehicle'  => $vehicle,
             'mochallan'  => $challan,
             'tid'  => $transporter,
@@ -185,6 +190,9 @@ class Mo extends CI_Controller
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['action'] = "update";
         $data['controller'] = $this->controller;
         $this->load->view('mo/form',$data);
@@ -203,8 +211,6 @@ class Mo extends CI_Controller
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
-        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
-
         $vehicle = count($this->input->post('$vehicle')) > 0 ? implode(",",$this->input->post('$vehicle')) : $this->input->post('$vehicle');
 
         $challan = count($this->input->post('$challan')) > 0 ? implode(",",$this->input->post('$challan')) : $this->input->post('$challan');
@@ -220,7 +226,6 @@ class Mo extends CI_Controller
             'modate'  => $date,
             'mid' => $material,
             'moqty'  => $qty,
-            'muid'  => $m_unit,
             'movehicle'  => $vehicle,
             'mochallan'  => $challan,
             'tid'  => $transporter,

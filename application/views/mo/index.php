@@ -130,12 +130,12 @@
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->moid;?></td>
-                                                                    <td><?php foreach($tsites as $site){
-                                                            if($site->tsid == $test->tsid ){echo $site->sname; }
+                                                                    <td><?php foreach($sites as $site){
+                                                            if($site->sid == $test->tsid ){echo $site->sname; }
 
                                                         } ?></td>		
-                                                                    <td><?php foreach($rsites as $site){
-                                                            if($site->rsid == $test->rsid ){echo $site->sname; }
+                                                                    <td><?php foreach($sites as $site){
+                                                            if($site->sid == $test->rsid ){echo $site->sname; }
 
                                                         } ?></td>	                      
                                                                     <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
@@ -182,11 +182,11 @@
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->moid;?></td>
                                                                 <td><?php foreach($sites as $tsite){
-                                                    if($tsite->tsid == $test->tsid ){echo $tsite->sname; }
+                                                    if($tsite->sid == $test->tsid ){echo $tsite->sname; }
 
                                                 } ?></td>			
                                                                 <td><?php foreach($sites as $rsite){
-                                                    if($rsite->rsid == $test->rsid ){echo $rsite->sname; }
+                                                    if($rsite->sid == $test->rsid ){echo $rsite->sname; }
 
                                                 } ?></td>	 						  
                                                                 <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>

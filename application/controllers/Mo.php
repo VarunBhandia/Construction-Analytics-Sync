@@ -70,6 +70,7 @@ class Mo extends CI_Controller
             $username = $this->session->userdata('username');
             $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $this->load->view('mo/index',$data);
         }  
         else  

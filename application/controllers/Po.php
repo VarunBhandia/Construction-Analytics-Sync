@@ -131,7 +131,6 @@ class Po extends CI_Controller
     }
 
     function select_by_id_action()
-
     {
         $sid = $this->input->post('sid');
         $vid = $this->input->post('vid');

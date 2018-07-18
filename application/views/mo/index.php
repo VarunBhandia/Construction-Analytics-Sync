@@ -84,21 +84,81 @@
                                         <div class="x_panel">
                                             <div class="x_title">
                                                 <h1>Move Order</h1>
-                                                <ul class="nav navbar-right panel_toolbox">
-                                                    <li><a href="<?php echo base_url()?>mo/form"><button class="btn btn-primary">Add New MO</button></a>
+                                                <?php 
+                                                $user_sites = explode(",",$user_details[0]->site);
+                                                $count_site =  count($user_sites);
+                                                ?>
+                                                <div align="right">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-8">
+                                                        <form method="post" action="<?php echo base_url()?>mo/select_by_id">
+                                                            <div class="row">
+                                                                <div class="col-md-5">
+                                                                    <select class="itemname form-control" id="tsid" name="tsid">
+                                                                        <option value="">---Transferring Site Name----</option>
+                                                                        <?php
+
+    foreach($sites as $site)
+    {                                                                   for($i=0;$i < $count_site;$i++){
+        if($user_sites[$i] == $site->sid ){ ?>
+                                                                        <option value="<?php echo $site->sid; ?>" >
+                                                                            <?php echo $site->sname;?>
+                                                                        </option>
+
+                                                                        <?php  }
+
+    }
+
+                                                                        ?>
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('#tsid').select2({
+                                                                            placeholder: '--- Select Transferring Site ---',
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-4">
+                                                                    <select class="itemname form-control" id="rsid" name="rsid">
+                                                                        <option value="">---Requesting Site Name----</option>
+                                                                        <?php
+                                                                        foreach($sites as $site)
+                                                                        {?>
+                                                                        <option value="<?php echo $site->sid; ?>" >
+                                                                            <?php echo $site->sname;?>
+                                                                        </option>
+
+
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('#rsid').select2({
+                                                                            placeholder: '--- Select Requesting Site  ---',
+                                                                        });
+                                                                    </script>
+                                                                </div>
+                                                                <div class="col-md-1"></div>
+                                                                <div class="col-md-1">
+                                                                    <input type="submit" value="Show Record" class="btn btn-success" >
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="col-md-3">
                                                         <div align="right">
-                                                            <form method="post" action="<?php echo base_url()?>mo/action">
-                                                                <input type="submit" name="export" class="btn btn-success" value="Export" />
-                                                            </form>
+                                                            <ul class="nav navbar-right panel_toolbox">
+                                                                <li><a href="<?php echo base_url()?>mo/form"><button class="btn btn-primary">Add New MO</button></a>
+                                                                </li>
+                                                            </ul>
                                                         </div>
-                                                    </li>
-                                                </ul>
-                                                <div class="clearfix"></div>
-                                            </div>
-                                            <?php
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <?php
     echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
-                                            ?>
-                                            <div class="message">
+                                                ?>
                                                 <?php
                                                 if (isset($result_display))
                                                 {
@@ -109,6 +169,11 @@
                                                     }
                                                     else
                                                     { ?>
+                                                <form method="post" action="<?php echo base_url()?>mo/select_by_id_action">
+                                                    <input type="hidden" value="<?php echo $tsid; ?>" name="tsid" >
+                                                    <input type="hidden" value="<?php echo $rsid; ?>" name="rsid" >
+                                                    <input type="submit" name="export" class="btn btn-success" value="Export" />
+                                                </form>	
 
                                                 <div id="table-scroll" class="table-scroll">
                                                     <div class="table-wrap">
@@ -125,26 +190,25 @@
                                                             </thead>
                                                             <tbody>
                                                                 <?php
-                                                        $no = 1;
-                                                        foreach($result_display as $test) {?>
+                                                     $no = 1;
+                                                     foreach($result_display as $test) {?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->moid;?></td>
-                                                                    <td><?php foreach($sites as $site){
-                                                            if($site->sid == $test->tsid ){echo $site->sname; }
+                                                                    <td><?php foreach($sites as $tsite){
+                                                         if($tsite->sid == $test->tsid ){echo $tsite->sname; }
 
-                                                        } ?></td>		
-                                                                    <td><?php foreach($sites as $site){
-                                                            if($site->sid == $test->rsid ){echo $site->sname; }
+                                                     } ?></td>			
+                                                                    <td><?php foreach($sites as $rsite){
+                                                         if($rsite->sid == $test->rsid ){echo $rsite->sname; }
 
-                                                        } ?></td>	                      
+                                                     } ?></td>	 						  
                                                                     <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
-                                                                    <td><?php echo $test->modate;?></td>
                                                                     <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
-                                                                                          }
+                                                                                       }
                                                                 ?>
                                                             </tbody>
                                                         </table>
@@ -154,13 +218,16 @@
                                                 }
                                                 ?>
 
+                                                <div class="clearfix"></div>
                                             </div>
                                             <?php
                                             $showtable = $this->uri->segment(2);
                                             if($showtable != 'select_by_id'){
 
                                             ?>
-
+                                            <form method="post" action="<?php echo base_url()?>mo/action">
+                                                <input type="submit" name="export" class="btn btn-success" value="Export" />
+                                            </form>
                                             <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">
                                                     <table id="datatable" class="main-table table table-striped table-bordered">
@@ -190,7 +257,6 @@
 
                                                 } ?></td>	 						  
                                                                 <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
-                                                                <td><?php echo $test->modate;?></td>
                                                                 <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>

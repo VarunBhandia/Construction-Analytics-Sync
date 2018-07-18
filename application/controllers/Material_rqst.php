@@ -203,6 +203,7 @@ class Material_rqst extends CI_Controller
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
         $mrrecievedate = date('Y-m-d',strtotime($this->input->post('mrrecievedate')));
+        $date = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -216,7 +217,7 @@ class Material_rqst extends CI_Controller
             'sid'  => $site,
             'mrcreatedby'  => $uid,
             'mrrecievedate'  => $mrrecievedate,
-//            'mrcreatedon'  => $date,
+            'mrcreatedon'  => $date,
             'mid' => $mid,
             'mrqty'  => $qty,
             'mrunitprice'  => $unit,
@@ -254,6 +255,7 @@ class Material_rqst extends CI_Controller
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
         $mrrecievedate = date('Y-m-d',strtotime($this->input->post('mrrecievedate')));
+        $date = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -266,7 +268,7 @@ class Material_rqst extends CI_Controller
         $data = array(
             'sid'  => $site,
             'mrupdatedby'  => $uid,
-//            'mrcreatedon'  => $date,
+            'mrcreatedon'  => $date,
             'mrrecievedate'  => $mrrecievedate,
             'mid' => $mid,
             'mrqty'  => $qty,

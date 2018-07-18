@@ -141,7 +141,7 @@ elseif($action == 'update')
                                                             <label class="control-label col-md-1 col-sm-3 col-xs-12">Date
                                                             </label>
                                                             <div class="col-md-2 col-sm-6 col-xs-12 form-group">
-                                                                <input class="form-control" id="date" name="mrrecievedate" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y H:i:s",strtotime($row[0]->mrreceivedate)) :  date("d-m-Y H:i:s"); ?>" autocomplete="off">
+                                                                <input class="form-control" id="date" name="mrrecievedate" type="text" value="<?php if ($action == 'update'){echo date("d-m-Y",strtotime($row[0]->mrrecievedate));} ?>" autocomplete="off">
                                                             </div>
                                                         </div>
                                                         <div class="datatable-responsive">

@@ -244,25 +244,30 @@
                                                         <tbody>
                                                             <?php
                                                 $no = 1;
-                                                foreach($row as $test) {?>
+                                                foreach($row as $test) {
+                                                    for($i=0;$i < $count_site;$i++){
+                                                        if($user_sites[$i] == $test->tsid || $user_sites[$i] == $test->rsid ){
+                                                            ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->moid;?></td>
                                                                 <td><?php foreach($sites as $tsite){
-                                                    if($tsite->sid == $test->tsid ){echo $tsite->sname; }
+                                                            if($tsite->sid == $test->tsid ){echo $tsite->sname; }
 
-                                                } ?></td>			
+                                                        } ?></td>			
                                                                 <td><?php foreach($sites as $rsite){
-                                                    if($rsite->sid == $test->rsid ){echo $rsite->sname; }
+                                                            if($rsite->sid == $test->rsid ){echo $rsite->sname; }
 
-                                                } ?></td>	 						  
+                                                        } ?></td>	 						  
                                                                 <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
                                                                 <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>
                                                             <?php
-                                                                       }
-                                                            ?>
+                                                                                          }
+
+                                                    }} ?>
+
                                                         </tbody>
                                                     </table>
                                                 </div>

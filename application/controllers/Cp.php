@@ -226,6 +226,7 @@ class Cp extends CI_Controller
         $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $creationdate = date('Y-m-d H:i:s');
         $challan = $this->input->post('challan');
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -244,6 +245,7 @@ class Cp extends CI_Controller
             'cpcreatedby'  => $uid,
             'vid'  => $vendor,
             'cppurchasedate'  => $date,
+            'cpcreatedon' => $creationdate,
             'cpchallan' => $challan,
             'mid' => $material,
             'cpqty'  => $qty,
@@ -285,6 +287,7 @@ class Cp extends CI_Controller
         $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
         $challan = $this->input->post('challan');
 
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -301,9 +304,10 @@ class Cp extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'cpcreatedby'  => $uid,
+            'cpupdatedby'  => $uid,
             'vid'  => $vendor,
             'cppurchasedate'  => $date,
+            'cpupdatedon' => $updateddate,
             'cpchallan' => $challan,
             'mid' => $material,
             'cpqty'  => $qty,

@@ -220,6 +220,7 @@ class Rtv extends CI_Controller
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $cdate = date('Y-m-d H:i:s');       
         $vchallan = $this->input->post('vchallan');
         $schallan = $this->input->post('schallan');
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -240,6 +241,7 @@ class Rtv extends CI_Controller
             'schallan' => $schallan,
             'tid' => $transporter,
             'rtvreturndate'  => $date,
+            'rtvcreatedon' => $cdate,
             'mid' => $material,
             'rtvqty'  => $qty,
             'muid'  => $m_unit,
@@ -281,6 +283,7 @@ class Rtv extends CI_Controller
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
         $vchallan = $this->input->post('vchallan');
         $schallan = $this->input->post('schallan');
 
@@ -296,10 +299,11 @@ class Rtv extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'rtvcreatedby'  => $uid,
+            'rtvupdatedby'  => $uid,
             'vid'  => $vendor,
             'tid'  => $transporter,
             'rtvreturndate'  => $date,
+            'rtvupdatedon' => $updateddate,
             'vchallan' => $vchallan,
             'schallan' => $schallan,
             'mid' => $material,

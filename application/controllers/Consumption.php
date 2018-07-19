@@ -202,6 +202,8 @@ class Consumption extends CI_Controller
         $uid = $this->input->post('uid');
 
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $creationdate = date('Y-m-d H:i:s');
+
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -217,6 +219,7 @@ class Consumption extends CI_Controller
             'sid'  => $site,
             'conscreatedby'  => $uid,
             'consissuedate'  => $date,
+            'conscreatedon' => $creationdate,
             'mid' => $mid,
             'consqty'  => $qty,
             'consunitprice'  => $unit,
@@ -256,6 +259,7 @@ class Consumption extends CI_Controller
         $uid = $this->input->post('uid');
 
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -269,8 +273,9 @@ class Consumption extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'conscreatedby'  => $uid,
+            'consupdatedby'  => $uid,
             'consissuedate'  => $date,
+            'consupdatedon' => $updateddate,
             'mid' => $mid,
             'consqty'  => $qty,
             'consunitprice'  => $unit,

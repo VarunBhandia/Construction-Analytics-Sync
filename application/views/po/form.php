@@ -109,31 +109,12 @@ elseif($action == 'update')
                                                             <div class="form-group">
                                                                 <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Site
                                                                 </label>
-                                                                <div class="col-md-4 col-sm-6 col-xs-12">
+                                                                <div class="control-form col-md-5 col-sm-3 col-xs-12" >                                                                    <?php
+                                                                        foreach($sites as $site){
+                                                                            if($site->sid == $row[0]->sid){ echo $site->sname; }
+                                                                        }
+                                                                    ?>
 
-                                                                    <select class="itemname form-control" id="sid" name="site">
-                                                                        <option value="">---site name----</option>
-                                                                        <?php
-
-    foreach($sites as $site)
-    {                                                                   for($i=0;$i < $count_site;$i++){
-        if($user_sites[$i] == $site->sid ){ ?>
-                                                                        <option value="<?php echo $site->sid; ?>" >
-                                                                            <?php echo $site->sname;?>
-                                                                        </option>
-
-                                                                        <?php  }
-
-    }
-
-                                                                        ?>
-                                                                        <?php }	?>
-                                                                    </select>
-                                                                    <script type="text/javascript">
-                                                                        $('#sid').select2({
-                                                                            placeholder: '--- Select Sites ---',
-                                                                        });
-                                                                    </script>
                                                                 </div>
 
                                                                 <?php	$vid = explode(",",$row_po[0]->vid); ?>

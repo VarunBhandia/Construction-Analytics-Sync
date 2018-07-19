@@ -152,9 +152,9 @@
                                                         <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                     </form>	
 
-                                                    <div id="datatable" class="table-scroll">
+                                                    <div class="table-scroll">
                                                         <div class="table-wrap">
-                                                            <table id="datatable" class="main-table table table-striped table-bordered">
+                                                            <table id="datatable1" class="main-table table table-striped table-bordered">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>
@@ -165,18 +165,17 @@
                                                                 </thead>
                                                                 <tbody>
                                                                     <?php
-                                                         foreach($sites as $site)
-                                                         {                                                                   for($i=0;$i < $count_site;$i++){
-                                                             if($user_sites[$i] == $site->sid ){
-                                                                 $no = 1;
-
-                                                                 foreach($result_display as $test) {?>
+                                                         $no = 1;
+                                                         foreach($result_display as $test) {
+                                                             for($i=0;$i < $count_site;$i++){
+                                                                 if($user_sites[$i] == $test->sid ){
+                                                                    ?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
                                                                         <td><?php foreach($sites as $site){
-                                                                     if($site->sid == $test->sid ){echo $site->sname; }
+                                                                        if($site->sid == $test->sid ){echo $site->sname; }
 
-                                                                 } ?></td>
+                                                                    } ?></td>
                                                                         <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
                                                                         <td>
                                                                             <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
@@ -186,9 +185,9 @@
                                                                         <?php $no++;?>
                                                                     </tr>
                                                                     <?php
-                                                                                                   }
+                                                                 }
 
-                                                             }}} ?>
+                                                             }} ?>
 
 
                                                                 </tbody>
@@ -209,9 +208,9 @@
                                                     <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                 </form>
 
-                                                <div id="table-scroll" class="table-scroll">
+                                                <div class="table-scroll">
                                                     <div class="table-wrap">
-                                                        <table id="datatable" class="main-table table table-striped table-bordered">
+                                                        <table id="datatable2" class="main-table table table-striped table-bordered">
                                                             <thead>
                                                                 <thead>
                                                                     <tr>
@@ -252,7 +251,11 @@
                                                                 ?>
                                                             </tbody>
                                                         </table>
-                                                    </div>
+                                                        <script>
+                                                            $(document).ready(function() {
+                                                                $('#datatable2').DataTable();
+                                                            } );
+                                                        </script>                                                    </div>
                                                 </div> <?php 
                                                 } ?>  
 
@@ -272,3 +275,8 @@
                         jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
                     });
                 </script>
+                <script>
+                    $(document).ready(function() {
+                        $('#datatable1').DataTable();
+                    } );
+                </script>    

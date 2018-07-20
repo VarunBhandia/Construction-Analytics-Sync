@@ -263,8 +263,7 @@ class Mo extends CI_Controller
     {
         $model = $this->model;
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$moid),'');
-        $data['tsites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['rsites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');

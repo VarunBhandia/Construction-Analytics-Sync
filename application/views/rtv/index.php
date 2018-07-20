@@ -78,6 +78,7 @@
                     <!-- page content -->
                     <div class="right_col" role="main">          
                         <div class="clearfix"></div>
+                       
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -137,12 +138,42 @@
                                                                         });
                                                                     </script>
                                                                 </div>
+                                                                 <div id="show_form">
+                <h2>Date Filter</h2>
+                <?php
+                
+                echo form_open('rtv/select_by_date_range');
+                echo form_label('Select By Range Of Dates : ');
+                echo "From : ";
+
+                $data = array(
+                    'type' => 'date',
+                    'name' => 'date_from',
+                    'placeholder' => 'yyyy-mm-dd'
+                );
+                echo form_input($data);
+                echo " To : ";
+
+                $data = array(
+                    'type' => 'date',
+                    'name' => 'date_to',
+                    'placeholder' => 'yyyy-mm-dd'
+                );
+                echo form_input($data);
+                echo "<div class='error_msg'>";
+                if (isset($date_range_error_message)) {
+                    echo $date_range_error_message;
+                }
+                ?>
                                                                 <div class="col-md-1"></div>
                                                                 <div class="col-md-1">
+                                                                
                                                     <input type="submit" value="Show Record" class="btn btn-success" >
                                                        </div>
                                                     </div>
+                                                    </div>
                                                 </form>
+                                                
                                             </div>
                                             <div class="col-md-3">
                                                 <div align="right">

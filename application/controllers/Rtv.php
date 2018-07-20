@@ -31,6 +31,29 @@ class Rtv extends CI_Controller
             return 'Database is empty !';
         }
     }
+    
+    public function select_by_date_range() {
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
+        if ($date1 == "" || $date2 == "") {
+            $data['date_range_error_message'] = "Both date fields are required";
+        } else {
+            $result = $this->rtv_m->show_data_by_date_range($data);
+            if ($result != false) {
+                $data['result_display'] = $result;
+            } else {
+                $data['result_display'] = "No record found !";
+            }
+        }
+        $data['show_table'] = $this->view_table();
+        $this->load->view('rtv/index', $data);
+    }
+
+    
 
     public function select_by_id() 
     {

@@ -154,7 +154,7 @@
 
                                                     <div class="table-scroll">
                                                         <div class="table-wrap">
-                                                            <table id="datatable1" class="main-table table table-striped table-bordered">
+                                                            <table id="datatable" class="main-table table table-striped table-bordered">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>
@@ -210,7 +210,7 @@
 
                                                 <div class="table-scroll">
                                                     <div class="table-wrap">
-                                                        <table id="datatable2" class="main-table table table-striped table-bordered">
+                                                        <table id="datatable" class="main-table table table-striped table-bordered">
                                                             <thead>
                                                                 <thead>
                                                                     <tr>

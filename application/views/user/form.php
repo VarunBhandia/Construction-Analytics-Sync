@@ -12,7 +12,6 @@ elseif($action == 'update')
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Meta, title, CSS, favicons, etc. -->
@@ -21,7 +20,7 @@ elseif($action == 'update')
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-        <title>USER </title>
+        <title>User</title>
 
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -33,7 +32,7 @@ elseif($action == 'update')
         <!-- bootstrap-daterangepicker -->
         <link href="<?php echo base_url();?>assets/css/daterangepicker.css" rel="stylesheet">
         <!-- bootstrap-datetimepicker -->
-        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-datepicker3.css" />
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-datepicker3.css"/>
 
         <link href="<?php echo base_url();?>assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
@@ -45,6 +44,7 @@ elseif($action == 'update')
 
         <!-- Custom Theme Style -->
         <link href="<?php echo base_url();?>assets/css/custom.min.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
 
         <!--     Select2 JS and CSS Files -->
         <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js')?>" type='text/javascript'></script>
@@ -59,16 +59,12 @@ elseif($action == 'update')
             <div class="main_container">
                 <div class="col-md-3 left_col">
                     <div class="left_col scroll-view">
-                        <div class="navbar nav_title" style="border: 0;">
-                            <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
-                        </div>
+
 
                         <!-- sidebar menu -->
-                        <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                            <div class="menu_section">
-                            </div>
-
-                        </div>
+                        <?php
+    $this->load->view('include/sidebar');
+                        ?>
                         <!-- /sidebar menu -->
                     </div>
                 </div>
@@ -84,8 +80,8 @@ elseif($action == 'update')
                         </nav>
                     </div>
                 </div>
-                <!-- /top navigation -->
 
+                <!--    Top navigation-->
                 <body class="nav-md">
                     <div class="container body">
                         <div class="main_container">
@@ -109,36 +105,36 @@ elseif($action == 'update')
                                                         <div class="form-group">
                                                             <h2>Personal Details</h2>
                                                             <div class="row">
-                                                            <label class="control-label col-md-1 col-sm-6 col-xs-12" for="name">Username
-                                                            </label>
-                                                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                                                <input type="text" id="uname" name="uname" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->username : '';?>" autocomplete="off" required>
-                                                            </div>
-                                                            <label class="control-label col-md-1 col-sm-6 col-xs-12" for="name">Password
-                                                            </label>
-                                                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                                                <input type="Password" id="password" name="password" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->password : '';?>" autocomplete="off" required>
-                                                            </div>
-                                                            <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Email
-                                                            </label>
-                                                            <div class="col-md-2 col-sm-6 col-xs-12">
-                                                                <input type="Email" id="uemail" name="uemail" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->uemail : '';?>" autocomplete="off">
-                                                            </div>
+                                                                <label class="control-label col-md-1 col-sm-6 col-xs-12" for="name">Username
+                                                                </label>
+                                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                    <input type="text" id="uname" name="uname" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->username : '';?>" autocomplete="off" required>
+                                                                </div>
+                                                                <label class="control-label col-md-1 col-sm-6 col-xs-12" for="name">Password
+                                                                </label>
+                                                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                                                    <input type="Password" id="password" name="password" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->password : '';?>" autocomplete="off" required>
+                                                                </div>
+                                                                <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Email
+                                                                </label>
+                                                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                                                    <input type="Email" id="uemail" name="uemail" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->uemail : '';?>" autocomplete="off">
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="row">
-                                                            <label class="control-label col-md-1 col-sm-6 col-xs-12" for="name">Address
-                                                            </label>
-                                                            <div class="col-md-7 col-sm-6 col-xs-12">
-                                                                <input type="text" id="uaddress" name="uaddress" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->uaddress : '';?>" autocomplete="off">
-                                                            </div>
-                                                            <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Mobile Number
-                                                            </label>
-                                                            <div class="col-md-2 col-sm-6 col-xs-12">
-                                                                <input type="text" id="umobile" name="umobile" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->umobile : '';?>" autocomplete="off" required>
-                                                            </div>
+                                                                <label class="control-label col-md-1 col-sm-6 col-xs-12" for="name">Address
+                                                                </label>
+                                                                <div class="col-md-7 col-sm-6 col-xs-12">
+                                                                    <input type="text" id="uaddress" name="uaddress" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->uaddress : '';?>" autocomplete="off">
                                                                 </div>
+                                                                <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Mobile Number
+                                                                </label>
+                                                                <div class="col-md-2 col-sm-6 col-xs-12">
+                                                                    <input type="text" id="umobile" name="umobile" class="form-control col-md-7 col-xs-12" value="<?php echo ($action == 'update') ? $row[0]->umobile : '';?>" autocomplete="off" required>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                         <div class="form-group">
                                                         </div>
@@ -306,7 +302,7 @@ elseif($action == 'update')
 
                                                         <div class="form-group">
                                                             <div class="col-md-2 col-sm-6 col-xs-12">
-                                                            <input type="checkbox" id="selectall" onClick="selectAll(this)" />Select All<br>
+                                                                <input type="checkbox" id="selectall" onClick="selectAll(this)" />Select All<br>
                                                             </div>
                                                             <div class="col-md-12 col-sm-6 col-xs-12">
                                                                 <?php
@@ -317,7 +313,7 @@ elseif($action == 'update')
 
                                                                 ?>
                                                                 <div class="col-md-3">
-                                            <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid; ?>" <?php if($action=='update' ){ for($x=0 ; $x <=$count_site + 1 ; $x++){echo $user_sites[$x]==$site->sid ? 'checked' : '' ;} ;}?>>
+                                                                    <input type="checkbox" class="" name="site[]" value="<?php echo $site->sid; ?>" <?php if($action=='update' ){ for($x=0 ; $x <=$count_site + 1 ; $x++){echo $user_sites[$x]==$site->sid ? 'checked' : '' ;} ;}?>>
                                                                     <?php echo '('.$site->sid.') '.$site->sname;
                                                                     ?>
                                                                 </div>

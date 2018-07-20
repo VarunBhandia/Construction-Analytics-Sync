@@ -24,6 +24,7 @@ class Rtv extends CI_Controller
         $model = $this->model;
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->rtv_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -31,8 +32,16 @@ class Rtv extends CI_Controller
             return 'Database is empty !';
         }
     }
-    
+
     public function select_by_date_range() {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $date1 = $this->input->post('date_from');
         $date2 = $this->input->post('date_to');
         $data = array(
@@ -44,16 +53,24 @@ class Rtv extends CI_Controller
         } else {
             $result = $this->rtv_m->show_data_by_date_range($data);
             if ($result != false) {
-                $data['result_display'] = $result;
+                $data['result_display_date'] = $result;
             } else {
-                $data['result_display'] = "No record found !";
+                $data['result_display_date'] = "No record found !";
             }
         }
+        $data['controller'] = $this->controller;
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('rtv/index', $data);
     }
 
-    
+
 
     public function select_by_id() 
     {

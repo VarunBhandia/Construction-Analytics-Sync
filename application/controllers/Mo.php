@@ -266,10 +266,10 @@ class Mo extends CI_Controller
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
         $data['action'] = "update";
         $data['controller'] = $this->controller;
         $this->load->view('mo/form',$data);

@@ -31,6 +31,29 @@ class Rtv extends CI_Controller
             return 'Database is empty !';
         }
     }
+    
+    public function select_by_date_range() {
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
+        if ($date1 == "" || $date2 == "") {
+            $data['date_range_error_message'] = "Both date fields are required";
+        } else {
+            $result = $this->rtv_m->show_data_by_date_range($data);
+            if ($result != false) {
+                $data['result_display'] = $result;
+            } else {
+                $data['result_display'] = "No record found !";
+            }
+        }
+        $data['show_table'] = $this->view_table();
+        $this->load->view('rtv/index', $data);
+    }
+
+    
 
     public function select_by_id() 
     {
@@ -220,6 +243,7 @@ class Rtv extends CI_Controller
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $cdate = date('Y-m-d H:i:s');       
         $vchallan = $this->input->post('vchallan');
         $schallan = $this->input->post('schallan');
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -240,6 +264,7 @@ class Rtv extends CI_Controller
             'schallan' => $schallan,
             'tid' => $transporter,
             'rtvreturndate'  => $date,
+            'rtvcreatedon' => $cdate,
             'mid' => $material,
             'rtvqty'  => $qty,
             'muid'  => $m_unit,
@@ -281,6 +306,7 @@ class Rtv extends CI_Controller
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
         $vchallan = $this->input->post('vchallan');
         $schallan = $this->input->post('schallan');
 
@@ -296,10 +322,11 @@ class Rtv extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'rtvcreatedby'  => $uid,
+            'rtvupdatedby'  => $uid,
             'vid'  => $vendor,
             'tid'  => $transporter,
             'rtvreturndate'  => $date,
+            'rtvupdatedon' => $updateddate,
             'vchallan' => $vchallan,
             'schallan' => $schallan,
             'mid' => $material,

@@ -73,6 +73,7 @@ class Wo extends CI_Controller
         $contact_no = $this->input->post('contact_no');
         $tandc = $this->input->post('tandc');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $creationdate = date('Y-m-d H:i:s');        
 
         $wiid = count($this->input->post('workitem')) > 0 ? implode(",",$this->input->post('workitem')) : $this->input->post('workitem');
 
@@ -121,7 +122,8 @@ class Wo extends CI_Controller
             'wocontactname'  => $contact_name,
             'wocontactno'  => $contact_no,
             'wotandc'  => $tandc,	
-            'wocreatedon'  => $date
+            'wodate'  => $date,
+            'wocreatedon' => $creationdate
 
         );
 
@@ -170,6 +172,7 @@ class Wo extends CI_Controller
         $contact_no = $this->input->post('contact_no');
         $tandc = $this->input->post('tandc');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
 
         $wiid = count($this->input->post('workitem')) > 0 ? implode(",",$this->input->post('workitem')) : $this->input->post('workitem');
 
@@ -218,7 +221,8 @@ class Wo extends CI_Controller
             'wocontactname'  => $contact_name,
             'wocontactno'  => $contact_no,
             'wotandc'  => $tandc,	
-            'wocreatedon'  => $date
+            'wodate'  => $date,
+            'woupdatedon' => $updateddate
 
         );
 

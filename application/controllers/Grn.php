@@ -231,6 +231,7 @@ class Grn extends CI_Controller
         $vendor = $this->input->post('vendor');
         $challan = $this->input->post('challan');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $creationdate = date('Y-m-d H:i:s');       
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
@@ -253,6 +254,7 @@ class Grn extends CI_Controller
             'vid'  => $vendor,
             'grnchallan' => $challan,
             'grnreceivedate'  => $date,
+            'grncreatedon' => $creationdate,
             'mid' => $material,
             'grnqty'  => $qty,
             'grnunitprice'  => $unit,
@@ -297,6 +299,7 @@ class Grn extends CI_Controller
         $vendor = $this->input->post('vendor');
         $challan = $this->input->post('challan');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
 
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -316,10 +319,11 @@ class Grn extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'grncreatedby'  => $uid,
+            'grnupdatedby'  => $uid,
             'vid'  => $vendor,
             'grnchallan' => $challan,
             'grnreceivedate'  => $date,
+            'grnupdatedon' => $updateddate,
             'mid' => $material,
             'grnqty'  => $qty,
             'grnunitprice'  => $unit,

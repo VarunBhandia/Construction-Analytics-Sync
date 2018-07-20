@@ -74,10 +74,11 @@ error_reporting(0);
                       </div>
 	<div class="table-responsive">
         
-		<table id="datatable" table class="table table-striped jambo_table" style="width:100%;">
+		<table id="datatable1" table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
 					<tr class="headings">
-					<th class="column-title">Work Items</th>
+					<th class="column-title">Work Items</th>	
+					<th class="column-title">Unit</th>	
 					<th class="column-title">Quantity</th>
 					<th class="column-title">Unit Price</th>
 					<th class="column-title">Discount Type</th>

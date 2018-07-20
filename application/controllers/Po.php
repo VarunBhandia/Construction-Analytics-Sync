@@ -269,7 +269,7 @@ class Po extends CI_Controller
         $contact_name = $this->input->post('contact_name');
         $contact_no = $this->input->post('contact_no');
         $tandc = $this->input->post('tandc');
-        $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $date = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -369,7 +369,7 @@ class Po extends CI_Controller
         $vendor = $this->input->post('vendor');
         $contact_no = $this->input->post('contact_no');
         $tandc = $this->input->post('tandc');
-        $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -395,7 +395,7 @@ class Po extends CI_Controller
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
         $data = array(
             'sid'  => $site,
-            'pocreatedby'  => $uid,
+            'poupdatedby'  => $uid,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,
@@ -407,7 +407,7 @@ class Po extends CI_Controller
             'contact_name'  => $contact_name,
             'contact_no'  => $contact_no,
             'tandc'  => $tandc,
-            'pocreatedon'  => $date,
+            'poupdatedon'  => $updateddate,
             'mid'  => $mid,
             'm_unit'  => $m_unit,
             'qty'  => $qty,

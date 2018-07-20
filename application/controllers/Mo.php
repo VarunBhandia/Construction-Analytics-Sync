@@ -224,6 +224,8 @@ class Mo extends CI_Controller
         $rsite = $this->input->post('rsite');
         $uid = $this->input->post('uid');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $creationdate = date('Y-m-d H:i:s');
+        
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
@@ -241,6 +243,7 @@ class Mo extends CI_Controller
             'rsid'  => $rsite,
             'mocreatedby'  => $uid,
             'modate'  => $date,
+            'mocreatedon' => $creationdate,
             'mid' => $material,
             'moqty'  => $qty,
             'movehicle'  => $vehicle,
@@ -281,6 +284,7 @@ class Mo extends CI_Controller
         $rsite = $this->input->post('rsite');
         $uid = $this->input->post('uid');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');        
 
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -297,8 +301,9 @@ class Mo extends CI_Controller
         $data = array(
             'tsid'  => $tsite,
             'rsid'  => $rsite,
-            'mocreatedby'  => $uid,
+            'moupdatedby'  => $uid,
             'modate'  => $date,
+            'moupdatedon' => $updateddate,
             'mid' => $material,
             'moqty'  => $qty,
             'movehicle'  => $vehicle,

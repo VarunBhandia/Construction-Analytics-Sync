@@ -262,7 +262,13 @@
                                                             echo $result_display_date;
                                                         }
                                                         else
-                                                        { ?>				
+                                                        { ?>
+                                                    <form method="post" action="<?php echo base_url()?>rtv/select_by_date_range_action">
+                                                        <input type="hidden" value="<?php echo $date1; ?>" name="date_from">
+                                                        <input type="hidden" value="<?php echo $date2; ?>" name="date_to">
+                                                        <input type="submit" name="export" class="btn btn-success" value="Export" />
+
+                                                    </form>		    
                                                     <div id="table-scroll" class="table-scroll">
                                                         <div class="table-wrap">
                                                             <table id="datatable" class="main-table table table-striped table-bordered">

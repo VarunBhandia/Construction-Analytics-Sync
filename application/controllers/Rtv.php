@@ -130,7 +130,6 @@ class Rtv extends CI_Controller
     }
 
     function action()
-
     {
         $this->load->model("rtv_m");
         $this->load->library("excel");
@@ -179,8 +178,63 @@ class Rtv extends CI_Controller
 
     }
 
-    function select_by_id_action()
+    function select_by_date_range_action()
+    {
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
 
+        $this->load->model("rtv_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("rtvid",  "rtvrefid", "sid", "vid", "rtvreturndate", "vchallan", "schallan", "mid", "muid", "rtvqty",  "rtvtruck", "rtvremark", "tid", "rtvcreatedon", "trvcreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $rtv_data = $this->rtv_m->show_data_by_id($data);
+
+        $excel_row = 2;
+
+        foreach($rtv_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->rtvid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->rtvrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->schallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->vchallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->rtvreturndate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->rtvqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->rtvtruck);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->rtvremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->rtvcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->rtvcreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+    function select_by_id_action()
     {
         $sid = $this->input->post('sid');
         $vid = $this->input->post('vid');
@@ -233,7 +287,6 @@ class Rtv extends CI_Controller
         $object_writer->save('php://output');
 
     }
-
 
     public function form()
     {

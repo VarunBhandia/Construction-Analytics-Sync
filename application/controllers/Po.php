@@ -75,7 +75,7 @@ class Po extends CI_Controller
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("poid",  "porefid", "mrrefid", "sid", "vid", "mid", "unit", "m_unit", "app_qty", "remark", "dtid", "discount",  "cgst", "sgst", "igst", "total", "csgt_total", "ssgt_total", "isgt_total", "total_amount", "gst_frieght_amount", "frieght_amount", "gross_amount", "invoice_to", "contact_name", "contact_no", "tandc", "pocreatedby", "pocreatedon");
+        $table_columns = array("poid",  "porefid", "mrrefid", "sid", "vid", "mid", "unit", "m_unit", "app_qty", "remark", "dtid", "discount",  "cgst", "sgst", "igst", "total", "csgt_total", "ssgt_total", "isgt_total", "total_amount",  "frieght_amount", "gross_amount", "invoice_to", "contact_name", "contact_no", "tandc", "pocreatedby", "pocreatedon");
 
         $column = 0;
 
@@ -111,7 +111,6 @@ class Po extends CI_Controller
             $object->getActiveSheet()->setCellValueByColumnAndRow(17, $excel_row, $row->ssgt_total);
             $object->getActiveSheet()->setCellValueByColumnAndRow(18, $excel_row, $row->isgt_total);
             $object->getActiveSheet()->setCellValueByColumnAndRow(19, $excel_row, $row->total_amount);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(20, $excel_row, $row->gst_frieght_amount);
             $object->getActiveSheet()->setCellValueByColumnAndRow(21, $excel_row, $row->frieght_amount);
             $object->getActiveSheet()->setCellValueByColumnAndRow(22, $excel_row, $row->gross_amount);
             $object->getActiveSheet()->setCellValueByColumnAndRow(23, $excel_row, $row->invoice_to);
@@ -143,7 +142,7 @@ class Po extends CI_Controller
 
         $object->setActiveSheetIndex(0);
 
-        $table_columns = array("poid",  "porefid", "mrrefid", "sid", "vid", "mid", "unit", "m_unit", "app_qty", "remark", "dtid", "discount",  "cgst", "sgst", "igst", "total", "csgt_total", "ssgt_total", "isgt_total", "total_amount", "gst_frieght_amount", "frieght_amount", "gross_amount", "invoice_to", "contact_name", "contact_no", "tandc", "pocreatedby", "pocreatedon");
+        $table_columns = array("poid",  "porefid", "mrrefid", "sid", "vid", "mid", "unit", "m_unit", "app_qty", "remark", "dtid", "discount",  "cgst", "sgst", "igst", "total", "csgt_total", "ssgt_total", "isgt_total", "total_amount", "frieght_amount", "gross_amount", "invoice_to", "contact_name", "contact_no", "tandc", "pocreatedby", "pocreatedon");
 
         $column = 0;
 
@@ -179,7 +178,6 @@ class Po extends CI_Controller
             $object->getActiveSheet()->setCellValueByColumnAndRow(17, $excel_row, $row->ssgt_total);
             $object->getActiveSheet()->setCellValueByColumnAndRow(18, $excel_row, $row->isgt_total);
             $object->getActiveSheet()->setCellValueByColumnAndRow(19, $excel_row, $row->total_amount);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(20, $excel_row, $row->gst_frieght_amount);
             $object->getActiveSheet()->setCellValueByColumnAndRow(21, $excel_row, $row->frieght_amount);
             $object->getActiveSheet()->setCellValueByColumnAndRow(22, $excel_row, $row->gross_amount);
             $object->getActiveSheet()->setCellValueByColumnAndRow(23, $excel_row, $row->invoice_to);
@@ -263,7 +261,6 @@ class Po extends CI_Controller
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-        //        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
         $gross_amount = $this->input->post('gross_amount');
         $invoice_to = $this->input->post('invoice_to');
         $contact_name = $this->input->post('contact_name');
@@ -302,7 +299,6 @@ class Po extends CI_Controller
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-            //            'gst_frieght_amount' => $gst_frieght_amount,
             'gross_amount'  => $gross_amount,
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,
@@ -362,7 +358,6 @@ class Po extends CI_Controller
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
         $frieght_amount = $this->input->post('frieght_amount');
-        //        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
         $gross_amount = $this->input->post('gross_amount');
         $invoice_to = $this->input->post('invoice_to');
         $contact_name = $this->input->post('contact_name');
@@ -401,7 +396,6 @@ class Po extends CI_Controller
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
             'frieght_amount'  => $frieght_amount,
-            //            'gst_frieght_amount' => $gst_frieght_amount,
             'gross_amount'  => $gross_amount,
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,

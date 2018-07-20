@@ -208,55 +208,49 @@
                                                     <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                 </form>
 
-                                                <div class="table-scroll">
-                                                    <div class="table-wrap">
-                                                        <table id="datatable" class="main-table table table-striped table-bordered">
-                                                            <thead>
+                                                    <div class="table-scroll">
+                                                        <div class="table-wrap">
+                                                            <table id="datatable" class="main-table table table-striped table-bordered">
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>
                                                                         <th>Site</th>
-                                                                        <th>Receive Date</th>
+                                                                        <th>Created On</th>
                                                                         <th>Action</th>
                                                                     </tr>
                                                                 </thead>
-                                                            <tbody>
-                                                                <?php
-                                                    $no = 1;
-                                                    foreach($row as $test) {
-                                                        for($i=0;$i < $count_site;$i++){
-                                                            if($user_sites[$i] == $test->sid ){
-                                                                ?>
-                                                                <tr>
-                                                                    <td><?php echo $no;?></td>
-                                                                    <td><?php foreach($sites as $site){
-                                                                    if($site->sid == $test->sid ){echo $site->sname; }
+                                                                <tbody>
+                                                                    <?php
+                                                         $no = 1;
+                                                         foreach($row as $test) {
+                                                             for($i=0;$i < $count_site;$i++){
+                                                                 if($user_sites[$i] == $test->sid ){
+                                                                    ?>
+                                                                    <tr>
+                                                                        <td><?php echo $no;?></td>
+                                                                        <td><?php foreach($sites as $site){
+                                                                        if($site->sid == $test->sid ){echo $site->sname; }
 
-                                                                } ?></td>
-                                                                    <td><?php echo date("d-m-Y",strtotime($test->mrrecievedate));?></td>
-                                                                    <td>
-                                                                        <a href="<?php echo base_url()?>material_rqst/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
-                                                                        <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
-                                                                        <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>material_rqst/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
-                                                                    </td>
-                                                                    <?php $no++;?>
-                                                                </tr>
+                                                                    } ?></td>
+                                                                        <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
+                                                                        <td>
+                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
+                                                                            <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
+                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                                                        </td>
+                                                                        <?php $no++;?>
+                                                                    </tr>
+                                                                    <?php
+                                                                 }
 
-                                                                <?php
+                                                             }} ?>
 
-                                                            }
-                                                        }
 
-                                                    } 
-                                                                ?>
-                                                            </tbody>
-                                                        </table>
-                                                        <script>
-                                                            $(document).ready(function() {
-                                                                $('#datatable2').DataTable();
-                                                            } );
-                                                        </script>                                                    </div>
-                                                </div> <?php 
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                <?php 
                                                 } ?>  
 
                                             </div>
@@ -277,6 +271,6 @@
                 </script>
                 <script>
                     $(document).ready(function() {
-                        $('#datatable1').DataTable();
+                        $('#datatable').DataTable();
                     } );
                 </script>    

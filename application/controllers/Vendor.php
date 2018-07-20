@@ -107,8 +107,8 @@ Class Vendor extends CI_Controller{
        <td>'.$row->vaddress.'</td>
        <td>'.$row->vdesc.'</td>
        <td>'.$row->vcreatedby.'</td>
-       <td>
-       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->vid.'">Edit</a>
+       <td>'?> <?php if(1==2){ echo 'tect'; } ?> <?php
+       '<a href="javascript:;" class="btn btn-info item-edit" data="'.$row->vid.'">Edit</a>
        <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->vid.'">Delete</a></td>
 
       </tr>';

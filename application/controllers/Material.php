@@ -138,7 +138,7 @@ Class Material extends CI_Controller{
        <td>'.$row->mtype.'</td>
        <td>'.$row->mcreatedby.'</td>
        <td>
-       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->mid.'"><i class="glyphicon glyphicon-edit icon-white"></i>Edit</a>
+       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->mid.'">Edit</a>
        <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->mid.'"><i class="glyphicon glyphicon-trash icon-white"></i>Delete</a></td>
 
       </tr>';

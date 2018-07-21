@@ -59,9 +59,6 @@ class Vendor_bills extends CI_Controller
                 'id_error_message' => "Id field is required"
             );
         }
-        echo '<pre>';
-        print_r($data['result_display']);
-        echo '</pre>';
         
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();

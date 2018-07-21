@@ -160,8 +160,139 @@ elseif($action == 'update')
                                                         </form>
                                                     </div>                                                
                                                     <div class="x_content">
-                                                    <br />        
+                                                        <br />        
+                                                        <?php
+                                                        if (isset($result_display))
+                                                        {
+                                                            echo "<p><u>Result</u></p>";
+                                                            if ($result_display == 'No record found !')
+                                                            {
+                                                                echo 'Select Site and Vendor Both';
+                                                            }
+                                                            else
+                                                            { ?>
+<form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
+                                                            <?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
+
+                                                            <div class="datatable-responsive">
+                                                                <table id="datatable1" class="table table-striped table-bordered">
+                                                                    <thead>
+                                                                        <tr class="headings">
+                                                                            <th class="column-title">Material Name</th>
+                                                                            <th class="column-title">Qty</th>
+                                                                            <th class="column-title">  Unit Price</th>
+                                                                            <th class="column-title"> Remarks</th>
+                                                                            <th class="column-title no-link last">
+                                                                                <span class="nobr">Action</span>
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <?php if($action == 'insert') 
+{ ?>
+                                                                        <tr class="pending-user">
+                                                                            <td>
+                                                                                <select class="form-control select_width" id="material_0" name="material[]">
+                                                                                    <option value=""></option>
+                                                                                    <?php
+    foreach($materials as $value)
+    { echo $material[$i]; ?>
+                                                                                    <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
+     foreach($units as $m_unit){
+         if($value->munit == $m_unit->muid){
+             echo '('.$m_unit->muname.')' ;
+         }
+     }
+                                                                                        ?></option>
+                                                                                    <?php }	?>
+                                                                                </select>
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
+                                                                            </td>
+                                                                            <td><a class="btn btn-sm btn-success" id="plus">+</a>
+                                                                                <a class="btn btn-sm btn-danger" id="minus">-</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <script type="text/javascript">
+                                                                            $('.select_width').select2({
+                                                                                placeholder: '--- Select Material ---',
+                                                                            });
+                                                                        </script>
+                                                                        <?php 
+} 
+                                                            else 
+                                                            { ?>
+                                                                        <input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
+                                                                        <?php 
+
+                                                             $material = explode(",",$row[0]->mid);
+                                                             $qty = explode(",",$row[0]->mrqty);
+                                                             $unit = explode(",",$row[0]->mrunitprice);
+                                                             $m_unit = explode(",",$row[0]->muid);
+                                                             $remarks = explode(",",$row[0]->mrremarks);  
+                                                             for($i=0; $i<count($material); $i++)
+                                                             {
+                                                                        ?>
+                                                                        <tr class="pending-user">
+                                                                            <td>
+                                                                                <select class="materialname form-control select_width" id="material_0" name="material[]">
+                                                                                    <option value=""></option>
+                                                                                    <?php
+                                                                 foreach($materials as $value)
+                                                                 { echo $material[$i]; ?>
+                                                                                    <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
+                                                                  foreach($units as $m_unit){
+                                                                      if($value->munit == $m_unit->muid){
+                                                                          echo '('.$m_unit->muname.')' ;
+                                                                      }
+                                                                  }
+                                                                                        ?></option>
+                                                                                    <?php }	?>
+                                                                                </select>
+                                                                                <script type="text/javascript">
+                                                                                    $('.materialname').select2({
+                                                                                        placeholder: '--- Select Material ---',
+                                                                                    });
+                                                                                </script> 
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+                                                                            </td>
+                                                                            <td>
+                                                                                <input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off" value="<?php echo $remarks[$i]; ?>">
+                                                                            </td>
+                                                                            <td><a class="btn btn-sm btn-success" id="plus">+</a>
+                                                                                <a class="btn btn-sm btn-danger" id="minus">-</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <?php }  }?>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <input type="hidden" value="<?php echo $uid; ?>" name="uid">
+                                                            <div class="form-group">
+                                                                <div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-3">
+                                                                    <button type="submit" id="submit" class="btn btn-primary"><?php echo $btn;?></button>
+                                                                    <a href="<?php echo base_url().$controller;?>" class="btn btn-danger">Cancel</a>
+                                                                </div>
+                                                            </div>
+                                                        </form>  
+                                                        <?php }
+                                                        }
+                                                        ?>
+
+                                                                                                          
                                                     </div>
                                                 </div>
                                             </div>

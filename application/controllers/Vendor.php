@@ -23,7 +23,6 @@ Class Vendor extends CI_Controller{
             $this->load->model('Model');
             $model = $this->model;
             $data['row'] = $this->Model->select(array(),'vendordetails',array(),'');
-            $data['row'] = $this->Model->select(array(),'vendordetails',array(),'');
             $username = $this->session->userdata('username');
             $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');

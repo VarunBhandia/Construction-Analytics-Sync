@@ -30,6 +30,23 @@ return $query->result();
 return false;
 }
 }
+    
+    public function show_data_by_date_range($data) {
+        $condition = "mrcreatedon BETWEEN " . "'" . $data['date1'] . "'" . " AND " . "'" . $data['date2'] . "'";
+        $this->db->select('*');
+        $this->db->from('material_rqst');
+        $this->db->where($condition);
+        $query = $this->db->get();
+        echo '<pre>';
+        print_r($query);
+        echo '</pre>';
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+    
     function fetch_data()
     {
         $this->db->order_by("mrid", "DESC");

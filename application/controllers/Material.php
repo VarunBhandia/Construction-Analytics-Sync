@@ -4,14 +4,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 Class Material extends CI_Controller{
 
     public $table = 'materials';
-    public $sitetable = 'sitedetails';
     public $controller = 'Material';
-    public $message = 'Construction';
+    public $message = 'Material List';
     public $primary_id = "mid";
     public $model;
 
     function __construct(){
         parent:: __construct();
+        $this->load->model('Model');
         $this->model = 'Model';
         $this->load->model('material_m', 'm');
     }
@@ -30,14 +30,140 @@ Class Material extends CI_Controller{
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-            $this->load->view('material_master/index',$data);
+            $this->load->view('material/index',$data);
         }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
 
+    }
+    
+    public function form()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+        $model = $this->model;
+        $data['action'] = "insert";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['categorys'] = $this->$model->select(array(),'category',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('material/form',$data);
+            }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
+    }
+    
+    public function insert()
+    {
+        $model = $this->model;
+        $this->load->model("material_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $mname = $this->input->post('mname');
+        $munit = $this->input->post('munit');
+        $mcategory = $this->input->post('mcategory');
+        $mdesc = $this->input->post('mdesc');
+        $hsn = $this->input->post('hsn');
+        $mgst = $this->input->post('mgst');
+        $mbase = $this->input->post('mbase');
+        $mtype = $this->input->post('mtype');
+
+        $data = array(
+            'mcreatedby'  => $uid,
+            'mname' => $mname,
+            'munit' => $munit,
+            'mcategory'  => $mcategory,
+            'mdesc'  => $mdesc,
+            'hsn' => $hsn,
+            'mgst' => $mgst,
+            'mbase'  => $mbase,
+            'mtype'  => $mtype
+        );
+
+        $this->$model->insert($data,$this->table);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
+
+        redirect('material');
+    }
+    
+    public function edit($mid)
+    {
+        $model = $this->model;
+        $this->load->model("material_m");      
+        $this->load->model("Model");      
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mid),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['categorys'] = $this->$model->select(array(),'category',array(),'');
+        $username = $this->session->userdata('username');
+//        echo "<pre>";
+//        print_r ($data);
+//        echo "</pre>";
+         $this->load->view('material/form',$data);
+    }
+
+    public function update()
+    {
+        $model = $this->model;
+        $this->load->model("material_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $mname = $this->input->post('mname');
+        $munit = $this->input->post('munit');
+        $mcategory = $this->input->post('mcategory');
+        $mdesc = $this->input->post('mdesc');
+        $hsn = $this->input->post('hsn');
+        $mgst = $this->input->post('mgst');
+        $mbase = $this->input->post('mbase');
+        $mtype = $this->input->post('mtype');
+
+        $data = array(
+            'mcreatedby'  => $uid,
+            'mname' => $mname,
+            'munit' => $munit,
+            'mcategory'  => $mcategory,
+            'mdesc'  => $mdesc,
+            'hsn' => $hsn,
+            'mgst' => $mgst,
+            'mbase'  => $mbase,
+            'mtype'  => $mtype
+        );
+        
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
+
+        $mid = $this->input->post('mid');
+        $where = array($this->primary_id=>$mid);
+        $this->$model->update($this->table,$data,$where);
+//        echo "<pre>";
+//        print_r ($where);
+//        echo "</pre>";
+        redirect('material');
+    }
+
+    public function delete($mid)
+    {
+        $model = $this->model;
+        $condition = array($this->primary_id=>$mid);
+        $this->$model->delete($this->table,$condition);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('material');
     }
 
     public function view_table()
@@ -46,6 +172,9 @@ Class Material extends CI_Controller{
         $this->load->model('Model');
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+       $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+       $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->material_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -99,101 +228,10 @@ Class Material extends CI_Controller{
 
     }
 
-    function fetch()
-    {
-        $this->load->model('Model');
-        $data['controller'] = $this->controller;
-        $model = $this->model;
-        $data['units'] = $this->Model->select(array(),'munits',array(),'');
-        $output = '';
-        $query = '';
-        $this->load->model('Material_m');
-        if($this->input->post('query'))
-        {
-            $query = $this->input->post('query');
-        }
-
-        $data = $this->material_m->fetch_data($query);
-        $output .= '
-  <div class="table-responsive">
-     <table class="table table-bordered table-striped">  ';
-        if($data->num_rows() > 0)
-        {
-            foreach($data->result() as $row)
-            {
-                $output .= '
-      <tr>
-       <td>'.$row->mid.'</td>
-       <td>'.$row->mname.'</td>
-       <td>'; ?> 
-<?php foreach ($units as $unit){
-           if($row->muid == $unit->munit)
-           { echo '$unit->muname'; }} 
-                echo '</td>
-       <td>'.$row->mcategory.'</td>
-       <td>'.$row->mdesc.'</td>
-       <td>'.$row->hsn.'</td>
-       <td>'.$row->mgst.'</td>
-       <td>'.$row->mbase.'</td>
-       <td>'.$row->mtype.'</td>
-       <td>'.$row->mcreatedby.'</td>
-       <td>
-       <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->mid.'">Edit</a>
-       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->mid.'"><i class="glyphicon glyphicon-trash icon-white"></i>Delete</a></td>
-
-      </tr>';
-            }
-        }
-        else
-        {
-            $output .= '<tr>
-       <td colspan="5">No Data Found</td>
-      </tr>';
-        }
-        $output .= '</table>';
-        echo $output;
-    }
+    
 
 
 
-    public function showAllMaterial(){
-        $result = $this->m->showAllMaterial();
-        echo json_encode($result);
-    }
-
-    public function addMaterial(){
-        $result = $this->m->addMaterial();
-        $msg['success'] = false;
-        $msg['type'] = 'add';
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
-    public function editMaterial(){
-        $result = $this->m->editMaterial();
-        echo json_encode($result);
-    }
-
-    public function updateMaterial(){
-        $result = $this->m->updateMaterial();
-        $msg['success'] = false;
-        $msg['type'] = 'update';
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
-    public function deleteMaterial(){
-        $result = $this->m->deleteMaterial();
-        $msg['success'] = false;
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
+    
 }
 ?>

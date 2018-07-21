@@ -188,7 +188,7 @@ error_reporting(0);
                                                     <?php
                                                 foreach($materials as $value)
                                                 { echo $material[$i]; ?>
-                                                    <option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+                                                    <option <?php if($action == 'insert'){  echo ((int)$value->wiid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
                                                     <?php }	?>
                                                 </select>
                                                 <script type="text/javascript">

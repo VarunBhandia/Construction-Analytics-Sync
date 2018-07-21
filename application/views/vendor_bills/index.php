@@ -110,7 +110,14 @@
                                                             <div class="col-md-1"></div>
                                                         </form>
                                                     </div>
-                                                    <div class="col-md-3"></div>
+                                                    <div class="col-md-3">
+                                                        <div align="right">
+                                                            <ul class="nav navbar-right panel_toolbox">
+                                                                <li><a href="<?php echo base_url()?>Vendor_bills/form"><button class="btn btn-primary">Add New</button></a>
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
                                                 </div>
 
                                                 <?php

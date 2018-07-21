@@ -65,7 +65,7 @@ class Vendor_bills extends CI_Controller
         
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
-        $this->load->view('rtv/index', $data);
+        $this->load->view('Vendor_bills/form', $data);
     }
 
     public function index()
@@ -195,10 +195,11 @@ class Vendor_bills extends CI_Controller
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $username = $this->session->userdata('username');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('consumption/form',$data);
+        $this->load->view('Vendor_bills/form',$data);
     }
 
     public function insert()

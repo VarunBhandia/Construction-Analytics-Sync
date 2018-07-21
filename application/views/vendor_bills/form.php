@@ -303,67 +303,105 @@ elseif($action == 'update')
                                 <?php
                                 $this->load->view('include/footer');
                                 ?>
-                                <!-- Validate Js -->
-                                <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
-                                <script src="<?php echo base_url();?>assets/js/underscore-min.js">
-                                </script>
-                                <script>
-                                    $(document).ready(function() {
-                                        $('#dataTables-example').DataTable({
-                                            responsive: true
-                                        });
-                                        _.templateSettings.variable = "element";
-                                        var tpl = _.template($("#form_tpl").html());
-                                        var counter = 1;
+                            <!-- Validate Js -->
+                            <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+                            <script src="<?php echo base_url();?>assets/js/underscore-min.js">
+                            </script>
+                            <script>
+                                $(document).ready(function() {
+                                    $('#dataTables-example').DataTable({
+                                        responsive: true
+                                    });
+                                    _.templateSettings.variable = "element";
+                                    var tpl = _.template($("#form_tpl").html());
+                                    var counter = 1;
 
-                                        $("body").on("click",".btn-success", function (e) {
-                                            e.preventDefault();
-                                            var tplData = {
-                                                i: counter
-                                            };
-                                            $(this).closest("tr").after(tpl(tplData));
-                                            counter += 1;
-                                            var row_index = counter-1; 
+                                    $("body").on("click",".btn-success", function (e) {
+                                        e.preventDefault();
+                                        var tplData = {
+                                            i: counter
+                                        };
+                                        $(this).closest("tr").after(tpl(tplData));
+                                        counter += 1;
+                                        var row_index = counter-1; 
+                                        return false;
+                                    });
+                                    $('body').on('click',".btn-danger",function()
+                                                 { 
+                                        var count= $('.pending-user').length; 
+                                        var value=count-1;
+                                        if(value>=1)
+                                        {
+                                            $(this).closest('.pending-user').fadeOut('fast', function(){$(this).closest('.pending-user').remove();
+
+                                                                                                       });
                                             return false;
-                                        });
-                                        $('body').on('click',".btn-danger",function()
-                                                     { 
-                                            var count= $('.pending-user').length; 
-                                            var value=count-1;
-                                            if(value>=1)
-                                            {
-                                                $(this).closest('.pending-user').fadeOut('fast', function(){$(this).closest('.pending-user').remove();
-
-                                                                                                           });
-                                                return false;
-                                            }
-                                        });		
+                                        }
+                                    });		
+                                });
+                            </script>
+                            <script>
+                                $(document).ready(function (){		
+                                    var dp = $("#date").datepicker({
+                                        format: 'dd-mm-yyyy',
+                                        todayHighlight: true,
+                                        autoclose: true,
                                     });
-                                </script>
-                                <script>
-                                    $(document).ready(function (){		
-                                        var dp = $("#date").datepicker({
-                                            format: 'dd-mm-yyyy',
-                                            todayHighlight: true,
-                                            autoclose: true,
-                                        });
+                                });
+                            </script>
+                            <script>
+                                $(document).ready(function (){	
+                                    $('#demo-form2').validate({
+                                        rules:{
+                                            site: { required: true },
+                                        },
+                                        messages: {
+                                            site: { required: "Please Enter Site" },					
+                                        },
+                                        submitHandler: function(form) {
+                                            $(':input[type="submit"]').prop('disabled', true);
+                                            form.submit();
+                                        }
                                     });
-                                </script>
-                                <script>
-                                    $(document).ready(function (){	
-                                        $('#demo-form2').validate({
-                                            rules:{
-                                                site: { required: true },
-                                            },
-                                            messages: {
-                                                site: { required: "Please Enter Site" },					
-                                            },
-                                            submitHandler: function(form) {
-                                                $(':input[type="submit"]').prop('disabled', true);
-                                                form.submit();
-                                            }
-                                        });
-                                    }); 
-                                </script>
+                                }); 
+                            </script>
+                            <script  type="text/html" id="form_tpl">
+	<tr class="pending-user">
+						<td>
+                                                <select class="form-control select_width" id="material_0" name="material[]">
+                                                    <option value=""></option>
+                                                    <?php
+foreach($materials as $value)
+{ echo $material[$i]; ?>
+                                                    <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
+ foreach($units as $m_unit){
+     if($value->munit == $m_unit->muid){
+         echo '('.$m_unit->muname.')' ;
+     }
+ }
+                                                        ?></option>
+                                                    <?php }	?>
+                                </select>
 
+                                </td>
+						<td>
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
+                                </td>
+						<td>
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
+                                </td>
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
+                                </td>
+						<td><a class="btn btn-sm btn-success" id="plus">+</a>
+						<a class="btn btn-sm btn-danger" id="minus">-</a>
+                                </td>
+                                </tr>   
+                            </script>
 
+                            <script>
+
+                                $(document).ready(function() {
+                                    $('#datatable').DataTable();
+                                } );
+                            </script>

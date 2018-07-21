@@ -25,6 +25,7 @@ class Material_rqst extends CI_Controller
         $model = $this->model;
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->mr_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -65,6 +66,46 @@ class Material_rqst extends CI_Controller
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/index', $data);
     }
+    
+    public function select_by_date_range() {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
+        if ($date1 == "" || $date2 == "") {
+            $data['date_range_error_message'] = "Both date fields are required";
+        } else {
+            $result = $this->mr_m->show_data_by_date_range($data);
+            if ($result != false) {
+                $data['result_display_date'] = $result;
+            } else {
+                $data['result_display_date'] = "No record found !";
+            }
+        }
+        echo '<pre>';
+        print_r($date1.' '.$date2);
+        echo '</pre>';
+            
+        $data['controller'] = $this->controller;
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('material_rqst/index', $data);
+    }
+    
 
     public function index()
     {

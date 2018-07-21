@@ -2,8 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Vendor extends CI_Controller{
+    
+    public $table = 'vendordetails';
+    public $controller = 'Vendor';
+    public $message = 'Vendor List';
+    public $primary_id = "vid";
+    public $model;
+    
     function __construct(){
         parent:: __construct();
+        $this->load->model('Model');
         $this->model = 'Model';
         $this->load->model('vendor_m', 'm');
     }
@@ -12,21 +20,146 @@ Class Vendor extends CI_Controller{
         if($this->session->userdata('username') != '')  
         {
             $this->load->model("vendor_m");
-            $data["v_data"] = $this->vendor_m->fetch();
             $this->load->model('Model');
-            $this->load->view('layout/footer');
-            $this->load->view('vendor_master/index');
+            $model = $this->model;
+            $data['row'] = $this->Model->select(array(),'vendordetails',array(),'');
+            $data['row'] = $this->Model->select(array(),'vendordetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('Vendor/index',$data);
         }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
     }
+    
+    public function form()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+        $model = $this->model;
+        $data['action'] = "insert";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('vendor/form',$data);
+            }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
+    }
+    
+    public function insert()
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $vname = $this->input->post('vname');
+        $vmobile = $this->input->post('vmobile');
+        $valtmobile = $this->input->post('valtmobile');
+        $vemail = $this->input->post('vemail');
+        $vgst = $this->input->post('vgst');
+        $vaddress = $this->input->post('vaddress');
+        $vdesc = $this->input->post('vdesc');
+
+        $data = array(
+            'vcreatedby'  => $uid,
+            'vname' => $vname,
+            'vmobile' => $vmobile,
+            'valtmobile'  => $valtmobile,
+            'vemail'  => $vemail,
+            'vgst' => $vgst,
+            'vaddress' => $vaddress,
+            'vdesc'  => $vdesc
+        );
+
+        $this->$model->insert($data,$this->table);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
+
+        redirect('vendor');
+    }
+    
+    public function edit($vid)
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");      
+        $this->load->model("Model");      
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$vid),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $username = $this->session->userdata('username');
+//        echo "<pre>";
+//        print_r ($data);
+//        echo "</pre>";
+         $this->load->view('vendor/form',$data);
+    }
+
+    public function update()
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $vname = $this->input->post('vname');
+        $vmobile = $this->input->post('vmobile');
+        $valtmobile = $this->input->post('valtmobile');
+        $vemail = $this->input->post('vemail');
+        $vgst = $this->input->post('vgst');
+        $vaddress = $this->input->post('vaddress');
+        $vdesc = $this->input->post('vdesc');
+
+        $data = array(
+            'vcreatedby'  => $uid,
+            'vname' => $vname,
+            'vmobile' => $vmobile,
+            'valtmobile'  => $valtmobile,
+            'vemail'  => $vemail,
+            'vgst' => $vgst,
+            'vaddress' => $vaddress,
+            'vdesc'  => $vdesc
+        );
+        
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
+
+        $vid = $this->input->post('vid');
+        $where = array($this->primary_id=>$vid);
+        $this->$model->update($this->table,$data,$where);
+//        echo "<pre>";
+//        print_r ($where);
+//        echo "</pre>";
+        redirect('vendor');
+    }
+
+    public function delete($vid)
+    {
+        $model = $this->model;
+        $condition = array($this->primary_id=>$vid);
+        $this->$model->delete($this->table,$condition);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('vendor');
+    }
+    
 
     public function view_table()
     {			
+        $this->load->model("vendor_m");
+        $this->load->model('Model');
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->vendor_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -78,89 +211,6 @@ Class Vendor extends CI_Controller{
         header('Content-Disposition: attachment;filename="Employee Data.xls"');
         $object_writer->save('php://output');
 
-    }
-
-    function fetch()
-    {
-        $output = '';
-        $query = '';
-        $this->load->model('vendor_m');
-        if($this->input->post('query'))
-        {
-            $query = $this->input->post('query');
-        }
-
-        $data = $this->vendor_m->fetch_data($query);
-        $output .= '
-  <div class="table-responsive">
-     <table class="table table-bordered table-striped">  ';
-        if($data->num_rows() > 0)
-        {
-            foreach($data->result() as $row)
-            {
-                $output .= '
-      <tr>
-       <td>'.$row->vid.'</td>
-       <td>'.$row->vname.'</td>
-       <td>'.$row->vmobile.'</td>
-       <td>'.$row->vgst.'</td>
-       <td>'.$row->vaddress.'</td>
-       <td>'.$row->vdesc.'</td>
-       <td>'.$row->vcreatedby.'</td>
-       <td>'?> <?php if(1==2){ echo 'tect'; } ?> <?php
-       '<a href="javascript:;" class="btn btn-info item-edit" data="'.$row->vid.'">Edit</a>
-       <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->vid.'">Delete</a></td>
-
-      </tr>';
-            }
-        }
-        else
-        {
-            $output .= '<tr>
-       <td colspan="5">No Data Found</td>
-      </tr>';
-        }
-        $output .= '</table>';
-        echo $output;
-    }
-
-    public function showAllVendor(){
-        $result = $this->m->showAllVendor();
-        echo json_encode($result);
-    }
-
-    public function addVendor(){
-        $result = $this->m->addVendor();
-        $msg['success'] = false;
-        $msg['type'] = 'add';
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
-    public function editVendor(){
-        $result = $this->m->editVendor();
-        echo json_encode($result);
-    }
-
-    public function updateVendor(){
-        $result = $this->m->updateVendor();
-        $msg['success'] = false;
-        $msg['type'] = 'update';
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
-    public function deleteVendor(){
-        $result = $this->m->deleteVendor();
-        $msg['success'] = false;
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
     }
 
 }

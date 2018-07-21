@@ -385,6 +385,7 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </body>
                 <?php
                 $this->load->view('include/footer');

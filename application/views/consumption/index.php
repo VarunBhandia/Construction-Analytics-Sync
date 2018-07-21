@@ -218,7 +218,7 @@
                                                              <td><?php foreach($sites as $site){
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
-                                                     } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
+                                                     } ?></td>  <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
                                                                 <td><a href="<?php echo base_url()?>consumption/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>consumption/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>

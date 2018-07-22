@@ -21,7 +21,7 @@ error_reporting(0);
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-            <title>New Vendor</title>
+            <title>New WorkItem</title>
 
             <!-- Bootstrap -->
             <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -96,61 +96,54 @@ error_reporting(0);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h1>New Vendor</h1>
+                    <h1>New WorkItem</h1>
                     <div class="clearfix"></div>
                   </div>
                 <div class="x_content">
                     <br />
                     <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 					<?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
-                          <input type="hidden" name="vid" value="<?php echo ($action == 'update') ? $row[0]->vid : '';?>">
+                          <input type="hidden" name="wiid" value="<?php echo ($action == 'update') ? $row[0]->wiid : '';?>">
                         <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor Name
+                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">WOrkitem Name
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="vname" name="vname" class="form-control col-md-7 col-xs-12" placeholder="---Enter Vendor Name---" value="<?php echo ($action == 'update') ? $row[0]->vname : '';?>">
+                          <input type="text" min="1" id="winame" name="winame" class="form-control col-md-7 col-xs-12" placeholder="---Enter Workitem---" value="<?php echo ($action == 'update') ? $row[0]->winame : '';?>">
                         </div>
                       </div>
 					  <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Mobile No
+                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name"> Description
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="vmobile" name="vmobile" class="form-control col-md-7 col-xs-12" placeholder="Mobile Number" value="<?php echo ($action == 'update') ? $row[0]->vmobile : '';?>">
+                          <input type="text" min="1" id="widesc" name="widesc" class="form-control col-md-7 col-xs-12" placeholder="Description" value="<?php echo ($action == 'update') ? $row[0]->widesc : '';?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Alternate Mobile No
+                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">GST rate
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="valtmobile" name="valtmobile" class="form-control col-md-7 col-xs-12" placeholder="Alt mobile number" value="<?php echo ($action == 'update') ? $row[0]->valtmobile : '';?>">
+                          <input type="text" min="1" id="wigst" name="wigst" class="form-control col-md-7 col-xs-12" placeholder="GST rate" value="<?php echo ($action == 'update') ? $row[0]->wigst : '';?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Email ID
+                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Base Rate
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="vemail" name="vemail" class="form-control col-md-7 col-xs-12" placeholder="Email-ID" value="<?php echo ($action == 'update') ? $row[0]->vemail : '';?>">
+                          <input type="text" min="1" id="wibase" name="wibase" class="form-control col-md-7 col-xs-12" placeholder="BAse Rate" value="<?php echo ($action == 'update') ? $row[0]->wibase : '';?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor GST
+                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Category
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="number" min="1" id="vgst" name="vgst" class="form-control col-md-7 col-xs-12" placeholder="GST" value="<?php echo ($action == 'update') ? $row[0]->vgst : '';?>">
+                          <input type="number" min="1" id="wicategory" name="wicategory" class="form-control col-md-7 col-xs-12" placeholder="Category" value="<?php echo ($action == 'update') ? $row[0]->wicategory : '';?>">
                         </div>
                       </div>
                       <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Address
+                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Type
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="vaddress" name="vaddress" class="form-control col-md-7 col-xs-12" placeholder="Address" value="<?php echo ($action == 'update') ? $row[0]->vaddress : '';?>">
-                        </div>
-                      </div>
-                      <div class="form-group">
-                        <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Description
-                        </label>
-                        <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="number" min="1" id="vdesc" name="vdesc" class="form-control col-md-7 col-xs-12" placeholder="Description" value="<?php echo ($action == 'update') ? $row[0]->vdesc : '';?>">
+                          <input type="text" min="1" id="witype" name="witype" class="form-control col-md-7 col-xs-12" placeholder="Type" value="<?php echo ($action == 'update') ? $row[0]->witype : '';?>">
                         </div>
                       </div>
 

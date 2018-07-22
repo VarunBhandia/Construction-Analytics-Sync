@@ -21,7 +21,7 @@ error_reporting(0);
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-            <title>Material List</title>
+            <title>New Material</title>
 
             <!-- Bootstrap -->
             <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -96,7 +96,7 @@ error_reporting(0);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h1>Material List</h1>
+                    <h1>New Material</h1>
                     <div class="clearfix"></div>
                   </div>
                 <div class="x_content">

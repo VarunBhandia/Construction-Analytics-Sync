@@ -21,7 +21,7 @@ error_reporting(0);
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-            <title>Sites</title>
+            <title>New Site</title>
 
             <!-- Bootstrap -->
             <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">

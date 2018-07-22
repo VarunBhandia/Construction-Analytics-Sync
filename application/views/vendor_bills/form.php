@@ -171,7 +171,7 @@ elseif($action == 'update')
                                                             }
                                                             else
                                                             { ?>
-<form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                        <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
                                                             <?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
 
@@ -190,20 +190,33 @@ elseif($action == 'update')
                                                                     </thead>
                                                                     <tbody>
                                                                         <?php if($action == 'insert') 
-{ ?>
+                                                            {
+
+                                                                $material = explode(",",$result_display[0]->mid);
+                                                                $qty = explode(",",$result_display[0]->mrqty);
+                                                                $unit = explode(",",$result_display[0]->mrunitprice);
+                                                                $m_unit = explode(",",$result_display[0]->muid);
+                                                                $remarks = explode(",",$result_display[0]->mrremarks); 
+//                                                                echo '<pre>';
+//                                                                print_r(count($material));
+//                                                                echo '</pre>';
+                                                                for($i=0; $i<count($material); $i++){
+
+                                                                        ?>
+
                                                                         <tr class="pending-user">
                                                                             <td>
                                                                                 <select class="form-control select_width" id="material_0" name="material[]">
                                                                                     <option value=""></option>
                                                                                     <?php
-    foreach($materials as $value)
-    { echo $material[$i]; ?>
-                                                                                    <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
-     foreach($units as $m_unit){
-         if($value->munit == $m_unit->muid){
-             echo '('.$m_unit->muname.')' ;
-         }
-     }
+                                                                foreach($materials as $value)
+                                                                { ?>
+                                                                                    <option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
+                                                                 foreach($units as $m_unit){
+                                                                     if($value->munit == $m_unit->muid){
+                                                                         echo '('.$m_unit->muname.')' ;
+                                                                     }
+                                                                 }
                                                                                         ?></option>
                                                                                     <?php }	?>
                                                                                 </select>
@@ -227,33 +240,33 @@ elseif($action == 'update')
                                                                             });
                                                                         </script>
                                                                         <?php 
-} 
-                                                            else 
-                                                            { ?>
+                                                          }  } 
+                                                             else 
+                                                             { ?>
                                                                         <input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
                                                                         <?php 
 
-                                                             $material = explode(",",$row[0]->mid);
-                                                             $qty = explode(",",$row[0]->mrqty);
-                                                             $unit = explode(",",$row[0]->mrunitprice);
-                                                             $m_unit = explode(",",$row[0]->muid);
-                                                             $remarks = explode(",",$row[0]->mrremarks);  
-                                                             for($i=0; $i<count($material); $i++)
-                                                             {
+                                                              $material = explode(",",$result_display[0]->mid);
+                                                              $qty = explode(",",$result_display[0]->mrqty);
+                                                              $unit = explode(",",$result_display[0]->mrunitprice);
+                                                              $m_unit = explode(",",$result_display[0]->muid);
+                                                              $remarks = explode(",",$result_display[0]->mrremarks);  
+                                                              for($i=0; $i<count($material); $i++)
+                                                              {
                                                                         ?>
                                                                         <tr class="pending-user">
                                                                             <td>
                                                                                 <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                                                     <option value=""></option>
                                                                                     <?php
-                                                                 foreach($materials as $value)
-                                                                 { echo $material[$i]; ?>
+                                                                  foreach($materials as $value)
+                                                                  { echo $material[$i]; ?>
                                                                                     <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
-                                                                  foreach($units as $m_unit){
-                                                                      if($value->munit == $m_unit->muid){
-                                                                          echo '('.$m_unit->muname.')' ;
-                                                                      }
-                                                                  }
+                                                                   foreach($units as $m_unit){
+                                                                       if($value->munit == $m_unit->muid){
+                                                                           echo '('.$m_unit->muname.')' ;
+                                                                       }
+                                                                   }
                                                                                         ?></option>
                                                                                     <?php }	?>
                                                                                 </select>
@@ -292,7 +305,7 @@ elseif($action == 'update')
                                                         }
                                                         ?>
 
-                                                                                                          
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -303,69 +316,69 @@ elseif($action == 'update')
                                 <?php
                                 $this->load->view('include/footer');
                                 ?>
-                            <!-- Validate Js -->
-                            <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
-                            <script src="<?php echo base_url();?>assets/js/underscore-min.js">
-                            </script>
-                            <script>
-                                $(document).ready(function() {
-                                    $('#dataTables-example').DataTable({
-                                        responsive: true
-                                    });
-                                    _.templateSettings.variable = "element";
-                                    var tpl = _.template($("#form_tpl").html());
-                                    var counter = 1;
+                                <!-- Validate Js -->
+                                <script src="<?php echo base_url();?>assets/js/jquery.validate.min.js"></script>
+                                <script src="<?php echo base_url();?>assets/js/underscore-min.js">
+                                </script>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#dataTables-example').DataTable({
+                                            responsive: true
+                                        });
+                                        _.templateSettings.variable = "element";
+                                        var tpl = _.template($("#form_tpl").html());
+                                        var counter = 1;
 
-                                    $("body").on("click",".btn-success", function (e) {
-                                        e.preventDefault();
-                                        var tplData = {
-                                            i: counter
-                                        };
-                                        $(this).closest("tr").after(tpl(tplData));
-                                        counter += 1;
-                                        var row_index = counter-1; 
-                                        return false;
-                                    });
-                                    $('body').on('click',".btn-danger",function()
-                                                 { 
-                                        var count= $('.pending-user').length; 
-                                        var value=count-1;
-                                        if(value>=1)
-                                        {
-                                            $(this).closest('.pending-user').fadeOut('fast', function(){$(this).closest('.pending-user').remove();
-
-                                                                                                       });
+                                        $("body").on("click",".btn-success", function (e) {
+                                            e.preventDefault();
+                                            var tplData = {
+                                                i: counter
+                                            };
+                                            $(this).closest("tr").after(tpl(tplData));
+                                            counter += 1;
+                                            var row_index = counter-1; 
                                             return false;
-                                        }
-                                    });		
-                                });
-                            </script>
-                            <script>
-                                $(document).ready(function (){		
-                                    var dp = $("#date").datepicker({
-                                        format: 'dd-mm-yyyy',
-                                        todayHighlight: true,
-                                        autoclose: true,
+                                        });
+                                        $('body').on('click',".btn-danger",function()
+                                                     { 
+                                            var count= $('.pending-user').length; 
+                                            var value=count-1;
+                                            if(value>=1)
+                                            {
+                                                $(this).closest('.pending-user').fadeOut('fast', function(){$(this).closest('.pending-user').remove();
+
+                                                                                                           });
+                                                return false;
+                                            }
+                                        });		
                                     });
-                                });
-                            </script>
-                            <script>
-                                $(document).ready(function (){	
-                                    $('#demo-form2').validate({
-                                        rules:{
-                                            site: { required: true },
-                                        },
-                                        messages: {
-                                            site: { required: "Please Enter Site" },					
-                                        },
-                                        submitHandler: function(form) {
-                                            $(':input[type="submit"]').prop('disabled', true);
-                                            form.submit();
-                                        }
+                                </script>
+                                <script>
+                                    $(document).ready(function (){		
+                                        var dp = $("#date").datepicker({
+                                            format: 'dd-mm-yyyy',
+                                            todayHighlight: true,
+                                            autoclose: true,
+                                        });
                                     });
-                                }); 
-                            </script>
-                            <script  type="text/html" id="form_tpl">
+                                </script>
+                                <script>
+                                    $(document).ready(function (){	
+                                        $('#demo-form2').validate({
+                                            rules:{
+                                                site: { required: true },
+                                            },
+                                            messages: {
+                                                site: { required: "Please Enter Site" },					
+                                            },
+                                            submitHandler: function(form) {
+                                                $(':input[type="submit"]').prop('disabled', true);
+                                                form.submit();
+                                            }
+                                        });
+                                    }); 
+                                </script>
+                                <script  type="text/html" id="form_tpl">
 	<tr class="pending-user">
 						<td>
                                                 <select class="form-control select_width" id="material_0" name="material[]">
@@ -381,27 +394,27 @@ foreach($materials as $value)
  }
                                                         ?></option>
                                                     <?php }	?>
-                                </select>
+                                    </select>
 
-                                </td>
+                                    </td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
-                                </td>
+                                    </td>
 						<td>
 							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
-                                </td>
+                                    </td>
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
-                                </td>
+                                    </td>
 						<td><a class="btn btn-sm btn-success" id="plus">+</a>
 						<a class="btn btn-sm btn-danger" id="minus">-</a>
-                                </td>
-                                </tr>   
-                            </script>
+                                    </td>
+                                    </tr>   
+                                </script>
 
-                            <script>
+                                <script>
 
-                                $(document).ready(function() {
-                                    $('#datatable').DataTable();
-                                } );
-                            </script>
+                                    $(document).ready(function() {
+                                        $('#datatable').DataTable();
+                                    } );
+                                </script>

@@ -66,7 +66,7 @@ class Material_rqst extends CI_Controller
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/index', $data);
     }
-    
+
     public function select_by_date_range() {
         $model = $this->model;
         $data['controller'] = $this->controller;
@@ -91,10 +91,7 @@ class Material_rqst extends CI_Controller
                 $data['result_display_date'] = "No record found !";
             }
         }
-        echo '<pre>';
-        print_r($date1.' '.$date2);
-        echo '</pre>';
-            
+
         $data['controller'] = $this->controller;
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
@@ -105,7 +102,7 @@ class Material_rqst extends CI_Controller
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/index', $data);
     }
-    
+
 
     public function index()
     {
@@ -152,13 +149,24 @@ class Material_rqst extends CI_Controller
         $mr_data = $this->mr_m->fetch_data();
 
         $excel_row = 2;
-
+        $this->load->model("Model");
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->Model->select(array(),'users',array('username'=>$username),'');
+        $data['units'] = $this->Model->select(array(),'munits',array(),'');
+        $data['sites'] = $this->Model->select(array(),'sitedetails',array(),'');
+        $data['materials'] = $this->Model->select(array(),'materials',array(),'');		
         foreach($mr_data as $row)
         {
+            foreach($data['materials'] as $material){
+                if( $row->mid == $material->mid){
+                    $material_name = $material->mname;
+                
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $material_name);
             $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
             $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
@@ -166,7 +174,7 @@ class Material_rqst extends CI_Controller
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
             $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
             $excel_row++;
-        }
+     }}   }
 
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');

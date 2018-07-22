@@ -34,10 +34,13 @@ class Vendor_bills extends CI_Controller
     public function select_by_site_vendor() 
     {
         $model = $this->model;
+        $data['action'] = "insert";
         $data['controller'] = $this->controller;
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
@@ -59,7 +62,10 @@ class Vendor_bills extends CI_Controller
                 'id_error_message' => "Id field is required"
             );
         }
-        
+//        echo '<pre>';
+//        print_r($data['result_display']);
+//        echo '</pre>';
+            
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $data['show_table'] = $this->view_table();
         $this->load->view('Vendor_bills/form', $data);

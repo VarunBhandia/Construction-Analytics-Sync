@@ -171,7 +171,7 @@ elseif($action == 'update')
                                                             }
                                                             else
                                                             { ?>
-<form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                        <form enctype="multipart/form-data" action="<?php echo base_url().$controller.'/'.$action;?>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
 
                                                             <?php echo '<font style="font-size:16px;" color="green">'.$this->session->flashdata('success_msg').'</font>' ?>
 
@@ -190,20 +190,33 @@ elseif($action == 'update')
                                                                     </thead>
                                                                     <tbody>
                                                                         <?php if($action == 'insert') 
-{ ?>
+                                                            {
+
+                                                                $material = explode(",",$result_display[0]->mid);
+                                                                $qty = explode(",",$result_display[0]->mrqty);
+                                                                $unit = explode(",",$result_display[0]->mrunitprice);
+                                                                $m_unit = explode(",",$result_display[0]->muid);
+                                                                $remarks = explode(",",$result_display[0]->mrremarks); 
+//                                                                echo '<pre>';
+//                                                                print_r(count($material));
+//                                                                echo '</pre>';
+                                                                for($i=0; $i<count($material); $i++){
+
+                                                                        ?>
+
                                                                         <tr class="pending-user">
                                                                             <td>
                                                                                 <select class="form-control select_width" id="material_0" name="material[]">
                                                                                     <option value=""></option>
                                                                                     <?php
-    foreach($materials as $value)
-    { echo $material[$i]; ?>
-                                                                                    <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
-     foreach($units as $m_unit){
-         if($value->munit == $m_unit->muid){
-             echo '('.$m_unit->muname.')' ;
-         }
-     }
+                                                                foreach($materials as $value)
+                                                                { ?>
+                                                                                    <option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
+                                                                 foreach($units as $m_unit){
+                                                                     if($value->munit == $m_unit->muid){
+                                                                         echo '('.$m_unit->muname.')' ;
+                                                                     }
+                                                                 }
                                                                                         ?></option>
                                                                                     <?php }	?>
                                                                                 </select>
@@ -227,33 +240,33 @@ elseif($action == 'update')
                                                                             });
                                                                         </script>
                                                                         <?php 
-} 
-                                                            else 
-                                                            { ?>
+                                                          }  } 
+                                                             else 
+                                                             { ?>
                                                                         <input type="hidden" name="mrid" value="<?php echo $row[0]->mrid; ?>"/>
                                                                         <?php 
 
-                                                             $material = explode(",",$row[0]->mid);
-                                                             $qty = explode(",",$row[0]->mrqty);
-                                                             $unit = explode(",",$row[0]->mrunitprice);
-                                                             $m_unit = explode(",",$row[0]->muid);
-                                                             $remarks = explode(",",$row[0]->mrremarks);  
-                                                             for($i=0; $i<count($material); $i++)
-                                                             {
+                                                              $material = explode(",",$result_display[0]->mid);
+                                                              $qty = explode(",",$result_display[0]->mrqty);
+                                                              $unit = explode(",",$result_display[0]->mrunitprice);
+                                                              $m_unit = explode(",",$result_display[0]->muid);
+                                                              $remarks = explode(",",$result_display[0]->mrremarks);  
+                                                              for($i=0; $i<count($material); $i++)
+                                                              {
                                                                         ?>
                                                                         <tr class="pending-user">
                                                                             <td>
                                                                                 <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                                                     <option value=""></option>
                                                                                     <?php
-                                                                 foreach($materials as $value)
-                                                                 { echo $material[$i]; ?>
+                                                                  foreach($materials as $value)
+                                                                  { echo $material[$i]; ?>
                                                                                     <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname; 
-                                                                  foreach($units as $m_unit){
-                                                                      if($value->munit == $m_unit->muid){
-                                                                          echo '('.$m_unit->muname.')' ;
-                                                                      }
-                                                                  }
+                                                                   foreach($units as $m_unit){
+                                                                       if($value->munit == $m_unit->muid){
+                                                                           echo '('.$m_unit->muname.')' ;
+                                                                       }
+                                                                   }
                                                                                         ?></option>
                                                                                     <?php }	?>
                                                                                 </select>
@@ -292,7 +305,7 @@ elseif($action == 'update')
                                                         }
                                                         ?>
 
-                                                                                                          
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -365,5 +378,43 @@ elseif($action == 'update')
                                         });
                                     }); 
                                 </script>
+                                <script  type="text/html" id="form_tpl">
+	<tr class="pending-user">
+						<td>
+                                                <select class="form-control select_width" id="material_0" name="material[]">
+                                                    <option value=""></option>
+                                                    <?php
+foreach($materials as $value)
+{ echo $material[$i]; ?>
+                                                    <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
+ foreach($units as $m_unit){
+     if($value->munit == $m_unit->muid){
+         echo '('.$m_unit->muname.')' ;
+     }
+ }
+                                                        ?></option>
+                                                    <?php }	?>
+                                    </select>
 
+                                    </td>
+						<td>
+							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
+                                    </td>
+						<td>
+							<input type="text" id="unit_0" name="unit[]" class="amountonly form-control" placeholder="0.00">
+                                    </td>
+						<td>
+							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
+                                    </td>
+						<td><a class="btn btn-sm btn-success" id="plus">+</a>
+						<a class="btn btn-sm btn-danger" id="minus">-</a>
+                                    </td>
+                                    </tr>   
+                                </script>
 
+                                <script>
+
+                                    $(document).ready(function() {
+                                        $('#datatable').DataTable();
+                                    } );
+                                </script>

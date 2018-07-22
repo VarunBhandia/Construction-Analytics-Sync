@@ -238,6 +238,7 @@ class Po extends CI_Controller
             $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+            $data['invoices'] = $this->$model->select(array(),'officedetails',array(),'');
             $data['material_rqsts'] = $this->$model->select(array(),'material_rqst',array('mrid'=>$poid),'');
             $username = $this->session->userdata('username');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');

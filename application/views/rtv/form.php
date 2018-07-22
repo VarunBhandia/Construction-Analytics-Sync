@@ -31,7 +31,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="sitename form-control" id="site" name="site">
+                           <select class="sitename form-control" id="site" name="site" required>
 								<option value="">---site name----</option>
 								<?php
 								foreach($sites as $site)

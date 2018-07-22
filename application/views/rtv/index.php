@@ -230,7 +230,7 @@
                                                              if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
                                                          } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
-                                                                        <td><?php echo $test->rtvreturndate;?></td>
+                                                                        <td><?php echo $test->rtvcreatedon;?></td>
                                                                         <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> </a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> </a></td>
                                                                         <?php $no++;?>
                                                                     </tr>
@@ -301,7 +301,7 @@
                                                              if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
                                                          } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
-                                                                        <td><?php echo $test->rtvreturndate;?></td>
+                                                                        <td><?php echo $test->rtvcreatedon;?></td>
                                                                         <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> </a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> </a></td>
                                                                         <?php $no++;?>
                                                                     </tr>
@@ -363,7 +363,7 @@
 
                                                                 } ?></td>
                                                                     <td><?php echo date("d-m-Y",strtotime($test->rtvreturndate));?></td>
-                                                                    <td><?php echo $test->rtvreturndate;?></td>
+                                                                    <td><?php echo $test->rtvcreatedon;?></td>
                                                                     <td><a href="<?php echo base_url()?>rtv/edit/<?php echo $test->rtvid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> </a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>rtv/delete/<?php echo $test->rtvid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> </a></td>
                                                                     <?php $no++;?>
                                                                 </tr>

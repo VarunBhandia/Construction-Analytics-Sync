@@ -67,7 +67,7 @@ Class Workitem extends CI_Controller{
         $witype = $this->input->post('witype');
 
         $data = array(
-            'vcreatedby'  => $uid,
+            'wicreatedby'  => $uid,
             'winame' => $winame,
             'widesc' => $widesc,
             'wigst'  => $wigst,
@@ -115,7 +115,7 @@ Class Workitem extends CI_Controller{
         $witype = $this->input->post('witype');
 
         $data = array(
-            'vcreatedby'  => $uid,
+            'wicreatedby'  => $uid,
             'winame' => $winame,
             'widesc' => $widesc,
             'wigst'  => $wigst,

@@ -11,6 +11,18 @@ class Transporter_m extends CI_Model{
 			return false;
 		}
 	}
+    
+    public function show_all_data() {
+$this->db->select('*');
+$this->db->from('transporters');
+$query = $this->db->get();
+if ($query->num_rows() > 0) {
+return $query->result();
+} else {
+return false;
+}
+}
+ 
 
 	public function addTransporter(){
 		$field = array(

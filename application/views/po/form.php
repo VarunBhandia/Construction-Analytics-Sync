@@ -110,9 +110,9 @@ elseif($action == 'update')
                                                                 <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Site
                                                                 </label>
                                                                 <div class="control-form col-md-5 col-sm-3 col-xs-12" >                                                                    <?php
-                                                                        foreach($sites as $site){
-                                                                            if($site->sid == $row[0]->sid){ echo $site->sname; }
-                                                                        }
+    foreach($sites as $site){
+        if($site->sid == $row[0]->sid){ echo $site->sname; }
+    }
                                                                     ?>
 
                                                                 </div>
@@ -1898,7 +1898,7 @@ elseif($action == 'update')
                                                                         $material = explode(",",$row[0]->mid);
                                                                         $qty = explode(",",$row[0]->mrqty);
                                                                         $unit = explode(",",$row[0]->mrunitprice);
-//                                                                        $m_unit = explode(",",$row[0]->muid);
+                                                                        //                                                                        $m_unit = explode(",",$row[0]->muid);
                                                                         $remarks = explode(",",$row[0]->mrremarks);
 
 
@@ -3642,7 +3642,19 @@ elseif($action == 'update')
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
                                                             </label>
                                                             <div class="col-md-5 col-sm-6 col-xs-12 form-group">
-                                                                <input class="form-control" id="invoice_to" name="invoice_to" type="text" value="" autocomplete="off" >
+                                                                    <select class="invoice_to form-control select_width" id="invoice_to" name="invoice_to">
+                                                                        <option value=""></option>
+                                                                        <?php
+                                                                        foreach($invoices as $invoice)
+                                                                        {?>
+                                                                        <option value="<?php echo $invoice->oid?>"><?php echo $invoice->oname.' ('.$invoice->oaddress .' )';?></option>
+                                                                        <?php }	?>
+                                                                    </select>
+                                                                    <script type="text/javascript">
+                                                                        $('.invoice_to').select2({
+                                                                            placeholder: '--- Select Invoice ---',
+                                                                        });
+                                                                    </script>    
                                                             </div>
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact Name
                                                             </label>

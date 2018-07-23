@@ -37,9 +37,9 @@ return false;
         $this->db->from('material_rqst');
         $this->db->where($condition);
         $query = $this->db->get();
-        echo '<pre>';
-        print_r($query);
-        echo '</pre>';
+//        echo '<pre>';
+//        print_r($query);
+//        echo '</pre>';
         if ($query->num_rows() > 0) {
             return $query->result();
         } else {

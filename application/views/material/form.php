@@ -115,14 +115,38 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material Unit
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="munit" name="munit" class="form-control col-md-7 col-xs-12" placeholder="Material Unit" value="<?php echo ($action == 'update') ? $row[0]->munit : '';?>">
+                           <select class="unit form-control" id="munit" name="munit" required>
+								<option value="">---Material Unit----</option>
+								<?php
+								foreach($units as $unit)
+								{ ?>
+									<option <?php if($action == 'update'){  echo $unit->muid == $row[0]->muid ? 'selected' : '' ; }?> value="<?php echo $unit->muid?>"><?php echo $unit->muname;?></option>
+								<?php }	?>
+							</select>
+                       <script type="text/javascript">
+      $('.unit').select2({
+        placeholder: '--- Select Unit ---',
+        });
+                            </script>
                         </div>
                       </div>
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material Category
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="mcategory" name="mcategory" class="form-control col-md-7 col-xs-12" placeholder="Material Category" value="<?php echo ($action == 'update') ? $row[0]->mcategory : '';?>">
+                         <select class="category form-control" id="mcategory" name="mcategory" required>
+								<option value="">---Material Category----</option>
+								<?php
+								foreach($categorys as $category)
+								{ ?>
+									<option <?php if($action == 'update'){  echo $category->cid == $row[0]->cid ? 'selected' : '' ; }?> value="<?php echo $category->cid?>"><?php echo $category->cname;?></option>
+								<?php }	?>
+							</select>
+                       <script type="text/javascript">
+      $('.category').select2({
+        placeholder: '--- Select Category ---',
+        });
+                            </script>
                         </div>
                       </div>
                       <div class="form-group">

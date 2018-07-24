@@ -34,6 +34,7 @@ class Site_m extends CI_Model{
             'email'=>$this->input->post('email'),
             'address'=>$this->input->post('address'),
             'screatedby'=>$this->input->post('screatedby'),
+            'screatedon'=>$this->input->post('screatedon'),
         );
         $this->db->insert('sitedetails', $field);
         if($this->db->affected_rows() > 0){

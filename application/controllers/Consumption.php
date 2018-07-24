@@ -14,7 +14,7 @@ class Consumption extends CI_Controller
     {
         parent::__construct();
         $this->load->model('Model');
-        $this->load->model('Consumption_m');
+        $this->load->model('consumption_m');
         $this->model = 'Model';
         date_default_timezone_set('Asia/Kolkata');
     }
@@ -23,6 +23,9 @@ class Consumption extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->Consumption_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -60,6 +63,43 @@ class Consumption extends CI_Controller
         $data['show_table'] = $this->view_table();
         $this->load->view('consumption/index', $data);
     }
+    
+    public function select_by_date_range() {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
+        if ($date1 == "" || $date2 == "") {
+            $data['date_range_error_message'] = "Both date fields are required";
+        } else {
+            $result = $this->consumption_m->show_data_by_date_range($data);
+            if ($result != false) {
+                $data['result_display_date'] = $result;
+            } else {
+                $data['result_display_date'] = "No record found !";
+            }
+        }
+        $data['controller'] = $this->controller;
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('consumption/index', $data);
+    }
+
+    
 
     public function index()
     {

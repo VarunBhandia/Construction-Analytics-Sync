@@ -119,8 +119,10 @@
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->mname;;?></td>
-                                                                <td><?php echo $test->munit;?></td>
-                                                                <td><?php echo $test->mcategory;;?></td>
+                                                                <td><?php foreach($units as $unit){
+                                                         if($unit->munit == $test->munit ){echo $unit->muname; }
+
+                                                     } ?></td>                                                                  <td><?php echo $test->mcategory;;?></td>
                                                                 <td><?php echo $test->mdesc;;?></td>
                                                                 <td><?php echo $test->hsn;?></td>
                                                                 <td><?php echo $test->mgst;;?></td>

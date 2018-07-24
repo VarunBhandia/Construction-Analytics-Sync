@@ -150,20 +150,39 @@
                                                             </ul>
                                                         </div>
                                                     </div>
-                                                </div>
                                                 <div class="clearfix"></div>
                                             </div>
-                                            <?php
-                                            echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
+                                            <div  class="row">
+                                                    <div class="col-md-8">                                                
+                                                        <form enctype="multipart/form-data" action="<?php echo base_url()?>grn/select_by_date_range" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date From
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control" name="date_from" >
+                                                            </div>
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date To
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control col-md-2 col-sm-3 col-xs-12" name="date_to" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                            <div class="col-md-1">
+                                                                <input type="submit" value="Show Record" class="btn btn-success" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+<?php echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
                                             ?>
                                             <div class="message">
                                                 <?php
                                                 if (isset($result_display))
                                                 {
-
+                                                        echo "<p><u>Result</u></p>";
                                                     if ($result_display == 'No record found !')
                                                     {
-                                                        echo '<h2>No record found !</h2>';
+                                                        echo $result_display;
                                                     }
                                                     else
                                                     { ?>
@@ -190,7 +209,10 @@
                                                             <tbody>
                                                                 <?php
                                                      $no = 1;
-                                                     foreach($result_display as $test) {?>
+                                                     foreach($result_display as $test) {
+                                                                for($i=0;$i < $count_site;$i++){
+                                                            if($user_sites[$i] == $test->sid ){
+                                                                ?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->grnid;?></td>
@@ -207,7 +229,7 @@
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
-                                                                                       }
+                                                            }}          }
                                                                 ?>
                                                             </tbody>
                                                         </table>
@@ -215,11 +237,76 @@
                                                 </div>   <?php }
                                                 }
                                                 ?>
+                         <?php
+    echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
+                                                ?>
+                                                <div class="message">
+                                                    <?php
+                                                    if (isset($result_display_date))
+                                                    {
+                                                        echo "<p><u>Result</u></p>";
+                                                        if ($result_display_date == 'No record found !')
+                                                        {
+                                                            echo $result_display_date;
+                                                        }
+                                                        else
+                                                        { ?>
+                                                    <form method="post" action="<?php echo base_url()?>grn/select_by_date_range_action">
+                                                        <input type="hidden" value="<?php echo $date1; ?>" name="date_from">
+                                                        <input type="hidden" value="<?php echo $date2; ?>" name="date_to">
+                                                        <input type="submit" name="export" class="btn btn-success" value="Export" />
 
+                                                    </form>		    
+                                                    <div id="table-scroll" class="table-scroll">
+                                                        <div class="table-wrap">
+                                                            <table id="datatable" class="main-table table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>GRN Ref-id</th>
+                                                                    <th>Site Name</th>
+                                                                    <th>Vendor Name</th>
+                                                                    <th>Challan Number</th>
+                                                                    <th>Receive Date</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                     $no = 1;
+                                                     foreach($result_display as $test) {
+                                                                for($i=0;$i < $count_site;$i++){
+                                                            if($user_sites[$i] == $test->sid ){
+                                                                ?>
+                                                                <tr>
+                                                                    <td><?php echo $no;?></td>
+                                                                    <td><?php echo $test->grnid;?></td>
+                                                        <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>                                                                    <td><?php foreach($vendors as $vendor){
+                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                     } ?></td>
+                                                                    <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
+                                                                    <td><?php echo $test->grnreceivedate;?></td>
+                                                                    <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                    <?php $no++;?>
+                                                                </tr>
+                                                                <?php
+                                                            }}          }
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                        </div>
+                                                    </div>
+                                                    <?php }
+                                                    }
+                                                    ?>
                                             </div>
                                             <?php
                                             $showtable = $this->uri->segment(2);
-                                            if($showtable != 'select_by_id'){
+                                            if($showtable == ''){
 
                                             ?>
                                             <form method="post" action="<?php echo base_url()?>grn/action">
@@ -252,10 +339,12 @@
                                                                  <td><?php foreach($sites as $site){
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
-                                                     } ?></td>                                                            <td><?php foreach($vendors as $vendor){
+                                                     } ?></td>                                                            
+                                                        <td><?php foreach($vendors as $vendor){
                                                          if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
-                                                     } ?></td>                                                                <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
+                                                     } ?></td>                                                                
+                                                               <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
                                                                 <td><?php echo $test->grnreceivedate;?></td>
                                                                 <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
@@ -267,14 +356,17 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div> <?php } ?>
+                                            </div> 
+                                            <?php } ?>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </body>
+                </div>
+            </div>
+            </body>
                 <?php
                                                     $this->load->view('include/footer');
                 ?>

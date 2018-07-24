@@ -22,10 +22,9 @@ Class Material extends CI_Controller{
             $this->load->model("material_m");
             $data["m_data"] = $this->material_m->fetch();
             $this->load->model('Model');
-            $this->load->view('layout/footer');
             $data['row'] = $this->Model->select(array(),'materials',array(),'');
             $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');
-            $data['munits'] = $this->Model->select(array(),'munits',array(),'');
+            $data['units'] = $this->Model->select(array(),'munits',array(),'');
             $model = $this->model;
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
@@ -81,6 +80,7 @@ Class Material extends CI_Controller{
 
         $data = array(
             'mcreatedby'  => $uid,
+            'mcreatedon' => $creationdate,
             'mname' => $mname,
             'munit' => $munit,
             'mcategory'  => $mcategory,
@@ -103,14 +103,15 @@ Class Material extends CI_Controller{
         $model = $this->model;
         $this->load->model("material_m");      
         $this->load->model("Model");      
-        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mid),'');
         $data['action'] = "update";
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mid),'');
         $data['controller'] = $this->controller;
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['categorys'] = $this->$model->select(array(),'category',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $username = $this->session->userdata('username');
 //        echo "<pre>";
 //        print_r ($data);
@@ -173,8 +174,8 @@ Class Material extends CI_Controller{
         $data['controller'] = $this->controller;
         $model = $this->model;
         $username = $this->session->userdata('username');
-       $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-       $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->material_m->show_all_data();
         if ($result != false) {
             return $result;

@@ -38,6 +38,20 @@ return $query->result();
 return false;
 }
 }
+    
+    public function show_data_by_date_range($data) {
+        $condition = "cpcreatedon BETWEEN " . "'" . $data['date1'] . "'" . " AND " . "'" . $data['date2'] . "'";
+        $this->db->select('*');
+        $this->db->from('cp_master');
+        $this->db->where($condition);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+    
     function fetch_data()
 	{
 		$this->db->order_by("cpid", "DESC");

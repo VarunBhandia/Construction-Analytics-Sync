@@ -171,7 +171,7 @@
                                                         else
                                                         { ?>	  
                                                     <form method="post" action="<?php echo base_url()?>material_rqst/select_by_id_action">
-                                                        <input type="hidden" value="<?php echo $sid; ?>" name="sid" placeholder="sitename"> 
+                                                        <input type="hidden" value="<?php echo $sid; ?>" name="sid"> 
                                                         <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                     </form>	
 

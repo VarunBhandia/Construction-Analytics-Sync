@@ -106,10 +106,7 @@
 
                                                                         <?php  }
 
-    }
-
-                                                                        ?>
-                                                                        <?php }	?>
+    }  }  ?>
                                                                     </select>
                                                                     <script type="text/javascript">
                                                                         $('#sid').select2({
@@ -223,9 +220,9 @@
 
                                                      } ?></td>
                                                                     <td><?php foreach($vendors as $vendor){
-                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+                                                             if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
-                                                     } ?></td>
+                                                         } ?></td> 
                                                                     <td><?php echo $test->pocreatedby;?></td>
                                                                     <td><?php echo date("d-m-Y H:i:s",strtotime($test->pocreatedon));?></td>
                                                                     <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
@@ -291,9 +288,9 @@
 
                                                      } ?></td>
                                                                     <td><?php foreach($vendors as $vendor){
-                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+                                                             if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
-                                                     } ?></td>
+                                                         } ?></td>     
                                                                     <td><?php echo $test->pocreatedby;?></td>
                                                                     <td><?php echo date("d-m-Y H:i:s",strtotime($test->pocreatedon));?></td>
                                                                     <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
@@ -301,8 +298,9 @@
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
-                                                                 }}    }
-                                                                ?>
+                                                                 }
+                                                     }    
+                                                }               ?>
                                                             </tbody>
                                                         </table>
                                                         </div>
@@ -314,7 +312,6 @@
                                             <?php
                                             $showtable = $this->uri->segment(2);
                                             if($showtable == ''){
-
                                             ?>
                                             <form method="post" action="<?php echo base_url()?>po/action">
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
@@ -348,10 +345,10 @@
                                                                 if($site->sid == $test->sid ){echo $site->sname; }
 
                                                             } ?></td>
-                                                                <td><?php foreach($vendors as $vendor){
-                                                                if($vendor->vid == $test->vid ){echo $vendor->vname; }
+                                                               <td><?php foreach($vendors as $vendor){
+                                                                    if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
-                                                            } ?></td>
+                                                                } ?></td>
                                                                 <td><?php echo $test->pocreatedby;?></td>
                                                                 <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
                                                                 <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>

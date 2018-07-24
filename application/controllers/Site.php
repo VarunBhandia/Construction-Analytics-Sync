@@ -64,10 +64,11 @@ Class Site extends CI_Controller{
         $contact = $this->input->post('contact');
         $mobile = $this->input->post('mobile');
         $email = $this->input->post('email');
-        $vaddress = $this->input->post('vaddress');
+        $address = $this->input->post('address');
 
         $data = array(
             'screatedby'  => $uid,
+            'screatedon' => $creationdate,
             'sname' => $sname,
             'sitestartdate' => $sitestartdate,
             'uniquesid'  => $uniquesid,
@@ -80,6 +81,10 @@ Class Site extends CI_Controller{
         $this->$model->insert($data,$this->table);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
+        
+//          echo "<pre>";
+//            print_r ($data);
+//         echo "</pre>";
 
         redirect('site');
     }
@@ -107,14 +112,13 @@ Class Site extends CI_Controller{
         $model = $this->model;
         $this->load->model("site_m");
         $uid = $this->input->post('uid');
-        $creationdate = date('Y-m-d H:i:s');
         $sname = $this->input->post('sname');
         $sitestartdate = $this->input->post('$sitestartdate');
         $uniquesid = $this->input->post('uniquesid');
         $contact = $this->input->post('contact');
         $mobile = $this->input->post('mobile');
         $email = $this->input->post('email');
-        $vaddress = $this->input->post('vaddress');
+        $address = $this->input->post('address');
 
         $data = array(
             'screatedby'  => $uid,

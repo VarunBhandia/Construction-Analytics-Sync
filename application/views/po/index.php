@@ -240,6 +240,7 @@
                                                                 <th>Created By</th>
                                                                 <th>Created On</th>
                                                                 <th>Action</th>
+                                                                <th>PDF</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -247,7 +248,7 @@
                                                 $no = 1;
                                                 foreach($po_row as $test) {
                                                     for($i=0;$i < $count_site;$i++){
-                                                        if($user_sites[$i] == $test->sid ){
+                                                     if($user_sites[$i] == $test->sid ){
                                                             ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
@@ -263,7 +264,14 @@
                                                                 <td><?php echo $test->pocreatedby;?></td>
                                                                 <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
                                                                 <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
-                                                                <?php $no++;?>
+                                                                
+                                                                <td>
+                                                                 <a href="<?php echo base_url().$controller;?>/pdf_genrate/?po_id=<?php echo $test->poid;?>">
+                                                                   <i style="color: red;font-size: 3em;" class="fa fa-file-pdf-o"></i> 
+                                                                 </a>
+                                                                </td>
+                                                                
+																<?php $no++;?>
                                                             </tr>
                                                             <?php
 

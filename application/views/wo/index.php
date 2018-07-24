@@ -35,6 +35,7 @@
 								  <th>Workorder Date</th>
 								  <th>Created On</th>
 								  <th>Action</th>
+								  <th>PDF</th>                                  
 								</tr>
 						   </thead>
 							<tbody>
@@ -50,8 +51,14 @@
 									  <td><?php echo date("d-m-Y",strtotime($test->wodate));?></td>
 									  <td>
                                           <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->woid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
-                                          <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                          <a onClick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
                                         </td>
+										<td>
+                                          
+                                          <a href="<?php echo base_url().$controller;?>/pdf_genrate/<?php echo $test->woid;?>">
+                                           <i class="fa fa-file-pdf-o" style="    font-size: 35px;color: red;"></i>
+                                          </a>
+                                        </td>                                        
 									  <?php $no++;?>
 									</tr>
 									<?php

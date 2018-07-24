@@ -151,6 +151,7 @@
 			redirect('My_controller');
 		}
 		
+		
 		public function browse()
 		{
 			/* File Select */
@@ -437,6 +438,71 @@
 			echo json_encode($arr);
 		}
 
+
+public function get_transport(){
+			
+			$model = $this->model;
+			$report = $this->input->post('id');
+
+		//	if($report == 'transporters') {
+
+        	$query = $this->db->get('transporters');
+			$result = $query->result();
+			foreach($result as $key=>$value){
+			  
+			  echo '<option value="'.$value->tid.'"> '.$value->tname.'</option>';
+			
+			}
+				
+			//	}
+}
+
+public function get_id_for_transport(){
+			
+			$model = $this->model;
+            $tid = $this->input->post('tid');
+	
+	$all_id = array();
+	
+			if(!empty($tid)) {
+			$cols = array ("moid");
+            $this->db->where('tid' , $tid);    
+        	$moid_query = $this->db->get('mo_master');
+			$moid_array = $moid_query->result();
+
+            $this->db->where('tid' , $tid);    
+        	$rtv_query = $this->db->get('rtv_master');
+			$rtvid_array = $rtv_query->result();
+
+            $this->db->where('tid' , $tid);    
+        	$grn_query = $this->db->get('grn_master');
+			$grnid_array = $grn_query->result();
+
+
+			foreach($moid_array as $key=>$value){$all_id['moid'][]=$value->moid;}
+			foreach($rtvid_array as $key=>$value){$all_id['rtvid'][]=$value->rtvid;}
+			foreach($grnid_array as $key=>$value){$all_id['grnid'][]=$value->grnid;}
+			
+			$array = $this->return_data_of_multiple_table($all_id);
+			
+			//print_r($array);
+ 
+				
+		}
+		
+}
+
+public function return_data_of_multiple_table($multiple_data){
+	
+        if(array_key_exists('moid', $multiple_data)){
+		
+		}else if (array_key_exists('rtvid', $multiple_data)){
+		
+		}else if (array_key_exists('grnid', $multiple_data)){
+		
+		}	
+
+}
 	
 		public function get_date()
 		{

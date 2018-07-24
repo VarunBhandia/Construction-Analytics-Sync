@@ -43,7 +43,7 @@ class Wo extends CI_Controller
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['workitems'] = $this->$model->select(array(),'workitems',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $data['subcontdetails'] = $this->$model->select(array(),'subcontdetails',array(),'');
+        $data['subcontdetails'][0] = $this->$model->select(array(),'subcontdetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $this->load->view('wo/form',$data);
     }
@@ -135,11 +135,524 @@ class Wo extends CI_Controller
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['workitems'] = $this->$model->select(array(),'workitems',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $data['subcontdetails'] = $this->$model->select(array(),'subcontdetails',array(),'');
+        $data['subcontdetails'][0] = $this->$model->select(array(),'subcontdetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
         $this->load->view('wo/form',$data);
     }
+	
+	function pdf_genrate($woid){
+
+//echo "<pre>";  
+  require_once("dompdf/dompdf_config.inc.php");
+		$model = $this->model;
+		
+        $result = $this->$model->get_data_for_pdf($woid,$this->table);
+ 
+//		echo "<pre>";
+		//	print_r($result);
+			$workitem_qty = explode("," , $result['All'][0]->woqty);
+			$workitem_cgst = explode("," , $result['All'][0]->wocgst);			
+			$workitem_sgst = explode("," , $result['All'][0]->wosgst);					
+			$workitem_igst = explode("," , $result['All'][0]->woigst);	
+			$workitem_wototal = explode("," , $result['All'][0]->wototal);	
+			$workitem_discount = explode("," , $result['All'][0]->wodiscount);
+   
+ob_start(); 
+?>
+
+<style>
+*{
+	padding:0px 0 0px!important;
+	margin:0px 0 2px!important;
+
+}
+@page { margin: 50px 0; }
+.main{
+ width:90%;
+ margin:auto;
+ overflow:scroll;
+ height:850px;
+margin:50px 0 2px!important;
+ 
+
+} 
+.main table.po-table{
+      width: 100%;
+      padding: 8px;
+      font-size: 10px !important;
+      position: absolute;
+	  left:40px;
+      page-break-after: auto; 
+      top: 15px; 
+      height: 100%!important;
+      margin: 0;
+	  margin-bottom: 0em!important;
+      margin-top: 0em!important;	
+}
+.main table.po-table tr td img.logo{
+      width: 76px;
+}
+
+
+
+
+.main table.po-table tr.first-head td {
+    padding: 10px 0 10px;
+}
+
+.main table.po-table tr.first-head td h1 {
+    font-family: 'Knewave'!important;
+	font-style:italic;
+    color: #c50303;
+    letter-spacing: 0px;
+    line-height: 0.4em;
+	font-size: 20px!important;	
+}
+
+
+.main table.po-table tr.first-head td h3 {
+	text-align: left;
+	font-size: 16px;
+	font-family: sans-serif;color: #5f5c5c;
+	line-height:1.5em;
+	margin-top: -5px;
+}
+.main table.po-table tr.first-head td h5 {
+    padding: 10px 0 10px;
+	text-align:right;
+	line-height:15px;
+}
+
+.main table.po-table tr.first-head td h5 span.po-order {
+	font-size: 18px;
+    font-family: sans-serif;
+    color: #5f5c5c;
+	line-height:20px;
+}
+.main table.po-table tr.first-head td{
+ padding-bottom:15px!important
+}
+.main table.po-table tr.second-head td{
+ padding-top:10px!important;
+ padding-bottom:10px!important;
+}
+.main table.po-table tr.second-head td h2.vendor {
+	font-size: 20px;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed';
+    font-weight: 600;
+    margin: 0!important;
+    padding: 0!important;
+}
+.main table.po-table tr.second-head td h3.vendor-address {
+    font-size: 15px;
+    font-family: sans-serif;
+    font-weight: 500;
+    color: #4c4b4b;
+    line-height: 15px;
+    margin: 0!important;
+}
+
+.main table.po-table tr.second-head td h4.vendor-other-details {
+	font-size: 13px;
+	color: #4c4b4b;
+	font-family: 'Open Sans Condensed';
+	margin: 0;
+	line-height: 15px;
+}
+.main table.po-table tr.third-head td{
+ 
+  padding-bottom:15px!important;
+  border-bottom: 2px solid #ccc!important;
+  margin-bottom:10px!important;
+
+}
+.main table.po-table tr.third-head td h2.ship-details {
+    color: #2b2b2b;
+    font-size: 13px!important;
+	font-family: sans-serif;
+	line-height: 15px;	
+    padding:0px!important;
+}
+
+.main table.po-table tr.third-head td h4.ship-address {
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 12px!important;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed'!important;;
+}
+ 
+.main table.po-table tr.third-head td h2.invoice-to {
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 13px!important;
+    color: #000000;
+    margin: 0;
+    padding-top:10px!important;
+}
+
+.main table.po-table tr.third-head h4.invoice-other-details {
+    font-size: 12px!important;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed'!important;;
+    font-weight: 600;
+    line-height: 15px;
+
+}
+  
+ 
+tr.second-head td, tr.third-head td  {
+    border-top: 2px solid #ccc;
+    padding: 15px 0 15px;
+}
+
+.main table.po-table tr.forth-head th{
+    border: 1px solid #ccc;
+    padding: 10px 0px 10px 0px!important;
+    background: #eee8aa;
+    text-align: center;
+    font-size: 10px;
+    font-family: sans-serif;
+    margin-bottom:10px!important;
+	
+
+}
+.main table.po-table tr.fifth-head td{
+    color: #2b2b2b;
+    font-size: 11px;
+    font-family: sans-serif;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    padding: 12px;
+}
+
+.main table.po-table tr.comman-rows th{
+    color: #2b2b2b;
+    font-size: 11px!important;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 12px;
+    text-align: right;
+    border-left: 1px solid #ccc!important;	
+} 
+.main table.po-table tr.comman-rows td{
+    color: #2b2b2b;
+    font-size: 11px;
+    font-family: sans-serif;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    padding: 12px;
+}
+
+.main table.po-table tr.sixth-head {
+    background: #eee8aa;
+}
+.main table.po-table tr.sixth-head td {
+	padding: 10px;
+}
+.main table.po-table tr.sixth-head h2 {
+    color: #2b2b2b;
+    font-size: 16px;
+    font-family: sans-serif;
+    margin: 20px 0 -15px 0;
+}
+.main table.po-table tr.sixth-head h4 { 
+	font-size: 13px;
+    color: #000000;
+    font-family: 'Open Sans Condensed';
+    line-height: 15px;
+}
+.main table.po-table tr.seventh-head h4 { 
+    font-size: 14px;
+    color: #000000;
+    font-family: 'Open Sans Condensed';
+    margin-top: 15px!important;
+    line-height: 2.5em;
+}
+.main table.po-table tr.eight-head td.contact_info h2 {
+    color: #000000;
+    font-size: 14px;
+    color: #000000;
+    font-size: 14px;
+    font-family: sans-serif;
+    line-height: 20px;
+}
+.main table.po-table tr.eight-head td.Office h3 {
+    font-size: 18px;
+    font-family: sans-serif;
+    font-weight: 500;
+    margin-bottom: -10px!important;
+    color: #4c4b4b;
+    line-height: 25px;
+	text-align:right;		
+}
+ .main table.po-table tr.eight-head td.Office h2 {
+    color: #000000;
+    font-size: 14px;
+    font-family: sans-serif;
+    line-height: 20px;	
+	text-align:right;	
+}
+.main table.po-table tr.ninth-head td h2 {
+	color: #2b2b2b;
+	font-size: 15px;
+	font-family: sans-serif;
+	padding: 17px 15px 25px!important;
+	margin-top: 24px!important;
+    border-top: 2px solid #ccc;
+ }
+html {
+    height: 0;
+}
+</style>
+
+<title>Workorder</title>
+<div class="main">
+ 
+  <table cellpadding="0" cellspacing="0" class="po-table">
+  
+
+   
+<tr  class="first-head">
+			 <td>  <img class="logo" src="<?php echo base_url()?>images/tringle.png"> </td>
+			 <td colspan="11">
+				<h1>Dee Kay Buildcon Pvt. ltd.</h1>
+				<h3>(Engineers &amp; Contractors)<br><b>(ISO 9001:200,14001:2004 &amp; OHSAS)</b></h3>
+			 </td>
+             <td colspan="5">
+                        <h5>
+                           <span class="po-order">Purchase Order / Work Order</span>
+                           <br />
+                           <b>Dt-10/07/2018</b>
+                           <br />
+                           <b>PO/2018/stanvac551/37/83</b>
+                           <br />
+                           <b>
+						    <?php echo '';//date("d M Y" , strtotime($result['All'][0]->pocreatedon))?>
+                           </b>
+                          
+                        </h5>
+                 </td>
+
+             </tr>   
+
+		  <tr class="second-head">
+			 <td colspan="17" >
+				<h2 class="vendor">
+				 Vendor: <?php echo $result['subcontdetails'][0]->subname?></h2>
+				<h3 class="vendor-address"> <?php echo $result['subcontdetails'][0]->subaddress?></h3>
+				<h4 class="vendor-other-details">
+				Phone :<?php echo $result['subcontdetails'][0]->submobile?></h4><br>
+
+			 </td>
+
+			</tr>
+
+<tr class="third-head">
+			 <td colspan="7">
+				<h2 class="ship-details">Ship To: <br /> <?php echo $result['site'][0]->sname?></h2>
+				<h4 class="ship-address">
+				 Address.: <?php echo $result['site'][0]->address?><br />
+                 Contact.: <?php echo $result['site'][0]->contactname?><br />
+				 Phone :<?php echo $result['site'][0]->mobile?><br />
+				 Email :<?php echo $result['site'][0]->email?></h4>
+			 </td>
+
+			 <td colspan="10" >
+				<h2 class="invoice-to">Invoice To:<br /><?php echo $result['oid'][0]->oname?></h2>
+                
+				<h4 class="invoice-other-details">
+				 Address.: <?php echo $result['oid'][0]->oaddress?><br />
+                 Contact.: <?php echo $result['site'][0]->contactname?><br />
+				 GST :<?php echo $result['oid'][0]->ogst?><br />
+                </h4> 
+			 </td>
+
+             </tr>
+             
+	        <tr> <th style="padding-top:20px!important;" colspan="17"></th>  </tr>    
+             
+            <tr class="forth-head">
+                <th rowspan="2">Sr.No</th>
+                <th rowspan="2">Material Name </th>
+                <th rowspan="2">HSN</th>
+                <th rowspan="2">Material Description </th>
+                <th rowspan="2">Remarks</th>
+                <th rowspan="2">Unit</th>
+                <th rowspan="2">Quantity</th>
+                <th rowspan="2">Rate</th>
+                <th rowspan="2">Total</th>
+                <th rowspan="2">LESS<br />(Discount)</th>
+                <th colspan="2">CGST Rate</th>
+                <th colspan="2">SGST Rate</th>
+                <th colspan="2">IGST Rate</th>
+                <th rowspan="2">AGREED AMOUNT(Rs.)</th>
+            </tr>  
+            <tr class="forth-head">
+            
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+            
+            </tr>
+            
+             <?php foreach($result['workitems'] as $key=>$value):?>
+        	<tr class="fifth-head">
+				<td><?php echo $key+1;?></td>
+				<td><?php echo $value->winame;?></td>
+				<td><?php echo '';?></td>
+				<td><?php echo $value->widesc;?></td>
+				<td><?php echo '';?></td>
+				<td><?php echo $result['munits'][$key]->muname;?></td>
+				<td><?php echo $workitem_qty[$key];?></td>
+   				<td><?php echo '';?></td>
+   				<td><?php echo $workitem_wototal[$key]?></td>
+   				<td><?php echo $workitem_discount[$key];?></td>
+         		<td><?php echo '';?></td>
+               	<td><?php echo $workitem_cgst[$key];?></td>
+         		<td><?php echo '';?></td>
+               	<td><?php echo $workitem_sgst[$key];?></td>
+         		<td><?php echo '';?></td>
+               	<td><?php echo $value->wigst;?></td>
+         		<td>
+				  <?php 
+				  $cgst = (empty($workitem_cgst[$key]))?0:$workitem_cgst[$key];
+				  $sgst = (empty($workitem_sgst[$key]))?0:$workitem_sgst[$key];				  
+				  $igst = (empty($value->wigst))?0:$value->wigst;				  
+				  
+				 echo number_format($workitem_wototal[$key]+$cgst+$sgst+$igst);?>
+
+                </td>
+                
+			</tr>
+            <?php endforeach;?>
+        	<tr class="comman-rows" >
+              <th colspan="15">CGST</th>
+              <td>RS</td>                
+              <td><?php echo $result['All'][0]->wocgsttotal;?></td>
+        	</tr>
+            <tr class="comman-rows">
+                 <th  colspan="15">SGST:</th>
+                <td>RS</td>
+              <td><?php echo $result['All'][0]->wosgsttotal;?></td>
+          </tr>
+            <tr class="comman-rows">
+                <th  colspan="15">IGST:</th>
+                <td>RS</td>
+              <td><?php echo $result['All'][0]->woigsttotal;?></td>
+            </tr>
+
+            <tr class="comman-rows">
+                <th  colspan="15">Total Amount:</th>
+                <td>RS</td>
+              <td><?php echo $result['All'][0]->wototalamount;?></td>
+            </tr>
+
+            <tr class="comman-rows">
+                <th  colspan="15">Freight:</th>
+                <td>RS</td>
+                <td><?php echo $result['All'][0]->wofreight;?></td>
+            </tr>
+
+            <tr class="comman-rows">
+                <th  colspan="15">GST on Freight(18%):</th>
+                <td>RS</td>
+                <td><?php echo $result['All'][0]->wogstfreight;?></td>
+            </tr>
+
+
+            <tr class="comman-rows">
+                <th  colspan="15">Gross Amount:</th>
+                <td>RS</td>
+                <td><?php echo $result['All'][0]->wogrossamount;?></td>
+            </tr>
+            <tr class="">
+            <td colspan="17" style="padding-bottom:10px;">&nbsp;</td>
+            </tr>
+            <tr class="sixth-head">
+                <td colspan="17">
+
+                        <h2 class="term-condition">Terms and Conditions:</h2>
+                        <h4>Payment : 30 days after receiving date of material at site<br>
+                        Transportation : Inclusive<br>
+                        GST % : inclusive<br>
+                        Delivery : 2 days after po date, If material would be delay as discussed action would be taken.<br>
+                        Make : Tata Fe 500D with Tc<br>
+                        This PO is placed as per your quotation Dt: DTCPL/PI/2018-19/105/JULY<br><br>
+                        The material should be of good quality and of proper size else would not be received.</h4>
+                
+                </td>
+            </tr>
+
+            <tr class="seventh-head">
+                <td colspan="17">
+
+                      <h4>If you have any query against purchase order, Please feel free to contact:<span class="span"> Mr. S.k Lamba 
+                      <span style=" color:#4c4b4b">at</span> 8800695657, 29M</span><br>
+                      
+                      Note: As confirmation, please sign. and send back a duplicate copy of purchase order to the organization.</h4>                
+                </td>
+            </tr>
+            
+            <tr class="eight-head">
+
+                <td colspan="9"  class="contact_info" >
+                       <h2>For: <?php echo $result['oid'][0]->oname?><br>
+                            Authorized Signatory :<br>
+                            Annexure
+                        </h2>
+                                 
+                </td>
+                <td colspan="8" class="Office">
+					<h3>Accepted By:</h3>
+                    <h2>FOR : OFFICE<br>
+                        Authorized Signatory :
+                    </h2>                                 
+                </td>           
+            </tr>            
+
+			<tr class="ninth-head">
+                 <td colspan="17" class="">
+                    <h2>               System generated Document. May not require Signature.             </h2>
+                </td>
+		    </tr>
+
+            
+  </table>
+
+ </div>
+
+
+
+<?php
+$data = ob_get_contents();
+ob_end_clean();
+//exit;
+error_reporting(0);
+ 
+  $dompdf = new DOMPDF();
+  $dompdf->load_html($data);
+  $dompdf->render();
+  $dompdf->stream("work-order.pdf", array("Attachment" => false));
+
+  exit(0);
+
+
+
+
+
+
+}
+   
+
+	
 
     public function update()
     {

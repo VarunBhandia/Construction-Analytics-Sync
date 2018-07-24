@@ -54,8 +54,9 @@ Class Workitem extends CI_Controller{
        <td>
        <a href="javascript:;" class="btn btn-info item-edit" data="'.$row->wiid.'">Edit</a>
        <a href="javascript:;" class="btn btn-danger item-delete" data="'.$row->wiid.'">Delete</a></td>
-
-      </tr>';
+       <td><a href="'.base_url().'/workitem/pdf_genrate/?item_id='.$row->wiid.'" target="_blank"><i class="fa fa-file-pdf-o" style="font-size: 40px;color: red;"></i></a></td>
+      </tr>
+	  ';
                 }
             }
             else
@@ -67,6 +68,79 @@ Class Workitem extends CI_Controller{
             $output .= '</table>';
             echo $output;
         }
+
+
+function pdf_genrate(){
+
+          $this->load->model('workitem_m');
+if(isset($_REQUEST['item_id'])) {
+  require_once("dompdf/dompdf_config.inc.php");
+	        $wiid = $_REQUEST['item_id'];
+
+            $rersult = $this->workitem_m->pdf_data($wiid);
+	
+   $html = '
+		<table cellpadding="0" cellspacing="0" style="width: 60%; border: 1px solid #ccc; margin-bottom: 0em!important; margin-top: 0em!important; margin: auto; font-size: 20px;">
+			<tr>
+			 <td>
+			  <img src="'.base_url().'images/tringle.png">
+			 </td>
+			 <td colspan="7">
+				<h1 style="font-family: Knewave, cursive;color: #c50303;font-size: 25px;">Dee Kay Buildcon Pvt. ltd.</h1>
+				<h3 style="text-align: left;font-size: 20px;font-family: sans-serif;color: #5f5c5c;margin-top: -5px;">(Engineers &amp; Contractors)<br><b>(ISO 9001:200,14001:2004 &amp; OHSAS)</b></h3>
+			 </td>
+
+             </tr>
+			<tr>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">ID</th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">
+			  Material Name
+			 </th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">
+			  Material Description 
+			 </th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">GST Rate</th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">Base Rate</th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">Category</th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">
+			  WI Created By
+			 </th>
+			 <th style="border: 1px solid #ccc;padding: 10px;background: #fcfcab;text-align: center;font-size: 13px;font-family: sans-serif;">
+			  Material type
+			 </th>
+
+			 
+			<tr>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->wiid.'</td>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->winame.'</td>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->widesc.'</td>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->wigst.'</td>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->wibase.'</td>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->wicategory.'</td>
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">	'.$rersult[0]->wicreatedby.'</td> 
+				<td style="border: 1px solid #ccc;padding: 10px;text-align: center;">'.$rersult[0]->witype.'</td>
+			</tr>
+			<tr>
+			 <td colspan="8">
+			<h2 style="color: #2b2b2b;font-size: 15px;font-family: sans-serif;padding: 17px 15px 25px;margin-top: 24px!important;margin:  auto;">System generated Document. May not require Signature.</h2>
+			 </td>
+			</tr>
+</table>';
+error_reporting(0);
+ 
+  $dompdf = new DOMPDF();
+  $dompdf->load_html($html );
+  $dompdf->render();
+  $dompdf->stream("/wp-content/themes/financialadvisors/dompdf_out.pdf", array("Attachment" => false));
+
+  exit(0);
+
+
+}
+
+
+
+}
 
         function action()
 

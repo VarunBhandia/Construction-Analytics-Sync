@@ -32,9 +32,23 @@
 								<option value="">Billed Receiving</option>
 								<option value="">Vendors Rate</option>
 								<option value="">Stock Report</option>
+								<option value="transporters">Transporter Report</option>
+
 							</select>
                         </div>
                       </div>
+                     
+                      <div class="form-group" id="transport-content">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Transporter :
+                        </label>
+                        <div class="col-md-4 col-sm-6 col-xs-12">
+                           <select class="select2" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
+								<option value=""></option>
+
+							</select>
+                        </div>
+                      </div>                    
+                      
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Site :
                         </label>
@@ -201,10 +215,11 @@
 
 
 $(document).ready(function (){	
+$('#transport-content').hide();
 	var getdata;
 	$('body').on('change','#report', function() {
 		var report = $(this).val();
-		//alert(report);
+	
 		if(report == 'cp_master'){
 			$('#amount_disp').show();
 			$('#cat_disp').hide();
@@ -220,6 +235,13 @@ $(document).ready(function (){
 		else if(report == 'grn_master'){
 			$('#amount_disp').hide();
 		}
+		else if(report == 'transporters'){
+			
+			
+			$('#amount_disp').hide();
+
+			
+		}
 		else{
 			$('#amount_disp').hide();
 			$('#cat_disp').show();
@@ -230,18 +252,54 @@ $(document).ready(function (){
 			return false;
 		}
 		else{
-			$.ajax({
-			"url": "<?php echo base_url().$controller."/get_tables/" ?>",
-			"dataType": "json",
-			"data": {id: report},	
-			"type": "POST",
-			success: function(response)
-			{
-				getdata = response;
+			
+			if(report == 'transporters'){
+									$.ajax({
+									"url": "<?php echo base_url()."My_controller_report/get_transport/" ?>",
+									"data": {id: report},	
+									"type": "POST",
+									success: function(response)
+									{
+										$('#transport-content').show();
+										$('select#transporter').html(response);
+									}
+							});
+						}
+			else {	
+				$('#transport-content').hide();		
+				$.ajax({
+				"url": "<?php echo base_url()."My_controller_report/get_tables/" ?>",
+				"dataType": "json",
+				"data": {id: report},	
+				"type": "POST",
+				success: function(response)
+				{
+					getdata = response;
+				}
+				});
 			}
-			});
 		}
 	});
+
+	$('body').on('change','#transporter', function() {
+		var transporter = $(this).val();
+	
+	
+									$.ajax({
+									"url": "<?php echo base_url()."My_controller_report/get_id_for_transport/" ?>",
+									"data": {tid: transporter},	
+									"type": "POST",
+									success: function(response)
+									{
+										 alert(response);
+									}
+							});
+						});
+			
+	
+
+
+
 
 	$("#dataTable").hide();
 	

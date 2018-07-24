@@ -96,4 +96,13 @@ class Workitem_m extends CI_Model{
         $query = $this->db->get("workitems");
         return $query->result();
     }  
+	
+	   
+    function pdf_data($id)
+    {
+		 //return $id;
+        $this->db->where("wiid", $id);
+        $query = $this->db->get("workitems");
+        return $query->result();
+    } 		
 }

@@ -6,6 +6,7 @@
         <title>Workitems</title>
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap.min.css') ?>">
         <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/bootstrap-theme.min.css') ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/font-awesome/css/font-awesome.min.css') ?>">        
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/jquery-3.1.1.min.js"></script>
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
@@ -72,6 +73,7 @@
                             <td>WI Created By</td>
                             <td>Material type</td>
                             <td>Action</td>
+ 			                <td>PDF</td>                            
                         </tr>
                     </thead>
                     <tbody id="showdata">

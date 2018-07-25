@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -360,8 +361,8 @@
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                            </div> <?php } ?>      
-
+                                            </div> 
+                                            <?php } ?>      
                                         </div>
                                     </div>
                                 </div>
@@ -369,12 +370,15 @@
                         </div>
                     </div>
                 </div>
-                </body>
-                <?php
-                $this->load->view('include/footer');
-                ?>
-                <script>
-                    jQuery(document).ready(function() {
-                        jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
-                    });
-                </script>
+            </div>
+            </div>
+    </div>
+  </body>
+<?php
+	$this->load->view('include/footer');
+?>
+<script>
+	jQuery(document).ready(function() {
+	jQuery(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+	});
+</script>

@@ -2,13 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Subcont extends CI_Controller{
-    
+
     public $table = 'subcontdetails';
     public $controller = 'Subcont';
     public $message = 'Subcontractors List';
     public $primary_id = "subid";
     public $model;
-    
+
     function __construct(){
         parent:: __construct();
         $this->load->model('Model');
@@ -22,7 +22,7 @@ Class Subcont extends CI_Controller{
             $this->load->model("subcont_m");
             $this->load->model('Model');
             $model = $this->model;
-            $data['row'] = $this->Model->select(array(),'vendordetails',array(),'');
+            $data['row'] = $this->Model->select(array(),'subcontdetails',array(),'');
             $username = $this->session->userdata('username');
             $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
@@ -33,26 +33,26 @@ Class Subcont extends CI_Controller{
             redirect(base_url() . 'main/login');  
         }  
     }
-    
+
     public function form()
     {
         if($this->session->userdata('username') != '')  
         {
-        $model = $this->model;
-        $data['action'] = "insert";
-        $data['controller'] = $this->controller;
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('Subcont/form',$data);
-            }
+            $model = $this->model;
+            $data['action'] = "insert";
+            $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('Subcont/form',$data);
+        }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
 
     }
-    
+
     public function insert()
     {
         $model = $this->model;
@@ -83,7 +83,7 @@ Class Subcont extends CI_Controller{
 
         redirect('Subcont');
     }
-    
+
     public function edit($subid)
     {
         $model = $this->model;
@@ -96,10 +96,10 @@ Class Subcont extends CI_Controller{
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $username = $this->session->userdata('username');
-//        echo "<pre>";
-//        print_r ($data);
-//        echo "</pre>";
-         $this->load->view('Subcont/form',$data);
+        //        echo "<pre>";
+        //        print_r ($data);
+        //        echo "</pre>";
+        $this->load->view('Subcont/form',$data);
     }
 
     public function update()
@@ -124,15 +124,15 @@ Class Subcont extends CI_Controller{
             'subgst' => $subgst,
             'subaddress' => $subaddress,
         );
-        
+
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
 
         $subid = $this->input->post('subid');
         $where = array($this->primary_id=>$subid);
         $this->$model->update($this->table,$data,$where);
-//        echo "<pre>";
-//        print_r ($where);
-//        echo "</pre>";
+        //        echo "<pre>";
+        //        print_r ($where);
+        //        echo "</pre>";
         redirect('subcont');
     }
 
@@ -145,7 +145,7 @@ Class Subcont extends CI_Controller{
         $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
         redirect('subcont');
     }
-    
+
 
     function fetch()
     {

@@ -49,11 +49,6 @@ Class Site extends CI_Controller{
         {  
             redirect(base_url() . 'main/login');  
         }  
-//        
-//              echo "<pre>";
-//            print_r ($data);
-//         echo "</pre>";
-
     }
     
     public function insert()
@@ -63,7 +58,7 @@ Class Site extends CI_Controller{
         $uid = $this->input->post('uid');
         $creationdate = date('Y-m-d H:i:s');
         $sname = $this->input->post('sname');
-        $sitestartdate = $this->input->post('$sitestartdate');
+        $sitestartdate = $this->input->post('sitestartdate');
         $uniquesid = $this->input->post('uniquesid');
         $contact = $this->input->post('contact');
         $mobile = $this->input->post('mobile');
@@ -86,10 +81,6 @@ Class Site extends CI_Controller{
 
         $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
         
-//          echo "<pre>";
-//            print_r ($data);
-//         echo "</pre>";
-
         redirect('site');
     }
     
@@ -105,9 +96,6 @@ Class Site extends CI_Controller{
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $username = $this->session->userdata('username');
-//        echo "<pre>";
-//        print_r ($data);
-//        echo "</pre>";
          $this->load->view('site/form',$data);
     }
 
@@ -117,7 +105,7 @@ Class Site extends CI_Controller{
         $this->load->model("site_m");
         $uid = $this->input->post('uid');
         $sname = $this->input->post('sname');
-        $sitestartdate = $this->input->post('$sitestartdate');
+        $sitestartdate = $this->input->post('sitestartdate');
         $uniquesid = $this->input->post('uniquesid');
         $contact = $this->input->post('contact');
         $mobile = $this->input->post('mobile');
@@ -140,9 +128,7 @@ Class Site extends CI_Controller{
         $sid = $this->input->post('sid');
         $where = array($this->primary_id=>$sid);
         $this->$model->update($this->table,$data,$where);
-//        echo "<pre>";
-//        print_r ($where);
-//        echo "</pre>";
+
         redirect('site');
     }
 

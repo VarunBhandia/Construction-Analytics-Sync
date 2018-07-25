@@ -67,7 +67,8 @@ class Material_rqst extends CI_Controller
         $this->load->view('material_rqst/index', $data);
     }
 
-    public function select_by_date_range() {
+    public function select_by_date_range() 
+    {
         $model = $this->model;
         $data['controller'] = $this->controller;
         $username = $this->session->userdata('username');

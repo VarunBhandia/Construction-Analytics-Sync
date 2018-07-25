@@ -215,7 +215,7 @@
                                                                 ?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
-                                                                    <td><?php echo $test->grnid;?></td>
+                                                                    <td><?php echo $test->grnrefid;?></td>
                                                         <td><?php foreach($sites as $site){
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -280,7 +280,7 @@
                                                                 ?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
-                                                                    <td><?php echo $test->grnid;?></td>
+                                                                    <td><?php echo $test->grnrefid;?></td>
                                                         <td><?php foreach($sites as $site){
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -335,7 +335,7 @@
                                                             ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
-                                                                <td><?php echo $test->grnid;?></td>
+                                                                <td><?php echo $test->grnrefid;?></td>
                                                                  <td><?php foreach($sites as $site){
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 

@@ -221,7 +221,7 @@
                                                                 ?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
-                                                                        <td><?php echo $test->rtvid;?></td>
+                                                                        <td><?php echo $test->rtvrefid;?></td>
                                                                         <td><?php foreach($sites as $site){
                                                              if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -290,7 +290,7 @@
                                                                 ?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
-                                                                        <td><?php echo $test->rtvid;?></td>
+                                                                        <td><?php echo $test->rtvrefid;?></td>
                                                                         <td><?php foreach($sites as $site){
                                                              if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -351,7 +351,7 @@
                                                                 ?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
-                                                                    <td><?php echo $test->rtvid;?></td>
+                                                                    <td><?php echo $test->rtvrefid;?></td>
                                                                     <td><?php foreach($sites as $site){
                                                                     if($site->sid == $test->sid ){echo $site->sname; }
 

@@ -154,6 +154,27 @@
                                                     </div>
                                                     <div class="clearfix"></div>
                                                 </div>
+                                            <div  class="row">
+                                                    <div class="col-md-8">                                                
+                                                        <form enctype="multipart/form-data" action="<?php echo base_url()?>po/select_by_date_range" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date From
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control" name="date_from" >
+                                                            </div>
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date To
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control col-md-2 col-sm-3 col-xs-12" name="date_to" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                            <div class="col-md-1">
+                                                                <input type="submit" value="Show Record" class="btn btn-success" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
                                                 <?php
     echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
                                                 ?>
@@ -193,7 +214,7 @@
                                                      foreach($result_display as $test) {?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
-                                                                    <td><?php echo $test->poid;?></td>
+                                                                    <td><?php echo $test->porefid;?></td>
                                                                     <td><?php foreach($sites as $site){
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -217,11 +238,75 @@
                                                 <?php }
                                                 }
                                                 ?>
+                                        <?php
+    echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
+                                                ?>
+                                                <div class="message">
+                                                    <?php
+                                                    if (isset($result_display_date))
+                                                    {
+                                                        echo "<p><u>Result</u></p>";
+                                                        if ($result_display_date == 'No record found !')
+                                                        {
+                                                            echo $result_display_date;
+                                                        }
+                                                        else
+                                                        { ?>
+                                                    <form method="post" action="<?php echo base_url()?>po/select_by_date_range_action">
+                                                        <input type="hidden" value="<?php echo $date1; ?>" name="date_from">
+                                                        <input type="hidden" value="<?php echo $date2; ?>" name="date_to">
+                                                        <input type="submit" name="export" class="btn btn-success" value="Export" />
+
+                                                    </form>		    
+                                                    <div id="table-scroll" class="table-scroll">
+                                                        <div class="table-wrap">
+                                                            <table id="datatable" class="main-table table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No</th>
+                                                                    <th>PO ID</th>
+                                                                    <th>Site Name	</th>
+                                                                    <th>Vendor Name</th>
+                                                                    <th>Created By</th>
+                                                                    <th>Created On</th>
+                                                                    <th>Action</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php
+                                                     $no = 1;
+                                                     foreach($result_display as $test) {?>
+                                                                <tr>
+                                                                    <td><?php echo $no;?></td>
+                                                                    <td><?php echo $test->porefid;?></td>
+                                                                    <td><?php foreach($sites as $site){
+                                                         if($site->sid == $test->sid ){echo $site->sname; }
+
+                                                     } ?></td>
+                                                                    <td><?php foreach($vendors as $vendor){
+                                                         if($vendor->vid == $test->vid ){echo $vendor->vname; }
+
+                                                     } ?></td>
+                                                                    <td><?php echo $test->pocreatedby;?></td>
+                                                                    <td><?php echo date("d-m-Y",strtotime($test->pocreatedon));?></td>
+                                                                    <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->poid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->poid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
+                                                                    <?php $no++;?>
+                                                                </tr>
+                                                                <?php
+                                                                                       }
+                                                                ?>
+                                                            </tbody>
+                                                        </table>
+                                                        </div>
+                                                    </div>
+                                                    <?php }
+                                                    }
+                                                    ?>
 
                                             </div>
                                             <?php
                                             $showtable = $this->uri->segment(2);
-                                            if($showtable != 'select_by_id'){
+                                            if($showtable == ''){
 
                                             ?>
                                             <form method="post" action="<?php echo base_url()?>po/action">
@@ -252,7 +337,7 @@
                                                             ?>
                                                             <tr>
                                                                 <td><?php echo $no;?></td>
-                                                                <td><?php echo $test->poid;?></td>
+                                                                <td><?php echo $test->porefid;?></td>
                                                                 <td><?php foreach($sites as $site){
                                                                 if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -290,7 +375,8 @@
                             </div>
                         </div>
                     </div>
-                </body>
+                </div>
+            </body>
                 <?php
                 $this->load->view('include/footer');
                 ?>

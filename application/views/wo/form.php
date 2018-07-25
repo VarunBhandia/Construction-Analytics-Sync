@@ -69,7 +69,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12">Work Order Date
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                          <input class="form-control" id="wodate" name="wodate" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y",strtotime($row[0]->receive_date)) :  date("d-m-Y"); ?>" autocomplete="off">
+                          <input class="form-control" id="date" name="date" type="text" value="<?php echo ($action == 'update') ? date("d-m-Y",strtotime($row[0]->wodate)) :  date("d-m-Y"); ?>" autocomplete="off">
 						</div>
                       </div>
 	<div class="table-responsive">
@@ -113,14 +113,19 @@ error_reporting(0);
 </script>
 						</td>
 						<td>
-							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
+							<select class="wiunit form-control select_width" id="m_unit_0" name="m_unit[]">
 								<option value=""></option>
 								<?php
 								foreach($units as $value)
 								{ ?>
 									<option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-								<?php }	?>
+								<?php }	?>						
 							</select>
+							<script type="text/javascript">
+      $('.wiunit').select2({
+        placeholder: '--- Select Unit ---',
+        });
+</script>
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
@@ -183,12 +188,12 @@ error_reporting(0);
                                         ?>
                                         <tr class="pending-user">
                                             <td>
-                                                <select class="witem form-control select_width" id="material_0" name="material[]">
+                                                <select class="witem form-control select_width" id="workitem_0" name="workitem[]">
                                                     <option value=""></option>
                                                     <?php
-                                                foreach($materials as $value)
-                                                { echo $material[$i]; ?>
-                                                    <option <?php if($action == 'insert'){  echo ((int)$value->wiid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
+                                                foreach($workitems as $value)
+                                                { echo $workitem[$i]; ?>
+                                                    <option <?php if($action == 'insert'){  echo ((int)$value->wiid == (int)$workitem[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
                                                     <?php }	?>
                                                 </select>
                                                 <script type="text/javascript">
@@ -197,6 +202,21 @@ error_reporting(0);
         });
 </script>
                                             </td>
+                                            <td>
+							        <select class="wiunit form-control select_width" id="m_unit_0" name="m_unit[]">
+								    <option value=""></option>
+								    <?php
+								    foreach($units as $value)
+								    { ?>
+									    <option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+								    <?php }	?>							
+							        </select>
+                                         <script type="text/javascript">
+      $('.wiunit').select2({
+        placeholder: '--- Select Unit ---',
+        });
+</script>
+						                    </td>
                                             <td>
                                                 <input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
                                             </td>
@@ -1915,7 +1935,19 @@ error_reporting(0);
                                 <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
                                 </label>
                                 <div class="col-md-10 col-sm-6 col-xs-12 form-group">
-                                    <input class="form-control" id="invoice_to" name="invoice_to" type="text" value="" autocomplete="off" >
+                                <select class="invoice_to form-control select_width" id="invoice_to" name="invoice_to">
+                                    <option value=""></option>
+                                    <?php
+                                        foreach($invoices as $invoice)
+                                    {?>
+                                     <option value="<?php echo $invoice->oid?>"><?php echo $invoice->oname.' ('.$invoice->oaddress .' )';?></option>
+                                    <?php }	?>
+                                </select>
+                                      <script type="text/javascript">
+                                          $('.invoice_to').select2({
+                                              placeholder: '--- Select Invoice ---',
+                                          });
+                                      </script>    
                                 </div>
                             </div>
                             <div class="form-group">

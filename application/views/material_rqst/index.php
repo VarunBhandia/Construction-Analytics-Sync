@@ -181,6 +181,7 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>
+                                                                        <th>MR Ref-ID</th>
                                                                         <th>Site</th>
                                                                         <th>Created On</th>
                                                                         <th>Action</th>
@@ -195,6 +196,7 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
+                                                                        <td><?php echo $test->mrrefid;?></td>
                                                                         <td><?php foreach($sites as $site){
                                                                         if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -247,6 +249,7 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>
+                                                                        <th>MR Ref-ID</th>
                                                                         <th>Site</th>
                                                                         <th>Created On</th>
                                                                         <th>Action</th>
@@ -261,6 +264,7 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
+                                                                        <td><?php echo $test->mrrefid;?></td>
                                                                         <td><?php foreach($sites as $site){
                                                                         if($site->sid == $test->sid ){echo $site->sname; }
 
@@ -303,6 +307,7 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th>No</th>
+                                                                        <th>MR Ref-ID</th>
                                                                         <th>Site</th>
                                                                         <th>Created On</th>
                                                                         <th>Action</th>
@@ -317,6 +322,7 @@
                                                                     ?>
                                                                     <tr>
                                                                         <td><?php echo $no;?></td>
+                                                                        <td><?php echo $test->mrrefid;?></td>
                                                                         <td><?php foreach($sites as $site){
                                                                         if($site->sid == $test->sid ){echo $site->sname; }
 

@@ -2,8 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Subcont extends CI_Controller{
+    
+    public $table = 'subcontdetails';
+    public $controller = 'Subcont';
+    public $message = 'Subcontractors List';
+    public $primary_id = "subid";
+    public $model;
+    
     function __construct(){
         parent:: __construct();
+        $this->load->model('Model');
         $this->model = 'Model';
         $this->load->model('subcont_m', 'm');
     }
@@ -12,16 +20,131 @@ Class Subcont extends CI_Controller{
         if($this->session->userdata('username') != '')  
         {
             $this->load->model("subcont_m");
-            $data["sub_data"] = $this->subcont_m->fetch();
             $this->load->model('Model');
-            $this->load->view('subcont/index');
-            $this->load->view('layout/footer');
+            $model = $this->model;
+            $data['row'] = $this->Model->select(array(),'vendordetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('subcont/index',$data);
         }
         else  
         {  
             redirect(base_url() . 'main/login');  
         }  
     }
+    
+    public function form()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+        $model = $this->model;
+        $data['action'] = "insert";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('Subcont/form',$data);
+            }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
+    }
+    
+    public function insert()
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $subname = $this->input->post('subname');
+        $submobile = $this->input->post('submobile');
+        $subaltmobile = $this->input->post('subaltmobile');
+        $subemail = $this->input->post('subemail');
+        $subgst = $this->input->post('subgst');
+        $subaddress = $this->input->post('subaddress');
+
+        $data = array(
+            'subcreatedby'  => $uid,
+            'subname' => $subname,
+            'submobile' => $submobile,
+            'subaltmobile'  => $subaltmobile,
+            'subemail'  => $subemail,
+            'subgst' => $subgst,
+            'subaddress' => $subaddress,
+        );
+
+        $this->$model->insert($data,$this->table);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
+
+        redirect('Subcont');
+    }
+    
+    public function edit($subid)
+    {
+        $model = $this->model;
+        $this->load->model("subcont_m");      
+        $this->load->model("Model");      
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$vid),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $username = $this->session->userdata('username');
+//        echo "<pre>";
+//        print_r ($data);
+//        echo "</pre>";
+         $this->load->view('Subcont/form',$data);
+    }
+
+    public function update()
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $subname = $this->input->post('subname');
+        $submobile = $this->input->post('submobile');
+        $subaltmobile = $this->input->post('subaltmobile');
+        $subemail = $this->input->post('subemail');
+        $subgst = $this->input->post('subgst');
+        $subaddress = $this->input->post('subaddress');
+
+        $data = array(
+            'subcreatedby'  => $uid,
+            'subname' => $subname,
+            'submobile' => $submobile,
+            'subaltmobile'  => $subaltmobile,
+            'subemail'  => $subemail,
+            'subgst' => $subgst,
+            'subaddress' => $subaddress,
+        );
+        
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
+
+        $subid = $this->input->post('subid');
+        $where = array($this->primary_id=>$subid);
+        $this->$model->update($this->table,$data,$where);
+//        echo "<pre>";
+//        print_r ($where);
+//        echo "</pre>";
+        redirect('subcont');
+    }
+
+    public function delete($subid)
+    {
+        $model = $this->model;
+        $condition = array($this->primary_id=>$subid);
+        $this->$model->delete($this->table,$condition);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('subcont');
+    }
+    
 
     function fetch()
     {
@@ -104,49 +227,9 @@ Class Subcont extends CI_Controller{
 
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        header('Content-Disposition: attachment;filename="Subcontractors.xls"');
         $object_writer->save('php://output');
 
     }
-
-    public function showAllSubcont(){
-        $result = $this->m->showAllSubcont();
-        echo json_encode($result);
-    }
-
-    public function addSubcont(){
-        $result = $this->m->addSubcont();
-        $msg['success'] = false;
-        $msg['type'] = 'add';
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
-    public function editSubcont(){
-        $result = $this->m->editSubcont();
-        echo json_encode($result);
-    }
-
-    public function updateSubcont(){
-        $result = $this->m->updateSubcont();
-        $msg['success'] = false;
-        $msg['type'] = 'update';
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
-    public function deleteSubcont(){
-        $result = $this->m->deleteSubcont();
-        $msg['success'] = false;
-        if($result){
-            $msg['success'] = true;
-        }
-        echo json_encode($msg);
-    }
-
 }
 ?>

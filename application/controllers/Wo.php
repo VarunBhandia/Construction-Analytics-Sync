@@ -150,11 +150,18 @@ class Wo extends CI_Controller
         $result = $this->$model->get_data_for_pdf($woid,$this->table);
  
 //		echo "<pre>";
-		//	print_r($result);
+//			print_r($result);
 			$workitem_qty = explode("," , $result['All'][0]->woqty);
-			$workitem_cgst = explode("," , $result['All'][0]->wocgst);			
+			$workitem_cgst = explode("," , $result['All'][0]->wocgst);	
+			$workitem_cgst_rate = explode("," , $result['All'][0]->wocgst_rate);	
+								
 			$workitem_sgst = explode("," , $result['All'][0]->wosgst);					
+			$workitem_sgst_rate = explode("," , $result['All'][0]->wosgst_rate);	
+
+
 			$workitem_igst = explode("," , $result['All'][0]->woigst);	
+			$workitem_igst_rate = explode("," , $result['All'][0]->woigst_rate);	
+
 			$workitem_wototal = explode("," , $result['All'][0]->wototal);	
 			$workitem_discount = explode("," , $result['All'][0]->wodiscount);
    
@@ -238,12 +245,12 @@ margin:50px 0 2px!important;
  padding-bottom:10px!important;
 }
 .main table.po-table tr.second-head td h2.vendor {
-	font-size: 20px;
-    color: #4c4b4b;
-    font-family: 'Open Sans Condensed';
-    font-weight: 600;
-    margin: 0!important;
-    padding: 0!important;
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 13px!important;
+    color: #000000;
+    margin: 0;
+    padding-top: 10px!important;
 }
 .main table.po-table tr.second-head td h3.vendor-address {
     font-size: 15px;
@@ -255,11 +262,12 @@ margin:50px 0 2px!important;
 }
 
 .main table.po-table tr.second-head td h4.vendor-other-details {
-	font-size: 13px;
-	color: #4c4b4b;
-	font-family: 'Open Sans Condensed';
-	margin: 0;
-	line-height: 15px;
+    font-size: 12px!important;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed'!important;;
+    font-weight: 600;
+    line-height: 15px;
+
 }
 .main table.po-table tr.third-head td{
  
@@ -277,11 +285,12 @@ margin:50px 0 2px!important;
 }
 
 .main table.po-table tr.third-head td h4.ship-address {
-    font-family: sans-serif;
-    line-height: 15px;
     font-size: 12px!important;
     color: #4c4b4b;
     font-family: 'Open Sans Condensed'!important;;
+    font-weight: 600;
+    line-height: 15px;
+
 }
  
 .main table.po-table tr.third-head td h2.invoice-to {
@@ -321,12 +330,12 @@ tr.second-head td, tr.third-head td  {
 }
 .main table.po-table tr.fifth-head td{
     color: #2b2b2b;
-    font-size: 11px;
+    font-size: 11px!important;
     font-family: sans-serif;
     border: 1px solid #ccc;
     text-align: center;
     font-weight: bold;
-    padding: 12px;
+    padding: 5px 0 5px!important;
 }
 
 .main table.po-table tr.comman-rows th{
@@ -334,7 +343,7 @@ tr.second-head td, tr.third-head td  {
     font-size: 11px!important;
     font-family: sans-serif;
     font-weight: bold;
-    padding: 12px;
+    padding: 10px;
     text-align: right;
     border-left: 1px solid #ccc!important;	
 } 
@@ -345,14 +354,17 @@ tr.second-head td, tr.third-head td  {
     border: 1px solid #ccc;
     text-align: center;
     font-weight: bold;
-    padding: 12px;
+    padding: 5px 0px 5px!important ;
 }
 
 .main table.po-table tr.sixth-head {
     background: #eee8aa;
+	font-size:12px!important;
+    font-family: sans-serif!important;
+
 }
 .main table.po-table tr.sixth-head td {
-	padding: 10px;
+	padding: 12px;
 }
 .main table.po-table tr.sixth-head h2 {
     color: #2b2b2b;
@@ -363,26 +375,25 @@ tr.second-head td, tr.third-head td  {
 .main table.po-table tr.sixth-head h4 { 
 	font-size: 13px;
     color: #000000;
-    font-family: 'Open Sans Condensed';
+    font-family: sans-serif;
     line-height: 15px;
 }
 .main table.po-table tr.seventh-head h4 { 
-    font-size: 14px;
+    font-size: 12px!important;
     color: #000000;
-    font-family: 'Open Sans Condensed';
+    font-family: sans-serif;
     margin-top: 15px!important;
     line-height: 2.5em;
 }
 .main table.po-table tr.eight-head td.contact_info h2 {
     color: #000000;
-    font-size: 14px;
+    font-size: 12px!important;
     color: #000000;
-    font-size: 14px;
     font-family: sans-serif;
     line-height: 20px;
 }
 .main table.po-table tr.eight-head td.Office h3 {
-    font-size: 18px;
+    font-size: 12px!important;
     font-family: sans-serif;
     font-weight: 500;
     margin-bottom: -10px!important;
@@ -392,14 +403,14 @@ tr.second-head td, tr.third-head td  {
 }
  .main table.po-table tr.eight-head td.Office h2 {
     color: #000000;
-    font-size: 14px;
+    font-size: 12px!important;
     font-family: sans-serif;
     line-height: 20px;	
 	text-align:right;	
 }
 .main table.po-table tr.ninth-head td h2 {
 	color: #2b2b2b;
-	font-size: 15px;
+    font-size: 12px!important;
 	font-family: sans-serif;
 	padding: 17px 15px 25px!important;
 	margin-top: 24px!important;
@@ -410,7 +421,7 @@ html {
 }
 </style>
 
-<title>Workorder</title>
+<title>Work Order</title>
 <div class="main">
  
   <table cellpadding="0" cellspacing="0" class="po-table">
@@ -425,14 +436,14 @@ html {
 			 </td>
              <td colspan="5">
                         <h5>
-                           <span class="po-order">Purchase Order / Work Order</span>
+                           <span class="po-order"> Work Order</span>
                            <br />
-                           <b>Dt-10/07/2018</b>
+                           <b>Dt-<?php echo (isset($result['All'][0]->wodate))?date("d/m/y" , strtotime($result['All'][0]->wodate)):'';?></b>
                            <br />
                            <b>PO/2018/stanvac551/37/83</b>
                            <br />
                            <b>
-						    <?php echo '';//date("d M Y" , strtotime($result['All'][0]->pocreatedon))?>
+						    <?php echo (isset($result['All'][0]->wodate))?date("d M Y" , strtotime($result['All'][0]->wocreatedon)):'';?>
                            </b>
                           
                         </h5>
@@ -443,32 +454,31 @@ html {
 		  <tr class="second-head">
 			 <td colspan="17" >
 				<h2 class="vendor">
-				 Vendor: <?php echo $result['subcontdetails'][0]->subname?></h2>
-				<h3 class="vendor-address"> <?php echo $result['subcontdetails'][0]->subaddress?></h3>
-				<h4 class="vendor-other-details">
-				Phone :<?php echo $result['subcontdetails'][0]->submobile?></h4><br>
+				 Vendor: <?php echo (isset($result['subcontdetails'][0]->subname))?$result['subcontdetails'][0]->subname:'';?></h2>
+				<h3 class="vendor-address"> <?php echo (isset($result['subcontdetails'][0]->subaddress))?ucwords(strtolower($result['subcontdetails'][0]->subaddress)):'';?><br />
+				Phone :<?php echo (isset($result['subcontdetails'][0]->submobile))?$result['subcontdetails'][0]->submobile:'';?></h3><br>
 
 			 </td>
 
 			</tr>
 
 <tr class="third-head">
-			 <td colspan="7">
-				<h2 class="ship-details">Ship To: <br /> <?php echo $result['site'][0]->sname?></h2>
+			 <td colspan="10">
+				<h2 class="ship-details">Ship To: <br /> <?php echo ucwords(strtolower($result['site'][0]->sname));?></h2>
 				<h4 class="ship-address">
-				 Address.: <?php echo $result['site'][0]->address?><br />
-                 Contact.: <?php echo $result['site'][0]->contactname?><br />
-				 Phone :<?php echo $result['site'][0]->mobile?><br />
-				 Email :<?php echo $result['site'][0]->email?></h4>
+				 Address.: <?php echo (isset($result['site'][0]->address))?ucwords(strtolower($result['site'][0]->address)):'';?><br />
+                 Contact.: <?php echo (isset($result['site'][0]->contactname))?$result['site'][0]->contactname:''?><br />
+				 Phone :<?php echo (isset($result['site'][0]->mobile))?$result['site'][0]->mobile:''?><br />
+				 Email :<?php echo (isset($result['site'][0]->email))?$result['site'][0]->email:'';?></h4>
 			 </td>
 
-			 <td colspan="10" >
+			 <td colspan="7" >
 				<h2 class="invoice-to">Invoice To:<br /><?php echo $result['oid'][0]->oname?></h2>
                 
 				<h4 class="invoice-other-details">
-				 Address.: <?php echo $result['oid'][0]->oaddress?><br />
-                 Contact.: <?php echo $result['site'][0]->contactname?><br />
-				 GST :<?php echo $result['oid'][0]->ogst?><br />
+				 Address.: <?php echo (isset($result['oid'][0]->oaddress))?$result['oid'][0]->oaddress:'';?><br />
+                 Contact.: <?php echo (isset($result['site'][0]->contactname))?$result['site'][0]->contactname:'';?><br />
+				 GST :<?php echo (isset($result['oid'][0]->ogst))?$result['oid'][0]->ogst:'';?><br />
                 </h4> 
 			 </td>
 
@@ -515,11 +525,11 @@ html {
    				<td><?php echo '';?></td>
    				<td><?php echo $workitem_wototal[$key]?></td>
    				<td><?php echo $workitem_discount[$key];?></td>
-         		<td><?php echo '';?></td>
+         		<td><?php echo $workitem_cgst_rate[$key];?></td>
                	<td><?php echo $workitem_cgst[$key];?></td>
-         		<td><?php echo '';?></td>
+         		<td><?php echo $workitem_sgst_rate[$key];;?></td>
                	<td><?php echo $workitem_sgst[$key];?></td>
-         		<td><?php echo '';?></td>
+         		<td><?php echo $workitem_igst_rate[$key];;?></td>
                	<td><?php echo $value->wigst;?></td>
          		<td>
 				  <?php 
@@ -580,6 +590,7 @@ html {
                 <td colspan="17">
 
                         <h2 class="term-condition">Terms and Conditions:</h2>
+                        <?php echo $result['All'][0]->wotandc;?>
                         <h4>Payment : 30 days after receiving date of material at site<br>
                         Transportation : Inclusive<br>
                         GST % : inclusive<br>
@@ -594,13 +605,15 @@ html {
             <tr class="seventh-head">
                 <td colspan="17">
 
-                      <h4>If you have any query against purchase order, Please feel free to contact:<span class="span"> Mr. S.k Lamba 
-                      <span style=" color:#4c4b4b">at</span> 8800695657, 29M</span><br>
+                      <h4>If you have any query against purchase order, Please feel free to contact:<span class="span"> <?php echo $result['All'][0]->wocontactname;?> 
+                      <span style=" color:#4c4b4b">at</span> <?php echo $result['All'][0]->wocontactno; ?>, 29M</span><br>
                       
                       Note: As confirmation, please sign. and send back a duplicate copy of purchase order to the organization.</h4>                
                 </td>
             </tr>
-            
+                         <tr class="">
+              <td colspan="17">&nbsp;</td>
+             </tr>
             <tr class="eight-head">
 
                 <td colspan="9"  class="contact_info" >

@@ -7,14 +7,14 @@ class Po_m extends CI_Model {
 	}
     
     public function show_all_data() {
-$this->db->select('*');
-$this->db->from('po_master');
-$query = $this->db->get();
-if ($query->num_rows() > 0) {
-return $query->result();
-} else {
-return false;
-}
+			$this->db->select('*');
+			$this->db->from('po_master');
+			$query = $this->db->get();
+			if ($query->num_rows() > 0) {
+			return $query->result();
+			} else {
+			return false;
+			}
 }
 public function show_data_by_id($data) {
     
@@ -111,11 +111,11 @@ function get_munits($muid){
 			$odetails = $this->get_invoice_to($result[0]->invoice_to);
 			$munits = $this->get_munits($result[0]->m_unit);
 
-			$Po_details['vendor_details'] = $vendor[0];
+			$Po_details['vendor_details'] = $vendor;
 			$Po_details['metrial'] = $meterial;			
-			$Po_details['site'] = $site[0];			
-		    $Po_details['dtid'] = $dtid[0];
-		    $Po_details['invoice_to'] = $odetails[0];
+			$Po_details['site'] = $site;			
+		    $Po_details['dtid'] = $dtid;
+		    $Po_details['invoice_to'] = $odetails;
 		    $Po_details['munit'] = $munits;			
 		    $Po_details['All'] = $result;		
 		    return $Po_details;

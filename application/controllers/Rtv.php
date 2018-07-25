@@ -22,6 +22,9 @@ class Rtv extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->rtv_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -30,10 +33,51 @@ class Rtv extends CI_Controller
         }
     }
 
+    public function select_by_date_range() {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
+        if ($date1 == "" || $date2 == "") {
+            $data['date_range_error_message'] = "Both date fields are required";
+        } else {
+            $result = $this->rtv_m->show_data_by_date_range($data);
+            if ($result != false) {
+                $data['result_display_date'] = $result;
+            } else {
+                $data['result_display_date'] = "No record found !";
+            }
+        }
+        $data['controller'] = $this->controller;
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('rtv/index', $data);
+    }
+
+
+
     public function select_by_id() 
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
@@ -69,6 +113,8 @@ class Rtv extends CI_Controller
             $data["rtv_data"] = $this->rtv_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
@@ -84,7 +130,6 @@ class Rtv extends CI_Controller
     }
 
     function action()
-
     {
         $this->load->model("rtv_m");
         $this->load->library("excel");
@@ -133,8 +178,63 @@ class Rtv extends CI_Controller
 
     }
 
-    function select_by_id_action()
+    function select_by_date_range_action()
+    {
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
 
+        $this->load->model("rtv_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("rtvid",  "rtvrefid", "sid", "vid", "rtvreturndate", "vchallan", "schallan", "mid", "muid", "rtvqty",  "rtvtruck", "rtvremark", "tid", "rtvcreatedon", "trvcreatedby");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $rtv_data = $this->rtv_m->show_data_by_id($data);
+
+        $excel_row = 2;
+
+        foreach($rtv_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->rtvid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->rtvrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->schallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->vchallan);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->rtvreturndate);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->rtvqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->rtvtruck);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->rtvremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->tid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->rtvcreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->rtvcreatedby);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+    function select_by_id_action()
     {
         $sid = $this->input->post('sid');
         $vid = $this->input->post('vid');
@@ -188,17 +288,20 @@ class Rtv extends CI_Controller
 
     }
 
-
     public function form()
     {
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('rtv/form',$data);
     }
 
@@ -210,6 +313,7 @@ class Rtv extends CI_Controller
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $cdate = date('Y-m-d H:i:s');       
         $vchallan = $this->input->post('vchallan');
         $schallan = $this->input->post('schallan');
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -230,6 +334,7 @@ class Rtv extends CI_Controller
             'schallan' => $schallan,
             'tid' => $transporter,
             'rtvreturndate'  => $date,
+            'rtvcreatedon' => $cdate,
             'mid' => $material,
             'rtvqty'  => $qty,
             'muid'  => $m_unit,
@@ -247,14 +352,18 @@ class Rtv extends CI_Controller
     public function edit($rtvid)
     {
         $model = $this->model;
+        $data['action'] = "update";
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$rtvid),'');
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
-        $data['action'] = "update";
-        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('rtv/form',$data);
     }
 
@@ -267,6 +376,7 @@ class Rtv extends CI_Controller
         $vendor = $this->input->post('vendor');
         $transporter = $this->input->post('transporter');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
         $vchallan = $this->input->post('vchallan');
         $schallan = $this->input->post('schallan');
 
@@ -282,10 +392,11 @@ class Rtv extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'rtvcreatedby'  => $uid,
+            'rtvupdatedby'  => $uid,
             'vid'  => $vendor,
             'tid'  => $transporter,
             'rtvreturndate'  => $date,
+            'rtvupdatedon' => $updateddate,
             'vchallan' => $vchallan,
             'schallan' => $schallan,
             'mid' => $material,
@@ -318,6 +429,8 @@ class Rtv extends CI_Controller
         /* File Select */
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');       
         /* Database In Data Count */
         $data['Count'] = $this->$model->countTableRecords('rtv_master',array());
         $this->load->view('rtv/excel',$data);

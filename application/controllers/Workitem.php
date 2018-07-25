@@ -2,8 +2,16 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 Class Workitem extends CI_Controller{
+    
+    public $table = 'workitems';
+    public $controller = 'Workitem';
+    public $message = 'Workitem List';
+    public $primary_id = "wiid";
+    public $model;
+    
     function __construct(){
         parent:: __construct();
+        $this->load->model('Model');
         $this->model = 'Model';
         $this->load->model('workitem_m', 'm');
     }
@@ -12,16 +20,130 @@ Class Workitem extends CI_Controller{
         if($this->session->userdata('username') != '')  
         {
             $this->load->model("workitem_m");
-            $data["wi_data"] = $this->workitem_m->fetch();
             $this->load->model('Model');
-            $this->load->view('witem_master/index');
-            $this->load->view('layout/footer');
+            $model = $this->model;
+            $data['row'] = $this->Model->select(array(),'workitems',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $this->load->view('witem/index',$data);
         }
             else  
             {  
                 redirect(base_url() . 'main/login');  
             }  
         }
+    
+       public function form()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+        $model = $this->model;
+        $data['action'] = "insert";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('witem/form',$data);
+            }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
+    }
+    
+    public function insert()
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $winame = $this->input->post('winame');
+        $widesc = $this->input->post('widesc');
+        $wigst = $this->input->post('wigst');
+        $wibase = $this->input->post('wibase');
+        $wicategory = $this->input->post('wicategory');
+        $witype = $this->input->post('witype');
+
+        $data = array(
+            'wicreatedby'  => $uid,
+            'winame' => $winame,
+            'widesc' => $widesc,
+            'wigst'  => $wigst,
+            'wibase'  => $wibase,
+            'wicategory' => $wicategory,
+            'witype' => $witype,
+        );
+
+        $this->$model->insert($data,$this->table);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
+
+        redirect('Workitem');
+    }
+    
+    public function edit($wiid)
+    {
+        $model = $this->model;
+        $this->load->model("workitem_m");      
+        $this->load->model("Model");      
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$wiid),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $username = $this->session->userdata('username');
+//        echo "<pre>";
+//        print_r ($data);
+//        echo "</pre>";
+         $this->load->view('witem/form',$data);
+    }
+
+    public function update()
+    {
+        $model = $this->model;
+        $this->load->model("vendor_m");
+        $uid = $this->input->post('uid');
+        $creationdate = date('Y-m-d H:i:s');
+        $winame = $this->input->post('winame');
+        $widesc = $this->input->post('widesc');
+        $wigst = $this->input->post('wigst');
+        $wibase = $this->input->post('wibase');
+        $wicategory = $this->input->post('wicategory');
+        $witype = $this->input->post('witype');
+
+        $data = array(
+            'wicreatedby'  => $uid,
+            'winame' => $winame,
+            'widesc' => $widesc,
+            'wigst'  => $wigst,
+            'wibase'  => $wibase,
+            'wicategory' => $wicategory,
+            'witype' => $witype,
+        );
+        
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
+
+        $wiid = $this->input->post('wiid');
+        $where = array($this->primary_id=>$wiid);
+        $this->$model->update($this->table,$data,$where);
+//        echo "<pre>";
+//        print_r ($where);
+//        echo "</pre>";
+        redirect('Workitem');
+    }
+
+    public function delete($wiid)
+    {
+        $model = $this->model;
+        $condition = array($this->primary_id=>$wiid);
+        $this->$model->delete($this->table,$condition);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('Workitem');
+    }
 
         function fetch()
         {
@@ -183,45 +305,6 @@ error_reporting(0);
             header('Content-Disposition: attachment;filename="Work Item.xls"');
             $object_writer->save('php://output');
 
-        }
-
-        public function showAllWorkItem(){
-            $result = $this->m->showAllWorkItem();
-            echo json_encode($result);
-        }
-
-        public function addWorkItem(){
-            $result = $this->m->addWorkItem();
-            $msg['success'] = false;
-            $msg['type'] = 'add';
-            if($result){
-                $msg['success'] = true;
-            }
-            echo json_encode($msg);
-        }
-
-        public function editWorkItem(){
-            $result = $this->m->editWorkItem();
-            echo json_encode($result);
-        }
-
-        public function updateWorkItem(){
-            $result = $this->m->updateWorkItem();
-            $msg['success'] = false;
-            $msg['type'] = 'update';
-            if($result){
-                $msg['success'] = true;
-            }
-            echo json_encode($msg);
-        }
-
-        public function deleteWorkItem(){
-            $result = $this->m->deleteWorkItem();
-            $msg['success'] = false;
-            if($result){
-                $msg['success'] = true;
-            }
-            echo json_encode($msg);
         }
 
     }

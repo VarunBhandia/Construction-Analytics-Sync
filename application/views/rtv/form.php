@@ -20,7 +20,7 @@ error_reporting(0);
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Construction</h2>
+                    <h1>Return To Vendor Form</h1>
                     <div class="clearfix"></div>
                   </div>
                 <div class="x_content">
@@ -31,7 +31,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                           <select class="sitename form-control" id="site" name="site">
+                           <select class="sitename form-control" id="site" name="site" required>
 								<option value="">---site name----</option>
 								<?php
 								foreach($sites as $site)

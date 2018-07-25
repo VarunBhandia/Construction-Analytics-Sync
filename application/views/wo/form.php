@@ -74,10 +74,11 @@ error_reporting(0);
                       </div>
 	<div class="table-responsive">
         
-		<table id="datatable" table class="table table-striped jambo_table" style="width:100%;">
+		<table id="datatable1" table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
 					<tr class="headings">
-					<th class="column-title">Work Items</th>
+					<th class="column-title">Work Items</th>	
+					<th class="column-title">Unit</th>	
 					<th class="column-title">Quantity</th>
 					<th class="column-title">Unit Price</th>
 					<th class="column-title">Discount Type</th>
@@ -187,7 +188,7 @@ error_reporting(0);
                                                     <?php
                                                 foreach($materials as $value)
                                                 { echo $material[$i]; ?>
-                                                    <option <?php if($action == 'insert'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+                                                    <option <?php if($action == 'insert'){  echo ((int)$value->wiid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
                                                     <?php }	?>
                                                 </select>
                                                 <script type="text/javascript">

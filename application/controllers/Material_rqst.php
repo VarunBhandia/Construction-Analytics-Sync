@@ -23,6 +23,9 @@ class Material_rqst extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->mr_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -35,6 +38,11 @@ class Material_rqst extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $sid = $this->input->post('sid');
         $data['sid'] = $sid;
         if ($sid != "") {
@@ -59,6 +67,43 @@ class Material_rqst extends CI_Controller
         $this->load->view('material_rqst/index', $data);
     }
 
+    public function select_by_date_range() {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $date1 = $this->input->post('date_from');
+        $date2 = $this->input->post('date_to');
+        $data = array(
+            'date1' => $date1,
+            'date2' => $date2
+        );
+        if ($date1 == "" || $date2 == "") {
+            $data['date_range_error_message'] = "Both date fields are required";
+        } else {
+            $result = $this->mr_m->show_data_by_date_range($data);
+            if ($result != false) {
+                $data['result_display_date'] = $result;
+            } else {
+                $data['result_display_date'] = "No record found !";
+            }
+        }
+
+        $data['controller'] = $this->controller;
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('material_rqst/index', $data);
+    }
+
+
     public function index()
     {
         if($this->session->userdata('username') != '')  
@@ -67,6 +112,8 @@ class Material_rqst extends CI_Controller
             $data["mr_data"] = $this->mr_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $username = $this->session->userdata('username');
@@ -102,13 +149,24 @@ class Material_rqst extends CI_Controller
         $mr_data = $this->mr_m->fetch_data();
 
         $excel_row = 2;
-
+        $this->load->model("Model");
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->Model->select(array(),'users',array('username'=>$username),'');
+        $data['units'] = $this->Model->select(array(),'munits',array(),'');
+        $data['sites'] = $this->Model->select(array(),'sitedetails',array(),'');
+        $data['materials'] = $this->Model->select(array(),'materials',array(),'');		
         foreach($mr_data as $row)
         {
+            foreach($data['materials'] as $material){
+                if( $row->mid == $material->mid){
+                    $material_name = $material->mname;
+                
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $material_name);
             $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
             $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
@@ -116,7 +174,7 @@ class Material_rqst extends CI_Controller
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
             $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
             $excel_row++;
-        }
+     }}   }
 
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
@@ -177,6 +235,8 @@ class Material_rqst extends CI_Controller
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
@@ -191,7 +251,8 @@ class Material_rqst extends CI_Controller
 
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
-        $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $mrrecievedate = date('Y-m-d',strtotime($this->input->post('mrrecievedate')));
+        $date = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -204,6 +265,7 @@ class Material_rqst extends CI_Controller
         $data = array(
             'sid'  => $site,
             'mrcreatedby'  => $uid,
+            'mrrecievedate'  => $mrrecievedate,
             'mrcreatedon'  => $date,
             'mid' => $mid,
             'mrqty'  => $qty,
@@ -223,11 +285,13 @@ class Material_rqst extends CI_Controller
         $mrid = $this->uri->segment(3);
         $model = $this->model;
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$mrid),'');
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');		
         $data['action'] = "update";
-        $data['controller'] = $this->controller;
         $username = $this->session->userdata('username');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('material_rqst/form',$data);
@@ -239,7 +303,9 @@ class Material_rqst extends CI_Controller
 
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
-        $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $mrrecievedate = date('Y-m-d',strtotime($this->input->post('mrrecievedate')));
+        $date = date('Y-m-d H:i:s');
+        $updateddate = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -252,7 +318,8 @@ class Material_rqst extends CI_Controller
         $data = array(
             'sid'  => $site,
             'mrupdatedby'  => $uid,
-            'mrcreatedon'  => $date,
+            'mrupdatedon'  => $updateddate,
+            'mrrecievedate'  => $mrrecievedate,
             'mid' => $mid,
             'mrqty'  => $qty,
             'mrunitprice'  => $unit,
@@ -282,6 +349,9 @@ class Material_rqst extends CI_Controller
         /* File Select */
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+
         /* Database In Data Count */
         $data['Count'] = $this->$model->countTableRecords('material_rqst',array());
         $this->load->view('material_rqst/excel',$data);

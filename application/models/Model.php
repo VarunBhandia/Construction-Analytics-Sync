@@ -121,10 +121,17 @@ class Model extends CI_Model {
 	}
 
 	public function db_query($query)
-	{
+	{   
+
 		return $this->db->query($query)->result();
 	}
 	
+	 function string_query($string)
+	{   
+
+		return $string; //return $this->db->query($query)->result();
+	}
+
 	public function select_like($fields,$table,$column,$keyword,$orderField,$orderType='desc',$limit=null)
 	{
 		// $q = $q->like('p.party_name', $s, 'both');
@@ -221,8 +228,9 @@ function get_workitems($wiid){
 			$Wo_details['oid'] = $office_details;
 			$Wo_details['workitems'] = $workitems;
 			$Wo_details['All'] = $result;
-
-			
+//echo "<pre>";			
+//print_r($Wo_details);
+	
 			return $Wo_details;
 
 		

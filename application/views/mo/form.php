@@ -373,14 +373,14 @@ elseif($action == 'update')
                                 });
                             }); 
                         </script>
-                        <script  type="text/html" id="form_tpl">
-	<tr class="pending-user">
+                        <script type="text/html" id="form_tpl">
+	           <tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="materialname form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
-foreach($materials as $value)
-{ ?>
+                foreach($materials as $value)
+                        { ?>
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
                             </select>
@@ -395,15 +395,15 @@ foreach($materials as $value)
 							<input type="text" id="challan_0" name="challan[]" class="amountonly form-control" placeholder="Enter Challan Number">
                             </td>
                         <td>
-							<select class="form-control select_width" id="transporter_0" name="transporter[]">
+							<select class="tname form-control select_width" id="transporter_0" name="transporter[]">
 								<option value=""></option>
 								<?php
-foreach($transporters as $value)
-{ ?>
+                foreach($transporters as $value)
+                        { ?>
 									<option value="<?php echo $value->tid?>"><?php echo $value->tname;?></option>
 								<?php }	?>
                             </select>
-                            </td>
+                        </td>
 						<td>
 							<input type="text" id="remark_0" name="remark[]" class="form-control" autocomplete="off">
                             </td>

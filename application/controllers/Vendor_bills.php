@@ -1,57 +1,29 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
 
-if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
-
-class Vendor_bills extends CI_Controller {
-
+class Vendor_bills extends CI_Controller
+{
     public $table = 'vendor_bills_master';
+    public $sitetable = 'sitedetails';
     public $controller = 'Vendor_bills';
-    public $message = 'Construction';
-    public $primary_id = "id";
+    public $message = 'Vendor Bills';
+    public $primary_id = "vbid";
     public $model;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         $this->load->model('Model');
+        $this->load->model('Vendor_bills_m');
         $this->model = 'Model';
-        $this->load->model('vendor_bills_m');
-    }
-    public function index()
-    {
-        if($this->session->userdata('username') != '')  
-        {
-            $model = $this->model;
-            $data['controller'] = $this->controller;
-            $data['result'] = $this->$model->db_query("select `".$this->table."`.*,`sitedetails`.sname,`vendordetails`.vname from `".$this->table."` INNER JOIN `sitedetails` ON `sitedetails`.sid = `".$this->table."`.sid INNER JOIN `vendordetails` ON `vendordetails`.vid = `".$this->table."`.vid ");
-            $this->load->view('vendor_bills/manage',$data);
-        }
-        else  
-        {  
-            redirect(base_url() . 'main/login');  
-        }  
+        date_default_timezone_set('Asia/Kolkata');
     }
 
-
-    public function add() {
-        $model = $this->model;
+    public function view_table()
+    {			
         $data['controller'] = $this->controller;
-        $data['show_table'] = $this->view_table();
-        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-        $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-
-        $user = $this->$model->select(array(),'users',array('uid' => 11),'');
-
-        $data['sites'] = $this->$model->db_query("SELECT * FROM `sitedetails` WHERE sid IN(".$user[0]->site.")");
-
-
-        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $this->load->view('vendor_bills/index', $data);
-    }
-    public function view_table(){
-        $result = $this->vendor_bills_m->show_all_data();
+        $model = $this->model;
+        $result = $this->Vendor_bills_m->show_all_data();
         if ($result != false) {
             return $result;
         } else {
@@ -59,292 +31,483 @@ class Vendor_bills extends CI_Controller {
         }
     }
 
-    public function show_data_by_site_vendor() {
-
-        $sid = $this->input->post('sid');
-        $vid = $this->input->post('vid');
-        $data = array(
-            'sid' => $sid,
-            'vid' => $vid
-        );
-        if ($sid == "" || $vid == "") {
-            $data['error_message'] = "Both date fields are required";
-        } else {
-            $result = $this->vendor_bills_m->show_data_by_site_vendor($data);
-            if ($result != false) {
-                $data['result_display'] = $result;
-            } else {
-                $data['result_display'] = "No record found !";
-            }
-        }
+    public function select_by_site_vendor() 
+    {
         $model = $this->model;
-        $data['controller'] = $this->controller;
         $data['action'] = "insert";
-        $data['show_table'] = $this->view_table();
-        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
-        $data['show_table'] = $this->view_table();
-        $this->load->view('vendor_bills/index', $data);
-    }
-    public function insert()
-    {
-        $user_id = 11;
-
-        $model = $this->model;
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $vid = $this->input->post('vid');
         $sid = $this->input->post('sid');
-        $uid = $this->input->post('uid');
-        $csgt_total = $this->input->post('csgt_total');
-        $ssgt_total = $this->input->post('ssgt_total');
-        $isgt_total = $this->input->post('isgt_total');
-        $total_amount = $this->input->post('total_amount');
-        $frieght_amount = $this->input->post('frieght_amount');
-        $frieght_gst = $this->input->post('frieght_gst');
-        $gross_amount = $this->input->post('gross_amount');
-        $bill_no = $this->input->post('bill_no');
-        $bill_date = $this->input->post('bill_date');
-        $bill_type = $this->input->post('bill_type');
-        $invoice_to = $this->input->post('invoice_to');
-        $payment_days = $this->input->post('payment_days');
-        $vbremarks = $this->input->post('vbremarks');
-        $uindex = implode(",",$this->input->post('uindex'));
-        $date = date('Y-m-d');
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
-        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');	
-        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');	
-        $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
-        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total'); 
-        $remark = count($this->input->post('remarks')) > 0 ? implode(",",$this->input->post('remarks')) : $this->input->post('remarks');    
-
-        $create_date = date('Y-m-d H:i:s');
-
-        $status = array();
-        for($t=0; $t<count($this->input->post('total'));$t++)
-        {
-            $status[] = 'Pending';
+        $data['sid'] = $sid;          
+        $data['vid'] = $vid;       
+        if ($sid != "" || $vid != "") {
+            $result = $this->Vendor_bills_m->show_data_by_site_vendor($data);
+            if ($result != false) {
+                $data['result_display'] = $result;
+            } else 
+            {
+                $data['result_display'] = "No record found !";
+            }
+        } 
+        else {
+            $data = array(
+                'id_error_message' => "Id field is required"
+            );
         }
-        $status = implode(",",$status);
+//        echo '<pre>';
+//        print_r($data['result_display']);
+//        echo '</pre>';
+            
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $this->load->view('Vendor_bills/form', $data);
+    }
+
+    public function index()
+    {
+        if($this->session->userdata('username') != '')  
+        {
+            $this->load->model("Vendor_bills_m");
+            $model = $this->model;
+            $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+            $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+
+            $this->load->view('Vendor_bills/index',$data);
+        }
+        else  
+        {  
+            redirect(base_url() . 'main/login');  
+        }  
+
+    }
+
+    function action()
+
+    {
+        $this->load->model("Consumption_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("consid",  "sid", "mid", "muid", "consqty", "consunitprice", "consremark", "conscreatedby", "conscreatedon", "consissuedate" );
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $cons_data = $this->Consumption_m->fetch_data();
+
+        $excel_row = 2;
+
+        foreach($cons_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->consid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->consqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->consunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->consremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->conscreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->conscreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->consissuedate);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+    function select_by_id_action()
+
+    {
+        $sid = $this->input->post('sid');
+        $data['sid'] = $sid;          
+        $this->load->model("Consumption_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("consid",  "sid", "mid", "muid", "consqty", "consunitprice", "consremark", "conscreatedby", "conscreatedon", "consissuedate" );
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $cons_data = $this->Consumption_m->show_data_by_id($sid);
+
+        $excel_row = 2;
+
+        foreach($cons_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->consid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->consqty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->consunitprice);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->consremark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->conscreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->conscreatedon);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->consissuedate);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="GRN Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+
+
+    public function form()
+    {
+        $model = $this->model;
+        $data['action'] = "insert";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['units'] = $this->$model->select(array(),'munits',array(),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('Vendor_bills/form',$data);
+    }
+
+    public function insert()
+    {
+        $model = $this->model;
+
+        $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
+
+        $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $creationdate = date('Y-m-d H:i:s');
+
+
+        $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+
+        $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
+
+        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
+
+        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
+
+        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
         $data = array(
-            'vid'  => $vid,
-            'sid'  => $sid,
-            'order_index' => $uindex,
-            'csgt_total'  => $csgt_total,
-            'ssgt_total'  => $ssgt_total,
-            'isgt_total'  => $isgt_total,
-            'total_amount'  => $total_amount,
-            'frieght_amount'  => $frieght_amount,
-            'frieght_gst' => $frieght_gst,
-            'gross_amount'  => $gross_amount,
-            'bill_no'  => $bill_no,
-            'bill_date'  => $bill_date,
-            'bill_type'  => $bill_type,
-            'invoice_to'  => $invoice_to,
-            'pocreatedon'  => $date,
-            'payment_days'  => $payment_days,
-            'vbremarks'  => $vbremarks,
-            'date'  => $date,
-            'unit'  => $unit,
-            'cgst'  => $cgst,
-            'sgst'  => $sgst,
-            'igst'  => $igst,
-            'total'  => $total,
-            'remark' => $remark,
-            'status' => $status,
-            'created_at' => $create_date,
-            'created_by' => $user_id
+            'sid'  => $site,
+            'conscreatedby'  => $uid,
+            'consissuedate'  => $date,
+            'conscreatedon' => $creationdate,
+            'mid' => $mid,
+            'consqty'  => $qty,
+            'consunitprice'  => $unit,
+            'muid'  => $m_unit,
+            'consremark'  => $remark
         );
 
         $this->$model->insert($data,$this->table);
 
-        $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Vendor Added Successfully!</div>');
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Added Successfully!</div>');
 
-        redirect('Vendor_bills');
+        redirect('consumption');
     }
 
-    public function edit($vbid)
+    public function edit($consid)
     {
-        $vbid = $this->uri->segment(3);
+        $consid = $this->uri->segment(3);
         $model = $this->model;
+        $data['action'] = "update";
         $data['controller'] = $this->controller;
-        $data['action'] = "insert";
-        $data['show_table'] = $this->view_table();
-        $data['result'] = $this->$model->select(array(),$this->table,array('id'=>$vbid),'');
-        $data['grn_data'] = $this->$model->select(array(),'grn_master',array('sid'=>$data['result'][0]->sid,'vid'=>$data['result'][0]->vid),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$consid),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
-        $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
-        $data['show_table'] = $this->view_table();
-        $this->load->view('vendor_bills/form', $data);
+        $data['materials'] = $this->$model->select(array(),'materials',array(),'');	
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $this->load->view('consumption/form',$data);
     }
 
     public function update()
     {
         $model = $this->model;
 
-        /* $csgt_total = $this->input->post('csgt_total');
-        $ssgt_total = $this->input->post('ssgt_total');
-        $isgt_total = $this->input->post('isgt_total');
-        $total_amount = $this->input->post('total_amount');
-        $frieght_amount = $this->input->post('frieght_amount');
-        $gst_frieght_amount = $this->input->post('gst_frieght_amount');
-        $gross_amount = $this->input->post('gross_amount');
-        $invoice_to = $this->input->post('invoice_to');
-        $contact_name = $this->input->post('contact_name');
-        $vendor = $this->input->post('vendor');
-        $contact_no = $this->input->post('contact_no');
-        $tandc = $this->input->post('tandc');
+        $site = $this->input->post('site');
+        $uid = $this->input->post('uid');
+
         $date = date('Y-m-d',strtotime($this->input->post('date')));
+        $updateddate = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
+        $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
+
+        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
+
         $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
 
-        $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');	
+        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
-        $app_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');		
-
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');		
-
-        $discount_type = count($this->input->post('discount_type')) > 0 ? implode(",",$this->input->post('discount_type')) : $this->input->post('discount_type');		
-
-        $discount = count($this->input->post('discount')) > 0 ? implode(",",$this->input->post('discount')) : $this->input->post('discount');	
-
-        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');		
-        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');		
-        $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
-
-        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
-        $vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
-
-        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
         $data = array(
             'sid'  => $site,
-            'csgt_total'  => $csgt_total,
-            'ssgt_total'  => $ssgt_total,
-            'isgt_total'  => $isgt_total,
-            'total_amount'  => $total_amount,
-            'frieght_amount'  => $frieght_amount,
-            'gst_frieght_amount' => $gst_frieght_amount,
-            'gross_amount'  => $gross_amount,
-            'invoice_to'  => $invoice_to,
-            'contact_name'  => $contact_name,
-            'contact_no'  => $contact_no,
-            'tandc'  => $tandc,
-            'pocreatedon'  => $date,
-            'mid'  => $mid,
-            'm_unit'  => $m_unit,
-            'qty'  => $qty,
-            'app_qty'  => $app_qty,
-            'unit'  => $unit,
-            'dtid'  => $discount_type,
-            'discount'  => $discount,
-            'cgst'  => $cgst,
-            'sgst'  => $sgst,
-            'igst'  => $igst,
-            'total'  => $total,
-            'vid'  => $vendor,
-            'remark'  => $remark
+            'consupdatedby'  => $uid,
+            'consissuedate'  => $date,
+            'consupdatedon' => $updateddate,
+            'mid' => $mid,
+            'consqty'  => $qty,
+            'consunitprice'  => $unit,
+            'muid'  => $m_unit,
+            'consremark'  => $remark
+        );			
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Updated Successfully!</div>');
 
-        ); */
-
-        $vendor_id = $this->input->post('vendor_id');
-        $csgt_total = $this->input->post('csgt_total');
-        $ssgt_total = $this->input->post('ssgt_total');
-        $isgt_total = $this->input->post('isgt_total');
-        $total_amount = $this->input->post('total_amount');
-        $frieght_amount = $this->input->post('frieght_amount');
-        $frieght_gst = $this->input->post('frieght_gst');
-        $gross_amount = $this->input->post('gross_amount');
-        $bill_no = $this->input->post('bill_no');
-        $bill_date = $this->input->post('bill_date');
-        $bill_type = $this->input->post('bill_type');
-        $invoice_to = $this->input->post('invoice_to');
-        $payment_days = $this->input->post('payment_days');
-        $vbremarks = $this->input->post('vbremarks');
-        $uindex = implode(",",$this->input->post('uindex'));
-        $date = date('Y-m-d');
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
-        $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');	
-        $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');	
-        $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
-        $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total'); 
-        $remark = count($this->input->post('remarks')) > 0 ? implode(",",$this->input->post('remarks')) : $this->input->post('remarks');    
-
-        $create_date = date('Y-m-d H:i:s');
-        $user_id = 11;
-
-        $data = array(
-            'order_index' => $uindex,
-            'csgt_total'  => $csgt_total,
-            'ssgt_total'  => $ssgt_total,
-            'isgt_total'  => $isgt_total,
-            'total_amount'  => $total_amount,
-            'frieght_amount'  => $frieght_amount,
-            'frieght_gst' => $frieght_gst,
-            'gross_amount'  => $gross_amount,
-            'bill_no'  => $bill_no,
-            'bill_date'  => $bill_date,
-            'bill_type'  => $bill_type,
-            'invoice_to'  => $invoice_to,
-            'pocreatedon'  => $date,
-            'payment_days'  => $payment_days,
-            'vbremarks'  => $vbremarks,
-            'date'  => $date,
-            'unit'  => $unit,
-            'cgst'  => $cgst,
-            'sgst'  => $sgst,
-            'igst'  => $igst,
-            'total'  => $total,
-            'remark' => $remark,
-            'updated_at' => $create_date,
-            'updated_by' => $user_id
-        );
-
-        $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Vendor Updated Successfully!</div>');
-
-        $where = array($this->primary_id=>$vendor_id);
+        $consid = $this->input->post('consid');
+        $where = array($this->primary_id=>$consid);
         $this->$model->update($this->table,$data,$where);
 
-        redirect('Vendor_bills');
+        redirect('consumption');
     }
 
-    public function delete($vbid)
+    public function delete($consid)
     {
         $model = $this->model;
-        $condition = array($this->primary_id=>$vbid);
+        $condition = array($this->primary_id=>$consid);
         $this->$model->delete($this->table,$condition);
 
-        $this->session->set_flashdata('dispMessage','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
-
-        redirect('Vendor_bills');
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('consumption');
     }
-    public function Status($id,$type)
+
+    public function browse()
+    {
+        /* File Select */
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        /* Database In Data Count */
+        $data['Count'] = $this->$model->countTableRecords('consumption',array());
+        $this->load->view('consumption/excel',$data);
+    }
+
+    public function excel()
     {
         $model = $this->model;
-        $where = array($this->primary_id=>$id);
 
-        if($type == 1){
-            $data = array('u_status'=>'Approved');
-            $msg = 'Approved';
-        }else{
-            $data = array('u_status'=>'Disapprove');
-            $msg = 'Disapprove';
+        /* Excel File Upload folder Directory: /assets/database */
+        /* Excel File Upload configuration */
+        $file_excel = $_FILES['excel']['name'];
+        $config = Array();
+        $config['upload_path'] = FCPATH.'/Database/recovery';
+        $config['max_size'] = '102400';
+        $config['allowed_types'] = 'xlsx';
+        $config['overwrite'] = FALSE;
+        $config['remove_spaces'] = true;
+        $file_name = $_FILES['excel']['name'];
+        $config['file_name'] = $file_name;
+
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        /* file check if condition is file not upload */
+        if(!$this->upload->do_upload('excel'))
+        {
+            $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button> errors '.$this->upload->display_errors().'</div>');
+            redirect('consumption/browse');
         }
-        $this->$model->update($this->table,$data,$where);
+        /* file check else condition is file upload */
+        else
+        {
+            $data_upload = $this->upload->data();
+
+            /* excel file read */
+            include(APPPATH.'/libraries/simplexlsx.class.php');
+            $xlsx = new SimpleXLSX($data_upload['full_path']);
+
+            $table = 'consumption';
+
+            $xlsxData = $xlsx->rows(); //excel rows data
+
+            $sid  = 0;
+            $arr = array();
+            $data = array();				
+
+            /* excel file write */
+            foreach($xlsxData as $key => $row)
+            {
+                /* excel sheet in first line break (heading) */
+                if(strtolower($row[0]) == 'id')
+                {
+                    continue;
+                }
+                else
+                {
+                    /* excel sheet in second line to start 
+							if condition is check sid == '' and key ==0 then break */
+                    if($key == 0 && $row[2] =="")
+                    {
+                        break;
+                    }
+                    /* if in key > 0 and sid== '' then condition true */
+                    if($key > 0 && $row[2] =="")
+                    {
+                        $arr[$conscreatedon]['mid'][] = $row[3];
+                        $arr[$conscreatedon]['consqty'][] = $row[4];
+                        $arr[$conscreatedon]['consunitprice'][] = $row[5];
+                        $arr[$conscreatedon]['muid'][] = $row[6];
+                        $arr[$conscreatedon]['consremark'][] = $row[7];
+                    }
+
+                    /* else in sid != '' then condition true */
+
+                    else
+                    {
+                        if($row[2] != "")
+                        {
+                            $sid = $row[1];
+                            $conscreatedon = $row[2];
+                            $arr[$conscreatedon]['sid'] = $row[1];
+                            $arr[$conscreatedon]['conscreatedon'] = $row[2];
+                            $arr[$conscreatedon]['mid'][] = $row[3];
+                            $arr[$conscreatedon]['consqty'][] = $row[4];
+                            $arr[$conscreatedon]['consunitprice'][] = $row[5];
+                            $arr[$conscreatedon]['muid'][] = $row[6];
+                            $arr[$conscreatedon]['consremark'][] = $row[7];
+                        }
+                    }
+                }
+            }
+
+            foreach($arr as $key=>$val)
+            {
+                /* Database Is Comma seprate Store */
+                $sid = $arr[$key]['sid'];
+                $conscreatedon = $arr[$key]['conscreatedon'];
+                $mid = implode(",",$arr[$key]['mid']);
+                $consqty = implode(",",$arr[$key]['consqty']);
+                $consunitprice = implode(",",$arr[$key]['consunitprice']);
+                $muid = implode(",",$arr[$key]['muid']);
+                $consremark = implode(",",$arr[$key]['consremark']);
+
+                $data[] = array(
+                    'sid' => $sid,
+                    'conscreatedon' => $conscreatedon,
+                    'mid' => $mid,
+                    'consqty' => $consqty,
+                    'consunitprice' => $consunitprice,
+                    'muid' => $muid,
+                    'consremark' => $consremark,
+                );
 
 
-        $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>'.$msg.' Successfully!</div>');
+            }
+            /* if condition is true then data insert database */
+            if(count($data) > 0)
+            {
+                $this->db->trans_start();
+                $this->$model->insert_batch($data, $table);
+                $this->db->trans_complete();
 
-        redirect('Vendor_bills');
+                /* if condition is true then excel file data not insert then data rollback */
+                if($this->db->trans_status() == FALSE)
+                {
+                    $this->db->trans_rollback();
+                    $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
+                }
+                /* else condition is true then data success fully excel file inserted */
+                else
+                {
+                    $this->db->trans_commit();
+                    $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Successfully Excel File Inserted</div>');
+                }
+
+            } 
+            /* else condition is true then data not insert database */
+            else {
+                $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Failed to Uploade Excel File</div>');
+            }
+        }
+        redirect('consumption/browse');
     }
+    /* database in data display */
+    public function server_data()
+    {
+        $model = $this->model;
 
+        /* datatable in sorting */
+        $order_col_id = $_POST['order'][0]['column'];
+        $order = (($order_col_id == 9 ) ? "CAST(".$_POST['columns'][$order_col_id]['data']." AS DECIMAL)" : $_POST['columns'][$order_col_id]['data']) . ' ' . $_POST['order'][0]['dir'];
+
+        /* datatable recordsTotal And recordsFiltered */
+        $totalData = $this->$model->countTableRecords('consumption',array());
+
+        $start = $_POST['start'];
+        $limit = $_POST['length'];
+
+        /* datatable in limited data display */
+        $q = $this->db->query("SELECT * FROM `consumption`  Order By $order LIMIT $start, $limit")->result();
+
+        $data = array();
+
+        if(!empty($q))
+        {
+            foreach ($q as $key=>$value)
+            {
+                /* records Datatable */
+                $id = 'consid';
+
+                $nestedData['sid'] = $value->sid;
+                $nestedData['conscreatedon'] = $value->conscreatedon;
+                $nestedData['mid'] = $value->mid;
+                $nestedData['consqty'] = $value->consqty;
+                $nestedData['consunitprice'] = $value->consunitprice;
+                $nestedData['muid'] = $value->muid;
+                $nestedData['consremark'] = $value->consremark;
+                $data[] = $nestedData;
+            }
+        }
+
+        $json_data = array(
+            "draw" => intval($this->input->post('draw')),
+            "recordsTotal"    => intval($totalData),
+            "recordsFiltered" => intval($totalData),
+            "data" => $data
+        );
+        echo json_encode($json_data);
+    }
 }
+?>

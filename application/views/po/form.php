@@ -206,8 +206,7 @@ elseif($action == 'update')
          }
         }
 
-                                                                            ?>
-                                                                            <?php }	?>
+        }	?>
                                                                             <input type="hidden" name="material[]" value="<?php echo $material[$i]; ?>">
                                                                         </td>
                                                                         <script type="text/javascript">
@@ -217,7 +216,7 @@ elseif($action == 'update')
                                                                         </script>
                                                                         <td>
                                                                             <?php echo $qty[$i]; ?> 
-                                                                            
+
                                                                             <input type="hidden" id="qty_<?php echo $i; ?>" name="qty[]" value="<?php echo $qty[$i]; ?>">
                                                                         </td>
                                                                         <td>

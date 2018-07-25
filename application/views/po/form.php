@@ -143,7 +143,6 @@ elseif($action == 'update')
                                                                 <thead>
                                                                     <tr class="headings">
                                                                         <th class="column-title">Material Name</th>
-                                                                        <th class="column-title">Material Unit</th>
                                                                         <th class="column-title">Requested Quantity</th>
                                                                         <th class="column-title">Approved Quantity</th>
                                                                         <th class="column-title">Unit Price</th>
@@ -194,32 +193,32 @@ elseif($action == 'update')
 
                                                                     <tr class="pending-user">
                                                                         <td>
-                                                                            <select class="materialname form-control select_width" id="material_<?php echo $i; ?>" name="material[]">
-                                                                                <option value=""></option>
-                                                                                <?php
+
+                                                                            <?php
         foreach($materials as $value)
-        { echo $material[$i]; ?>
-                                                                                <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
-                                                                                <?php }	?>
-                                                                            </select>
-                                                                            <script type="text/javascript">
-                                                                                $('.materialname').select2({
-                                                                                    placeholder: '--- Select Material ---',
-                                                                                });
-                                                                            </script>  
+        {  ?>
+                                                                            <?php if($value->mid == $material[$i])
+        {echo $value->mname; 
+         foreach($units as $m_unit){
+             if($value->munit == $m_unit->muid){
+                 echo ' ( '.$m_unit->muname.' )' ;
+             }
+         }
+        }
+
+                                                                            ?>
+                                                                            <?php }	?>
+                                                                            <input type="hidden" name="material[]" value="<?php echo $material[$i]; ?>">
                                                                         </td>
+                                                                        <script type="text/javascript">
+                                                                            $('.select_width').select2({
+                                                                                placeholder: '--- Select Material ---',
+                                                                            });
+                                                                        </script>
                                                                         <td>
-                                                                            <select class="form-control select_width" id="m_unit_<?php echo $i; ?>" name="m_unit[]">
-                                                                                <option value=""></option>
-                                                                                <?php
-        foreach($units as $value)
-        { ?>
-                                                                                <option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-                                                                                <?php }	?>
-                                                                            </select>
-                                                                        </td>
-                                                                        <td>
-                                                                            <input type="text" id="qty_<?php echo $i; ?>" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>
+                                                                            <?php echo $qty[$i]; ?> 
+                                                                            
+                                                                            <input type="hidden" id="qty_<?php echo $i; ?>" name="qty[]" value="<?php echo $qty[$i]; ?>">
                                                                         </td>
                                                                         <td>
                                                                             <input type="text" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
@@ -3642,19 +3641,19 @@ elseif($action == 'update')
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Invoice To
                                                             </label>
                                                             <div class="col-md-5 col-sm-6 col-xs-12 form-group">
-                                                                    <select class="invoice_to form-control select_width" id="invoice_to" name="invoice_to">
-                                                                        <option value=""></option>
-                                                                        <?php
-                                                                        foreach($invoices as $invoice)
-                                                                        {?>
-                                                                        <option value="<?php echo $invoice->oid?>"><?php echo $invoice->oname.' ('.$invoice->oaddress .' )';?></option>
-                                                                        <?php }	?>
-                                                                    </select>
-                                                                    <script type="text/javascript">
-                                                                        $('.invoice_to').select2({
-                                                                            placeholder: '--- Select Invoice ---',
-                                                                        });
-                                                                    </script>    
+                                                                <select class="invoice_to form-control select_width" id="invoice_to" name="invoice_to">
+                                                                    <option value=""></option>
+                                                                    <?php
+                                                                    foreach($invoices as $invoice)
+                                                                    {?>
+                                                                    <option value="<?php echo $invoice->oid?>"><?php echo $invoice->oname.' ('.$invoice->oaddress .' )';?></option>
+                                                                    <?php }	?>
+                                                                </select>
+                                                                <script type="text/javascript">
+                                                                    $('.invoice_to').select2({
+                                                                        placeholder: '--- Select Invoice ---',
+                                                                    });
+                                                                </script>    
                                                             </div>
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact Name
                                                             </label>

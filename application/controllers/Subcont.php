@@ -68,6 +68,7 @@ Class Subcont extends CI_Controller{
 
         $data = array(
             'subcreatedby'  => $uid,
+            'subcreatedon' => $creationdate,
             'subname' => $subname,
             'submobile' => $submobile,
             'subaltmobile'  => $subaltmobile,

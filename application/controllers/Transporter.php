@@ -70,6 +70,7 @@ Class Transporter extends CI_Controller{
 
         $data = array(
             'tcreatedby'  => $uid,
+            'tcreatedon' => $creationdate,
             'tname' => $tname,
             'tmobile' => $tmobile,
             'taltmobile'  => $taltmobile,

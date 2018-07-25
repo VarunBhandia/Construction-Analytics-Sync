@@ -30,7 +30,7 @@ return false;
             'widesc'=>$this->input->post('widesc'),
             'wigst'=>$this->input->post('wigst'),
             'wibase'=>$this->input->post('wibase'),
-            'wicategory'=>$this->input->post('wicategory'),
+            'wicategory'=>$this->input->post('mcategory'),
             'witype'=>$this->input->post('witype'),
             'wicreatedby'=>$this->input->post('wicreatedby'),
         );
@@ -60,7 +60,7 @@ return false;
             'widesc'=>$this->input->post('widesc'),
             'wigst'=>$this->input->post('wigst'),
             'wibase'=>$this->input->post('wibase'),
-            'wicategory'=>$this->input->post('wicategory'),
+            'wicategory'=>$this->input->post('mcategory'),
             'witype'=>$this->input->post('witype'),
             'wicreatedby'=>$this->input->post('wicreatedby'),
         );

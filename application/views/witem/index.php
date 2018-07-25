@@ -118,7 +118,10 @@
                                                                 <td><?php echo $test->widesc;?></td>
                                                                 <td><?php echo $test->wigst;;?></td>
                                                                 <td><?php echo $test->wibase;;?></td>
-                                                                <td><?php echo $test->wicategory;?></td>
+                                                                <td><?php foreach($categorys as $category){
+                                                                    if($category->cid == $test->wicategory ){echo $category->cname; }
+
+                                                                } ?></td>
                                                                 <td><?php echo $test->witype;;?></td>
                                                                 <td><a href="<?php echo base_url()?>workitem/edit/<?php echo $test->wiid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> </a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>workitem/delete/<?php echo $test->wiid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> </a></td>
                                                                 <?php $no++;?>

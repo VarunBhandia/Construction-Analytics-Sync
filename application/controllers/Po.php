@@ -929,7 +929,7 @@ error_reporting(0);
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
         $data = array(
             'sid'  => $site,
-            'pocreatedby'  => $uid,
+            'poupdatedby'  => $uid,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,
@@ -941,7 +941,7 @@ error_reporting(0);
             'contact_name'  => $contact_name,
             'contact_no'  => $contact_no,
             'tandc'  => $tandc,
-            'pocreatedon'  => $date,
+            'poupdatedon'  => $date,
             'mid'  => $mid,
             'm_unit'  => $m_unit,
             'qty'  => $qty,

@@ -225,7 +225,7 @@
                                                      } ?></td>
                                                                     <td><?php echo $test->grnreceivedate;?></td>
                                                                     <td><?php echo $test->grncreatedon;?></td>
-                                                                    <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                    <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
@@ -290,7 +290,7 @@
                                                      } ?></td>
                                                                     <td><?php echo $test->grnreceivedate;?></td>
                                                                     <td><?php echo $test->grncreatedon;?></td>
-                                                                    <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                    <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
@@ -346,7 +346,7 @@
                                                      } ?></td>                                                                
                                                                 <td><?php echo $test->grnreceivedate;?></td>
                                                                 <td><?php echo $test->grncreatedon;?></td>
-                                                                <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                 <?php $no++;?>
                                                             </tr>
                                                                     <?php

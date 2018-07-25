@@ -196,7 +196,7 @@
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
                                                      } ?></td>                                                                    <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
-                                                                <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
@@ -253,7 +253,7 @@
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
                                                      } ?></td>                                                                    <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
-                                                                <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
@@ -301,7 +301,7 @@
                                                          if($site->sid == $test->sid ){echo $site->sname; }
 
                                                      } ?></td>  <td><?php echo date("d-m-Y",strtotime($test->consissuedate));?></td>
-                                                                <td><a href="<?php echo base_url()?>consumption/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>consumption/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                <td><a href="<?php echo base_url()?>consumption/edit/<?php echo $test->consid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>consumption/delete/<?php echo $test->consid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                 <?php $no++;?>
                                                             </tr>
                                                             <?php

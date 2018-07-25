@@ -69,6 +69,7 @@ Class Vendor extends CI_Controller{
 
         $data = array(
             'vcreatedby'  => $uid,
+            'vcreatedon' => $creationdate,
             'vname' => $vname,
             'vmobile' => $vmobile,
             'valtmobile'  => $valtmobile,

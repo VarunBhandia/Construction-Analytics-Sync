@@ -226,7 +226,7 @@
 
                                                      } ?></td>                                                                                           <td><?php echo date("d-m-Y",strtotime($test->cppurchasedate));?></td>
                                                                         <td><?php echo $test->cpcreatedon;?></td>
-                                                                        <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                        <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                         <?php $no++;?>
                                                                     </tr>
                                                                     <?php
@@ -289,7 +289,7 @@
 
                                                      } ?></td>                                                                                           <td><?php echo date("d-m-Y",strtotime($test->cppurchasedate));?></td>
                                                                         <td><?php echo $test->cpcreatedon;?></td>
-                                                                        <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                        <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                         <?php $no++;?>
                                                                     </tr>
                                                                     <?php
@@ -346,7 +346,7 @@
                                                      } ?></td>
                                                                         <td><?php echo date("d-m-Y",strtotime($test->cppurchasedate));?></td>
                                                                         <td><?php echo $test->cpcreatedon;?></td>
-                                                                        <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                        <td><a href="<?php echo base_url()?>cp/edit/<?php echo $test->cpid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url()?>cp/delete/<?php echo $test->cpid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                         <?php $no++;?>
                                                                     </tr>
                                                                     <?php

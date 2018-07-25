@@ -23,6 +23,7 @@ Class Workitem extends CI_Controller{
             $this->load->model('Model');
             $model = $this->model;
             $data['row'] = $this->Model->select(array(),'workitems',array(),'');
+            $data['categorys'] = $this->Model->select(array(),'category',array(),'');
             $username = $this->session->userdata('username');
             $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
@@ -41,6 +42,7 @@ Class Workitem extends CI_Controller{
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $data['categorys'] = $this->$model->select(array(),'category',array(),'');
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
@@ -63,16 +65,17 @@ Class Workitem extends CI_Controller{
         $widesc = $this->input->post('widesc');
         $wigst = $this->input->post('wigst');
         $wibase = $this->input->post('wibase');
-        $wicategory = $this->input->post('wicategory');
+        $mcategory = $this->input->post('mcategory');
         $witype = $this->input->post('witype');
 
         $data = array(
             'wicreatedby'  => $uid,
+            'wicreatedon' => $creationdate,
             'winame' => $winame,
             'widesc' => $widesc,
             'wigst'  => $wigst,
             'wibase'  => $wibase,
-            'wicategory' => $wicategory,
+            'wicategory' => $mcategory,
             'witype' => $witype,
         );
 
@@ -91,6 +94,7 @@ Class Workitem extends CI_Controller{
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$wiid),'');
         $data['action'] = "update";
         $data['controller'] = $this->controller;
+        $data['categorys'] = $this->$model->select(array(),'category',array(),'');
         $username = $this->session->userdata('username');
         $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
@@ -111,7 +115,7 @@ Class Workitem extends CI_Controller{
         $widesc = $this->input->post('widesc');
         $wigst = $this->input->post('wigst');
         $wibase = $this->input->post('wibase');
-        $wicategory = $this->input->post('wicategory');
+        $mcategory = $this->input->post('mcategory');
         $witype = $this->input->post('witype');
 
         $data = array(
@@ -120,7 +124,7 @@ Class Workitem extends CI_Controller{
             'widesc' => $widesc,
             'wigst'  => $wigst,
             'wibase'  => $wibase,
-            'wicategory' => $wicategory,
+            'wicategory' => $mcategory,
             'witype' => $witype,
         );
         

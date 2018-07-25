@@ -228,7 +228,7 @@
                                                      } ?></td>	 						  
                                                                     <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
                                                                     <td><?php echo $test->mocreatedon;?></td>
-                                                                    <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                    <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
@@ -292,7 +292,7 @@
                                                      } ?></td>	 						  
                                                                     <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
                                                                     <td><?php echo $test->mocreatedon;?></td>
-                                                                    <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                    <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php
@@ -350,7 +350,7 @@
                                                         } ?></td>	 						  
                                                                 <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
                                                                 <td><?php echo $test->mocreatedon;?></td>
-                                                                <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
+                                                                <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a></td>
                                                                 <?php $no++;?>
                                                             </tr>
                                                             <?php
@@ -370,10 +370,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            </div>
-    </div>
-  </body>
+          </body>
 <?php
 	$this->load->view('include/footer');
 ?>

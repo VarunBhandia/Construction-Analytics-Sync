@@ -136,7 +136,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor GST
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="number" min="1" id="vgst" name="vgst" class="form-control col-md-7 col-xs-12" placeholder="GST" value="<?php echo ($action == 'update') ? $row[0]->vgst : '';?>">
+                          <input type="text" min="1" id="vgst" name="vgst" class="form-control col-md-7 col-xs-12" placeholder="GST" value="<?php echo ($action == 'update') ? $row[0]->vgst : '';?>">
                         </div>
                       </div>
                       <div class="form-group">

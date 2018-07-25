@@ -136,7 +136,19 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Category
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="number" min="1" id="wicategory" name="wicategory" class="form-control col-md-7 col-xs-12" placeholder="Category" value="<?php echo ($action == 'update') ? $row[0]->wicategory : '';?>">
+                           <select class="category form-control" id="mcategory" name="mcategory" required>
+								<option value="">---Material Category----</option>
+								<?php
+								foreach($categorys as $category)
+								{ ?>
+									<option <?php if($action == 'update'){  echo $category->cid == $row[0]->cid ? 'selected' : '' ; }?> value="<?php echo $category->cid?>"><?php echo $category->cname;?></option>
+								<?php }	?>
+							</select>
+                       <script type="text/javascript">
+      $('.category').select2({
+        placeholder: '--- Select Category ---',
+        });
+                            </script>
                         </div>
                       </div>
                       <div class="form-group">

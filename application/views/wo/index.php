@@ -113,17 +113,20 @@
 										foreach($row as $test) {?>
 									<tr>
 									  <td><?php echo $no;?></td>
-                                        <td><?php echo 'test'; ?></td>
-									  <td><?php echo $test->sid;?></td>
-									  <td><?php echo $test->subid;?></td>
-									  <td><?php echo date("d-m-Y",strtotime($test->wocreatedon));?></td>
+                                      <td><?php echo $test->worefid; ?></td>
+                                      <td><?php foreach($sites as $site){
+                                            if($site->sid == $test->sid ){echo $site->sname; }
+                                                     } ?></td>									  
+                                      <td><?php foreach($subcontdetails as $subcontdetail){
+                                            if($subcontdetail->subid == $test->subid ){echo $subcontdetail->subname; }
+                                                     } ?></td>
 									  <td><?php echo date("d-m-Y",strtotime($test->wodate));?></td>
+								      <td><?php echo $test->wocreatedon;?></td>
 									  <td>
-                                          <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->woid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
-                                          <a onClick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                          <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->woid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a>
+                                          <a onClick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->woid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a>
                                         </td>
-										<td>
-                                          
+										<td>                                      
                                           <a href="<?php echo base_url().$controller;?>/pdf_genrate/<?php echo $test->woid;?>">
                                            <i class="fa fa-file-pdf-o" style="    font-size: 35px;color: red;"></i>
                                           </a>

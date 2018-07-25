@@ -203,9 +203,9 @@
                                                                     } ?></td>
                                                                         <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
                                                                         <td>
-                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
+                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a>
                                                                             <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
-                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a>
                                                                         </td>
                                                                         <?php $no++;?>
                                                                     </tr>
@@ -271,9 +271,9 @@
                                                                     } ?></td>
                                                                         <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
                                                                         <td>
-                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
+                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a>
                                                                             <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
-                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a>
                                                                         </td>
                                                                         <?php $no++;?>
                                                                     </tr>
@@ -329,9 +329,9 @@
                                                                     } ?></td>
                                                                         <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
                                                                         <td>
-                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
+                                                                            <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a>
                                                                             <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
-                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                                                            <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a>
                                                                         </td>
                                                                         <?php $no++;?>
                                                                     </tr>

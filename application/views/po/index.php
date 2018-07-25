@@ -275,7 +275,7 @@
                                                             <tbody>
                                                                 <?php
                                                      $no = 1;
-                                                     foreach($result_display as $test) {?>
+                                                     foreach($result_display_date as $test) {?>
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->porefid;?></td>

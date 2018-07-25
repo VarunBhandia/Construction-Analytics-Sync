@@ -120,7 +120,7 @@ error_reporting(0);
 								<?php
 								foreach($units as $unit)
 								{ ?>
-									<option <?php if($action == 'update'){  echo $unit->muid == $row[0]->muid ? 'selected' : '' ; }?> value="<?php echo $unit->muid?>"><?php echo $unit->muname;?></option>
+									<option <?php if($action == 'update'){  echo $unit->muid == $row[0]->munit ? 'selected' : '' ; }?> value="<?php echo $unit->muid?>"><?php echo $unit->muname;?></option>
 								<?php }	?>
 							</select>
                        <script type="text/javascript">
@@ -139,7 +139,7 @@ error_reporting(0);
 								<?php
 								foreach($categorys as $category)
 								{ ?>
-									<option <?php if($action == 'update'){  echo $category->cid == $row[0]->cid ? 'selected' : '' ; }?> value="<?php echo $category->cid?>"><?php echo $category->cname;?></option>
+									<option <?php if($action == 'update'){  echo $category->cid == $row[0]->mcategory ? 'selected' : '' ; }?> value="<?php echo $category->cid?>"><?php echo $category->cname;?></option>
 								<?php }	?>
 							</select>
                        <script type="text/javascript">

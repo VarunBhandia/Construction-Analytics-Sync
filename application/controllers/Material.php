@@ -23,7 +23,7 @@ Class Material extends CI_Controller{
             $data["m_data"] = $this->material_m->fetch();
             $this->load->model('Model');
             $data['row'] = $this->Model->select(array(),'materials',array(),'');
-            $data['mcategorys'] = $this->Model->select(array(),'category',array(),'');
+            $data['categorys'] = $this->Model->select(array(),'category',array(),'');
             $data['units'] = $this->Model->select(array(),'munits',array(),'');
             $model = $this->model;
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');

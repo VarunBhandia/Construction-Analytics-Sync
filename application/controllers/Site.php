@@ -49,6 +49,10 @@ Class Site extends CI_Controller{
         {  
             redirect(base_url() . 'main/login');  
         }  
+//        
+//              echo "<pre>";
+//            print_r ($data);
+//         echo "</pre>";
 
     }
     

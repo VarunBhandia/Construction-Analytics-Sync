@@ -108,7 +108,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Vendor Name
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="vname" name="vname" class="form-control col-md-7 col-xs-12" placeholder="---Enter Vendor Name---" value="<?php echo ($action == 'update') ? $row[0]->vname : '';?>">
+                          <input type="text" min="1" id="vname" name="vname" class="form-control col-md-7 col-xs-12" placeholder="---Enter Vendor Name---" value="<?php echo ($action == 'update') ? $row[0]->vname : '';?>" required>
                         </div>
                       </div>
 					  <div class="form-group">

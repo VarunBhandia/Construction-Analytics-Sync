@@ -85,9 +85,15 @@
                                         <div class="x_title">
                                             <h1>Material List</h1>
                                             <div class="row">
-                                             <div class="col-md-11">
+                                             <div class="col-md-5">
                                                             <a href="<?php echo base_url();?>material/form"><button class="btn btn-primary">Add New Material</button></a>
                                                 </div>
+                                                 <div class="col-md-3">
+                                                            <a href="<?php echo base_url();?>unit/index" target="_blank"><button class="btn btn-primary">New Unit</button></a>
+                                                 </div>
+                                                  <div class="col-md-3">
+                                                            <a href="<?php echo base_url();?>category/index" target="_blank"><button class="btn btn-primary">New Category</button></a>
+                                                 </div>
                                              <div class="col-md-1">
                                              <form method="post" action="<?php echo base_url()?>material/action">
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
@@ -120,9 +126,11 @@
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->mname;;?></td>
                                                                 <td><?php foreach($units as $unit){
-                                                         if($unit->munit == $test->munit ){echo $unit->muname; }
-
-                                                     } ?></td>                                                                  <td><?php echo $test->mcategory;;?></td>
+                                                         if($unit->muid == $test->munit ){echo $unit->muname; }
+                                                     } ?></td>                                                                  
+                                                                <td><?php foreach($categorys as $category){
+                                                         if($category->cid == $test->mcategory ){echo $category->cname; }
+                                                     } ?></td> 
                                                                 <td><?php echo $test->mdesc;;?></td>
                                                                 <td><?php echo $test->hsn;?></td>
                                                                 <td><?php echo $test->mgst;;?></td>

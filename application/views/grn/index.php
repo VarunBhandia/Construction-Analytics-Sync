@@ -201,8 +201,8 @@
                                                                     <th>GRN Ref-id</th>
                                                                     <th>Site Name</th>
                                                                     <th>Vendor Name</th>
-                                                                    <th>Challan Number</th>
                                                                     <th>Receive Date</th>
+                                                                    <th>Created On</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
@@ -223,8 +223,8 @@
                                                          if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
                                                      } ?></td>
-                                                                    <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
                                                                     <td><?php echo $test->grnreceivedate;?></td>
+                                                                    <td><?php echo $test->grncreatedon;?></td>
                                                                     <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
@@ -266,8 +266,8 @@
                                                                     <th>GRN Ref-id</th>
                                                                     <th>Site Name</th>
                                                                     <th>Vendor Name</th>
-                                                                    <th>Challan Number</th>
                                                                     <th>Receive Date</th>
+                                                                    <th>Created On</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
@@ -288,8 +288,8 @@
                                                          if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
                                                      } ?></td>
-                                                                    <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
                                                                     <td><?php echo $test->grnreceivedate;?></td>
+                                                                    <td><?php echo $test->grncreatedon;?></td>
                                                                     <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
@@ -321,8 +321,8 @@
                                                                 <th>GRN Ref-id</th>
                                                                 <th>Site Name</th>
                                                                 <th>Vendor Name</th>
-                                                                <th>Challan Number</th>
                                                                 <th>Receive Date</th>
+                                                                <th>Created On</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -344,8 +344,8 @@
                                                          if($vendor->vid == $test->vid ){echo $vendor->vname; }
 
                                                      } ?></td>                                                                
-                                                               <td><?php echo date("d-m-Y",strtotime($test->grnreceivedate));?></td>
                                                                 <td><?php echo $test->grnreceivedate;?></td>
+                                                                <td><?php echo $test->grncreatedon;?></td>
                                                                 <td><a href="<?php echo base_url()?>grn/edit/<?php echo $test->grnid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url();?>grn/delete/<?php echo $test->grnid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>

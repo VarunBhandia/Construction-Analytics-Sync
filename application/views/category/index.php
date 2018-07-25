@@ -1,8 +1,7 @@
 <?php $uid = $this->session->userdata('username'); ?>
 
 <div class="container">
-    <h3>All category List
-        <?php echo $uid; ?>
+    <h3>All categories
     </h3>
     <div class="alert alert-success" style="display: none;">
 

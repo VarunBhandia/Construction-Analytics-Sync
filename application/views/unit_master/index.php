@@ -1,8 +1,7 @@
 <?php $uid = $this->session->userdata('username'); ?>
 
 <div class="container">
-    <h3>All Material Unit List
-        <?php echo $uid; ?>
+    <h3>Material Unit List
     </h3>
     <div class="alert alert-success" style="display: none;">
 

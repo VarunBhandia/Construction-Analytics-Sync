@@ -108,7 +108,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material Name
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="mname" name="mname" class="form-control col-md-7 col-xs-12" placeholder="Material" value="<?php echo ($action == 'update') ? $row[0]->mname : '';?>">
+                          <input type="text" min="1" id="mname" name="mname" class="form-control col-md-7 col-xs-12" placeholder="Material" value="<?php echo ($action == 'update') ? $row[0]->mname : '';?>" required>
                         </div>
                       </div>
 					  <div class="form-group">
@@ -181,7 +181,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Material Type
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="number" min="1" id="mtype" name="mtype" class="form-control col-md-7 col-xs-12" placeholder="Material Type" value="<?php echo ($action == 'update') ? $row[0]->mtype : '';?>">
+                          <input type="text" min="1" id="mtype" name="mtype" class="form-control col-md-7 col-xs-12" placeholder="Material Type" value="<?php echo ($action == 'update') ? $row[0]->mtype : '';?>">
                         </div>
                       </div>
 

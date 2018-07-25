@@ -30,8 +30,8 @@ error_reporting(0);
                       <div class="form-group">
                         <label class="control-label col-md-2 col-sm-3 col-xs-12" for="last-name">Site
                         </label>
-                        <div class="sitename col-md-10 col-sm-6 col-xs-12">
-                           <select class="form-control" id="site" name="site">
+                        <div class="col-md-10 col-sm-6 col-xs-12">
+                           <select class="sitename form-control" id="site" name="site">
 								<option value="">---site name----</option>
 								<?php
 								foreach($sites as $site)

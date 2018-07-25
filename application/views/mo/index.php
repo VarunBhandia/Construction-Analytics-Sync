@@ -205,7 +205,8 @@
                                                                     <th>MO Ref-id</th>
                                                                     <th>Transferring Site</th>
                                                                     <th>Requesting Site</th>
-                                                                    <th>Date</th>
+                                                                    <th>MO Date</th>
+                                                                    <th>Created On</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
@@ -225,6 +226,7 @@
 
                                                      } ?></td>	 						  
                                                                     <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
+                                                                    <td><?php echo $test->mocreatedon;?></td>
                                                                     <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
@@ -267,7 +269,8 @@
                                                                     <th>MO Ref-id</th>
                                                                     <th>Transferring Site</th>
                                                                     <th>Requesting Site</th>
-                                                                    <th>Date</th>
+                                                                    <th>MO Date</th>
+                                                                    <th>Created On</th>
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
@@ -287,6 +290,7 @@
 
                                                      } ?></td>	 						  
                                                                     <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
+                                                                    <td><?php echo $test->mocreatedon;?></td>
                                                                     <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                     <?php $no++;?>
                                                                 </tr>
@@ -320,7 +324,8 @@
                                                                 <th>MO Ref-id</th>
                                                                 <th>Transferring Site</th>
                                                                 <th>Requesting Site</th>
-                                                                <th>Date</th>
+                                                                <th>MO Date</th>
+                                                                <th>Created On</th>
                                                                 <th>Action</th>
                                                             </tr>
                                                         </thead>
@@ -343,6 +348,7 @@
 
                                                         } ?></td>	 						  
                                                                 <td><?php echo date("d-m-Y",strtotime($test->modate));?></td>
+                                                                <td><?php echo $test->mocreatedon;?></td>
                                                                 <td><a href="<?php echo base_url()?>mo/edit/<?php echo $test->moid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->moid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a></td>
                                                                 <?php $no++;?>
                                                             </tr>

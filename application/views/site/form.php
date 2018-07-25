@@ -108,7 +108,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Site Name
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="sname" name="sname" class="form-control col-md-7 col-xs-12" placeholder="---Enter Site Name---" value="<?php echo ($action == 'update') ? $row[0]->sname : '';?>">
+                          <input type="text" min="1" id="sname" name="sname" class="form-control col-md-7 col-xs-12" placeholder="---Enter Site Name---" value="<?php echo ($action == 'update') ? $row[0]->sname : '';?>" required>
                         </div>
                       </div>
 					  <div class="form-group">
@@ -122,7 +122,7 @@ error_reporting(0);
                         <label class="control-label col-md-2 col-sm-6 col-xs-12" for="name">Unique Site ID
                         </label>
                         <div class="col-md-10 col-sm-6 col-xs-12">
-                          <input type="text" min="1" id="uniquesid" name="uniquesid" class="form-control col-md-7 col-xs-12" placeholder="Unique Site Id" value="<?php echo ($action == 'update') ? $row[0]->uniquesid : '';?>">
+                          <input type="text" min="1" id="uniquesid" name="uniquesid" class="form-control col-md-7 col-xs-12" placeholder="Unique Site Id" value="<?php echo ($action == 'update') ? $row[0]->uniquesid : '';?>" required>
                         </div>
                       </div>
                       <div class="form-group">

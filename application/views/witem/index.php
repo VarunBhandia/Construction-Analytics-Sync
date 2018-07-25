@@ -100,8 +100,6 @@
                                                                 <th>No</th>
                                                                 <th>Workitem Name</th>
                                                                 <th>Description</th>
-                                                                <th>GST Rate</th>
-                                                                <th>Base Rate</th>
                                                                 <th>Category</th>         
                                                                 <th>Material type</th>         
                                                                 <th>Action</th>         
@@ -116,8 +114,6 @@
                                                                 <td><?php echo $no;?></td>
                                                                 <td><?php echo $test->winame;;?></td>
                                                                 <td><?php echo $test->widesc;?></td>
-                                                                <td><?php echo $test->wigst;;?></td>
-                                                                <td><?php echo $test->wibase;;?></td>
                                                                 <td><?php foreach($categorys as $category){
                                                                     if($category->cid == $test->wicategory ){echo $category->cname; }
 

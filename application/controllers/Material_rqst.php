@@ -163,19 +163,19 @@ class Material_rqst extends CI_Controller
             foreach($data['materials'] as $material){
                 if( $row->mid == $material->mid){
                     $material_name = $material->mname;
-                
-            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $material_name);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mrremarks);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
-            $excel_row++;
-     }}   }
+
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->mrid);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->mrrefid);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $material_name);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->muid);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mrunitprice);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mrqty);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->mrremarks);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->mrcreatedon);
+                    $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->mrcreatedby);
+                    $excel_row++;
+                }}   }
 
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
@@ -262,8 +262,18 @@ class Material_rqst extends CI_Controller
         $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-
+        
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $mrrefid = 'MR/2018/'.$site_unique_identifier.$site_id;
+            }
+        }
+        echo $mrrefid;
         $data = array(
+            'mrrefid'  => $mrrefid,
             'sid'  => $site,
             'mrcreatedby'  => $uid,
             'mrrecievedate'  => $mrrecievedate,
@@ -345,7 +355,7 @@ class Material_rqst extends CI_Controller
         redirect('material_rqst');
     }
 
-public function approve($mrid)
+    public function approve($mrid)
     {
         $approve = 1;
         $data = array(

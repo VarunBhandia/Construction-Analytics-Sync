@@ -323,7 +323,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.0.1
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2018 at 01:07 PM
--- Server version: 10.1.32-MariaDB
--- PHP Version: 7.2.5
+-- Generation Time: Jul 25, 2018 at 04:57 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -67,7 +67,6 @@ CREATE TABLE `consumption` (
   `consid` int(11) NOT NULL,
   `sid` varchar(10) NOT NULL,
   `mid` varchar(50) NOT NULL,
-  `muid` varchar(50) NOT NULL,
   `consqty` varchar(50) NOT NULL,
   `consunitprice` varchar(50) NOT NULL,
   `consremark` varchar(2550) NOT NULL,
@@ -83,15 +82,17 @@ CREATE TABLE `consumption` (
 -- Dumping data for table `consumption`
 --
 
-INSERT INTO `consumption` (`consid`, `sid`, `mid`, `muid`, `consqty`, `consunitprice`, `consremark`, `conscreatedby`, `consupdatedby`, `consupdatedon`, `conscreatedon`, `consissuedate`, `uid`) VALUES
-(1, '5', '3421', '17', '43', '43', '44', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-05', ''),
-(2, '17', '3386', '20', '23', '31', '3113', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-04', ''),
-(3, '5', '3411', '7', '344', '24', '424', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-06', ''),
-(4, '3', '3420', '', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-11', 'tushar'),
-(5, '4', '3421', '5', '23', '323', '323', 'tushar', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-11', ''),
-(6, '1', '3424', '1', '90', '90', '90', 'tushar', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-16', ''),
-(7, '2', '3424', '2', '23', '23', '', 'tushar', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-19', ''),
-(8, '157', '3423,3416', '2,14', '23,23', '23,23', '34,', 'tushar', 'tushar', '2018-07-19 12:00:09', '2018-07-19 11:58:33', '2018-07-17', '');
+INSERT INTO `consumption` (`consid`, `sid`, `mid`, `consqty`, `consunitprice`, `consremark`, `conscreatedby`, `consupdatedby`, `consupdatedon`, `conscreatedon`, `consissuedate`, `uid`) VALUES
+(1, '5', '3', '43', '43', '44', '', 'varunbhandia', '2018-07-25 20:23:51', '0000-00-00 00:00:00', '2018-07-05', ''),
+(2, '17', '3386', '23', '31', '3113', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-04', ''),
+(3, '5', '3411', '344', '24', '424', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-06', ''),
+(4, '3', '3420', '', '', '', '', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-11', 'tushar'),
+(5, '4', '3421', '23', '323', '323', 'tushar', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-11', ''),
+(6, '1', '3424', '90', '90', '90', 'tushar', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-16', ''),
+(7, '2', '3424', '23', '23', '', 'tushar', '', '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-07-19', ''),
+(8, '157', '3423,3416', '23,23', '23,23', '34,', 'tushar', 'tushar', '2018-07-19 12:00:09', '2018-07-19 11:58:33', '2018-07-17', ''),
+(9, '2', '2', '', '', '', 'varunbhandia', '', '0000-00-00 00:00:00', '2018-07-25 20:24:57', '2018-07-25', ''),
+(10, '1', '', '', '', '', 'varunbhandia', '', '0000-00-00 00:00:00', '2018-07-25 20:25:05', '2018-07-25', '');
 
 -- --------------------------------------------------------
 
@@ -493,7 +494,8 @@ CREATE TABLE `materials` (
 
 INSERT INTO `materials` (`mid`, `mname`, `munit`, `mcategory`, `mdesc`, `hsn`, `mgst`, `mbase`, `mtype`, `mcreatedby`, `mcreatedon`) VALUES
 (1, 'hand grinder', '2', '1', '23', '45', '43', '545', '46', 'tushar', '2018-07-24 09:52:13'),
-(2, '4353', '2', '4', 'tushar', '5787', '50', '40', '756744', 'tushar', '2018-07-24 09:52:47');
+(2, 'leg grinder', '2', '4', 'tushar', '5787', '50', '40', '756744', 'varunbhandia', '2018-07-24 09:52:47'),
+(3, 'varun', '2', '4', '', '', '', '', '', 'varunbhandia', '2018-07-25 16:17:11');
 
 -- --------------------------------------------------------
 
@@ -972,7 +974,8 @@ INSERT INTO `sitedetails` (`sid`, `sname`, `sitestartdate`, `uniquesid`, `contac
 (176, 'Venus Otuka', '0000-00-00', 'sector 27-A', 'Anil Bansal', '9899523184', '', 'Sector-27-A, Plot no. 58,59,60', '', '0000-00-00 00:00:00'),
 (177, 'Starlic AutoMobile 141', '0000-00-00', 'plot 141', 'Anil Bansal', '9899523184', '', 'Plot no. -141, Near NHPC Chowk (Classic Honda)', '', '0000-00-00 00:00:00'),
 (178, 'Aakriti Nursing Home', '0000-00-00', 'BK Chock', 'Dinesh ji', '8800695604', '', 'E-5, Near B.K. Chock, Faridabad', '', '0000-00-00 00:00:00'),
-(179, 'SHRI RAM CONCRETE PRODUCTS', '0000-00-00', 'RMC,', '', '8130713434', '', '147, SEC-37 , FARIDABAD', '', '0000-00-00 00:00:00');
+(179, 'SHRI RAM CONCRETE PRODUCTS', '0000-00-00', 'RMC,', '', '8130713434', '', '147, SEC-37 , FARIDABAD', '', '0000-00-00 00:00:00'),
+(180, 'jdfhj', '2018-07-16', 'aSF', '', '', '', '', 'varunbhandia', '2018-07-25 16:11:20');
 
 -- --------------------------------------------------------
 
@@ -1637,193 +1640,161 @@ ALTER TABLE `workitems`
 --
 ALTER TABLE `category`
   MODIFY `cid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
 --
 -- AUTO_INCREMENT for table `consumption`
 --
 ALTER TABLE `consumption`
-  MODIFY `consid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
+  MODIFY `consid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `cp_master`
 --
 ALTER TABLE `cp_master`
   MODIFY `cpid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
 --
 -- AUTO_INCREMENT for table `dyform`
 --
 ALTER TABLE `dyform`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fruits`
 --
 ALTER TABLE `fruits`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `grn_master`
 --
 ALTER TABLE `grn_master`
   MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `import`
 --
 ALTER TABLE `import`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
+  MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `material_rqst`
 --
 ALTER TABLE `material_rqst`
   MODIFY `mrid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2102;
-
 --
 -- AUTO_INCREMENT for table `mo_master`
 --
 ALTER TABLE `mo_master`
   MODIFY `moid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `munits`
 --
 ALTER TABLE `munits`
   MODIFY `muid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `performance`
 --
 ALTER TABLE `performance`
   MODIFY `performance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
   MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `rtv_master`
 --
 ALTER TABLE `rtv_master`
   MODIFY `rtvid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
 ALTER TABLE `sitedetails`
-  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
-
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=181;
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
   MODIFY `Student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `subcontdetails`
 --
 ALTER TABLE `subcontdetails`
   MODIFY `subid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
   MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 --
 -- AUTO_INCREMENT for table `tbl_employees`
 --
 ALTER TABLE `tbl_employees`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendordetails`
 --
 ALTER TABLE `vendordetails`
   MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendor_bills_master`
 --
 ALTER TABLE `vendor_bills_master`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -311,6 +311,23 @@
                 </a>
             </div>
             <?php } ?>
+            <?php if($officegstdetails_module != 0){ ?>
+            <div class="col-md-2">
+                <a href="#" target="_blank">
+                    <a href="<?php echo base_url(); ?>Office" target="_blank">
+                        <div class="ModuleTile" style="background-color:#28a745">
+                            <div class="countData">
+                                <?php echo $Count_officedetails;?>
+                            </div> 
+
+                            <div class="ModuleHeading">
+                                Office Details
+                            </div>
+                        </div>
+                    </a>
+                </a>
+            </div>
+            <?php } ?>
             <?php if($reporting_module != 0){ ?>
             <div class="col-md-2">
                 <a href="<?php echo base_url(); ?>Reporting" target="_blank">

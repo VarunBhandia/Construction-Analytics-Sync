@@ -67,7 +67,8 @@ class Material_rqst extends CI_Controller
         $this->load->view('material_rqst/index', $data);
     }
 
-    public function select_by_date_range() {
+    public function select_by_date_range() 
+    {
         $model = $this->model;
         $data['controller'] = $this->controller;
         $username = $this->session->userdata('username');
@@ -341,6 +342,20 @@ class Material_rqst extends CI_Controller
         $this->$model->delete($this->table,$condition);
 
         $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deleted Successfully!</div>');
+        redirect('material_rqst');
+    }
+
+public function approve($mrid)
+    {
+        $approve = 1;
+        $data = array(
+            'mrapprove'  => $approve
+        );
+        $model = $this->model;
+        $where = array($this->primary_id=>$mrid);
+        $this->$model->update($this->table,$data,$where);
+
+        $this->session->set_flashdata('add_message','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Approved Successfully!</div>');
         redirect('material_rqst');
     }
 

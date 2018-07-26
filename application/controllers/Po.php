@@ -348,7 +348,7 @@ class Po extends CI_Controller
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,
             'contact_no'  => $contact_no,
-            'tandc'  => $tandc,
+            'potandc'  => $tandc,
             'pocreatedon'  => $date,
             'm_unit'  => $m_unit,
             'qty'  => $qty,
@@ -396,537 +396,7 @@ class Po extends CI_Controller
     }
 
 
-
-function pdf_genrate(){
-
-          $this->load->model('po_m');
-
-if(isset($_REQUEST['po_id'])) {
-  
-  
-  require_once("dompdf/dompdf_config.inc.php");
-	       $poid = $_REQUEST['po_id'];
-            $result = $this->po_m->pdf_data($poid);
-		//echo "<pre>";
-			//print_r($result);
-			$metrial_remark = explode("," , $result['All'][0]->remark);
-			$metrial_qty = explode("," , $result['All'][0]->qty);
-			$metrial_rate = explode("," , $result['All'][0]->unit);
-			$metrial_total = explode("," , $result['All'][0]->total);
-			$metrial_discount = explode("," , $result['All'][0]->discount);
-			$metrial_cgst_rate = explode("," , $result['All'][0]->cgst_rate);			
-			$metrial_sgst_rate = explode("," , $result['All'][0]->sgst_rate);
-			$metrial_igst_rate = explode("," , $result['All'][0]->igst_rate);
-
-
-			$metrial_cgst = explode("," , $result['All'][0]->cgst);			
-			$metrial_sgst = explode("," , $result['All'][0]->sgst);
-			$metrial_igst = explode("," , $result['All'][0]->igst);
-			$metrial_unit = '';
-			foreach($result['munit'] as $key=>$value ){
-				   $metrial_unit = $value->muname.",";
-				}
-			$metrial_unit = explode("," , trim($metrial_unit , ","));
-
-   
-ob_start(); 
-?>
-<style>
-*{
-	padding:0px 0 0px!important;
-	margin:0px 0 2px!important;
-
-}
-@page { margin: 50px 0; }
-.main{
- width:90%;
- margin:auto;
- overflow:scroll;
- height:850px;
-margin:50px 0 2px!important;
- 
-
-} 
-.main table.po-table{
-      width: 100%;
-      padding: 8px;
-      font-size: 10px !important;
-      position: absolute;
-	  left:40px;
-      page-break-after: auto; 
-      top: 15px; 
-      height: 100%!important;
-      margin: 0;
-	  margin-bottom: 0em!important;
-      margin-top: 0em!important;	
-}
-.main table.po-table tr td img.logo{
-      width: 76px;
-}
-
-
-
-
-.main table.po-table tr.first-head td {
-    padding: 10px 0 10px;
-}
-
-.main table.po-table tr.first-head td h1 {
-    font-family: 'Knewave'!important;
-	font-style:italic;
-    color: #c50303;
-    letter-spacing: 0px;
-    line-height: 0.4em;
-	font-size: 20px!important;	
-}
-
-
-.main table.po-table tr.first-head td h3 {
-	text-align: left;
-	font-size: 16px;
-	font-family: sans-serif;color: #5f5c5c;
-	line-height:1.5em;
-	margin-top: -5px;
-}
-.main table.po-table tr.first-head td h5 {
-    padding: 10px 0 10px;
-	text-align:right;
-	line-height:15px;
-}
-
-.main table.po-table tr.first-head td h5 span.po-order {
-	font-size: 18px;
-    font-family: sans-serif;
-    color: #5f5c5c;
-	line-height:20px;
-}
-.main table.po-table tr.first-head td{
- padding-bottom:15px!important
-}
-.main table.po-table tr.second-head td{
- padding-top:10px!important;
- padding-bottom:10px!important;
-}
-.main table.po-table tr.second-head td h2.vendor {
-    font-family: sans-serif;
-    line-height: 15px;
-    font-size: 13px!important;
-    color: #000000;
-    margin: 0;
-    padding-top: 10px!important;
-}
-.main table.po-table tr.second-head td h3.vendor-address {
-    font-size: 15px;
-    font-family: sans-serif;
-    font-weight: 500;
-    color: #4c4b4b;
-    line-height: 15px;
-    margin: 0!important;
-}
-
-.main table.po-table tr.second-head td h4.vendor-other-details {
-    font-size: 12px!important;
-    color: #4c4b4b;
-    font-family: 'Open Sans Condensed'!important;;
-    font-weight: 600;
-    line-height: 15px;
-
-}
-.main table.po-table tr.third-head td{
- 
-  padding-bottom:15px!important;
-  border-bottom: 2px solid #ccc!important;
-  margin-bottom:10px!important;
-
-}
-.main table.po-table tr.third-head td h2.ship-details {
-    color: #2b2b2b;
-    font-size: 13px!important;
-	font-family: sans-serif;
-	line-height: 15px;	
-    padding:0px!important;
-}
-
-.main table.po-table tr.third-head td h4.ship-address {
-    font-size: 12px!important;
-    color: #4c4b4b;
-    font-family: 'Open Sans Condensed'!important;;
-    font-weight: 600;
-    line-height: 15px;
-
-}
- 
-.main table.po-table tr.third-head td h2.invoice-to {
-    font-family: sans-serif;
-    line-height: 15px;
-    font-size: 13px!important;
-    color: #000000;
-    margin: 0;
-    padding-top:10px!important;
-}
-
-.main table.po-table tr.third-head h4.invoice-other-details {
-    font-size: 12px!important;
-    color: #4c4b4b;
-    font-family: 'Open Sans Condensed'!important;;
-    font-weight: 600;
-    line-height: 15px;
-
-}
-  
- 
-tr.second-head td, tr.third-head td  {
-    border-top: 2px solid #ccc;
-    padding: 15px 0 15px;
-}
-
-.main table.po-table tr.forth-head th{
-    border: 1px solid #ccc;
-    padding: 10px 0px 10px 0px!important;
-    background: #eee8aa;
-    text-align: center;
-    font-size: 10px;
-    font-family: sans-serif;
-    margin-bottom:10px!important;
-	
-
-}
-.main table.po-table tr.fifth-head td{
-    color: #2b2b2b;
-    font-size: 11px!important;
-    font-family: sans-serif;
-    border: 1px solid #ccc;
-    text-align: center;
-    font-weight: bold;
-    padding: 5px 0 5px!important;
-}
-
-.main table.po-table tr.comman-rows th{
-    color: #2b2b2b;
-    font-size: 11px!important;
-    font-family: sans-serif;
-    font-weight: bold;
-    padding: 10px;
-    text-align: right;
-    border-left: 1px solid #ccc!important;	
-} 
-.main table.po-table tr.comman-rows td{
-    color: #2b2b2b;
-    font-size: 11px;
-    font-family: sans-serif;
-    border: 1px solid #ccc;
-    text-align: center;
-    font-weight: bold;
-    padding: 5px 0px 5px!important ;
-}
-
-.main table.po-table tr.sixth-head {
-    background: #eee8aa;
-	font-size:12px!important;
-    font-family: sans-serif!important;
-
-}
-.main table.po-table tr.sixth-head td {
-	padding: 12px;
-}
-.main table.po-table tr.sixth-head h2 {
-    color: #2b2b2b;
-    font-size: 16px;
-    font-family: sans-serif;
-    margin: 20px 0 -15px 0;
-}
-.main table.po-table tr.sixth-head h4 { 
-	font-size: 13px;
-    color: #000000;
-    font-family: sans-serif;
-    line-height: 15px;
-}
-.main table.po-table tr.seventh-head h4 { 
-    font-size: 12px!important;
-    color: #000000;
-    font-family: sans-serif;
-    margin-top: 15px!important;
-    line-height: 2.5em;
-}
-.main table.po-table tr.eight-head td.contact_info h2 {
-    color: #000000;
-    font-size: 12px!important;
-    color: #000000;
-    font-family: sans-serif;
-    line-height: 20px;
-}
-.main table.po-table tr.eight-head td.Office h3 {
-    font-size: 12px!important;
-    font-family: sans-serif;
-    font-weight: 500;
-    margin-bottom: -10px!important;
-    color: #4c4b4b;
-    line-height: 25px;
-	text-align:right;		
-}
- .main table.po-table tr.eight-head td.Office h2 {
-    color: #000000;
-    font-size: 12px!important;
-    font-family: sans-serif;
-    line-height: 20px;	
-	text-align:right;	
-}
-.main table.po-table tr.ninth-head td h2 {
-	color: #2b2b2b;
-    font-size: 12px!important;
-	font-family: sans-serif;
-	padding: 17px 15px 25px!important;
-	margin-top: 24px!important;
-    border-top: 2px solid #ccc;
- }
-html {
-    height: 0;
-}
-</style>
-
-<title>Purchase Order</title>
- <div class="main">
- 
-  <table cellpadding="0" cellspacing="0" class="po-table">
-  
-
-   
-<tr  class="first-head">
-			 <td>
-			  <img class="logo" src="<?php echo base_url()?>images/tringle.png">
-			 </td>
-			 <td colspan="11">
-				<h1>Dee Kay Buildcon Pvt. ltd.</h1>
-				<h3>(Engineers &amp; Contractors)<br><b>(ISO 9001:200,14001:2004 &amp; OHSAS)</b></h3>
-			 </td>
-             <td colspan="5">
-                        <h5>
-                           <span class="po-order">Purchase Order</span>
-                           <br />
-                           <b>Dt-<?php echo date("d/m/y" , strtotime($result['All'][0]->pocreatedon))?></b>
-                           <br />
-                           <b>PO/2018/stanvac551/37/83</b>
-                           <br />
-                           <b>
-						    <?php echo date("d M Y" , strtotime($result['All'][0]->pocreatedon))?>
-                           </b>
-                          
-                        </h5>
-                 </td>
-
-             </tr>   
-
-  <tr class="second-head">
-			 <td colspan="17" >
-				<h2 class="vendor">
-				 Vendor: <?php echo (isset($result['vendor_details'][0]->vname))?ucwords(strtolower($result['vendor_details'][0]->vname)):'';?></h2>
-				<h3 class="vendor-address"> 
-				<?php echo (isset($result['vendor_details'][0]->vaddress))?ucwords(strtolower($result['vendor_details'][0]->vaddress)):'';?></h3>
-				<h4 class="vendor-other-details">
-                GST No.: <?php echo $result['vendor_details'][0]->vgst?><br />
-				Phone :<?php echo $result['vendor_details'][0]->vmobile?><br>
-			    Email : <?php echo $result['vendor_details'][0]->vemail?></h4>
-
-			 </td>
-
-			</tr>
-
-<tr class="third-head">
-			 <td colspan="9">
-				<h2 class="ship-details">Ship To: <br /> 
-				 <?php echo (isset($result['site'][0]->sname))?ucwords(strtolower($result['site'][0]->sname)):'';?></h2>
-				<h4 class="ship-address">
-				 Address.: <?php echo (isset($result['site'][0]->address))?ucwords(strtolower($result['invoice_to'][0]->oaddress)):'';?><br />
-				 Mobile :<?php echo $result['site'][0]->mobile?></h4>
-			 </td>
-
-			 <td colspan="8">
-				<h2 class="invoice-to">Invoice To:<br /><?php echo $result['invoice_to'][0]->oname?></h2>
-                
-				<h4 class="invoice-other-details">
-				 Address.: <?php echo (isset($result['invoice_to'][0]->oaddress))?ucwords(strtolower($result['invoice_to'][0]->oaddress)):'';?><br />
-				 GST :<?php echo $result['invoice_to'][0]->ogst?>
-                </h4> 
-			 </td>
-
-             </tr>
-             
-	        <tr>     <th style="padding-top:20px!important;" colspan="17"></th>  </tr>    
-             
-            <tr class="forth-head">
-                <th rowspan="2">Sr.No</th>
-                <th rowspan="2">Material Name </th>
-                <th rowspan="2">HSN</th>
-                <th rowspan="2">Material Description </th>
-                <th rowspan="2">Remarks</th>
-                <th rowspan="2">Unit</th>
-                <th rowspan="2">Quantity</th>
-                <th rowspan="2">Rate</th>
-                <th rowspan="2">Total</th>
-                <th rowspan="2">LESS<br />(Discount)</th>
-                <th colspan="2">CGST Rate</th>
-                <th colspan="2">SGST Rate</th>
-                <th colspan="2">IGST Rate</th>
-                <th rowspan="2">AGREED AMOUNT(Rs.)</th>
-            </tr>  
-            <tr class="forth-head">
-            
-                    <th>Rate</th>
-                    <th>Amount</th>
-                    <th>Rate</th>
-                    <th>Amount</th>
-                    <th>Rate</th>
-                    <th>Amount</th>
-            
-            </tr>
-            
-            <?php foreach($result['metrial'] as $key=>$value):?>
-        	<tr class="fifth-head">
-				<td><?php echo $key+1;?></td>
-				<td><?php echo $value->mname;?></td>
-				<td><?php echo $value->hsn;?></td>
-				<td><?php echo $value->mdesc;?></td>
-				<td><?php echo $metrial_remark[$key];?></td>
-				<td><?php echo $metrial_unit[0];?></td>
-				<td><?php echo $metrial_qty[$key];?></td>
-				<td><?php echo $metrial_rate[$key];?></td>
-   				<td><?php echo $metrial_total[$key];?></td>
-   				<td><?php echo (!empty($metrial_discount[$key]))?$metrial_discount[$key]:'0.00';?></td>
-         		<td><?php echo $metrial_cgst_rate[$key];?></td>
-               	<td><?php echo $metrial_cgst[$key];?></td>
-         		<td><?php echo $metrial_sgst_rate[$key];?></td>
-               	<td><?php echo $metrial_sgst[$key];?></td>
-         		<td><?php echo $metrial_igst_rate[$key];?></td>
-               	<td><?php echo $metrial_igst[$key];?></td>
-         		<td>
-				  <?php 
-				  $cgst = (empty($metrial_cgst[$key]))?0:$metrial_cgst[$key];
-				  $sgst = (empty($metrial_sgst[$key]))?0:$metrial_sgst[$key];				  
-				  $igst = (empty($metrial_igst[$key]))?0:$metrial_igst[$key];				  
-				  
-				 echo number_format($metrial_total[$key]+$cgst+$sgst+$igst);?>
-                </td>
-                
-			</tr>
-            <?php endforeach;?>                     
-        	<tr class="comman-rows" >
-              <th colspan="15">CGST</th>
-              <td>RS</td>                
-              <td><?php echo $result['All'][0]->csgt_total;?></td>
-        	</tr>
-            <tr class="comman-rows">
-                <th  colspan="15">SGST:</th>
-                <td>RS</td>
-              <td><?php echo $result['All'][0]->ssgt_total;?></td>
-            </tr>
-            <tr class="comman-rows">
-                <th  colspan="15">IGST:</th>
-                <td>RS</td>
-              <td><?php echo $result['All'][0]->isgt_total;?></td>
-            </tr>
-
-            <tr class="comman-rows">
-                <th  colspan="15">Total Amount:</th>
-                <td>RS</td>
-              <td><?php echo $result['All'][0]->total_amount;?></td>
-            </tr>
-
-            <tr class="comman-rows">
-                <th  colspan="15">Freight:</th>
-                <td>RS</td>
-                <td><?php echo $result['All'][0]->frieght_amount;?></td>
-            </tr>
-
-            <tr class="comman-rows">
-                <th  colspan="15">GST on Freight(18%):</th>
-                <td>RS</td>
-                <td><?php echo $result['All'][0]->gst_frieght_amount;?></td>
-            </tr>
-
-
-            <tr class="comman-rows">
-                <th  colspan="15">Gross Amount:</th>
-                <td>RS</td>
-                <td><?php echo $result['All'][0]->gross_amount;?></td>
-            </tr>
-            <tr class="">
-            <td colspan="17" style="padding-bottom:10px;">&nbsp;</td>
-            </tr>
-            <tr class="sixth-head">
-                <td colspan="17">
-
-                        <h2 class="term-condition">Terms and Conditions:</h2>
-                        <h4>Payment : 30 days after receiving date of material at site<br>
-                        Transportation : Inclusive<br>
-                        GST % : inclusive<br>
-                        Delivery : 2 days after po date, If material would be delay as discussed action would be taken.<br>
-                        Make : Tata Fe 500D with Tc<br>
-                        This PO is placed as per your quotation Dt: DTCPL/PI/2018-19/105/JULY<br><br>
-                        The material should be of good quality and of proper size else would not be received.</h4>
-                
-                </td>
-            </tr>
-
-            <tr class="seventh-head">
-                <td colspan="17">
-
-                      <h4>If you have any query against purchase order, Please feel free to contact:<span class="span"> <?php echo $result['All'][0]->contact_name;?> 
-                      <span style=" color:#4c4b4b">at</span> <?php echo $result['All'][0]->contact_no;?> , 29M</span><br>
-                      
-                      Note: As confirmation, please sign. and send back a duplicate copy of purchase order to the organization.</h4>                
-                </td>
-            </tr>
-             <tr class="">
-              <td colspan="17">&nbsp;</td>
-             </tr>
-            <tr class="eight-head">
-
-                <td colspan="9"  class="contact_info" >
-                       <h2>For: <?php echo $result['invoice_to'][0]->oname?><br>
-                            Authorized Signatory :<br>
-                            Annexure
-                        </h2>
-                                 
-                </td>
-                <td colspan="8" class="Office">
-					<h3>Accepted By:</h3>
-                    <h2>FOR : OFFICE<br>
-                        Authorized Signatory :
-                    </h2>                                 
-                </td>           
-            </tr>            
-
-			<tr class="ninth-head">
-                 <td colspan="17" class="">
-                    <h2>               System generated Document. May not require Signature.             </h2>
-                </td>
-		    </tr>
-
-            
-  </table>
-
- </div> 
-
-<?php
-$data = ob_get_contents();
-ob_end_clean();
-//exit;
-error_reporting(0);
- 
-  $dompdf = new DOMPDF();
-  $dompdf->load_html($data);
-  $dompdf->render();
-  $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
-
-  exit(0);
-
-
-}
-
-
-
-}
-    public function update()
+   public function update()
     {
         $model = $this->model;
 
@@ -981,7 +451,7 @@ error_reporting(0);
             'invoice_to'  => $invoice_to,
             'contact_name'  => $contact_name,
             'contact_no'  => $contact_no,
-            'tandc'  => $tandc,
+            'potandc'  => $tandc,
             'poupdatedon'  => $date,
             'mid'  => $mid,
             'm_unit'  => $m_unit,
@@ -1279,5 +749,554 @@ error_reporting(0);
         );
         echo json_encode($json_data);
     }
+    
+    function pdf_genrate(){
+
+          $this->load->model('po_m');
+
+if(isset($_REQUEST['po_id'])) {
+  
+  
+  require_once("dompdf/dompdf_config.inc.php");
+	       $poid = $_REQUEST['po_id'];
+            $result = $this->po_m->pdf_data($poid);
+//		echo "<pre>";
+	//		print_r($result);
+			$metrial_remark = explode("," , $result['All'][0]->remark);
+			$metrial_qty = explode("," , $result['All'][0]->qty);
+			$metrial_rate = explode("," , $result['All'][0]->unit);
+			$metrial_total = explode("," , $result['All'][0]->total);
+			$metrial_discount = explode("," , $result['All'][0]->discount);
+			$metrial_cgst_rate = explode("," , $result['All'][0]->cgst_rate);			
+			$metrial_sgst_rate = explode("," , $result['All'][0]->sgst_rate);
+			$metrial_igst_rate = explode("," , $result['All'][0]->igst_rate);
+
+
+			$metrial_cgst = explode("," , $result['All'][0]->cgst);			
+			$metrial_sgst = explode("," , $result['All'][0]->sgst);
+			$metrial_igst = explode("," , $result['All'][0]->igst);
+			$metrial_unit = '';
+			foreach($result['munit'] as $key=>$value ){
+				   $metrial_unit = $value->muname.",";
+				}
+			$metrial_unit = explode("," , trim($metrial_unit , ","));
+
+   
+ob_start(); 
+?>
+<style>
+*{
+	padding:0px 0 0px!important;
+	margin:0px 0 2px!important;
+
+}
+@page { margin: 50px 0; }
+.main{
+ width:90%;
+ margin:auto;
+ overflow:scroll;
+ height:850px;
+margin:50px 0 2px!important;
+ 
+
+} 
+.main table.po-table{
+      width: 100%;
+      padding: 8px;
+      font-size: 10px !important;
+      position: absolute;
+	  left:40px;
+      page-break-after: auto; 
+      top: 15px; 
+      height: 100%!important;
+      margin: 0;
+	  margin-bottom: 0em!important;
+      margin-top: 0em!important;	
+}
+.main table.po-table tr td img.logo{
+      width: 76px;
+}
+
+
+
+
+.main table.po-table tr.first-head td {
+    padding: 10px 0 10px;
+}
+
+.main table.po-table tr.first-head td h1 {
+    font-family: 'Knewave'!important;
+	font-style:italic;
+    color: #c50303;
+    letter-spacing: 0px;
+    line-height: 0.4em;
+	font-size: 20px!important;	
+}
+
+
+.main table.po-table tr.first-head td h3 {
+	text-align: left;
+	font-size: 16px;
+	font-family: sans-serif;color: #5f5c5c;
+	line-height:1.5em;
+	margin-top: -5px;
+}
+.main table.po-table tr.first-head td h5 {
+    padding: 10px 0 10px;
+	text-align:right;
+	line-height:15px;
+}
+
+.main table.po-table tr.first-head td h5 span.po-order {
+	font-size: 18px;
+    font-family: sans-serif;
+    color: #5f5c5c;
+	line-height:20px;
+}
+.main table.po-table tr.first-head td{
+ padding-bottom:15px!important
+}
+.main table.po-table tr.second-head td{
+ padding-top:10px!important;
+ padding-bottom:10px!important;
+}
+.main table.po-table tr.second-head td h2.vendor {
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 13px!important;
+    color: #000000;
+    margin: 0;
+    padding-top: 10px!important;
+}
+.main table.po-table tr.second-head td h3.vendor-address {
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 13px!important;
+    color: #000000;
+    margin: 0;
+    padding-top:10px!important;
+}
+
+.main table.po-table tr.second-head td h4.vendor-other-details {
+    font-size: 12px!important;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed'!important;;
+    font-weight: 600;
+    line-height: 15px;
+
+}
+.main table.po-table tr.third-head td{
+ 
+  padding-bottom:15px!important;
+  border-bottom: 2px solid #ccc!important;
+  margin-bottom:10px!important;
+
+}
+.main table.po-table tr.third-head td h2.ship-details {
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 13px!important;
+    color: #000000;
+    margin: 0;
+    padding-top:10px!important;
+}
+
+.main table.po-table tr.third-head td h4.ship-address {
+    font-size: 12px!important;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed'!important;;
+    font-weight: 600;
+    line-height: 15px;
+
+}
+ 
+.main table.po-table tr.third-head td h2.invoice-to {
+    font-family: sans-serif;
+    line-height: 15px;
+    font-size: 13px!important;
+    color: #000000;
+    margin: 0;
+    padding-top:10px!important;
+}
+
+.main table.po-table tr.third-head h4.invoice-other-details {
+    font-size: 12px!important;
+    color: #4c4b4b;
+    font-family: 'Open Sans Condensed'!important;;
+    font-weight: 600;
+    line-height: 15px;
+
+}
+  
+ 
+tr.second-head td, tr.third-head td  {
+    border-top: 2px solid #ccc;
+    padding: 15px 0 15px;
+}
+
+.main table.po-table tr.forth-head th{
+    border: 1px solid #ccc;
+    padding: 10px 0px 10px 0px!important;
+    background: #eee8aa;
+    text-align: center;
+    font-size: 10px;
+    font-family: sans-serif;
+    margin-bottom:10px!important;
+	
+
+}
+.main table.po-table tr.fifth-head td{
+    color: #2b2b2b;
+    font-size: 11px!important;
+    font-family: sans-serif;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0 5px!important;
+}
+
+.main table.po-table tr.comman-rows th{
+    color: #2b2b2b;
+    font-size: 11px!important;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding: 10px;
+    text-align: right;
+    border-left: 1px solid #ccc!important;	
+} 
+.main table.po-table tr.comman-rows td{
+    color: #2b2b2b;
+    font-size: 11px;
+    font-family: sans-serif;
+    border: 1px solid #ccc;
+    text-align: center;
+    font-weight: bold;
+    padding: 5px 0px 5px!important ;
+}
+
+.main table.po-table tr.sixth-head {
+    background: #eee8aa;
+	font-size:12px!important;
+    font-family: sans-serif!important;
+
+}
+.main table.po-table tr.sixth-head td {
+	padding: 12px;
+}
+.main table.po-table tr.sixth-head h2 {
+    color: #2b2b2b;
+    font-size: 16px;
+    font-family: sans-serif;
+    margin: 20px 0 -15px 0;
+}
+.main table.po-table tr.sixth-head h4 { 
+	font-size: 13px;
+    color: #000000;
+    font-family: sans-serif;
+    line-height: 15px;
+}
+.main table.po-table tr.seventh-head h4 { 
+    font-size: 12px!important;
+    color: #000000;
+    font-family: sans-serif;
+    margin-top: 15px!important;
+    line-height: 2.5em;
+}
+.main table.po-table tr.eight-head td.contact_info h2 {
+    color: #000000;
+    font-size: 12px!important;
+    color: #000000;
+    font-family: sans-serif;
+    line-height: 20px;
+}
+.main table.po-table tr.eight-head td.Office h3 {
+    font-size: 12px!important;
+    font-family: sans-serif;
+    font-weight: 500;
+    margin-bottom: -10px!important;
+    color: #4c4b4b;
+    line-height: 25px;
+	text-align:right;		
+}
+ .main table.po-table tr.eight-head td.Office h2 {
+    color: #000000;
+    font-size: 12px!important;
+    font-family: sans-serif;
+    line-height: 20px;	
+	text-align:right;	
+}
+.main table.po-table tr.ninth-head td h2 {
+	color: #2b2b2b;
+    font-size: 12px!important;
+	font-family: sans-serif;
+	padding: 17px 15px 25px!important;
+	margin-top: 24px!important;
+    border-top: 2px solid #ccc;
+ }
+html {
+    height: 0;
+}
+</style>
+
+<title>Purchase Order</title>
+ <div class="main">
+ 
+  <table cellpadding="0" cellspacing="0" class="po-table">
+  
+
+   
+<tr  class="first-head">
+			 <td>
+			  <img class="logo" src="<?php echo base_url()?>images/tringle.png">
+			 </td>
+			 <td colspan="11">
+				<h1>Dee Kay Buildcon Pvt. ltd.</h1>
+				<h3>(Engineers &amp; Contractors)<br><b>(ISO 9001:200,14001:2004 &amp; OHSAS)</b></h3>
+			 </td>
+             <td colspan="5">
+                        <h5>
+                           <span class="po-order">Purchase Order</span>
+                           <br />
+                           <b>Dt-<?php echo date("d/m/y" , strtotime($result['All'][0]->pocreatedon))?></b>
+                           <br />
+                           <b>PO/2018/stanvac551/37/83</b>
+                           <br />
+                           <b>
+						    <?php echo date("d M Y" , strtotime($result['All'][0]->pocreatedon))?>
+                           </b>
+                          
+                        </h5>
+                 </td>
+
+             </tr>   
+
+  <tr class="second-head">
+			 <td colspan="17" >
+               <?php if(!empty($result['vendor_details'])):?>
+				<h2 class="vendor">
+				 Vendor: <?php echo (isset($result['vendor_details'][0]->vname))?ucwords(strtolower($result['vendor_details'][0]->vname)):'';?></h2>
+				<h3 class="vendor-address"> 
+				<?php echo (isset($result['vendor_details'][0]->vaddress))?ucwords(strtolower($result['vendor_details'][0]->vaddress)):'';?></h3>
+				<h4 class="vendor-other-details">
+                GST No.: <?php echo $result['vendor_details'][0]->vgst?><br />
+				Phone :<?php echo $result['vendor_details'][0]->vmobile?><br>
+			    Email : <?php echo $result['vendor_details'][0]->vemail?></h4>
+                <?php 
+				 else: echo "No Vendor Details";
+				 endif;
+				 ?>
+			 </td>
+
+			</tr>
+
+<tr class="third-head">
+			 <td colspan="9">
+             <?php if(!empty($result['site'])):?>
+				<h2 class="ship-details">Ship To: <br /> 
+				 <?php echo (isset($result['site'][0]->sname))?ucwords(strtolower($result['site'][0]->sname)):'';?></h2>
+				<h4 class="ship-address">
+				 Address.: <?php echo (isset($result['site'][0]->address))?ucwords(strtolower($result['invoice_to'][0]->oaddress)):'';?><br />
+				 Mobile :<?php echo $result['site'][0]->mobile?></h4>
+                <?php 
+				 else: echo "No Site Details";
+				 endif;
+				 ?>
+			 </td>
+
+			 <td colspan="8">
+	             <?php if(!empty($result['site'])):?>
+
+    			<h2 class="invoice-to">Invoice To:<br /><?php echo $result['invoice_to'][0]->oname?></h2>
+                
+				<h4 class="invoice-other-details">
+				 Address.: <?php echo (isset($result['invoice_to'][0]->oaddress))?ucwords(strtolower($result['invoice_to'][0]->oaddress)):'';?><br />
+				 GST :<?php echo $result['invoice_to'][0]->ogst?>
+                </h4> 
+                 <?php 
+				 else: echo "No Invoide Details";
+				 endif;
+				 ?>
+ 
+			 </td>
+
+             </tr>
+             
+	        <tr>     <th style="padding-top:20px!important;" colspan="17"></th>  </tr>    
+             
+            <tr class="forth-head">
+                <th rowspan="2">Sr.No</th>
+                <th rowspan="2">Material Name </th>
+                <th rowspan="2">HSN</th>
+                <th rowspan="2">Material Description </th>
+                <th rowspan="2">Remarks</th>
+                <th rowspan="2">Unit</th>
+                <th rowspan="2">Quantity</th>
+                <th rowspan="2">Rate</th>
+                <th rowspan="2">Total</th>
+                <th rowspan="2">LESS<br />(Discount)</th>
+                <th colspan="2">CGST Rate</th>
+                <th colspan="2">SGST Rate</th>
+                <th colspan="2">IGST Rate</th>
+                <th rowspan="2">AGREED AMOUNT(Rs.)</th>
+            </tr>  
+            <tr class="forth-head">
+            
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+                    <th>Rate</th>
+                    <th>Amount</th>
+            
+            </tr>
+            
+            <?php foreach($result['metrial'] as $key=>$value):?>
+        	<tr class="fifth-head">
+				<td><?php echo $key+1;?></td>
+				<td><?php echo $value->mname;?></td>
+				<td><?php echo $value->hsn;?></td>
+				<td><?php echo $value->mdesc;?></td>
+				<td><?php echo $metrial_remark[$key];?></td>
+				<td><?php echo $metrial_unit[0];?></td>
+				<td><?php echo $metrial_qty[$key];?></td>
+				<td><?php echo $metrial_rate[$key];?></td>
+   				<td><?php echo $metrial_total[$key];?></td>
+   				<td><?php echo (!empty($metrial_discount[$key]))?$metrial_discount[$key]:'0.00';?></td>
+         		<td><?php echo $metrial_cgst_rate[$key];?></td>
+               	<td><?php echo $metrial_cgst[$key];?></td>
+         		<td><?php echo $metrial_sgst_rate[$key];?></td>
+               	<td><?php echo $metrial_sgst[$key];?></td>
+         		<td><?php echo $metrial_igst_rate[$key];?></td>
+               	<td><?php echo $metrial_igst[$key];?></td>
+         		<td>
+				  <?php 
+				  $cgst = (empty($metrial_cgst[$key]))?0:$metrial_cgst[$key];
+				  $sgst = (empty($metrial_sgst[$key]))?0:$metrial_sgst[$key];				  
+				  $igst = (empty($metrial_igst[$key]))?0:$metrial_igst[$key];				  
+				  
+				 echo number_format($metrial_total[$key]+$cgst+$sgst+$igst);?>
+                </td>
+                
+			</tr>
+            <?php endforeach;?>                     
+        	<tr class="comman-rows" >
+              <th colspan="15">CGST</th>
+              <td>RS</td>                
+              <td><?php echo $result['All'][0]->csgt_total;?></td>
+        	</tr>
+            <tr class="comman-rows">
+                <th  colspan="15">SGST:</th>
+                <td>RS</td>
+              <td><?php echo $result['All'][0]->ssgt_total;?></td>
+            </tr>
+            <tr class="comman-rows">
+                <th  colspan="15">IGST:</th>
+                <td>RS</td>
+              <td><?php echo $result['All'][0]->isgt_total;?></td>
+            </tr>
+
+            <tr class="comman-rows">
+                <th  colspan="15">Total Amount:</th>
+                <td>RS</td>
+              <td><?php echo $result['All'][0]->total_amount;?></td>
+            </tr>
+
+            <tr class="comman-rows">
+                <th  colspan="15">Freight:</th>
+                <td>RS</td>
+                <td><?php echo $result['All'][0]->frieght_amount;?></td>
+            </tr>
+
+            <tr class="comman-rows">
+                <th  colspan="15">GST on Freight(18%):</th>
+                <td>RS</td>
+                <td><?php echo $result['All'][0]->gst_frieght_amount;?></td>
+            </tr>
+
+
+            <tr class="comman-rows">
+                <th  colspan="15">Gross Amount:</th>
+                <td>RS</td>
+                <td><?php echo $result['All'][0]->gross_amount;?></td>
+            </tr>
+            <tr class="">
+            <td colspan="17" style="padding-bottom:10px;">&nbsp;</td>
+            </tr>
+            <tr class="sixth-head">
+                <td colspan="17">
+
+                        <h2 class="term-condition">Terms and Conditions:</h2>
+                        <h4>Payment : 30 days after receiving date of material at site<br>
+                        Transportation : Inclusive<br>
+                        GST % : inclusive<br>
+                        Delivery : 2 days after po date, If material would be delay as discussed action would be taken.<br>
+                        Make : Tata Fe 500D with Tc<br>
+                        This PO is placed as per your quotation Dt: DTCPL/PI/2018-19/105/JULY<br><br>
+                        The material should be of good quality and of proper size else would not be received.</h4>
+                
+                </td>
+            </tr>
+
+            <tr class="seventh-head">
+                <td colspan="17">
+
+                      <h4>If you have any query against purchase order, Please feel free to contact:<span class="span"> <?php echo $result['All'][0]->contact_name;?> 
+                      <span style=" color:#4c4b4b">at</span> <?php echo $result['All'][0]->contact_no;?> , 29M</span><br>
+                      
+                      Note: As confirmation, please sign. and send back a duplicate copy of purchase order to the organization.</h4>                
+                </td>
+            </tr>
+             <tr class="">
+              <td colspan="17">&nbsp;</td>
+             </tr>
+            <tr class="eight-head">
+
+                <td colspan="9"  class="contact_info" >
+                       <h2>For: <?php echo $result['invoice_to'][0]->oname?><br>
+                            Authorized Signatory :<br>
+                            Annexure
+                        </h2>
+                                 
+                </td>
+                <td colspan="8" class="Office">
+					<h3>Accepted By:</h3>
+                    <h2>FOR : OFFICE<br>
+                        Authorized Signatory :
+                    </h2>                                 
+                </td>           
+            </tr>            
+
+			<tr class="ninth-head">
+
+                 <td colspan="17" class="">
+                    <h2>               System generated Document. May not require Signature.             </h2>
+                </td>
+		    </tr>
+
+            
+  </table>
+
+ </div> 
+
+<?php
+$data = ob_get_contents();
+ob_end_clean();
+//exit;
+error_reporting(0);
+ 
+  $dompdf = new DOMPDF();
+  $dompdf->load_html($data);
+  $dompdf->render();
+  $dompdf->stream("dompdf_out.pdf", array("Attachment" => false));
+
+  exit(0);
+
+
+}
+
+
+
+}
+    
 }
 ?>

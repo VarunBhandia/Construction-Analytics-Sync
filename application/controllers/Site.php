@@ -63,7 +63,7 @@ Class Site extends CI_Controller{
         $uid = $this->input->post('uid');
         $creationdate = date('Y-m-d H:i:s');
         $sname = $this->input->post('sname');
-        $sitestartdate = $this->input->post('$sitestartdate');
+        $sitestartdate = $this->input->post('sitestartdate');
         $uniquesid = $this->input->post('uniquesid');
         $contact = $this->input->post('contact');
         $mobile = $this->input->post('mobile');

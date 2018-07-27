@@ -200,7 +200,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>No</th>
-                                                                    <th>PO ID</th>
+                                                                    <th>PO Ref-id</th>
                                                                     <th>Site Name	</th>
                                                                     <th>Vendor Name</th>
                                                                     <th>Created By</th>
@@ -264,7 +264,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>No</th>
-                                                                    <th>PO ID</th>
+                                                                    <th>PO Ref-id</th>
                                                                     <th>Site Name	</th>
                                                                     <th>Vendor Name</th>
                                                                     <th>Created By</th>
@@ -319,8 +319,8 @@
                                                         <thead>
                                                             <tr>
                                                                 <th>No</th>
-                                                                <th>PO ID</th>
-                                                                <th>Site Name	</th>
+                                                                <th>PO Ref-id</th>
+                                                                <th>Site Name</th>
                                                                 <th>Vendor Name</th>
                                                                 <th>Created By</th>
                                                                 <th>Created On</th>

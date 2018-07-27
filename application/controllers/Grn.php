@@ -285,10 +285,21 @@ class Grn extends CI_Controller
         $transporter = count($this->input->post('transporter')) > 0 ? implode(",",$this->input->post('transporter')) : $this->input->post('transporter');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-
+        
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $grnrefid = 'GRN/2018/'.$site_unique_identifier."/".$site_id;
+            }
+        }
+        echo $grnrefid;
+        
         $data = array(
             'sid'  => $site,
             'grncreatedby'  => $uid,
+            'grnrefid' => $grnrefid,
             'vid'  => $vendor,
             'grnchallan' => $challan,
             'grnreceivedate'  => $date,

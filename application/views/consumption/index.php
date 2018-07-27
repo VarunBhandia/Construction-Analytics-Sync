@@ -120,7 +120,7 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div align="right">
                                                         <ul class="nav navbar-right panel_toolbox">
                                                             <li><a href="<?php echo base_url();?>consumption/form"><button class="btn btn-primary">Add New Consumption</button></a>

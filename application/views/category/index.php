@@ -202,8 +202,8 @@
                             '<td>' + data[i].cid + '</td>' +
                             '<td>' + data[i].cname + '</td>' +
                             '<td>' +
-                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].cid + '"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>' +
-                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].cid + '"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>' +
+                            '<a href="javascript:;" class="btn btn-info item-edit" data="' + data[i].cid + '"><i class="glyphicon glyphicon-edit icon-white"></i></a>' +
+                            '<a href="javascript:;" class="btn btn-danger item-delete" data="' + data[i].cid + '"><i class="glyphicon glyphicon-trash icon-white"></i></a>' +
                             '</td>' +
                             '</tr>';
                     }

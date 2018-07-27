@@ -333,10 +333,22 @@ class Po extends CI_Controller
         $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');    
         $vendor = count($this->input->post('vendor')) > 0 ? implode(",",$this->input->post('vendor')) : $this->input->post('vendor');    
 
-        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
+        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark'); 
+        
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $porefid = 'PO/2018/'.$site_unique_identifier."/".$site_id;
+            }
+        }
+        echo $porefid;
+        
         $data = array(
             'sid'  => $site,
             'pocreatedby'  => $uid,
+            'porefid' => $porefid,
             'mid'  => $mid,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,

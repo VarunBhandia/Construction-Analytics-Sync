@@ -83,14 +83,14 @@
                                         <div class="x_title">
                                             <h1>Subcontractor List</h1>
                                             <div class="row">
-                                             <div class="col-md-11">
-                                                            <a href="<?php echo base_url();?>subcont/form"><button class="btn btn-primary">Add New Subcontractor</button></a>
-                                                </div>
-                                             <div class="col-md-1">
+                                             <div class="col-md-10">
                                              <form method="post" action="<?php echo base_url()?>Subcont/action">
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
                                             </form>
                                             </div>
+                                             <div class="col-md-2">
+                                                            <a href="<?php echo base_url();?>subcont/form"><button class="btn btn-primary">Add New Subcontractor</button></a>
+                                                </div>
                                             </div>
                                 <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">

@@ -276,10 +276,21 @@ class Cp extends CI_Controller
         $linechallan = count($this->input->post('linechallan')) > 0 ? implode(",",$this->input->post('linechallan')) : $this->input->post('linechallan');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-
+        
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $cprefid = 'CP/2018/'.$site_unique_identifier."/".$site_id;
+            }
+        }
+        echo $cprefid;
+        
         $data = array(
             'sid'  => $site,
             'cpcreatedby'  => $uid,
+            'cprefid' => $cprefid,
             'vid'  => $vendor,
             'cppurchasedate'  => $date,
             'cpcreatedon' => $creationdate,

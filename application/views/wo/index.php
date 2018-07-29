@@ -82,7 +82,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
 				<div class="x_title">
-                    <h2>Construction</h2>
+                    <h1>Work Order List</h1>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a href="<?php echo base_url().$controller;?>/form"><button class="btn btn-primary">Add New</button></a>
                       </li>

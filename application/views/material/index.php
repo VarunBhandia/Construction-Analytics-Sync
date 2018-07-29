@@ -89,7 +89,7 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <div class="btn-group">
-                                                            <a href="<?php echo base_url();?>unit/index" target="_blank"><button type="button" class="btn btn-warning">New Unit</button></a>                                                       <a href="<?php echo base_url();?>category/index" target="_blank"><button type="button" class="btn btn-warning">New Category</button></a>
+                                                            <a href="<?php echo base_url();?>unit/index" target="_blank"><button type="button" class="btn btn-warning">New Unit</button></a>               <a href="<?php echo base_url();?>category/index" target="_blank"><button type="button" class="btn btn-warning">New Category</button></a>
                                                         </div>
                                                     </div>
                                                 </div>

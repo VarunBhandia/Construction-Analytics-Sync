@@ -267,7 +267,7 @@ class Material_rqst extends CI_Controller
             if($site_details->sid == $site){
                 $site_unique_identifier = $site_details->uniquesid;
                 $site_id = $site_details->sid;
-                $mrrefid = 'MR/2018/'.$site_unique_identifier.$site_id;
+                $mrrefid = 'MR/2018/'.$site_unique_identifier."/".$site_id;
             }
         }
         $data = array(
@@ -313,7 +313,6 @@ class Material_rqst extends CI_Controller
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
         $mrrecievedate = date('Y-m-d',strtotime($this->input->post('mrrecievedate')));
-        $date = date('Y-m-d H:i:s');
         $updateddate = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');

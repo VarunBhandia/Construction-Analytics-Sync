@@ -83,14 +83,14 @@
                                         <div class="x_title">
                                             <h1>Workitem List</h1>
                                             <div class="row">
-                                             <div class="col-md-11">
-                                                            <a href="<?php echo base_url();?>workitem/form"><button class="btn btn-primary">Add New Workitem</button></a>
-                                                </div>
-                                             <div class="col-md-1">
+                                             <div class="col-md-10">
                                              <form method="post" action="<?php echo base_url()?>workitem/action">
                                                 <input type="submit" name="export" class="btn btn-success" value="Export" />
                                             </form>
                                             </div>
+                                             <div class="col-md-2">
+                                                            <a href="<?php echo base_url();?>workitem/form"><button class="btn btn-primary">Add New Workitem</button></a>
+                                                </div>
                                             </div>
                                 <div id="table-scroll" class="table-scroll">
                                                 <div class="table-wrap">

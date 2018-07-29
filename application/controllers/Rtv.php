@@ -325,10 +325,21 @@ class Rtv extends CI_Controller
         $truck = count($this->input->post('truck')) > 0 ? implode(",",$this->input->post('truck')) : $this->input->post('truck');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-
+        
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $rtvrefid = 'RTV/2018/'.$site_unique_identifier."/".$site_id;
+            }
+        }
+        echo $rtvrefid;
+        
         $data = array(
             'sid'  => $site,
             'rtvcreatedby'  => $uid,
+            'rtvrefid' => $rtvrefid,
             'vid'  => $vendor,
             'vchallan' => $vchallan,
             'schallan' => $schallan,

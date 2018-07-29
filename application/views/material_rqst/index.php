@@ -202,7 +202,7 @@
                                                                     if($site->sid == $test->sid ){echo $site->sname; }
 
                                                                 } ?></td>
-                                                                    <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
+                                                                    <td><?php echo $test->mrcreatedon;?></td>
                                                                     <td>
                                                                         <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a>
                                                                         <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
@@ -271,7 +271,7 @@
                                                                         if($site->sid == $test->sid ){echo $site->sname; }
 
                                                                     } ?></td>
-                                                                        <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
+                                                                        <td><?php echo $test->mrcreatedon;?></td>
                                                                         <td>
                                                                             <a href="<?php echo base_url().$controller;?>/approve/<?php echo $test->mrid;?>" class="btn btn-success">App</a>
                                                                             <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a>
@@ -330,7 +330,7 @@
                                                                     if($site->sid == $test->sid ){echo $site->sname; }
 
                                                                 } ?></td>
-                                                                    <td><?php echo date("d-m-Y H:i:s",strtotime($test->mrrecievedate));?></td>
+                                                                    <td><?php echo $test->mrcreatedon;?></td>
                                                                     <td>
                                                                         <a href="<?php echo base_url().$controller;?>/approve/<?php echo $test->mrid;?>" class="btn btn-success">App</a>
                                                                         <?php if($user_roles == 2){ if($test->mrapprove == 0){ ?>

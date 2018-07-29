@@ -65,6 +65,39 @@ class Mo extends CI_Controller
         $this->load->view('mo/index', $data);
     }
     
+    public function select_by_status() 
+    {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['site_info'] = $data['user_details'][0]->site;
+        $status = $this->input->post('sent_recive');
+        $data['status'] = $status;
+            if ($status != "" ) {
+                $result = $this->mo_m->show_data_by_status($data);
+                if ($result != false) {
+                    $data['result_display_status'] = $result;
+                } else 
+                {
+                    $data['result_display_status'] = "No record found !";
+                }
+            } 
+        else {
+            $data = array(
+                'id_error_message' => "Id field is required"
+            );
+        }
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $this->load->view('mo/index', $data);
+//        echo '<pre>';
+//        print_r($data['result_display']);
+//        echo '</pre>';
+    }
+    
      public function select_by_date_range() {
         $model = $this->model;
         $data['controller'] = $this->controller;

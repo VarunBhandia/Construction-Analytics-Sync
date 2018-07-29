@@ -38,7 +38,27 @@ class Mo_m extends CI_Model {
             return false;
         }
     }
-    
+
+    public function show_data_by_status($data) {
+
+        if($data['status'] == 'sent'){
+            $condition = "tsid IN (".$data['site_info'].") ";
+        }
+        else if($data['status'] == 'received'){
+            $condition = "rsid IN (".$data['site_info'].") ";
+        }
+        $this->db->select('*');
+        $this->db->from('mo_master');
+        $this->db->where($condition);
+        $this->db->limit(null);
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return false;
+        }
+    }
+
     public function show_data_by_date_range($data) {
         $condition = "modate BETWEEN " . "'" . $data['date1'] . "'" . " AND " . "'" . $data['date2'] . "'";
         $this->db->select('*');
@@ -51,8 +71,8 @@ class Mo_m extends CI_Model {
             return false;
         }
     }
-    
-    
+
+
     function fetch_data()
     {
         $this->db->order_by("moid", "DESC");

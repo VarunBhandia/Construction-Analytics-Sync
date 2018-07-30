@@ -20,7 +20,7 @@ elseif($action == 'update')
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-        <title>User</title>
+        <title>New User</title>
 
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -94,8 +94,8 @@ elseif($action == 'update')
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="x_panel">
                                                 <div class="x_title">
-                                                    <h2>Create New User
-                                                    </h2>
+                                                    <h1>Create New User
+                                                    </h1>
                                                     <div class="clearfix"></div>
                                                 </div>
                                                 <div class="x_content">

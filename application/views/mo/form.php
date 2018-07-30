@@ -21,7 +21,7 @@ elseif($action == 'update')
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-        <title>Move Order(MO)</title>
+        <title>New MO</title>
 
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -96,7 +96,7 @@ elseif($action == 'update')
                                     <div class="col-md-12 col-sm-12 col-xs-12">
                                         <div class="x_panel">
                                             <div class="x_title">
-                                                <h1>Move Order</h1>
+                                                <h1>New Move Order</h1>
 
                                                 <?php 
                                                 $user_sites = explode(",",$user_details[0]->site);

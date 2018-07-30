@@ -99,11 +99,22 @@ class Wo extends CI_Controller
         $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
 
         $total = count($this->input->post('total')) > 0 ? implode(",",$this->input->post('total')) : $this->input->post('total');                
-        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');    
+        $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');  
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $worefid = 'WO/2018/'.$site_unique_identifier."/".$site_id;
+            }
+        }
+        echo $worefid;
+        
         $data = array(
             'sid'  => $sid,
             'wocreatedby'  => $uid,
             'wocreatedon' => $creationdate,
+            'worefid' => $worefid,
             'subid'  => $subid,
             'wodate'  => $date,
             'wiid'  => $wiid,

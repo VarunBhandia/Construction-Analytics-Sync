@@ -104,7 +104,6 @@ class Material_rqst extends CI_Controller
         $this->load->view('material_rqst/index', $data);
     }
 
-
     public function index()
     {
         if($this->session->userdata('username') != '')  
@@ -264,7 +263,7 @@ class Material_rqst extends CI_Controller
         $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-        
+
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         foreach($data['sites'] as $site_details){
             if($site_details->sid == $site){
@@ -273,8 +272,6 @@ class Material_rqst extends CI_Controller
                 $mrrefid = 'MR/2018/'.$site_unique_identifier."/".$site_id;
             }
         }
-        echo $mrrefid;
-        
         $data = array(
             'mrrefid'  => $mrrefid,
             'sid'  => $site,
@@ -331,11 +328,21 @@ class Material_rqst extends CI_Controller
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
 
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        foreach($data['sites'] as $site_details){
+            if($site_details->sid == $site){
+                $site_unique_identifier = $site_details->uniquesid;
+                $site_id = $site_details->sid;
+                $mrrefid = 'MR/2018/'.$site_unique_identifier.$site_id;
+            }
+        }
+
         $data = array(
             'sid'  => $site,
             'mrupdatedby'  => $uid,
             'mrupdatedon'  => $updateddate,
             'mrrecievedate'  => $mrrecievedate,
+            'mrrefid'  => $mrrefid,
             'mid' => $mid,
             'muid'  => $m_unit,
             'mrqty'  => $qty,

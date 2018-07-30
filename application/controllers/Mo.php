@@ -46,15 +46,15 @@ class Mo extends CI_Controller
         $rsid = $this->input->post('rsid');
         $data['tsid'] = $tsid;
         $data['rsid'] = $rsid;
-            if ($tsid != "" || $rsid != "") {
-                $result = $this->mo_m->show_data_by_id($data);
-                if ($result != false) {
-                    $data['result_display'] = $result;
-                } else 
-                {
-                    $data['result_display'] = "No record found !";
-                }
-            } 
+        if ($tsid != "" || $rsid != "") {
+            $result = $this->mo_m->show_data_by_id($data);
+            if ($result != false) {
+                $data['result_display'] = $result;
+            } else 
+            {
+                $data['result_display'] = "No record found !";
+            }
+        } 
         else {
             $data = array(
                 'id_error_message' => "Id field is required"
@@ -64,8 +64,42 @@ class Mo extends CI_Controller
         $data['show_table'] = $this->view_table();
         $this->load->view('mo/index', $data);
     }
-    
-     public function select_by_date_range() {
+
+    public function select_by_status() 
+    {
+        $model = $this->model;
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
+        $data['site_info'] = $data['user_details'][0]->site;
+        $status = $this->input->post('sent_recive');
+        $data['status'] = $status;
+        if ($status != "" ) {
+            $result = $this->mo_m->show_data_by_status($data);
+            if ($result != false) {
+                $data['result_display_status'] = $result;
+            } else 
+            {
+                $data['result_display_status'] = "No record found !";
+            }
+        } 
+        else {
+            $data = array(
+                'id_error_message' => "Id field is required"
+            );
+        }
+        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $data['show_table'] = $this->view_table();
+        $this->load->view('mo/index', $data);
+        //        echo '<pre>';
+        //        print_r($data['result_display']);
+        //        echo '</pre>';
+    }
+
+    public function select_by_date_range()
+    {
         $model = $this->model;
         $data['controller'] = $this->controller;
         $username = $this->session->userdata('username');
@@ -101,7 +135,6 @@ class Mo extends CI_Controller
         $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('mo/index', $data);
     }
-    
 
     public function index()
     {
@@ -168,6 +201,72 @@ class Mo extends CI_Controller
         $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
         header('Content-Type: application/vnd.ms-excel');
         header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+
+    }
+
+    function select_by_status_action()
+    {
+        $status = $this->input->post('sent_recive');
+        $data['status'] = $status;
+
+        $this->load->model("mo_m");
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("poid",  "porefid", "mrrefid", "sid", "vid", "mid", "unit", "m_unit", "app_qty", "remark", "dtid", "discount",  "cgst", "sgst", "igst", "total", "csgt_total", "ssgt_total", "isgt_total", "total_amount", "gst_frieght_amount", "frieght_amount", "gross_amount", "invoice_to", "contact_name", "contact_no", "tandc", "pocreatedby", "pocreatedon");
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+        $po_data = $this->mo_m->show_data_by_id($data);
+
+        $excel_row = 2;
+
+        foreach($mo_data as $row)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->poid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->porefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->mrrefid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->sid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->mid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->unit);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->m_unit);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->app_qty);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->remark);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->dtid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $row->discount);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $row->cgst);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $row->sgst);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $row->igst);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $row->total);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(16, $excel_row, $row->csgt_total);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(17, $excel_row, $row->ssgt_total);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(18, $excel_row, $row->isgt_total);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(19, $excel_row, $row->total_amount);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(20, $excel_row, $row->gst_frieght_amount);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(21, $excel_row, $row->frieght_amount);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(22, $excel_row, $row->gross_amount);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(23, $excel_row, $row->invoice_to);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(24, $excel_row, $row->contact_name);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(25, $excel_row, $row->contact_no);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(26, $excel_row, $row->tandc);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(27, $excel_row, $row->pocreatedby);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(28, $excel_row, $row->pocreatedon);
+            $excel_row++;
+        }
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Move Order.xls"');
         $object_writer->save('php://output');
 
     }
@@ -239,7 +338,7 @@ class Mo extends CI_Controller
         $object_writer->save('php://output');
 
     }
-    
+
     public function form()
     {
         $model = $this->model;
@@ -263,7 +362,7 @@ class Mo extends CI_Controller
         $uid = $this->input->post('uid');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
         $creationdate = date('Y-m-d H:i:s');
-        
+
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');

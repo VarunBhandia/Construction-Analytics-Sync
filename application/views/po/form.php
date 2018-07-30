@@ -323,7 +323,7 @@ if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-if(!igst_d_k){igst_d_k = parseFloat(0); }
+                                                                                    if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -3661,19 +3661,26 @@ if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact Name
                                                             </label>
                                                             <div class="col-md-2 col-sm-6 col-xs-12 form-group">
-                                                                <input class="form-control" id="contact_name" name="contact_name" type="text" value="" autocomplete="off" >
+                                                                <input class="form-control" id="contact_name" name="contact_name" type="text" value="Mr Ramakrishna" autocomplete="off" >
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Contact No.
                                                             </label>
-                                                            <div class="col-md-2 col-sm-6 col-xs-12 form-group">
-                                                                <input class="form-control" id="contact_no" name="contact_no" type="text" value="" autocomplete="off" >
+                                                            <div class="col-md-3 col-sm-6 col-xs-12 form-group">
+                                                                <input class="form-control" id="contact_no" name="contact_no" type="text" value="8800695632,8860624640" autocomplete="off" >
                                                             </div>
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Terms & Conditions
                                                             </label>
                                                             <div class="col-md-5 col-sm-6 col-xs-12 form-group">
-                                                                <input class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
+                                                                <textarea class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
+                                                                    Payment: 30 days after receiving date of material at the site 
+                                                                    Transportation: Inclusive
+                                                                    GST  % : inclusive
+                                                                    Delivery: after PO date, If material would be a delay as the discussed action would be taken.
+                                                                    Make:  This PO is placed as per your quotation Dt:
+                                                                    The material should be of good quality and of proper size else would not be received.
+                                                                </textarea>
                                                             </div>
                                                         </div>
 

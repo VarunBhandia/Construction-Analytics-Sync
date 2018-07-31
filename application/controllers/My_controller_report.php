@@ -697,6 +697,7 @@ $Data_Array = array();
 }
 	
 public function set_data_into_table($Data='' , $table_name=''){
+	$i = 0;
 	if(isset($_POST['materail_id'])): ?>
         <td></td>
         <td></td>
@@ -743,7 +744,7 @@ public function set_data_into_table($Data='' , $table_name=''){
           </tr>
          <?php foreach($Data['result'] as $key=>$value ):?>
           <tr>
-           <td><?php echo count($Data['result']);?></td>
+           <td><?php echo $i = $i+1;?></td>
            <td><?php echo $value->cppurchasedate;?></td>
            <td><?php echo $value->cprefid;?></td>
            <td><?php echo $value->vname;?></td>
@@ -768,35 +769,57 @@ public function set_data_into_table($Data='' , $table_name=''){
        ob_start();
 	   ?>
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+        <tr>
+            <th>SR. NO.</th>
+            <th>PO Ref No.</th>
+            <th>Vendor</th>
+            <th>Site</th>
+            <th>Meterial Name</th>
+            <th >Meterial ID</th>
+            <th>Meterial Description</th>
+            <th>Meterial Unit</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>ISGT</th>
+            <th>Total Amount</th>
+        </tr>
+         <?php foreach($Data['result'] as $key=>$value ):
+		 $qty_arr = explode(",",$value->qty);	
+		 $mid_arr = explode(",",$value->mid);
+		 $munit_arr = explode(",",$value->m_unit);
+		 $unitprice = explode(",",$value->unit);
+  		 $cgst = explode(",", $value->cgst);			
+		 $sgst = explode(",", $value->sgst);
+		 $igst = explode(",", $value->igst);
+			
+		 $total = explode(",",$value->total);		 
+		 		 
+	for($t=0; $t<count($qty_arr); $t++)
+	{
+		$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+		$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+		 ?>
           <tr>
-           <th>ID</th>
-           <th>PO Ref No.</th>
-           <th>Vendor</th>
-           <th>Site</th>
-           <th>Meterial Name</th>
-           <th>Meterial ID</th>
-           <th>Meterial Description</th>
-           <th>Meterial Unit</th>
-           <th>Quantity</th>
-           <th>Unit Price</th>
-           <th>Total Amount</th>
-          </tr>
-         <?php foreach($Data['result'] as $key=>$value ):?>
-          <tr>
-           <td><?php echo $value->poid;?></td>
+           <td><?php echo $i = $i+1;?></td>
            <td><?php echo $value->porefid ;?></td>
            <td><?php echo $value->vname;?></td>
            <td><?php echo $value->sname;?></td>  
-           <td><?php echo $value->mname;?></td>  
-           <td><?php echo $value->mid;?></td>  
-           <td><?php echo '';?></td>    
-           <td><?php echo $value->m_unit;?></td>                      
-           <td><?php echo $value->qty;?></td>                      
-           <td><?php echo ''?></td>                      
-           <td><?php echo '';?></td>                      
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty_arr[$t];?></td>                      
+           <td><?php echo $unitprice[$t];?></td>     
+            <td><?php echo $cgst[$t]; ?></td>
+            <td><?php echo $igst[$t]; ?></td>
+            <td><?php echo $sgst[$t]; ?></td>
+           <td><?php echo $total[$t];?></td>                      
                              
           </tr>
-        <?php endforeach;?>
+        <?php }
+		endforeach;?>
         </table>
         
 	  <?php
@@ -823,23 +846,33 @@ public function set_data_into_table($Data='' , $table_name=''){
            <th>Vechicle No.</th>
            <th>Remarks</th>
           </tr>
-         <?php foreach($Data['result'] as $key=>$value ):?>
+         <?php foreach($Data['result'] as $key=>$value ):
+				 $qty_arr = explode(",",$value->moqty);	
+				 $mid_arr = explode(",",$value->mid);
+				 $qty = explode(",",$value->moqty);
+				 
+
+		for($t=0; $t<count($qty_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			$mu_detail = $this->db->select(array())->where(array('muid'=>$material_detail[0]->munit))->get('munits')->result();
+		 ?>
           <tr>
-           <td><?php echo $value->moid;?></td>
+           <td><?php echo $i = $i+1;?></td>
            <td><?php echo $value->modate ;?></td>
            <td><?php echo $value->morefid ;?></td>
-           <td><?php echo '' ;?></td>
-           <td><?php echo '';?></td>
-           <td><?php echo $value->mid;?></td>  
-           <td><?php echo $value->mdesc;?></td>  
-           <td><?php echo $value->mname;?></td>  
-           <td><?php echo $value->muname;?></td>  
-           <td><?php echo $value->moqty;?></td>  
+           <td><?php echo $value->TSID ; ;?></td>
+           <td><?php echo $value->RSID ;;?></td>
+           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty[$t];?></td>  
 		   <td><?php echo $value->tname;?></td>           
    		   <td><?php echo $value->movehicle;?></td>                 
            <td><?php echo $value->moremark;?></td>
           </tr>
-        <?php endforeach;?>
+        <?php 	} endforeach;?>
         </table>
         
 	  <?php
@@ -853,6 +886,7 @@ public function set_data_into_table($Data='' , $table_name=''){
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
           <tr>
           <tr>
+           <th>SR. NO.</th>
            <th>GRN</th>
            <th>PO Ref. No.</th>
            <th>Vendor</th>
@@ -869,25 +903,37 @@ public function set_data_into_table($Data='' , $table_name=''){
            <th>Challen No.</th>
            <th>Transporter</th>
           </tr>
-         <?php foreach($Data['result'] as $key=>$value ):?>
+         <?php foreach($Data['result'] as $key=>$value ):
+			$qty_arr = explode(",",$value->grnqty);	
+			$mid_arr = explode(",",$value->mid);
+			$qty = explode(",",$value->grnqty);
+  		    $munit_arr = explode(",",$value->muid);
+			$unit_price = explode(",",$value->grnunitprice);
+		for($t=0; $t<count($qty_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+
+		 ?>
           <tr>
-           <td><?php echo ''?></td>
-           <td><?php echo ''?></td>
+           <td><?php echo $i = $i+1;?></td>
+           <td><?php echo $value->grnrefid;?></td>
+           <td><?php echo $value->porefid;?></td>
            <td><?php echo $value->vname ;?></td>
            <td><?php echo $value->sname;?></td>
            <td><?php echo '' ;?></td>
            <td><?php echo ''?></td>
-           <td><?php echo $value->mid;?></td>
-           <td><?php echo $value->mdesc ;?></td>
-           <td><?php echo $value->mname ;?></td>
-           <td><?php echo $value->muname;?></td>
-           <td><?php echo $value->grnqty ;?></td>
-           <td><?php echo $value->grnunitprice ;?></td>
-           <td><?php echo number_format($value->grnqty*$value->grnunitprice) ;?></td>
+           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty[$t] ;?></td>
+           <td><?php echo $unit_price[$t];?></td>
+           <td><?php echo (is_numeric($value->grnqty)  &&  is_numeric($value->grnunitprice))?number_format($value->grnqty*$value->grnunitprice):'' ;?></td>
            <td><?php echo $value->grnchallan;?></td>
            <td><?php echo $value->tname ;?></td>
           </tr>
-        <?php endforeach;?>
+        <?php } endforeach;?>
         </table>
         
 	  <?php
@@ -895,6 +941,197 @@ public function set_data_into_table($Data='' , $table_name=''){
 	  ob_end_clean();
 	  return $Content;
 	 }
+     else if($table_name == 'grn_master_unbilled'){
+       ob_start();
+	   ?>
+        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+          <tr>
+          <tr>
+           <th>SR. NO.</th>
+           <th>GRN</th>
+           <th>PO Ref. No.</th>
+           <th>Vendor</th>
+           <th>Site</th>
+           <th>Date of Receipt</th>
+           <th>Last Update On</th>
+           <th>Material ID</th>
+           <th>Material Description</th>
+           <th>Material Name</th>
+           <th>Material Unit</th>
+           <th>Quantity Received</th>
+           <th>Unit Price</th>
+           <th>Total Amount</th>
+           <th>Challen No.</th>
+           <th>Transporter</th>
+          </tr>
+         <?php foreach($Data['result'] as $key=>$value ):
+
+			$qty_arr = explode(",",$value->grnqty);	
+			$mid_arr = explode(",",$value->mid);
+			$qty = explode(",",$value->grnqty);
+  		    $munit_arr = explode(",",$value->muid);
+			$unit_price = explode(",",$value->grnunitprice);
+/*echo "<pre>";
+ print_r($value);
+echo "</pre>";*/
+		for($t=0; $t<count($qty_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+
+		 ?>
+
+          <tr>
+           <td><?php echo $i = $i+1;?></td>
+           <td><?php echo $value->grnrefid;?></td>
+           <td><?php echo $value->porefid;?></td>
+           <td><?php echo $value->vname ;?></td>
+           <td><?php echo $value->sname;?></td>
+           <td><?php echo '' ;?></td>
+           <td><?php echo ''?></td>
+           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty[$t] ;?></td>
+           <td><?php echo $unit_price[$t];?></td>
+           <td><?php echo (is_numeric($value->grnqty)  &&  is_numeric($value->grnunitprice))?number_format($value->grnqty*$value->grnunitprice):'' ;?></td>
+           <td><?php echo $value->grnchallan;?></td>
+           <td><?php echo $value->tname ;?></td>
+          </tr>
+        <?php } endforeach;?>
+        </table>
+	  <?php
+	  $Content = ob_get_contents();
+	  ob_end_clean();
+	  return $Content;
+	 }
+	 
+	  else if($table_name == 'rtv_master'){
+       ob_start();
+	   ?>
+        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+          <tr>
+          <tr>
+           <th>SR. NO.</th>
+           <th>RRN</th>
+           <th>Date</th>
+           <th>Vendor</th>
+           <th>Site</th>
+           <th>Date of Return</th>
+           <th>Vendor Challan</th>
+           <th>Site Challan</th>
+           <th>Material Id</th>           
+           <th>Material Description</th>
+           <th>Material Name</th>
+           <th>Material Unit</th>
+           <th>Quantity Received</th>
+           <th>Transporter</th>
+           <th>Truck No.</th>           
+           <th>Remark</th>
+          </tr>
+         <?php foreach($Data['result'] as $key=>$value ):
+			$qty_arr = explode(",",$value->rtvqty);	
+			$mid_arr = explode(",",$value->mid);
+			$qty = explode(",",$value->rtvqty);
+  		    $munit_arr = explode(",",$value->muid);
+			$trunk = explode(",",$value->rtvtruck);
+			$remark = explode(",",$value->rtvremark);
+
+			
+			//$unit_price = explode(",",$value->grnunitprice);
+		for($t=0; $t<count($qty_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+
+		 ?>
+          <tr>
+           <td><?php echo $i = $i+1;?></td>
+           <td><?php echo $value->rtvrefid;?></td>
+           <td><?php  $date =  explode(' ' ,$value->rtvcreatedon ) ; echo $date[0];?></td>
+           <td><?php echo $value->vname ;?></td>
+           <td><?php echo $value->sname ;?></td>
+
+           <td><?php  echo $value->rtvreturndate; ?></td>
+           <td><?php  echo $value->vchallan; ?></td>
+           <td><?php  echo $value->schallan; ?></td>
+           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty[$t] ;?></td>
+           <td><?php echo $value->tname ;?></td>
+           <td><?php echo $trunk[$t];?></td>
+           <td><?php echo $remark[$t] ;?></td>           
+          </tr>
+        <?php } endforeach;?>
+        </table>
+        
+	  <?php
+	  $Content = ob_get_contents();
+	  ob_end_clean();
+	  return $Content;
+	 }
+	 
+	  else if($table_name == 'material_rqst'){
+       ob_start();
+	   ?>
+        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+          <tr>
+          <tr>
+           <th>SR. NO.</th>
+           <th>MRN</th>
+           <th>Date</th>
+           <th>Date of Received</th>
+           <th>Site</th>
+           <th>Material ID</th>
+           <th>Material Description</th>
+           <th>Material Name</th>
+           <th>Material Unit</th>
+           <th>Quantity Received</th>
+           <th>Unit Price</th>
+           <th>Remark</th>
+          </tr>
+         <?php foreach($Data['result'] as $key=>$value ):
+				
+			$qty_arr = explode(",",$value->mrqty);	
+			$mid_arr = explode(",",$value->mid);
+			$qty = explode(",",$value->mrqty);
+  		    $munit_arr = explode(",",$value->muid);
+			//$trunk = explode(",",$value->rtvtruck);
+			$unit_price = explode(",",$value->mrunitprice);
+		for($t=0; $t<count($qty_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+		 ?>
+          <tr>
+           <td><?php echo $i = $i+1;?></td>
+           <td><?php echo $value->mrrefid;?></td>
+           <td><?php  $date =  explode(' ' ,$value->mrcreatedon ) ; echo $date[0];?></td>
+           
+           <td><?php  echo $value->mrrecievedate; ?></td>
+           <td><?php echo $value->sname ;?></td>
+           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty[$t] ;?></td>
+           <td><?php echo $unit_price[$t] ;?></td>
+           <td><?php echo $value->mrremarks ;?></td>           
+          </tr>
+        <?php } endforeach;?>
+        </table>
+        
+	  <?php
+	  $Content = ob_get_contents();
+	  ob_end_clean();
+	  return $Content;
+	 }
+ 
+
+	 
 }
 	
 	
@@ -999,9 +1236,9 @@ public function set_data_into_table($Data='' , $table_name=''){
 				
 
 				
-/*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`discount_type`.dtname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `discount_type` ON `discount_type`.dtid = `".$tablename."`.dtid ";*/
+				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`discount_type`.dtname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `discount_type` ON `discount_type`.dtid = `".$tablename."`.dtid ";
 
-				$q = "select 	`po_master`.*, `vendordetails`.vname, `materials`.mname , `materials`.`mdesc` , `materials`.`mid`  ,`sitedetails`.sname from `po_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `po_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `po_master`.sid LEFT JOIN `materials`  ON `materials`.mid = `po_master`.mid";
+/*				 $q = "select 	`po_master`.*, `vendordetails`.vname, `materials`.mname , `materials`.`mdesc` , `materials`.`mid`  ,`sitedetails`.sname from `po_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `po_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `po_master`.sid LEFT JOIN `materials`  ON `materials`.mid = `po_master`.mid";*/
 
 				
 				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
@@ -1055,7 +1292,7 @@ public function set_data_into_table($Data='' , $table_name=''){
 			else if($tablename == 'mo_master')
 			{
 				
-				$q =  "select `".$tablename."`.*, `materials`.mname,`materials`.mdesc, `munits`.muname, `transporters`.tname, s1.sname as TSID, s2.sname as RSID from `".$tablename."` LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `sitedetails` s1 ON s1.sid = `".$tablename."`.tsid LEFT JOIN `sitedetails` s2 ON  s2.sid = `".$tablename."`.rsid "; 																					
+				 $q =  "select `mo_master`.*, `transporters`.tname, s1.sname as TSID, s2.sname as RSID from `mo_master` LEFT JOIN `materials` ON `materials`.`mid` = `mo_master`.`mid` LEFT JOIN `munits` ON `munits`.muid = `mo_master`.moid LEFT JOIN `transporters` ON `transporters`.tid = `mo_master`.tid LEFT JOIN `sitedetails` s1 ON s1.sid = `mo_master`.tsid LEFT JOIN `sitedetails` s2 ON s2.sid = `mo_master`.rsid"; 																					
 			
 				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
 					$q .= " where ";
@@ -1106,7 +1343,9 @@ public function set_data_into_table($Data='' , $table_name=''){
 			}
 			else if ($tablename == 'grn_master') 
 			{
-				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname, 	 `materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";
+						$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";
+
+/*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname,`materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";*/
 
 				
 				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
@@ -1158,17 +1397,190 @@ public function set_data_into_table($Data='' , $table_name=''){
 			}
 
 
+			else if ($tablename == 'grn_master_unbilled' || $tablename == 'grn_master_billed') 
+			{
+					 if($tablename == 'grn_master_unbilled'){	$q = "select `grn_master`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `grn_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `grn_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `grn_master`.sid LEFT JOIN `transporters` ON `transporters`.tid = `grn_master`.tid LEFT JOIN `materials` ON `materials`.mid = `grn_master`.mid LEFT JOIN `munits` ON `munits`.muid = `grn_master`.muid where billed_status = 0";} else if ($tablename == 'grn_master_billed'){
+						$q = "select `grn_master`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `grn_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `grn_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `grn_master`.sid LEFT JOIN `transporters` ON `transporters`.tid = `grn_master`.tid LEFT JOIN `materials` ON `materials`.mid = `grn_master`.mid LEFT JOIN `munits` ON `munits`.muid = `grn_master`.muid where billed_status = 1";
+						}
+
+				       $tablename = 'grn_master';
+
+/*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname,`materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";*/
+
+				
+				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
+					$q .= " and ";
+				}
+				
+				$exc = 0;
+				if($site != ''){
+					if($exc == 0){
+						$q .= $tablename.".sid = '".$site."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".sid = '".$site."' ";
+					}
+					$exc = 1;
+				}
+				if($vendor != ''){
+					if($exc == 0){
+						$q .= $tablename.".vid = '".$vendor."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".vid = '".$vendor."' ";
+					}
+					$exc = 1;
+				}
+				if($material != ''){
+					if($exc == 0){
+						$q .=  "find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+
+					else{
+						$q .= "OR find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+					
+					$exc = 1;
+				}
+				if($fromData != '')
+				{
+					$fdate = date('Y-m-d',strtotime($fromData));
+					$t_date = date('Y-m-d',strtotime($toData));
+					if($exc == 0){
+						$q .= $tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					$exc = 1;
+				}
+			}
+		
+			
+			else if ($tablename == 'rtv_master') 
+			{
+						$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";
+
+/*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname,`materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";*/
+
+				
+				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
+					$q .= " where ";
+				}
+				
+				$exc = 0;
+				if($site != ''){
+					if($exc == 0){
+						$q .= $tablename.".sid = '".$site."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".sid = '".$site."' ";
+					}
+					$exc = 1;
+				}
+				if($vendor != ''){
+					if($exc == 0){
+						$q .= $tablename.".vid = '".$vendor."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".vid = '".$vendor."' ";
+					}
+					$exc = 1;
+				}
+				if($material != ''){
+					if($exc == 0){
+						$q .=  "find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+
+					else{
+						$q .= "OR find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+					
+					$exc = 1;
+				}
+				if($fromData != '')
+				{
+					$fdate = date('Y-m-d',strtotime($fromData));
+					$t_date = date('Y-m-d',strtotime($toData));
+					if($exc == 0){
+						$q .= $tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					$exc = 1;
+				}
+			}
+			
+			else if ($tablename == 'material_rqst') 
+			{
+						$q = "select `".$tablename."`.*,`sitedetails`.sname from `".$tablename."`  LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";
+
+/*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname,`materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";*/
+
+				
+				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
+					$q .= " where ";
+				}
+				
+				$exc = 0;
+				if($site != ''){
+					if($exc == 0){
+						$q .= $tablename.".sid = '".$site."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".sid = '".$site."' ";
+					}
+					$exc = 1;
+				}
+				if($vendor != ''){
+					if($exc == 0){
+						$q .= $tablename.".vid = '".$vendor."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".vid = '".$vendor."' ";
+					}
+					$exc = 1;
+				}
+				if($material != ''){
+					if($exc == 0){
+						$q .=  "find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+
+					else{
+						$q .= "OR find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+					
+					$exc = 1;
+				}
+				if($fromData != '')
+				{
+					$fdate = date('Y-m-d',strtotime($fromData));
+					$t_date = date('Y-m-d',strtotime($toData));
+					if($exc == 0){
+						$q .= $tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					$exc = 1;
+				}
+			}
+			
+			
 			$result = $this->db->query($q);
 			$data['result'] = $result->result();
 			$data['max'] = $max;
 			$data['min'] = $min;
 			$data['tablename'] = $tablename;
 			$data['model'] = $model;
-			//print_r($data);	
+	
 			
 			//echo $this->set_data_into_table($data , $data['tablename']);
-			print_r($data);
-//			$this->load->view('report_ajax',$data);
+			//echo $q;
+			echo $this->set_data_into_table($data , $data['tablename']);
+			
+			//echo $this->load->view('report_ajax',$data);
 
 //			print_r($data);
 			/* $res = array();

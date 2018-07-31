@@ -40,6 +40,8 @@ div#search_data {
 								<option value="">Billed Receiving</option>
 								<option value="">Vendors Rate</option>
 								<option value="">Stock Report</option>
+                                <option value="rtv_master">Return to Vendor</option>
+                                <option value="material_rqst">Material Request</option>
 								<option value="transporters">Transporter Report</option>
 
 							</select>

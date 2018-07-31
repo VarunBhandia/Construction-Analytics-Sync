@@ -27,6 +27,7 @@ $config['base_url'] = 'http://localhost:1234/Constuction-Analytics-Sync/';
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | Index File

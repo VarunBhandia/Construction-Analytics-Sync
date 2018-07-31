@@ -157,7 +157,7 @@ elseif($action == 'update')
 						</div>
                       </div>
 	<div class="table-responsive">		  
-		<table id="datatable1" table class="table table-striped jambo_table" style="width:100%;">
+		<table id="datatable" table class="table table-striped jambo_table" style="width:100%;">
 				<thead>
 					<tr class="headings">
 					<th class="column-title">Material Name</th>
@@ -193,6 +193,7 @@ elseif($action == 'update')
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
+                            <input type="hidden" id="" name="billed_status" class="" placeholder="" autocomplete="off" value="0">
 						</td>
 						<td>
 							<select class="materialunit form-control select_width" id="m_unit_0" name="m_unit[]">

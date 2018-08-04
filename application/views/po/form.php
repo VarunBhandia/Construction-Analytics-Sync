@@ -3669,13 +3669,12 @@ elseif($action == 'update')
                                                             <label class="control-label col-md-2 col-sm-3 col-xs-12">Terms & Conditions
                                                             </label>
                                                             <div class="col-md-5 col-sm-6 col-xs-12 form-group">
-                                                                <textarea class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >
-                                                                    Payment: 30 days after receiving date of material at the site 
-                                                                    Transportation: Inclusive
-                                                                    GST  % : inclusive
-                                                                    Delivery: after PO date, If material would be a delay as the discussed action would be taken.
-                                                                    Make:  This PO is placed as per your quotation Dt:
-                                                                    The material should be of good quality and of proper size else would not be received.
+                                                                <textarea rows="10" wrap="soft" class="form-control" id="tandc" name="tandc" type="text" value="" autocomplete="off" >Payment: 30 days after receiving date of material at the site.
+Transportation: Inclusive
+GST  % : inclusive
+Delivery: after PO date, If material would be a delay as the discussed action would be taken.
+Make:  This PO is placed as per your quotation 
+Dt:The material should be of good quality and of proper size else would not be received.
                                                                 </textarea>
                                                             </div>
                                                         </div>

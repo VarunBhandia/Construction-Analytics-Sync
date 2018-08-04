@@ -255,6 +255,8 @@ class Material_rqst extends CI_Controller
         $date = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+        
+        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
@@ -277,6 +279,7 @@ class Material_rqst extends CI_Controller
             'mrrecievedate'  => $mrrecievedate,
             'mrcreatedon'  => $date,
             'mid' => $mid,
+            'muid'  => $m_unit,            
             'mrqty'  => $qty,
             'mrunitprice'  => $unit,
             'mrremarks'  => $remark
@@ -316,6 +319,8 @@ class Material_rqst extends CI_Controller
         $updateddate = date('Y-m-d H:i:s');
 
         $mid = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
+        
+        $m_unit = count($this->input->post('m_unit')) > 0 ? implode(",",$this->input->post('m_unit')) : $this->input->post('m_unit');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
 
@@ -339,6 +344,7 @@ class Material_rqst extends CI_Controller
             'mrrecievedate'  => $mrrecievedate,
             'mrrefid'  => $mrrefid,
             'mid' => $mid,
+            'muid'  => $m_unit,
             'mrqty'  => $qty,
             'mrunitprice'  => $unit,
             'mrremarks'  => $remark

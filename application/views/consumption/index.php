@@ -92,7 +92,7 @@
                                                 <div class="col-md-8">
                                                     <form method="post" action="<?php echo base_url()?>consumption/select_by_id">
                                                        <div class="row">
-                                                                <div class="col-md-5">
+                                                                <div class="col-md-10">
                                                         <select class="itemname form-control" id="sid" name="sid">
                                                             <option value="">---site name----</option>
                                                             <?php
@@ -116,7 +116,10 @@
                                                                 });
                                                             </script>
                                                            </div>
+                                                           <div class="col-md-1"></div>
+                                                           <div class="col-md-1">
                                                         <input type="submit" value="Show Record" class="btn btn-success" >
+                                                        </div>
                                                         </div>
                                                     </form>
                                                 </div>
@@ -167,10 +170,22 @@
                                                     }
                                                     else
                                                     { ?>
+                                                
                                                 <form method="post" action="<?php echo base_url()?>consumption/select_by_id_action">
                                                     <input type="hidden" value="<?php echo $sid; ?>" name="sid" placeholder="sitename">
                                                     <input type="submit" name="export" class="btn btn-success" value="Export" />
                                                 </form>
+                                                <div class="row">
+                                                  <div class="clearfix"></div>
+                                                   <div class="col-md-4">
+                                                    <div align="right">
+                                                        <ul class="nav navbar-right panel_toolbox">
+                                                            <li><a href="<?php echo base_url();?>consumption/form"><button class="btn btn-primary">Add New Consumption</button></a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                   </div>
+                                                </div>
                                                 <div id="table-scroll" class="table-scroll">
 
                                                     <div class="table-wrap">

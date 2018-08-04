@@ -20,7 +20,7 @@ elseif($action == 'update')
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-        <title>Purchase Order(PO)</title>
+        <title>New PO</title>
 
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -94,7 +94,7 @@ elseif($action == 'update')
                                         <div class="col-md-12 col-sm-12 col-xs-12">
                                             <div class="x_panel">
                                                 <div class="x_title">
-                                                    <h2>Purchase Order</h2>
+                                                    <h1>Create New Purchase Order</h1>
                                                     <?php 
                                                     $user_sites = explode(",",$user_details[0]->site);
                                                     $count_site =  count($user_sites);
@@ -291,7 +291,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -307,7 +307,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -377,7 +377,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -393,7 +393,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -409,7 +409,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -471,7 +471,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -487,7 +487,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -503,7 +503,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -557,7 +557,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -573,7 +573,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -589,7 +589,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -649,7 +649,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -665,7 +665,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -681,7 +681,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -735,7 +735,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -751,7 +751,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -767,7 +767,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -828,7 +828,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -844,7 +844,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -860,7 +860,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -914,7 +914,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -930,7 +930,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -946,7 +946,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1007,7 +1007,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1023,7 +1023,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1039,7 +1039,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1093,7 +1093,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1109,7 +1109,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1125,7 +1125,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1185,7 +1185,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1201,7 +1201,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1217,7 +1217,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1271,7 +1271,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1287,7 +1287,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1303,7 +1303,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1364,7 +1364,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1380,7 +1380,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1396,7 +1396,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1450,7 +1450,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1466,7 +1466,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1482,7 +1482,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1543,7 +1543,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1559,7 +1559,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1575,7 +1575,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1629,7 +1629,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1645,6 +1645,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
 
                                                                                     $('#sgst').val(sgst_d_k);
 
@@ -1661,6 +1662,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
+if(!igst_d_k){igst_d_k = parseFloat(0); }
 
                                                                                     $('#igst').val(igst_d_k);
 
@@ -1722,7 +1724,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1738,7 +1740,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1754,7 +1756,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -1808,7 +1810,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -1824,7 +1826,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -1840,7 +1842,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2005,7 +2007,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2021,7 +2023,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2037,7 +2039,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2091,7 +2093,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2107,7 +2109,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2123,7 +2125,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2185,7 +2187,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2201,7 +2203,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2217,7 +2219,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2271,7 +2273,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2287,7 +2289,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2303,7 +2305,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2363,7 +2365,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2379,7 +2381,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2395,7 +2397,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2449,7 +2451,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2465,7 +2467,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2481,7 +2483,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2542,7 +2544,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2558,7 +2560,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2574,7 +2576,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2628,7 +2630,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2644,7 +2646,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2660,7 +2662,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2720,7 +2722,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2736,7 +2738,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2752,7 +2754,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2806,7 +2808,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2822,7 +2824,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2838,7 +2840,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2898,7 +2900,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -2914,7 +2916,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -2930,7 +2932,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -2984,7 +2986,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -3000,7 +3002,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3016,7 +3018,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -3076,7 +3078,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -3092,7 +3094,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3108,7 +3110,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -3162,7 +3164,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -3178,7 +3180,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3194,7 +3196,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -3255,7 +3257,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -3271,7 +3273,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3287,7 +3289,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -3341,7 +3343,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -3357,7 +3359,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3373,7 +3375,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);
@@ -3434,7 +3436,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
-
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
                                                                                     $('#cgst').val(cgst_d_k);
 
                                                                                     sgst_<?php echo $i; ?> = parseFloat($('#sgst_<?php echo $i; ?>').val());
@@ -3450,7 +3452,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3466,6 +3468,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
+if(!igst_d_k){igst_d_k = parseFloat(0); }
 
                                                                                     $('#igst').val(igst_d_k);
 
@@ -3520,6 +3523,7 @@ elseif($action == 'update')
                                                                                     var cgst_d_k=parseFloat(0);
                                                                                     for (cgst_d_j = 0; cgst_d_j < cgst_d_total.length; cgst_d_j++) 
                                                                                     { cgst_d_k += parseFloat(cgst_d_total[cgst_d_j]) ; } 
+if(!cgst_d_k){cgst_d_k = parseFloat(0); }
 
                                                                                     $('#cgst').val(cgst_d_k);
 
@@ -3536,7 +3540,7 @@ elseif($action == 'update')
                                                                                     var sgst_d_k=parseFloat(0);
                                                                                     for (sgst_d_j = 0; sgst_d_j < sgst_d_total.length; sgst_d_j++) 
                                                                                     { sgst_d_k += parseFloat(sgst_d_total[sgst_d_j]) ; } 
-
+if(!sgst_d_k){sgst_d_k = parseFloat(0); }
                                                                                     $('#sgst').val(sgst_d_k);
 
                                                                                     igst_<?php echo $i; ?> = parseFloat($('#igst_<?php echo $i; ?>').val());
@@ -3552,7 +3556,7 @@ elseif($action == 'update')
                                                                                     var igst_d_k=parseFloat(0);
                                                                                     for (igst_d_j = 0; igst_d_j < igst_d_total.length; igst_d_j++) 
                                                                                     { igst_d_k += parseFloat(igst_d_total[igst_d_j]) ; } 
-
+if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     $('#igst').val(igst_d_k);
 
                                                                                     total_<?php echo $i; ?> = parseFloat(netTotal + cgst_d_<?php echo $i; ?> + sgst_d_<?php echo $i; ?> + igst_d_<?php echo $i; ?>);

@@ -44,7 +44,8 @@ class User extends CI_Controller
     public function insert()
     {
         $model = $this->model;
-
+        
+        $creationdate = date('Y-m-d H:i:s');       
         $uname = $this->input->post('uname');
         $password = $this->input->post('password');
         $uemail = $this->input->post('uemail');
@@ -95,7 +96,8 @@ class User extends CI_Controller
             'reporting'  => $reporting,
             'workordermaterials'  => $workordermaterials,
             'consumption'  => $consumption,
-            'site'  => $site
+            'site'  => $site,
+            'ucreatedon' => $creationdate
         );
 
         $this->$model->insert($data,$this->table);

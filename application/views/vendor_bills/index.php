@@ -76,7 +76,17 @@ elseif($action == 'update')
                         <div class="datatable-responsive">
                             <table id="datatable1" class="table table-striped table-bordered">
                                 <thead>
+                                  <tr>
+                                   <td colspan="1" style="border: none;width: 9%;padding-top: 13px;font-weight: bold;">
+                                    Check All&nbsp;
+                                    
+                                   </td>
+                                   <td colspan="13" style="border:none;"><input type="checkbox" style="width:1.5%;" class="checkAll" /></td>
+                                  </tr>
                                     <tr class="headings">
+                                        <th class="column-title">
+                                           Select Material 
+										</th>
                                         <th class="column-title">GRNID</th>
                                         <th class="column-title">Receive Date</th>
                                         <th class="column-title">Challan No.</th>
@@ -94,6 +104,7 @@ elseif($action == 'update')
                                         </th>
                                     </tr>
                                 </thead>
+                                
                                 <tbody>
                                     <script>
                                         var cgst_d_total = [];
@@ -110,6 +121,8 @@ elseif($action == 'update')
 
                                     <input type="hidden" name="vid" value="<?php echo $value->vid; ?>"/>
                                     <input type="hidden" name="grnid" value="<?php echo $value->grnid; ?>"/>
+
+                                    <input type="hidden" name="grnrefid" value="<?php echo $value->grnrefid; ?>"/>
                                     <input type="hidden" name="sid" value="<?php echo $value->sid; ?>"/>
                                     <?php 
 
@@ -119,10 +132,23 @@ elseif($action == 'update')
                                     $unit = explode(",",$value->grnunitprice);
                                     $m_unit = explode(",",$value->muid);
                                     $remarks = explode(",",$value->grnremarks);
+									//echo "<pre>";
+								//	print_r($material);
                                     for($i=0; $i<count($material); $i++)
                                     {
+
+										
                                     ?>
                                     <tr class="pending-user">
+                                        <td style="width: 6em; ">
+											<?php foreach($materials as $material_detail){ 
+											 if($material[$i] == $material_detail->mid):
+											?>
+                                              <input type="checkbox" name="selectMaterial[]" class="MaterailSelect" style="width: 20%;" value="<?=$material_detail->mid?>" />
+											<?php 
+											endif;
+											} ?>
+                                        </td>
                                         <td style="width: 6em;">
 											<input type="hidden" name="uindex[]" value="<?php echo $c; ?>" />
                                             <?php echo $value->grnid; ?>
@@ -153,24 +179,27 @@ elseif($action == 'update')
                                             <input type="hidden" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>">
 
                                         </td>
+
+                                        <div class="main_div">   
                                         <td style="width: 7em;">
-                                            <input type="text" id="unit_<?php echo $i; ?>" name="unit[]" class="amountonly form-control remove_unit" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
+                                            <input type="text" id="unit_<?php echo $i; ?>" readonly name="unit[]" class="amountonly form-control remove_unit" placeholder="0.00" value="<?php echo $unit[$i]; ?>">
                                         </td>
                                         <td style="width: 5em;">
-                                            <input type="text" id="cgst_<?php echo $i; ?>" name="cgst[]" class="amountonly form-control" min="0" placeholder="0" value="">
+                                            <input type="text" id="cgst_<?php echo $i; ?>" readonly name="cgst[]" class="amountonly form-control" min="0" placeholder="0" value="">
                                         </td>
                                         <td style="width: 5em;">
-                                            <input type="text" id="sgst_<?php echo $i; ?>" name="sgst[]" class="amountonly form-control" min="0" placeholder="0" value="">
+                                            <input type="text" id="sgst_<?php echo $i; ?>" readonly name="sgst[]" class="amountonly form-control" min="0" placeholder="0" value="">
                                         </td>
                                         <td style="width: 5em;">
-                                            <input type="text" id="igst_<?php echo $i; ?>" name="igst[]" class="amountonly form-control" min="0" placeholder="0" value="">
+                                            <input type="text" id="igst_<?php echo $i; ?>" readonly name="igst[]" class="amountonly form-control" min="0" placeholder="0" value="">
                                         </td>
                                         <td style="width: 9em;">
-                                            <input type="text" id="total_<?php echo $i; ?>" name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" readonly>
+                                            <input type="text" id="total_<?php echo $i; ?>"  readonly name="total[]" class="amountonly form-control" min="0" placeholder="0.00" value="" >
                                         </td>
                                         <td>
-                                            <input type="text" id="remarks_<?php echo $i; ?>" name="remarks[]" value="<?php echo $remarks[$i]; ?>" class="form-control">
+                                            <input type="text" id="remarks_<?php echo $i; ?>" readonly name="remarks[]" value="<?php echo $remarks[$i]; ?>" class="form-control">
                                         </td>
+									</div>
                                         <td>
                                             <a class="btn btn-sm btn-danger" id="minus">-</a>
                                         </td>
@@ -178,7 +207,33 @@ elseif($action == 'update')
 									<?php //$this->load->view('include/footer');?>
                                     <script>
 
+
                                         jQuery(document).ready(function(){
+											
+										$('body').on('click','input[type="checkbox"].checkAll',function(){
+											if($(this).prop("checked") == true){
+												jQuery('tbody input[name="selectMaterial[]"]').prop('checked', true);
+												jQuery('tbody input[type="text"]').removeAttr('readonly');
+												jQuery('tbody input[name="total[]"]').attr('readonly','readonly');
+
+											}else if($(this).prop("checked") == false){
+												jQuery('tbody input[name="selectMaterial[]"]').prop('checked', false);
+												jQuery('tbody input[type="text"]').attr('readonly', 'readonly');
+											}
+										});
+
+											
+											
+											$('tr td input[type="checkbox"].MaterailSelect').click(function(){
+												if($(this).prop("checked") == true){
+													jQuery(this).parent().parent().find('input').removeAttr('readonly');
+													jQuery(this).parent().parent().find('input[name="total[]"]').attr('readonly','readonly');
+												}else if($(this).prop("checked") == false){
+													jQuery(this).parent().parent().find('input').attr('readonly' , 'readonly');
+												}
+											});
+											
+											
 
                                             var quantity = $('#app_qty_<?php echo $i; ?>').val();
                                             var unit_price = parseFloat($('#unit_<?php echo $i; ?>').val());
@@ -923,7 +978,7 @@ elseif($action == 'update')
 </html>
 <script>
 jQuery(document).ready(function(){
-	$('body').on('click',".btn-danger",function()
+	$('body').on('click',".minus",function()
 	{
 		var count= $('.pending-user').length; 
 		var value=count-1;

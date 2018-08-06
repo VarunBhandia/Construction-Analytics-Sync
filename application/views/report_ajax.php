@@ -246,6 +246,53 @@
 		}
 		?>
 		</tbody>
+		<?php 
+		if($tablename == 'rtv_master')
+		{
+	?>	
+	<thead>		
+		<tr id="rtv_master_header">
+			<th>ID</th>
+			<th>Return Date</th>
+			<th>Reference ID</th>
+			<th>Vendor</th>
+			<th>Site</th>
+			<th>Material Name</th>
+			<th>Material Unit</th>
+			<th>Quantity returned</th>
+			<th>Truck No</th>
+			<th>Transporter Name</th>
+			<th>vendor Challan No</th>
+			<th>Site Challan No</th>
+			<th>Remarks</th>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+			$c=1;
+			foreach($result as $key=>$val)
+			{				
+		?>
+				<tr>
+					<td><?php echo $c; ?></td>
+					<td><?php echo date('d-m-Y',strtotime($val->rtvreturndate)); ?></td>
+					<td><?php echo $val->rtvrefid; ?></td>
+					<td><?php echo $val->vname; ?></td>
+					<td><?php echo $val->sname; ?></td>
+					<td><?php echo $val->mname; ?></td>
+					<td><?php echo $val->muname; ?></td>
+					<td><?php echo $val->rtvqty; ?></td>
+					<td><?php echo $val->rtvtruck; ?></td>
+					<td><?php echo $val->tname; ?></td>
+					<td><?php echo $val->vchallan; ?></td>
+					<td><?php echo $val->cchallan; ?></td>
+					<td><?php echo $val->rtvremark; ?></td>
+				</tr>
+		<?php
+		$c++;
+			}
+		?>
+	</tbody>
 	
 	<?php	
 		}

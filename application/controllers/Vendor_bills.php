@@ -97,8 +97,8 @@ class Vendor_bills extends CI_Controller {
         $user_id = 11;
 
         $model = $this->model;
+		$grnrefid = $this->input->post('grnrefid');
 		$grnid = $this->input->post('grnid');
-		//$grnrefid = $this->input->post('grnrefid');
         $vid = $this->input->post('vid');
         $sid = $this->input->post('sid');
         $uid = $this->input->post('uid');
@@ -118,7 +118,9 @@ class Vendor_bills extends CI_Controller {
         $uindex = implode(",",$this->input->post('uindex'));
         $date = date('Y-m-d');
         
-		
+
+		$mid = count($this->input->post('selectMaterial')) > 0 ? implode(",",$this->input->post('selectMaterial')) : $this->input->post('selectMaterial');	
+
 		$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
         $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');	
         $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');	
@@ -137,8 +139,10 @@ class Vendor_bills extends CI_Controller {
 
         $data = array(
 		
-            'vid'  => $vid,
+            'grnrefid'=>$grnrefid,
+			'vid'  => $vid,
             'sid'  => $sid,
+			'mid'  => $mid,			
             'order_index' => $uindex,
             'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
@@ -168,16 +172,16 @@ class Vendor_bills extends CI_Controller {
         $success = $this->$model->insert($data,$this->table);
         
 		if($success){
-			$update_data = array("billed_status"=>1);
+			$update_data = array("billed_status"=>$mid);
 		    $this->db->where ('grnid', $grnid);
 			$updated = $this->db->update ('grn_master', $update_data);
 		}
 
-		if($updated){
+		//if($updated){
 				$this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Vendor Added Successfully!</div>');
 		
 				redirect('Vendor_bills');
-		}
+		//}
    }
 
     public function edit($vbid)

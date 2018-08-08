@@ -357,7 +357,61 @@ class Reporting extends CI_Controller
                 $exc = 1;
             }
         }
-        else
+        
+        else if ($tablename == 'rtv_master') 
+        {
+            $q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname, 	 `materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";
+
+
+            if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
+                $q .= " where ";
+            }
+
+            $exc = 0;
+            if($site != ''){
+                if($exc == 0){
+                    $q .= $tablename.".sid = '".$site."' ";
+                }
+                else{
+                    $q .= "OR ".$tablename.".sid = '".$site."' ";
+                }
+                $exc = 1;
+            }
+            if($vendor != ''){
+                if($exc == 0){
+                    $q .= $tablename.".vid = '".$vendor."' ";
+                }
+                else{
+                    $q .= "OR ".$tablename.".vid = '".$vendor."' ";
+                }
+                $exc = 1;
+            }
+            if($material != ''){
+                if($exc == 0){
+                    $q .=  "find_in_set('".$material."', ".$tablename.".mid) ";
+                }
+
+                else{
+                    $q .= "OR find_in_set('".$material."', ".$tablename.".mid) ";
+                }
+
+                $exc = 1;
+            }
+            if($fromData != '')
+            {
+                $fdate = date('Y-m-d',strtotime($fromData));
+                $t_date = date('Y-m-d',strtotime($toData));
+                if($exc == 0){
+                    $q .= $tablename.".rtvcreatedon >= '".$fdate."' AND ".$tablename.".rtvcreatedon <= '".$fdate."' ";
+                }
+                else{
+                    $q .= "OR ".$tablename.".rtvcreatedon >= '".$fdate."' AND ".$tablename.".rtvcreatedon <= '".$fdate."' ";
+                }
+                $exc = 1;
+            }
+        } 
+        
+        else 
         {
 
         }

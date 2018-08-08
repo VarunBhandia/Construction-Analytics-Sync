@@ -121,7 +121,6 @@ elseif($action == 'update')
 
                                     <input type="hidden" name="vid" value="<?php echo $value->vid; ?>"/>
                                     <input type="hidden" name="grnid" value="<?php echo $value->grnid; ?>"/>
-
                                     <input type="hidden" name="grnrefid" value="<?php echo $value->grnrefid; ?>"/>
                                     <input type="hidden" name="sid" value="<?php echo $value->sid; ?>"/>
                                     <?php 
@@ -132,8 +131,7 @@ elseif($action == 'update')
                                     $unit = explode(",",$value->grnunitprice);
                                     $m_unit = explode(",",$value->muid);
                                     $remarks = explode(",",$value->grnremarks);
-									//echo "<pre>";
-								//	print_r($material);
+                                    $m_uid = explode(",",$value->muid);
                                     for($i=0; $i<count($material); $i++)
                                     {
 
@@ -142,9 +140,12 @@ elseif($action == 'update')
                                     <tr class="pending-user">
                                         <td style="width: 6em; ">
 											<?php foreach($materials as $material_detail){ 
+											
+											
+											
 											 if($material[$i] == $material_detail->mid):
-											?>
-                                              <input type="checkbox" name="selectMaterial[]" class="MaterailSelect" style="width: 20%;" value="<?=$material_detail->mid?>" />
+											 ?>
+                                             <input type="checkbox" name="selectMaterial[]" class="MaterailSelect" style="width: 20%;" value="<?=$material_detail->mid?>" />
 											<?php 
 											endif;
 											} ?>
@@ -170,12 +171,20 @@ elseif($action == 'update')
                                         <td style="width: 5em;">
                                             <?php
                                         foreach($units as $val)
-                                        { ?>
-                                            <?php if($m_unit[$i]==$val->muid){echo $val->muname;} ?> 
-                                            <?php }	?>
+                                         { ?>
+                                            <?php if($m_unit[$i]==$val->muid){
+												echo $val->muname;
+									         ?> 
+										<?php } ?> 
+                                        
+									   <?php } ?>
+                                       <input type="hidden" name="m_uid[]"  value="<?=$m_uid[$i]?>" /> 
+
                                         </td>
+                                        
                                         <td style="width: 5em;">
                                             <?php echo $qty[$i]; ?>
+
                                             <input type="hidden" id="app_qty_<?php echo $i; ?>" name="app_qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>">
 
                                         </td>

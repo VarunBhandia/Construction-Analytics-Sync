@@ -101,6 +101,7 @@ class Vendor_bills extends CI_Controller {
 		$grnid = $this->input->post('grnid');
         $vid = $this->input->post('vid');
         $sid = $this->input->post('sid');
+
         $uid = $this->input->post('uid');
         $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
@@ -120,8 +121,10 @@ class Vendor_bills extends CI_Controller {
         
 
 		$mid = count($this->input->post('selectMaterial')) > 0 ? implode(",",$this->input->post('selectMaterial')) : $this->input->post('selectMaterial');	
-
 		$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
+		$muid = count($this->input->post('m_uid')) > 0 ? implode(",",$this->input->post('m_uid')) : $this->input->post('m_uid');	
+		$m_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');	
+
         $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');	
         $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');	
         $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
@@ -160,7 +163,9 @@ class Vendor_bills extends CI_Controller {
             'vbremarks'  => $vbremarks,
             'date'  => $date,
             'unit'  => $unit,
-            'cgst'  => $cgst,
+            'muid'  => $muid,
+            'm_qty'  => $m_qty,           
+		    'cgst'  => $cgst,
             'sgst'  => $sgst,
             'igst'  => $igst,
             'total'  => $total,
@@ -172,7 +177,7 @@ class Vendor_bills extends CI_Controller {
         $success = $this->$model->insert($data,$this->table);
         
 		if($success){
-			$update_data = array("billed_status"=>$mid);
+			$update_data = array("billed_status"=>$mid , 'billed_genrated'=>'yes');
 		    $this->db->where ('grnid', $grnid);
 			$updated = $this->db->update ('grn_master', $update_data);
 		}
@@ -275,6 +280,8 @@ class Vendor_bills extends CI_Controller {
 
         $vendor_id = $this->input->post('vendor_id');
         $csgt_total = $this->input->post('csgt_total');
+    	$grnrefid = $this->input->post('grnrefid');
+
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');
         $total_amount = $this->input->post('total_amount');
@@ -289,7 +296,11 @@ class Vendor_bills extends CI_Controller {
         $vbremarks = $this->input->post('vbremarks');
         $uindex = implode(",",$this->input->post('uindex'));
         $date = date('Y-m-d');
-        $unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
+
+   		$mid = count($this->input->post('mid')) > 0 ? implode(",",$this->input->post('mid')) : $this->input->post('mid');	
+		$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
+		$muid = count($this->input->post('m_uid')) > 0 ? implode(",",$this->input->post('m_uid')) : $this->input->post('m_uid');	
+		$m_qty = count($this->input->post('app_qty')) > 0 ? implode(",",$this->input->post('app_qty')) : $this->input->post('app_qty');	
         $cgst = count($this->input->post('cgst')) > 0 ? implode(",",$this->input->post('cgst')) : $this->input->post('cgst');	
         $sgst = count($this->input->post('sgst')) > 0 ? implode(",",$this->input->post('sgst')) : $this->input->post('sgst');	
         $igst = count($this->input->post('igst')) > 0 ? implode(",",$this->input->post('igst')) : $this->input->post('igst');  
@@ -301,7 +312,9 @@ class Vendor_bills extends CI_Controller {
 
         $data = array(
             'order_index' => $uindex,
-            'csgt_total'  => $csgt_total,
+            'grnrefid'=>$grnrefid,
+			'mid'  => $mid,			
+	        'csgt_total'  => $csgt_total,
             'ssgt_total'  => $ssgt_total,
             'isgt_total'  => $isgt_total,
             'total_amount'  => $total_amount,
@@ -317,6 +330,8 @@ class Vendor_bills extends CI_Controller {
             'vbremarks'  => $vbremarks,
             'date'  => $date,
             'unit'  => $unit,
+            'muid'  => $muid,
+            'm_qty'  => $m_qty,           
             'cgst'  => $cgst,
             'sgst'  => $sgst,
             'igst'  => $igst,

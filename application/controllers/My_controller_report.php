@@ -696,7 +696,7 @@ $Data_Array = array();
 
 }
 	
-public function set_data_into_table($Data='' , $table_name=''){
+public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	$i = 0;
 	if(isset($_POST['materail_id'])): ?>
         <td></td>
@@ -712,10 +712,6 @@ public function set_data_into_table($Data='' , $table_name=''){
         <td></td>
         <td></td>
         <td></td>
-
-<?php /*?>	    <td><?php echo $_POST['FormDate']?></td>
-	    <td><?php echo $_POST['toData']?></td>
-<?php */?>	   
 
         <?php 
 	 endif;
@@ -882,68 +878,105 @@ public function set_data_into_table($Data='' , $table_name=''){
 	 }
      else if($table_name == 'grn_master'){
        ob_start();
+	   
+	   if($more == 2){
 	   ?>
-        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-          <tr>
-          <tr>
-           <th>SR. NO.</th>
-           <th>GRN</th>
-           <th>PO Ref. No.</th>
-           <th>Vendor</th>
-           <th>Site</th>
-           <th>Date of Receipt</th>
-           <th>Last Update On</th>
-           <th>Material ID</th>
-           <th>Material Description</th>
-           <th>Material Name</th>
-           <th>Material Unit</th>
-           <th>Quantity Received</th>
-           <th>Unit Price</th>
-           <th>Total Amount</th>
-           <th>Challen No.</th>
-           <th>Transporter</th>
-          </tr>
-         <?php foreach($Data['result'] as $key=>$value ):
-			$qty_arr = explode(",",$value->grnqty);	
-			$mid_arr = explode(",",$value->mid);
-			$qty = explode(",",$value->grnqty);
-  		    $munit_arr = explode(",",$value->muid);
-			$unit_price = explode(",",$value->grnunitprice);
-		for($t=0; $t<count($qty_arr); $t++)
-			{
-			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
-			$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
-
-		 ?>
-          <tr>
-           <td><?php echo $i = $i+1;?></td>
-           <td><?php echo $value->grnrefid;?></td>
-           <td><?php echo $value->porefid;?></td>
-           <td><?php echo $value->vname ;?></td>
-           <td><?php echo $value->sname;?></td>
-           <td><?php echo '' ;?></td>
-           <td><?php echo ''?></td>
-           <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
-           <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
-           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
-           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
-           <td><?php echo $qty[$t] ;?></td>
-           <td><?php echo $unit_price[$t];?></td>
-           <td><?php echo (is_numeric($value->grnqty)  &&  is_numeric($value->grnunitprice))?number_format($value->grnqty*$value->grnunitprice):'' ;?></td>
-           <td><?php echo $value->grnchallan;?></td>
-           <td><?php echo $value->tname ;?></td>
-          </tr>
-        <?php } endforeach;?>
-        </table>
+                    <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+                      <tr>
+                      <tr>
+                       <th>SR. NO.</th>
+                       <th>GRN</th>
+                       <th>PO Ref. No.</th>
+                       <th>Vendor</th>
+                       <th>Site</th>
+                       <th>Date of Receipt</th>
+                       <th>Last Update On</th>
+                       <th>Material ID</th>
+                       <th>Material Description</th>
+                       <th>Material Name</th>
+                       <th>Material Unit</th>
+                       <th>Quantity Received</th>
+                       <th>Unit Price</th>
+                       <th>Total Amount</th>
+                       <th>Challen No.</th>
+                       <th>Remarks</th>
+                       <th>Bill Line Id</th>
+                       <th>Bill ID</th>
+                       <th>Bill Date</th>
+                       <th>Bill Approved On</th>
+                       <th>Gross Amount</th>
+                       <th>CGST</th>
+                       <th>SGST</th>           
+                       <th>IGST</th>
+                       <th>Deduction</th>
+                       <th>Adjustment</th>
+                       <th>Total Amount</th>
+                       <th>Payment Days</th>
+                       <th>Transporter</th>
+                       <th>Truck No.</th>
+                                             
+                      </tr>
+                     <?php foreach($Data['result'] as $key=>$value ):
+                        $qty_arr = explode(",",$value->grnqty);	
+                        $mid_arr = explode(",",$value->mid);
+                        $qty = explode(",",$value->grnqty);
+                        $munit_arr = explode(",",$value->muid);
+                        $unit_price = explode(",",$value->grnunitprice);
+                        $truckNo = explode(",",$value->grntruck);
+                        $grnRemarks = explode(",",$value->grnremarks);
+                        $total = explode(",",$value->total);
+                        $cgst = explode(",",$value->cgst);
+                        $sgst = explode(",",$value->sgst);
+                        $igst = explode(",",$value->igst);
+                    
+					for($t=0; $t<count($qty_arr); $t++)
+                        {
+                        $material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+                        $mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+						echo "<pre>";
+						print_r($material_detail);
+            
+                     ?>
+                      <tr>
+                       <td><?php echo $i = $i+1;?></td>
+                       <td><?php echo $value->grnrefid;?></td>
+                       <td><?php echo $value->porefid;?></td>
+                       <td><?php echo $value->vname ;?></td>
+                       <td><?php echo $value->sname;?></td>
+                       <td><?php echo '' ;?></td>
+                       <td><?php echo ''?></td>
+                       <td ><?php echo (isset($material_detail[0]->mid) && !empty($material_detail[0]->mid))?$material_detail[0]->mid:'';?></td>  
+                       <td><?php echo  (isset($material_detail[0]->mdesc) && !empty($material_detail[0]->mdesc))?$material_detail[0]->mdesc:'';?></td>    
+                       <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+                       <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+                       <td><?php echo $qty[$t] ;?></td>
+                       <td><?php echo $unit_price[$t];?></td>
+                       <td>
+					    <?php echo (is_numeric($value->grnqty)  &&  is_numeric($value->grnunitprice))?number_format($value->grnqty*$value->grnunitprice):'' ;?></td>
+                       <td><?php echo $value->grnchallan;?></td>
+                       <td><?php echo $grnRemarks[$t];?></td>                      
+                       <td><?php echo '';?></td>                      
+                       <td><?php echo $value->bill_no;?></td>    
+                       <td><?php echo date('y-m-d' ,strtotime($value->bill_date));?></td>                      
+                       <td><?php echo '';?></td>                      
+                       <td><?php echo $value->gross_amount;?></td>
+                       <td><?php echo $cgst[$t] ;?></td>
+                       <td><?php echo $sgst[$t] ;?></td>
+                       <td><?php echo $igst[$t] ;?></td>
+                       <td><?php echo $value->deduction;?></td>
+                       <td><?php echo $value->adjustment;?></td>
+                       <td><?php echo number_format((float)$total[$t], 2, '.', '');?></td>                      
+                       <td><?php echo $value->payment_days;?></td>                      
+            
+                       <td><?php echo $value->tname ;?></td>
+                       <td><?php echo $truckNo[$t] ;?></td>
+            
+                      </tr>
+                    <?php } endforeach;?>
+                    </table>
         
 	  <?php
-	  $Content = ob_get_contents();
-	  ob_end_clean();
-	  return $Content;
-	 }
-     else if($table_name == 'grn_master_unbilled'){
-       ob_start();
-	   ?>
+	   } else if ($more ==1){   ?>
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
           <tr>
           <tr>
@@ -963,6 +996,8 @@ public function set_data_into_table($Data='' , $table_name=''){
            <th>Total Amount</th>
            <th>Challen No.</th>
            <th>Transporter</th>
+           <th>Truck No.</th>
+           <th>Remarks</th>                      
           </tr>
          <?php foreach($Data['result'] as $key=>$value ):
 
@@ -971,9 +1006,9 @@ public function set_data_into_table($Data='' , $table_name=''){
 			$qty = explode(",",$value->grnqty);
   		    $munit_arr = explode(",",$value->muid);
 			$unit_price = explode(",",$value->grnunitprice);
-/*echo "<pre>";
- print_r($value);
-echo "</pre>";*/
+			$truckNo = explode(",",$value->grntruck);
+			$grnRemarks = explode(",",$value->grnremarks);
+			
 		for($t=0; $t<count($qty_arr); $t++)
 			{
 			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
@@ -998,10 +1033,14 @@ echo "</pre>";*/
            <td><?php echo (is_numeric($value->grnqty)  &&  is_numeric($value->grnunitprice))?number_format($value->grnqty*$value->grnunitprice):'' ;?></td>
            <td><?php echo $value->grnchallan;?></td>
            <td><?php echo $value->tname ;?></td>
+           <td><?php echo $truckNo[$t] ;?></td>
+           <td><?php echo $grnRemarks[$t];?></td>                      
+           
           </tr>
         <?php } endforeach;?>
         </table>
 	  <?php
+	   }
 	  $Content = ob_get_contents();
 	  ob_end_clean();
 	  return $Content;
@@ -1129,6 +1168,64 @@ echo "</pre>";*/
 	  ob_end_clean();
 	  return $Content;
 	 }
+
+/* Vendor Report Rate */
+
+	  else if($table_name == 'vendor_bills_master'){
+       ob_start();
+	   ?>
+        <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
+          <tr>
+          <tr>
+           <th>SR. NO.</th>
+           <th>Vendor</th>
+           <th>Site</th>
+           <th>Material Name</th>
+           <th>Material Unit</th>
+           <th>Quantity Received</th>
+           <th>Unit Price</th>
+           <th>Total Amount</th>
+           <th>Creation Status</th>
+          </tr>
+         <?php  
+foreach($Data['result'] as $key=>$value ):
+				
+			$mid_arr = explode(",",$value->mid);
+  		    $munit_arr_price = explode(",",$value->unit);
+			$total_amt = explode(",",$value->total);
+			$muid = explode(",",$value->muid);
+			$qty = explode(",",$value->m_qty);			
+			//print_r($muid);
+		for($t=0; $t<count($mid_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
+		 ?>
+          <tr>
+           <td><?php echo $i = $i+1;?></td>
+           <td><?php echo $value->vname;?></td>
+           <td><?php echo $value->sname ;?></td>
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>  
+           <td><?php echo (isset($qty[$t]) && !empty($qty[$t]))?$qty[$t]:''  ;?></td>
+           <td><?php echo $munit_arr_price[$t];?></td>
+           <td><?php echo number_format((float)$total_amt[$t], 2, '.', '');?></td>           
+           <td><?php echo date('y-m-d' , strtotime($value->created_at)) ;?></td>           
+
+          </tr>
+        <?php } endforeach;?>
+        </table>
+        
+	  <?php
+	  $Content = ob_get_contents();
+	  ob_end_clean();
+	  return $Content;
+	 }
+
+
+
+
+
  
 
 	 
@@ -1399,11 +1496,16 @@ echo "</pre>";*/
 
 			else if ($tablename == 'grn_master_unbilled' || $tablename == 'grn_master_billed') 
 			{
-					 if($tablename == 'grn_master_unbilled'){	$q = "select `grn_master`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `grn_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `grn_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `grn_master`.sid LEFT JOIN `transporters` ON `transporters`.tid = `grn_master`.tid LEFT JOIN `materials` ON `materials`.mid = `grn_master`.mid LEFT JOIN `munits` ON `munits`.muid = `grn_master`.muid where billed_status = 0";} else if ($tablename == 'grn_master_billed'){
-						$q = "select `grn_master`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `grn_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `grn_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `grn_master`.sid LEFT JOIN `transporters` ON `transporters`.tid = `grn_master`.tid LEFT JOIN `materials` ON `materials`.mid = `grn_master`.mid LEFT JOIN `munits` ON `munits`.muid = `grn_master`.muid where billed_status = 1";
+					 if($tablename == 'grn_master_unbilled'){	$q = "select `grn_master`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname from `grn_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `grn_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `grn_master`.sid LEFT JOIN `transporters` ON `transporters`.tid = `grn_master`.tid LEFT JOIN `materials` ON `materials`.mid = `grn_master`.mid LEFT JOIN `munits` ON `munits`.muid = `grn_master`.muid where billed_genrated = ''";
+					 $more_values = 1;
+					 } else if ($tablename == 'grn_master_billed'){
+						$q = "select `grn_master`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname , `vendor_bills_master`.* from `grn_master` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `grn_master`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `grn_master`.sid LEFT JOIN `transporters` ON `transporters`.tid = `grn_master`.tid LEFT JOIN `materials` ON `materials`.mid = `grn_master`.mid LEFT JOIN `munits` ON `munits`.muid = `grn_master`.muid LEFT JOIN `vendor_bills_master` ON `vendor_bills_master`.mid = `grn_master`.mid where billed_genrated = 'yes'";
+						   $more_values = 2;
 						}
 
+
 				       $tablename = 'grn_master';
+
 
 /*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname,`materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";*/
 
@@ -1567,19 +1669,80 @@ echo "</pre>";*/
 				}
 			}
 			
-			
+	
+	
+	
+				else if ($tablename == 'vendor_bills_master') 
+			{
+						$q = "select `vendor_bills_master`.*,`vendordetails`.vname ,`sitedetails`.sname from `vendor_bills_master` LEFT JOIN `sitedetails` ON `sitedetails`.sid = `vendor_bills_master`.sid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `vendor_bills_master`.vid";
+
+/*				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname,`materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";*/
+
+				
+				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
+					$q .= " where ";
+				}
+				
+				$exc = 0;
+				if($site != ''){
+					if($exc == 0){
+						$q .= $tablename.".sid = '".$site."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".sid = '".$site."' ";
+					}
+					$exc = 1;
+				}
+				if($vendor != ''){
+					if($exc == 0){
+						$q .= $tablename.".vid = '".$vendor."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".vid = '".$vendor."' ";
+					}
+					$exc = 1;
+				}
+				if($material != ''){
+					if($exc == 0){
+						$q .=  "find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+
+					else{
+						$q .= "OR find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+					
+					$exc = 1;
+				}
+				if($fromData != '')
+				{
+					$fdate = date('Y-m-d',strtotime($fromData));
+					$t_date = date('Y-m-d',strtotime($toData));
+					if($exc == 0){
+						$q .= $tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					$exc = 1;
+				}
+			}
+	
+	
+	
+	
+	
+	
+	
+	
+
 			$result = $this->db->query($q);
 			$data['result'] = $result->result();
 			$data['max'] = $max;
 			$data['min'] = $min;
 			$data['tablename'] = $tablename;
 			$data['model'] = $model;
-	
-			
-			//echo $this->set_data_into_table($data , $data['tablename']);
-			//echo $q;
-			echo $this->set_data_into_table($data , $data['tablename']);
-			
+			$more = (isset($more_values) && !empty($more_values))?$more_values:'';
+			echo $this->set_data_into_table($data , $data['tablename'] , $more);
 			//echo $this->load->view('report_ajax',$data);
 
 //			print_r($data);

@@ -18,40 +18,49 @@ class Vendor_bills_m extends CI_Model {
 
     public function show_data_by_site_vendor($data) {
 
+
 		$this->db->where ('sid', $data['sid']);
 		$this->db->where ('vid', $data['vid']);
 		$query = $this->db->get('grn_master');
 		$result = $query->result();
 
-        $Mid = explode(",",$result[0]->mid);
-        $billed_status = explode(",",$result[0]->billed_status);
 
-      if(count($Mid) == count($billed_status)) unset($result);
-
-	  else {
-	  
-			if(isset($result[0]->billed_status) && !empty($result[0]->billed_status))
-			{
-					foreach($billed_status as $values){
+		if(is_null($result)):
+					$Mid = explode(",",$result[0]->mid);
 					
-						$key = array_search($values,$Mid);
-						unset($Mid[$key]);  
-					}
+					$billed_status_i = (!empty($result[0]->billed_status))?trim($result[0]->billed_status):'';
+					
+					if(trim($result[0]->billed_status))  $billed_status = explode(",",trim($result[0]->billed_status));
+				  
+				  if( isset($billed_status) && count($Mid) == count($billed_status) ) unset($result);
 			
-				$return_id = implode(",",$Mid);
-
-				foreach($result[0] as $key=>$values){
+			
+				  else {
+					
+				  
+				  
+						if(isset($billed_status) && !empty($billed_status))
+						{
+								foreach($billed_status as $values){
+								
+									$key = array_search($values,$Mid);
+									unset($Mid[$key]);  
+								}
 						
-						if($key=='mid') $result[0]->mid = trim($return_id); 
-				}
+							$return_id = implode(",",$Mid);
+			
+							foreach($result[0] as $key=>$values){
+									
+									if($key=='mid') $result[0]->mid = trim($return_id); 
+							}
+			
+						} else $result;
+					
+			
+				  }
+			
 
-			} else $result;
-		
-
-	  }
-
-
-
+endif;
         if ($query->num_rows() > 0) {
             if(isset($result)){
 			 

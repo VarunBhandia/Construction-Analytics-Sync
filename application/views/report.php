@@ -36,10 +36,13 @@ div#search_data {
 								<option value="po_master">Purchase Order</option>
 								<option value="grn_master">Good Received</option>
 								<option value="mo_master">Move Order</option>
+								<option value="rtv_master">Return TO vendor</option>
 								<option value="">Unbilled Receiving</option>
 								<option value="">Billed Receiving</option>
 								<option value="">Vendors Rate</option>
 								<option value="">Stock Report</option>
+                                <option value="rtv_master">Return to Vendor</option>
+                                <option value="material_rqst">Material Request</option>
 								<option value="transporters">Transporter Report</option>
 
 							</select>

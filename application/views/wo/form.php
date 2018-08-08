@@ -252,15 +252,15 @@ error_reporting(0);
                                         </script>
                                         <?php 
 
-                                            $material = explode(",",$row[0]->mid);
-                                            $qty = explode(",",$row[0]->mrqty);
-                                            $unit = explode(",",$row[0]->mrunitprice);
+                                            $workitem = explode(",",$row[0]->wiid);
+                                            $qty = explode(",",$row[0]->woqty);
+                                            $unit = explode(",",$row[0]->wounitprice);
                                             $m_unit = explode(",",$row[0]->muid);
-                                            $remarks = explode(",",$row[0]->mrremarks);
+                                            $remarks = explode(",",$row[0]->woremark);
 
 
 
-                                            for($i=0; $i<count($material); $i++)
+                                            for($i=0; $i<count($workitem); $i++)
                                             {
                                         ?>
                                         <tr class="pending-user">
@@ -2136,12 +2136,12 @@ $(document).ready(function (){
 <script  type="text/html" id="form_tpl">
 					<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="form-control select_width" id="workitem_0" name="workitem[]">
 								<option value=""></option>
 								<?php
-								foreach($materials as $value)
+								foreach($workitems as $value)
 								{ ?>
-									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+									<option value="<?php echo $value->wiid?>"><?php echo $value->winame;?></option>
 								<?php }	?>
 							</select>
 						</td>

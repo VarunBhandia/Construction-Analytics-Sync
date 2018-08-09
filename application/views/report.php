@@ -30,7 +30,7 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-6 col-xs-12" for="report">Report Type :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-							<select class="select2" name="report" id="report" style="width:100%;">
+							<select class="reporttype" name="report" id="report" style="width:100%;">
 								<option value=""></option>
 								<option value="cp_master">Cash Purchase</option>
 								<option value="po_master">Purchase Order</option>
@@ -44,8 +44,14 @@ div#search_data {
                                 <option value="rtv_master">Return to Vendor</option>
                                 <option value="material_rqst">Material Request</option>
 								<option value="transporters">Transporter Report</option>
-
 							</select>
+<!--
+                      <script type="text/javascript">
+      $('.reporttype').select2({
+        placeholder: '--- Select Report ---',
+        });
+</script>
+-->
                         </div>
                       </div>
                      
@@ -53,10 +59,14 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Transporter :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                           <select class="select2" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
+                           <select class="transp" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
 								<option value=""></option>
-
 							</select>
+                       <script type="text/javascript">
+      $('.transp').select2({
+        placeholder: '--- Select Sites ---',
+        });
+</script>
                         </div>
                       </div>                    
 
@@ -64,13 +74,17 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Type :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                           <select class="select2" id="type-mode-option" name="type_mode_option" placeholder=" Select Site" style="width:100%;">
+                           <select class="site" id="type-mode-option" name="type_mode_option" placeholder=" Select Site" style="width:100%;">
                                 <option value="All">All Meterial</option>
                                 <option value="moid" tid="">Mo Master</option>
                                 <option value="rtv" tid="">RTV</option>
                                 <option value="grn" tid="">GRN</option>
-
 							</select>
+                       <script type="text/javascript">
+      $('.site').select2({
+        placeholder: '--- Select Sites ---',
+        });
+</script>
                         </div>
                       </div>                    
 

@@ -401,10 +401,15 @@ $(document).ready(function (){
 });
 }); 
 </script>
+ <script type="text/javascript">
+      $('.material').select2({
+        placeholder: '--- Select Materials ---',
+        });
+</script>
 <script  type="text/html" id="form_tpl">
 	<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
+							<select class="material form-control select_width" id="material_0" name="material[]">
 								<option value=""></option>
 								<?php
 								foreach($materials as $value)
@@ -412,6 +417,7 @@ $(document).ready(function (){
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
+                            
 						</td>
 						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">

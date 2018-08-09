@@ -25,7 +25,7 @@ class Vendor_bills_m extends CI_Model {
 		$result = $query->result();
 
 
-		if(is_null($result)):
+		if(count($result)>0):
 					$Mid = explode(",",$result[0]->mid);
 					
 					$billed_status_i = (!empty($result[0]->billed_status))?trim($result[0]->billed_status):'';

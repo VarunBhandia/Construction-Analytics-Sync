@@ -39,8 +39,8 @@ elseif($action == 'update')
 					{
 						$valueSite[$value->sid] = $value->sname;
 					}
-					
-					echo form_dropdown('sid', array('0' => '-- Select Site --') + $valueSite, '','class="select2"');
+					$selected = isset($_REQUEST['sid'])?$_REQUEST['sid']:'';
+					echo form_dropdown('sid', array('0' => '-- Select Site --') + $valueSite, $selected ,'class="select2"');
 					echo '<br /><br />';
 					
 					$valueVendor = array();
@@ -48,8 +48,9 @@ elseif($action == 'update')
 					{
 						$valueVendor[$value->vid] = $value->vname;
 					}
+					$selected_vid = isset($_REQUEST['vid'])?$_REQUEST['vid']:'';
 					
-					echo form_dropdown('vid', array('0' => '-- Select Vendor --') + $valueVendor, '','class="select2"');
+					echo form_dropdown('vid', array('0' => '-- Select Vendor --') + $valueVendor, $selected_vid,'class="select2"');
 					echo '<br /><br />';
 					
                     echo "<div class='error_msg'>";
@@ -140,12 +141,10 @@ elseif($action == 'update')
                                     <tr class="pending-user">
                                         <td style="width: 6em; ">
 											<?php foreach($materials as $material_detail){ 
-											
-											
-											
 											 if($material[$i] == $material_detail->mid):
-											 ?>
-                                             <input type="checkbox" name="selectMaterial[]" class="MaterailSelect" style="width: 20%;" value="<?=$material_detail->mid?>" />
+											 
+											?>
+                                              <input type="checkbox" name="selectMaterial[]" class="MaterailSelect" style="width: 20%;" value="<?=$material_detail->mid?>" />
 											<?php 
 											endif;
 											} ?>

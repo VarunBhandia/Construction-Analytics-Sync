@@ -208,7 +208,6 @@ class Grn extends CI_Controller
     public function insert()
     {
         $model = $this->model;
-        $billed_status = $this->input->post('billed_status');
         $site = $this->input->post('site');
         $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
@@ -229,21 +228,10 @@ class Grn extends CI_Controller
         $transporter = count($this->input->post('transporter')) > 0 ? implode(",",$this->input->post('transporter')) : $this->input->post('transporter');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-        
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        foreach($data['sites'] as $site_details){
-            if($site_details->sid == $site){
-                $site_unique_identifier = $site_details->uniquesid;
-                $site_id = $site_details->sid;
-                $grnrefid = 'GRN/2018/'.$site_unique_identifier."/".$site_id;
-            }
-        }
-        echo $grnrefid;
-        
+
         $data = array(
             'sid'  => $site,
             'grncreatedby'  => $uid,
-            'grnrefid' => $grnrefid,
             'vid'  => $vendor,
             'grnchallan' => $challan,
             'grnreceivedate'  => $date,
@@ -255,7 +243,6 @@ class Grn extends CI_Controller
             'grnlinechallan'  => $challannum,
             'tid'  => $transporter,
             'grnremarks'  => $remark,
-            'billed_status'  => $billed_status			
         );
 
         $this->$model->insert($data,$this->table);

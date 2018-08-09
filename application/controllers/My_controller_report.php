@@ -933,8 +933,8 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
                         {
                         $material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
                         $mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
-						echo "<pre>";
-						print_r($material_detail);
+						//echo "<pre>";
+						//print_r($material_detail);
             
                      ?>
                       <tr>

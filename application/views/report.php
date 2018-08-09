@@ -36,13 +36,14 @@ div#search_data {
 								<option value="po_master">Purchase Order</option>
 								<option value="grn_master">Good Received</option>
 								<option value="mo_master">Move Order</option>
-								<option value="rtv_master">Return TO vendor</option>
-								<option value="">Unbilled Receiving</option>
-								<option value="">Billed Receiving</option>
-								<option value="">Vendors Rate</option>
+								<option value="grn_master_unbilled">Unbilled Receiving</option>
+								<option value="grn_master_billed">Billed Receiving</option>
+								<option value="vendor_bills_master">Vendors Rate</option>
 								<option value="">Stock Report</option>
-                                <option value="rtv_master">Return to Vendor</option>
-                                <option value="material_rqst">Material Request</option>
+								<option value="rtv_master">Return To Vendor</option>
+								<option value="material_rqst">Material Request</option>
+
+                                
 								<option value="transporters">Transporter Report</option>
 
 							</select>
@@ -188,8 +189,8 @@ div#search_data {
 					   <div class="form-group">
 							<div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-4">
 								<button type="button" id="submit" class="btn btn-primary" >Apply</button>
-								<button style="display:none;" type="button" id="submit1" class="btn btn-primary" >Apply</button>
-								<a href="" class="btn btn-danger">Cancel</a>
+<!--	  							<button type="button" id="submit1" class="btn btn-primary" >Apply1</button>
+-->							<a href="" class="btn btn-danger">Cancel</a>
 							</div>
 						</div>
 			  </form>

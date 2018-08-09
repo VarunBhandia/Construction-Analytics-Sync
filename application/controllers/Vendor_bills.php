@@ -92,6 +92,94 @@ class Vendor_bills extends CI_Controller {
         $data['show_table'] = $this->view_table();
         $this->load->view('vendor_bills/index', $data);
     }
+	
+	    function action()
+
+    {
+		
+
+//		$query = $this->db->get('vendor_bills_master');
+	//	$result = $query->result();		
+		$q = "select `vendor_bills_master`.*,`vendordetails`.vname ,`sitedetails`.sname from `vendor_bills_master` LEFT JOIN `sitedetails` ON `sitedetails`.sid = `vendor_bills_master`.sid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `vendor_bills_master`.vid";
+			$result = $this->db->query($q);
+			$data = $result->result();		
+
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("SR NO.", "Site Name", "Vendor Name", "Material Name" , "Material Unit" , "Quantity Received", "Material Price" , "CGST" , "SGST", "IGST" , "Total", "Bill No" ,"Bill Date" ,"Bill Type" , "Frieght GST", "Frieght Amount", "Gross Amount" ,"Payment Days" );
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+       // $v_data = $this->vendor_m->fetch();
+
+        $excel_row = 2;
+$i = 0;
+foreach($data as $key=>$value ){
+				
+			$mid_arr = explode(",",$value->mid);
+			$unit_price = explode(",",$value->unit);
+			$qty = explode(",",$value->m_qty);	
+			$muid = explode(",",$value->muid);
+			$total_amt = explode(",",$value->total);
+			$cgst = explode(",",$value->cgst);
+			$sgst = explode(",",$value->sgst);
+			$igst = explode(",",$value->igst);
+
+		for($t=0; $t<count($mid_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
+
+			 $mname = (isset($material_detail[$t]->mname) && !empty($material_detail[$t]->mname))?$material_detail[$t]->mname:'';
+			 $muname = (isset($mu_detail[$t]->muname) && !empty($mu_detail[$t]->muname))?$mu_detail[$t]->muname:'';
+				$i = $i+1;
+				$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row,  $i);	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $value->sname);	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $value->vname);								
+				$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $mname);								
+			 	$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $muname);								
+			 	$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $qty[$t]);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $unit_price[$t] );								
+
+				$object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $cgst[$t] );	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $sgst[$t] );	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $igst[$t] );									
+
+			 	$object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $total_amt[$t]);				
+				$object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $value->bill_no);								
+				$object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $value->bill_date);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $value->bill_type);				
+				$object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $value->frieght_gst);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $value->frieght_amount);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(16, $excel_row, $value->gross_amount);												
+				$object->getActiveSheet()->setCellValueByColumnAndRow(17, $excel_row, $value->payment_days);	
+           
+		    $excel_row++;
+					
+			}
+		
+		}
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+        redirect('Vendor_bills');
+    }
+	
+	
+	
+	
     public function insert()
     {
         $user_id = 11;
@@ -191,6 +279,7 @@ class Vendor_bills extends CI_Controller {
 
     public function edit($vbid)
     {
+
         $vbid = $this->uri->segment(3);
         $model = $this->model;
         $data['controller'] = $this->controller;
@@ -205,7 +294,9 @@ class Vendor_bills extends CI_Controller {
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
         $data['show_table'] = $this->view_table();
+
         $this->load->view('vendor_bills/form', $data);
+
     }
 
     public function update()

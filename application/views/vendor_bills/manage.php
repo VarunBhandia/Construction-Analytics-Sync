@@ -101,7 +101,13 @@ error_reporting(0);
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="x_panel">
                                     <div class="x_title">
-                                        <h1>Vendor Bill Details</h1>
+                                        <h1>
+                                          Vendor Bill Details
+		                                    <form method="post" action="<?php echo  base_url().$controller."/action/";?>">
+        	                                    <input type="submit" name="export" class="btn btn-success" value="Export">
+                                            </form>                                        
+                                        </h1>
+
 <!--
                                         <ul class="nav navbar-right panel_toolbox">
                                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>

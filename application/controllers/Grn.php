@@ -24,6 +24,9 @@ class Grn extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->grn_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -36,6 +39,8 @@ class Grn extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
@@ -72,6 +77,8 @@ class Grn extends CI_Controller
             $data["grn_data"] = $this->grn_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
@@ -197,11 +204,15 @@ class Grn extends CI_Controller
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('grn/form',$data);
     }
 
@@ -255,14 +266,18 @@ class Grn extends CI_Controller
     public function edit($grnid)
     {
         $model = $this->model;
+        $data['action'] = "update";
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$grnid),'');
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['transporters'] = $this->$model->select(array(),'transporters',array(),'');
-        $data['action'] = "update";
-        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('grn/form',$data);
     }
 

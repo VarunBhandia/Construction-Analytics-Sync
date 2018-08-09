@@ -23,7 +23,11 @@ class Vendor_bills extends CI_Controller {
         {
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['result'] = $this->$model->db_query("select `".$this->table."`.*,`sitedetails`.sname,`vendordetails`.vname from `".$this->table."` INNER JOIN `sitedetails` ON `sitedetails`.sid = `".$this->table."`.sid INNER JOIN `vendordetails` ON `vendordetails`.vid = `".$this->table."`.vid ");
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('vendor_bills/manage',$data);
         }
         else  
@@ -38,16 +42,16 @@ class Vendor_bills extends CI_Controller {
         $data['controller'] = $this->controller;
         $data['show_table'] = $this->view_table();
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-
         $user = $this->$model->select(array(),'users',array('uid' => 11),'');
-
         $data['sites'] = $this->$model->db_query("SELECT * FROM `sitedetails` WHERE sid IN(".$user[0]->site.")");
-
-
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('vendor_bills/index', $data);
     }
     public function view_table(){
@@ -60,7 +64,6 @@ class Vendor_bills extends CI_Controller {
     }
 
     public function show_data_by_site_vendor() {
-
       $sid = $this->input->post('sid');
       $vid = $this->input->post('vid');
  
@@ -80,6 +83,8 @@ class Vendor_bills extends CI_Controller {
         }
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['action'] = "insert";
         $data['show_table'] = $this->view_table();
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
@@ -90,8 +95,98 @@ class Vendor_bills extends CI_Controller {
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
         $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('vendor_bills/index', $data);
     }
+	
+	    function action()
+
+    {
+		
+
+//		$query = $this->db->get('vendor_bills_master');
+	//	$result = $query->result();		
+		$q = "select `vendor_bills_master`.*,`vendordetails`.vname ,`sitedetails`.sname from `vendor_bills_master` LEFT JOIN `sitedetails` ON `sitedetails`.sid = `vendor_bills_master`.sid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `vendor_bills_master`.vid";
+			$result = $this->db->query($q);
+			$data = $result->result();		
+
+        $this->load->library("excel");
+        $object = new PHPExcel();
+
+
+        $object->setActiveSheetIndex(0);
+
+        $table_columns = array("SR NO.", "Site Name", "Vendor Name", "Material Name" , "Material Unit" , "Quantity Received", "Material Price" , "CGST" , "SGST", "IGST" , "Total", "Bill No" ,"Bill Date" ,"Bill Type" , "Frieght GST", "Frieght Amount", "Gross Amount" ,"Payment Days" );
+
+        $column = 0;
+
+        foreach($table_columns as $field)
+        {
+            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
+            $column++;
+        }
+
+       // $v_data = $this->vendor_m->fetch();
+
+        $excel_row = 2;
+$i = 0;
+foreach($data as $key=>$value ){
+				
+			$mid_arr = explode(",",$value->mid);
+			$unit_price = explode(",",$value->unit);
+			$qty = explode(",",$value->m_qty);	
+			$muid = explode(",",$value->muid);
+			$total_amt = explode(",",$value->total);
+			$cgst = explode(",",$value->cgst);
+			$sgst = explode(",",$value->sgst);
+			$igst = explode(",",$value->igst);
+
+		for($t=0; $t<count($mid_arr); $t++)
+			{
+			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
+
+			 $mname = (isset($material_detail[$t]->mname) && !empty($material_detail[$t]->mname))?$material_detail[$t]->mname:'';
+			 $muname = (isset($mu_detail[$t]->muname) && !empty($mu_detail[$t]->muname))?$mu_detail[$t]->muname:'';
+				$i = $i+1;
+				$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row,  $i);	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $value->sname);	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $value->vname);								
+				$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $mname);								
+			 	$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $muname);								
+			 	$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $qty[$t]);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $unit_price[$t] );								
+
+				$object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $cgst[$t] );	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $sgst[$t] );	
+				$object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $igst[$t] );									
+
+			 	$object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $total_amt[$t]);				
+				$object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $value->bill_no);								
+				$object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $value->bill_date);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $value->bill_type);				
+				$object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $value->frieght_gst);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $value->frieght_amount);
+				$object->getActiveSheet()->setCellValueByColumnAndRow(16, $excel_row, $value->gross_amount);												
+				$object->getActiveSheet()->setCellValueByColumnAndRow(17, $excel_row, $value->payment_days);	
+           
+		    $excel_row++;
+					
+			}
+		
+		}
+
+        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="Employee Data.xls"');
+        $object_writer->save('php://output');
+        redirect('Vendor_bills');
+    }
+	
+	
+	
+	
     public function insert()
     {
         $user_id = 11;
@@ -117,7 +212,6 @@ class Vendor_bills extends CI_Controller {
         $payment_days = $this->input->post('payment_days');
         $vbremarks = $this->input->post('vbremarks');
         $uindex = implode(",",$this->input->post('uindex'));
-        $date = date('Y-m-d');
         
 
 		$mid = count($this->input->post('selectMaterial')) > 0 ? implode(",",$this->input->post('selectMaterial')) : $this->input->post('selectMaterial');	
@@ -143,6 +237,7 @@ class Vendor_bills extends CI_Controller {
         $data = array(
 		
             'grnrefid'=>$grnrefid,
+            
 			'vid'  => $vid,
             'sid'  => $sid,
 			'mid'  => $mid,			
@@ -161,7 +256,6 @@ class Vendor_bills extends CI_Controller {
             'pocreatedon'  => $date,
             'payment_days'  => $payment_days,
             'vbremarks'  => $vbremarks,
-            'date'  => $date,
             'unit'  => $unit,
             'muid'  => $muid,
             'm_qty'  => $m_qty,           
@@ -172,7 +266,7 @@ class Vendor_bills extends CI_Controller {
             'remark' => $remark,
             'status' => $status,
             'created_at' => $create_date,
-            'created_by' => $user_id
+            'created_by' => $uid
         );
         $success = $this->$model->insert($data,$this->table);
         
@@ -191,9 +285,12 @@ class Vendor_bills extends CI_Controller {
 
     public function edit($vbid)
     {
+
         $vbid = $this->uri->segment(3);
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['action'] = "insert";
         $data['show_table'] = $this->view_table();
         $data['result'] = $this->$model->select(array(),$this->table,array('id'=>$vbid),'');
@@ -205,7 +302,10 @@ class Vendor_bills extends CI_Controller {
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
         $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('vendor_bills/form', $data);
+
     }
 
     public function update()
@@ -295,7 +395,8 @@ class Vendor_bills extends CI_Controller {
         $payment_days = $this->input->post('payment_days');
         $vbremarks = $this->input->post('vbremarks');
         $uindex = implode(",",$this->input->post('uindex'));
-        $date = date('Y-m-d');
+        $updateddate = date('Y-m-d h:i:s');
+        $uid = $this->input->post('uid');
 
    		$mid = count($this->input->post('mid')) > 0 ? implode(",",$this->input->post('mid')) : $this->input->post('mid');	
 		$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
@@ -328,7 +429,6 @@ class Vendor_bills extends CI_Controller {
             'pocreatedon'  => $date,
             'payment_days'  => $payment_days,
             'vbremarks'  => $vbremarks,
-            'date'  => $date,
             'unit'  => $unit,
             'muid'  => $muid,
             'm_qty'  => $m_qty,           
@@ -337,8 +437,8 @@ class Vendor_bills extends CI_Controller {
             'igst'  => $igst,
             'total'  => $total,
             'remark' => $remark,
-            'updated_at' => $create_date,
-            'updated_by' => $user_id
+            'updated_at' => $updateddate,
+            'updated_by' => $uid
         );
 
         $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Vendor Updated Successfully!</div>');

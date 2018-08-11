@@ -1,7 +1,6 @@
 <?php
 	error_reporting(0);
 ?>
-          <script src="<?php echo base_url('assets/js/tableToexcel.js')?>" type='text/javascript'></script>
 
 <style>
 div#search_data {
@@ -128,12 +127,19 @@ div#search_data {
                         </div>
                       </div>
                      
-                      <div class="form-group" id="transport-content">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Transporter :
+                     <div class="form-group" id="type-mode" style="display:none;">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Type :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
+                           <select class="select2" id="type-mode-option" name="type_mode_option" placeholder=" Select Site" style="width:100%;">
+                                <option value=""></option>
+                                <option value="mo_master" tid="">Mo Master</option>
+                                <option value="rtv_master" tid="">RTV</option>
+                                <option value="grn_master" tid="">GRN</option>
+
                            <select class="transp" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
 								<option value=""></option>
+
 							</select>
                        <script type="text/javascript">
       $('.transp').select2({
@@ -141,17 +147,22 @@ div#search_data {
         });
 </script>
                         </div>
-                      </div>                    
-
-                      <div class="form-group" id="type-mode" style="display:none;">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Type :
+                      </div>   
+                     
+                      <div class="form-group" id="transport-content">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Transporter :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
+
+                           <select class="select2" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
+
+
                            <select class="site" id="type-mode-option" name="type_mode_option" placeholder=" Select Site" style="width:100%;">
                                 <option value="All">All Meterial</option>
                                 <option value="moid" tid="">Mo Master</option>
                                 <option value="rtv" tid="">RTV</option>
                                 <option value="grn" tid="">GRN</option>
+
 							</select>
                        <script type="text/javascript">
       $('.site').select2({
@@ -160,6 +171,8 @@ div#search_data {
 </script>
                         </div>
                       </div>                    
+
+                        
 
                       <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Material :
@@ -294,8 +307,8 @@ div#search_data {
 					   <div class="form-group">
 							<div class="col-md-9 col-sm-6 col-xs-12 col-md-offset-4">
 								<button type="button" id="submit" class="btn btn-primary" >Apply</button>
-<!--	  							<button type="button" id="submit1" class="btn btn-primary" >Apply1</button>
--->							<a href="" class="btn btn-danger">Cancel</a>
+<!--	  							<button type="button" id="submit1" class="btn btn-primary" >Apply1</button>-->
+							<a href="" class="btn btn-danger">Cancel</a>
 							</div>
 						</div>
 			  </form>
@@ -410,6 +423,7 @@ $('#transport-content').hide();
 									{
 										$('#transport-content').show();
 										$('select#transporter').html(response);
+										$('#type-mode').show();
 										$('#vendorname').html('');
 									}
 							});
@@ -449,26 +463,23 @@ $('#transport-content').hide();
 			
 	
 
-	$('body').on('change','#type-mode-option', function() {
+	/*$('body').on('change','#type-mode-option', function() {
 		var type_mode = $(this).val();
 		
 			var tid = $('#type-mode-option option').attr('tid');
 	
 	
 									$.ajax({
-									"url": "<?php echo base_url()."My_controller_report/get_type_of_data/" ?>",
+									"url": "<?php //echobase_url()."My_controller_report/get_type_of_data/" ?>",
 									"data": {type_mode: type_mode , tid:tid},	
 									"type": "POST",
 									success: function(response)
 									{
-										 //alert(response);
-										//$('#type-mode').show();
-										
-										$('#material').html(response);
+										//$('#material').html(response);
 									}
 							});
 						});
-			
+			*/
 
 
 	$('body').on('change','#material', function() {
@@ -527,14 +538,6 @@ $('body').on('click','#submit1', function() {
 	 
 //	  alert(transpoter_name+" "+materail_name+" "+site_name+" "+category_name+" "+FormDate+toData);
 });
-		
-/*$("body").on('click','#btnExport',function () {
-			$("#dataTable").table2excel({
-				filename: "Report.xls"
-		});
-});		
-*/
-
 
 	$("#dataTable").hide();
 	
@@ -544,6 +547,7 @@ $('body').on('click','#submit1', function() {
 		var material = $("#material").val();
 		var fromData = $("#fromData").val();
 		var toData = $("#toData").val();
+		var type_mode_option = $("select[name='type_mode_option']").val(); 
 		var min = $("#min").val();
 		var max = $("#max").val();
 		
@@ -555,30 +559,10 @@ $('body').on('click','#submit1', function() {
 		}
 		else
 		{
-			/* $("#dataTable").dataTable().fnDestroy();
-			$("#dataTable").show();
-			$("#dataTable").DataTable({
-				processing:true,
-				"pageLength":  100,
-				"pagingType": "full_numbers",
-				serverside:true,
-				columns:getdata,
-				autoWidth:false,
-					ajax:{
-						"url": "<?php //echo base_url()."My_controller_report/reportData/" ?>",
-						"dataType": "json",
-						"data": {id:report,site:site,vendor:vendor,material:material,getdata:getdata,fromData:fromData,toData:toData,min:min,max:max},
-					},
-				}).on( 'order.dt search.dt', function () {
-				$("#dataTable").DataTable().column(0, {search:'applied',order:'applied'}).nodes().each( function (cell, i) {
-					cell.innerHTML = i+1;
-				});
-			}).draw(); */
-			
 			$.ajax({
 				type:"POST",
 				url:"<?php echo base_url()."My_controller_report/reportData/" ?>",
-				data:{id:report,site:site,vendor:vendor,material:material,getdata:getdata,fromData:fromData,toData:toData,min:min,max:max},
+				data:{id:report,type_mode_option:type_mode_option,site:site,vendor:vendor,material:material,getdata:getdata,fromData:fromData,toData:toData,min:min,max:max},
 				success:function (res)
 				{
 					//alert(res)
@@ -600,7 +584,13 @@ $('body').on('click','#submit1', function() {
 
 }); 
 </script>
+
 <script>
+$("body").on('click','#btnExport',function () {
+			$("#dataTable").table2excel({
+				filename: "Report.xls"
+		});
+});
 $(document).ready(function (){	
 	
 	var dp = $("#from").datepicker({
@@ -665,3 +655,6 @@ $(document).ready(function (){
 	// 	  });
 	// });
 </script>
+
+   <script src="<?php echo base_url('assets/js/tableToexcel.js')?>" type='text/javascript'></script>
+

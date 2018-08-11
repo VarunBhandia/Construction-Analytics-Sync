@@ -42,7 +42,18 @@ error_reporting(0);
             <script src="<?php echo base_url('assets/select2/dist/js/select2.min.js')?>" type='text/javascript'></script>
 
             <link href="<?php echo base_url('assets/select2/dist/css/select2.min.css')?>" rel='stylesheet' type='text/css'>
-
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<style type="text/css">
+@media (min-width: 768px){
+.modal-dialog {
+    width: 75%!important;
+    margin: 30px auto!important;
+ }
+}
+.modal-body{overflow:scroll;}
+</style>
         </head>
 
         <body class="nav-md">
@@ -57,6 +68,7 @@ error_reporting(0);
                             $this->load->view('include/sidebar');
                             ?>
                             <!-- /sidebar menu -->
+
                         </div>
                     </div>
 
@@ -124,6 +136,29 @@ error_reporting(0);
                                         <div class="clearfix"></div>
                                     </div>
                                     <div class="x_content">
+                                    
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modal Header</h4>
+      </div>
+      <div class="modal-body">
+        <p>Some text in the modal.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+                                    
+                                    
+                                    
                                         <table id="datatable"  class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
@@ -149,9 +184,15 @@ error_reporting(0);
                                                     <td><?php echo $val->bill_date; ?></td>
                                                     <td><?php echo $val->gross_amount; ?></td>
                                                     <td>
-                                                        <a class="btn btn-warning btn-sm" href="<?php echo base_url().$controller."/edit/".$val->id."" ?>"><i class="glyphicon glyphicon-edit icon-white"></i> Edit</a>
+                                                    
+                                                    <a class="btn btn-warning btn-sm modal_show" data-toggle="modal" data-target="#myModal" bill_id="<?php echo $val->id;?>">
+                                                         <i class="glyphicon glyphicon-list-alt icon-white"></i>
+                                                        </a>
+                                                    
 
-                                                        <a class="btn btn-danger btn-sm" href="<?php echo base_url().$controller."/delete/".$val->id."" ?>"onclick="return confirm('Are You Sure To Delete This Record?')"><i class="glyphicon glyphicon-trash icon-white"></i> Delete</a>
+                                                        <a class="btn btn-warning btn-sm" href="<?php echo base_url().$controller."/edit/".$val->id."" ?>"><i class="glyphicon glyphicon-edit icon-white"></i> </a>
+
+                                                        <a class="btn btn-danger btn-sm" href="<?php echo base_url().$controller."/delete/".$val->id."" ?>"onclick="return confirm('Are You Sure To Delete This Record?')"><i class="glyphicon glyphicon-trash icon-white"></i> </a>
 
                                                         <?php 
                                                     if($val->u_status == 'Disapprove')
@@ -200,6 +241,28 @@ error_reporting(0);
                                 $('.remove_unit').trigger('keyup');
                             }
                         });
-                    });
-                </script>
 
+					$('body').on('click','.modal_show', function() {
+    				    var bill_id = $(this).attr('bill_id');
+						$.ajax({
+						
+							type:"POST",
+							url:"<?php echo base_url()."Vendor_bills/Bill_details/"?>",
+							data:{id:bill_id},
+							success:function (res)
+							{
+								//alert(res)
+								 $('.modal-body').html(res);
+							}
+						});
+					});
+						
+
+                    
+		});
+
+					
+					
+					
+					
+                </script>

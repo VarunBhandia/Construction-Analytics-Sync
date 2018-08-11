@@ -100,91 +100,229 @@ class Vendor_bills extends CI_Controller {
         $this->load->view('vendor_bills/index', $data);
     }
 	
-	    function action()
-
-    {
-		
-
-//		$query = $this->db->get('vendor_bills_master');
-	//	$result = $query->result();		
+function action()
+ {
+	error_reporting(0);
 		$q = "select `vendor_bills_master`.*,`vendordetails`.vname ,`sitedetails`.sname from `vendor_bills_master` LEFT JOIN `sitedetails` ON `sitedetails`.sid = `vendor_bills_master`.sid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `vendor_bills_master`.vid";
-			$result = $this->db->query($q);
-			$data = $result->result();		
+	$result = $this->db->query($q);
+	$data = $result->result();		
+	$i = 0;
+	$filename = "Vendor_bills_".date('Y-m-d') . ".xls";
+	header("Content-Type: application/vnd.ms-excel");
+	header("Content-Disposition: attachment; filename=\"$filename\"");
+?>
 
-        $this->load->library("excel");
-        $object = new PHPExcel();
+   <table id="dataTable" class="table table-striped table-bordered" cellpadding="0" cellspacing="0" style="width:100%">
+	<thead>
+          <tr>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">SR. NO.</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Vendor</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Site</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Material Name</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Material Unit</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Quantity Received</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Unit Price</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">CGST</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">SGST</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">IGST</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Total Amount</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Bill NO.</th>
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Bill Date.</th>           
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Bill Type.</th>           
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Fright GST.</th>           
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Fright Amount</th>           
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Gross Amount</th>           
+            <th style="background: #ccc; padding:10px 0 10px;  font-size: 13px; border-right:1px solid #fff;">Payment Days</th>           
+          </tr>
+	<thead>
+    <tbody>
+          
+<?php
 
 
-        $object->setActiveSheetIndex(0);
+$data = $this->get_material_details($data);
 
-        $table_columns = array("SR NO.", "Site Name", "Vendor Name", "Material Name" , "Material Unit" , "Quantity Received", "Material Price" , "CGST" , "SGST", "IGST" , "Total", "Bill No" ,"Bill Date" ,"Bill Type" , "Frieght GST", "Frieght Amount", "Gross Amount" ,"Payment Days" );
 
-        $column = 0;
-
-        foreach($table_columns as $field)
-        {
-            $object->getActiveSheet()->setCellValueByColumnAndRow($column, 1, $field);
-            $column++;
-        }
-
-       // $v_data = $this->vendor_m->fetch();
-
-        $excel_row = 2;
-$i = 0;
 foreach($data as $key=>$value ){
-				
 			$mid_arr = explode(",",$value->mid);
-			$unit_price = explode(",",$value->unit);
-			$qty = explode(",",$value->m_qty);	
+			$mname = explode(",",$value->mname);			
 			$muid = explode(",",$value->muid);
+			$muname = explode(",",$value->muname);
+			$munit_arr_price = explode(",",$value->unit);
 			$total_amt = explode(",",$value->total);
+			$qty = explode(",",$value->m_qty);			
 			$cgst = explode(",",$value->cgst);
 			$sgst = explode(",",$value->sgst);
 			$igst = explode(",",$value->igst);
-
-		for($t=0; $t<count($mid_arr); $t++)
-			{
-			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
-			if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
-
-			 $mname = (isset($material_detail[$t]->mname) && !empty($material_detail[$t]->mname))?$material_detail[$t]->mname:'';
-			 $muname = (isset($mu_detail[$t]->muname) && !empty($mu_detail[$t]->muname))?$mu_detail[$t]->muname:'';
-				$i = $i+1;
-				$object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row,  $i);	
-				$object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $value->sname);	
-				$object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $value->vname);								
-				$object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $mname);								
-			 	$object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $muname);								
-			 	$object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $qty[$t]);
-				$object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $unit_price[$t] );								
-
-				$object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $cgst[$t] );	
-				$object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $sgst[$t] );	
-				$object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $igst[$t] );									
-
-			 	$object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $total_amt[$t]);				
-				$object->getActiveSheet()->setCellValueByColumnAndRow(11, $excel_row, $value->bill_no);								
-				$object->getActiveSheet()->setCellValueByColumnAndRow(12, $excel_row, $value->bill_date);
-				$object->getActiveSheet()->setCellValueByColumnAndRow(13, $excel_row, $value->bill_type);				
-				$object->getActiveSheet()->setCellValueByColumnAndRow(14, $excel_row, $value->frieght_gst);
-				$object->getActiveSheet()->setCellValueByColumnAndRow(15, $excel_row, $value->frieght_amount);
-				$object->getActiveSheet()->setCellValueByColumnAndRow(16, $excel_row, $value->gross_amount);												
-				$object->getActiveSheet()->setCellValueByColumnAndRow(17, $excel_row, $value->payment_days);	
-           
-		    $excel_row++;
-					
-			}
+			$colspan = count($mid_arr);
+				 ?>
+            <tr bordercolor="red">                
+ 				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $i = $i+1;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->vname;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"  rowspan="<?=$colspan;?>"><?php echo $value->sname ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" ><?php echo $mname[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $muname[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $qty[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $munit_arr_price[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $cgst[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $sgst[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $igst[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo number_format((float)$total_amt[0], 2, '.', '');?></td>
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->bill_no;?></td>
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->bill_date;?></td>           
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->bill_type;?></td>           
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->frieght_gst;?></td>                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->frieght_amount;?></td>                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->gross_amount;?></td>                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->payment_days;?></td> 				
+		   </tr>
+   <?php 
+		unset($mid_arr[0]);
+ 	    foreach($mid_arr as $key=>$value){
+		   ?>
+			<tr>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$mname[$key];?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$muname[$key];;?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$qty[$key];?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$munit_arr_price[$key];?></td>
+	         <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $cgst[$key] ;?></td>
+             <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $sgst[$key] ;?></td>
+             <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $igst[$key] ;?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo number_format((float)$total_amt[$key], 2, '.', '');?></td>
+			</tr>
+		   <?php
+		  }
+}?>
+        </tbody>
+		</table>
+		<?php
 		
-		}
-
-        $object_writer = PHPExcel_IOFactory::createWriter($object, 'Excel5');
-        header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Employee Data.xls"');
-        $object_writer->save('php://output');
         redirect('Vendor_bills');
     }
 	
 	
+		function get_material_details($Data){
+
+		foreach($Data as $key =>$value){
+
+   			$mid_arr = explode(",",$value->mid);
+			$muid = explode(",",$value->muid);
+
+			for($t=0; $t<count($mid_arr); $t++){
+
+				if(!empty($mid_arr[$t])) $material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+
+			    if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
+
+				if(isset($material_detail[0]->mname) && !empty($material_detail[0]->mname)){
+					$value->mname[] = $material_detail[0]->mname;	
+				}
+				if(isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname)){
+										$value->muname[] = $mu_detail[0]->muname;	
+					}
+			}
+		  
+		}
+		
+		foreach($Data as $key=>$values ){
+				if(isset($values->mname)) 
+								$values->mname = implode(",",$values->mname); 							
+				if(isset($values->muname)) $values->muname = implode(",",$values->muname); 							
+	
+			}
+			
+					//		echo "<pre>";
+	
+			return $Data;
+		}
+	
+	
+	function Bill_details(){
+
+		$billId = $this->input->post('id');
+
+    $i = 0;
+			$q = "select `vendor_bills_master`.*,`vendordetails`.vname ,`sitedetails`.sname from `vendor_bills_master` LEFT JOIN `sitedetails` ON `sitedetails`.sid = `vendor_bills_master`.sid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `vendor_bills_master`.vid where id = $billId";
+	$result = $this->db->query($q);
+	$data = $result->result();		
+	$data = $this->get_material_details($data);
+//print_r($data);
+
+?>
+   <table id="dataTable" class="table table-striped table-bordered" cellpadding="0" cellspacing="0" style="width:100%">
+	<thead>
+          <tr>
+            <th >SR. NO.</th>
+            <th >Vendor</th>
+            <th >Site</th>
+            <th>Material Name</th>
+            <th>Material Unit</th>
+            <th>Quantity Received</th>
+            <th>Unit Price</th>
+            <th>CGST</th>
+            <th>SGST</th>
+            <th>IGST</th>
+            <th>Total Amount</th>
+            <th>Bill NO.</th>
+            <th>Bill Date.</th>           
+            <th>Bill Type.</th>           
+            <th>Fright GST.</th>           
+            <th>Fright Amount</th>           
+            <th>Gross Amount</th>           
+            <th>Payment Days</th>           
+          </tr>
+	<thead>
+
+
+<?php
+
+foreach($data as $key=>$value ){
+			$mid_arr = explode(",",$value->mid);
+			$mname = explode(",",$value->mname);			
+			$muid = explode(",",$value->muid);
+			$muname = explode(",",$value->muname);
+			$munit_arr_price = explode(",",$value->unit);
+			$total_amt = explode(",",$value->total);
+			$qty = explode(",",$value->m_qty);			
+			$cgst = explode(",",$value->cgst);
+			$sgst = explode(",",$value->sgst);
+			$igst = explode(",",$value->igst);
+			$colspan = count($mid_arr);
+				 ?>
+            <tr bordercolor="red">                
+ 				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $i = $i+1;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->vname;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"  rowspan="<?=$colspan;?>"><?php echo $value->sname ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" ><?php echo $mname[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $muname[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $qty[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $munit_arr_price[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $cgst[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $sgst[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $igst[0] ;?></td>
+				   <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo number_format((float)$total_amt[0], 2, '.', '');?></td>
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->bill_no;?></td>
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->bill_date;?></td>           
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->bill_type;?></td>           
+                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->frieght_gst;?></td>                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->frieght_amount;?></td>                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->gross_amount;?></td>                   <td style="padding:10px; text-align:center;border: 1px solid #ccc;" rowspan="<?=$colspan;?>"><?php echo $value->payment_days;?></td> 				
+		   </tr>
+   <?php 
+		unset($mid_arr[0]);
+ 	    foreach($mid_arr as $key=>$value){
+		   ?>
+			<tr>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$mname[$key];?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$muname[$key];;?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$qty[$key];?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?=$munit_arr_price[$key];?></td>
+	         <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $cgst[$key] ;?></td>
+             <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $sgst[$key] ;?></td>
+             <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo $igst[$key] ;?></td>
+			 <td style="padding:10px; text-align:center;border: 1px solid #ccc;"><?php echo number_format((float)$total_amt[$key], 2, '.', '');?></td>
+			</tr>
+		   <?php
+		  }
+}
+
+	
+		}
 	
 	
     public function insert()

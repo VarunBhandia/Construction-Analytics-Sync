@@ -448,6 +448,7 @@ public function get_transport(){
 
         	$query = $this->db->get('transporters');
 			$result = $query->result();
+			echo '<option value="" transpoter-name=""></option>';
 			foreach($result as $key=>$value){
 			  
 			  echo '<option value="'.$value->tid.'" transpoter-name="'.$value->tname.'"> '.$value->tname.'</option>';
@@ -471,10 +472,13 @@ public function get_type_of_data(){
         	$moid_query = $this->db->get('mo_master');
 			
 			$moid_array = $moid_query->result();
-			foreach($moid_array as $key=>$value){
+			//echo "<pre>";
+			//print_r($moid_array);
+			
+			/*foreach($moid_array as $key=>$value){
 				 $all_id['mid'][]=$value->mid;
 				 $all_id['sid'][]=$value->tsid;
-			}
+			}*/
 			$array = $this->return_data_of_multiple_table($all_id);
 
 			}else if($type == 'rtv'){
@@ -619,7 +623,7 @@ function get_records_of_table($id , $table_name){
 
 function make_option_fields($Get_data , $Sid){
 $content = '';
-    $content.='<option value="" >Select Meterial</option>';
+    $content.='<option value="" ></option>';
 	foreach($Get_data as $key=>$value){
       if($Sid !='All') $content.='<option value="'.$Get_data[$key]['mid'].'" materail-name="'.$Get_data[$key]['mname'].'" unit="'.$Get_data[$key]['munit'].'" sid="'.$Sid[$key].'" category_id="'.$Get_data[$key]['mcategory'].'">'.$Get_data[$key]['mname'].'</option>';
 	  else $content.='<option value="'.$Get_data[$key]['mid'].'" materail-name="'.$Get_data[$key]['mname'].'" unit="'.$Get_data[$key]['munit'].'" category_id="'.$Get_data[$key]['mcategory'].'">'.$Get_data[$key]['mname'].'</option>';
@@ -719,11 +723,13 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	 if($table_name == 'cp_master'){
        ob_start();
 	   ?>
+        
+        <div class="row">
+         <div class="col-sm-2">
+	         <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+         </div>
+        </div>
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-             <tr>
-                <td><a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
-             </tr>
-
           <tr>
            <th>SR. No.</th>
            <th>Date</th>
@@ -738,22 +744,34 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
            <th>Challan No.</th>
            <th>Remarks</th>
           </tr>
-         <?php foreach($Data['result'] as $key=>$value ):?>
+         <?php foreach($Data['result'] as $key=>$value ): 
+ 		 $qty_arr = explode(",",$value->cpqty);	
+		 $mid_arr = explode(",",$value->mid);
+		 $unitprice = explode(",",$value->cpunitprice);
+ 		 $munit_arr = explode(",",$value->muid);
+
+	for($t=0; $t<count($qty_arr); $t++)
+	{
+		$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+		$mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
+
+		 ?>
+         
           <tr>
            <td><?php echo $i = $i+1;?></td>
            <td><?php echo $value->cppurchasedate;?></td>
            <td><?php echo $value->cprefid;?></td>
            <td><?php echo $value->vname;?></td>
            <td><?php echo $value->sname;?></td>  
-           <td><?php echo $value->mname;?></td>  
-           <td><?php echo $value->muname;?></td>    
-           <td><?php echo $value->cpqty;?></td>                      
-           <td><?php echo $value->cpunitprice;?></td>                      
-           <td><?php echo  ( is_numeric($value->cpqty) &&  is_numeric($value->cpunitprice))?number_format($value->cpqty*$value->cpunitprice):''; ?></td>                      
+           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
+           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>                      
+           <td><?php echo $qty_arr[$t];?></td>                      
+           <td><?php echo $unitprice[$t];?></td>     
+           <td><?php echo  ( is_numeric($qty_arr[$t]) &&  is_numeric($unitprice[$t]))?number_format($qty_arr[$t]*$unitprice[$t]):''; ?></td>                      
            <td><?php echo '';?></td>                      
            <td><?php echo $value->cpremark;?></td>                      
           </tr>
-        <?php endforeach;?>
+        <?php } endforeach;?>
         </table>
         
 	  <?php
@@ -764,6 +782,12 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	 else if($table_name == 'po_master'){
        ob_start();
 	   ?>
+        <div class="row">
+         <div class="col-sm-2">
+	         <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+         </div>
+        </div>
+       
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
         <tr>
             <th>SR. NO.</th>
@@ -826,6 +850,12 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	 else if($table_name == 'mo_master'){
        ob_start();
 	   ?>
+        <div class="row">
+         <div class="col-sm-2">
+	         <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+         </div>
+        </div>
+       
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
           <tr>
            <th>ID</th>
@@ -881,6 +911,12 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	   
 	   if($more == 2){
 	   ?>
+        <div class="row">
+         <div class="col-sm-2">
+	         <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+         </div>
+        </div>
+
                     <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
                       <tr>
                       <tr>
@@ -977,6 +1013,12 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
         
 	  <?php
 	   } else if ($more ==1){   ?>
+        <div class="row">
+         <div class="col-sm-2">
+	         <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+         </div>
+        </div>
+
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
           <tr>
           <tr>
@@ -1049,6 +1091,12 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	  else if($table_name == 'rtv_master'){
        ob_start();
 	   ?>
+        <div class="row">
+           <div class="col-sm-2">
+                <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+            </div>
+        </div>
+
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
           <tr>
           <tr>
@@ -1116,8 +1164,14 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	  else if($table_name == 'material_rqst'){
        ob_start();
 	   ?>
+        <div class="row">
+           <div class="col-sm-2">
+                <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+            </div>
+        </div>
+
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-          <tr>
+
           <tr>
            <th>SR. NO.</th>
            <th>MRN</th>
@@ -1174,8 +1228,13 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
 	  else if($table_name == 'vendor_bills_master'){
        ob_start();
 	   ?>
+        <div class="row">
+           <div class="col-sm-2">
+                <a class="btn btn-success ctn_MG_TT" id="btnExport">Export</a></td>
+            </div>
+        </div>
+       
         <table id="dataTable" class="table table-striped table-bordered" style="width:100%">
-          <tr>
           <tr>
            <th>SR. NO.</th>
            <th>Vendor</th>
@@ -1187,33 +1246,47 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
            <th>Total Amount</th>
            <th>Creation Status</th>
           </tr>
+          
          <?php  
 foreach($Data['result'] as $key=>$value ):
 				
 			$mid_arr = explode(",",$value->mid);
+			$mname = explode(",",$value->mname);			
+			$muid = explode(",",$value->muid);
+			$muname = explode(",",$value->muname);
+
   		    $munit_arr_price = explode(",",$value->unit);
 			$total_amt = explode(",",$value->total);
-			$muid = explode(",",$value->muid);
 			$qty = explode(",",$value->m_qty);			
-			//print_r($muid);
-		for($t=0; $t<count($mid_arr); $t++)
-			{
-			$material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
-			if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
-		 ?>
-          <tr>
-           <td><?php echo $i = $i+1;?></td>
-           <td><?php echo $value->vname;?></td>
-           <td><?php echo $value->sname ;?></td>
-           <td><?php echo (isset($material_detail[0]->mname) && !empty($material_detail[0]->mname))?$material_detail[0]->mname:'';?></td>  
-           <td><?php echo (isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname))?$mu_detail[0]->muname:'';?></td>  
-           <td><?php echo (isset($qty[$t]) && !empty($qty[$t]))?$qty[$t]:''  ;?></td>
-           <td><?php echo $munit_arr_price[$t];?></td>
-           <td><?php echo number_format((float)$total_amt[$t], 2, '.', '');?></td>           
-           <td><?php echo date('y-m-d' , strtotime($value->created_at)) ;?></td>           
+			$colspan = count($mid_arr);
+		echo '<tr>';
+				 ?>
+				   <td rowspan="<?=$colspan;?>"><?php echo $i = $i+1;?></td>
+				   <td rowspan="<?=$colspan;?>"><?php echo $value->vname;?></td>
+				   <td  rowspan="<?=$colspan;?>"><?php echo $value->sname ;?></td>
+				   <td><?php echo $mname[0] ;?></td>
+				   <td><?php echo $muname[0] ;?></td>
+				   <td><?php echo $qty[0] ;?></td>
+				   <td><?php echo $munit_arr_price[0] ;?></td>
+				   <td><?php echo number_format((float)$total_amt[0], 2, '.', '');?></td>
+				   <td  rowspan="<?=$colspan;?>"><?php echo date('y-m-d' , strtotime($value->created_at)) ;?></td>           
+				<?php 
+		echo '</tr>';
+ 
+		unset($mid_arr[0]);
 
-          </tr>
-        <?php } endforeach;?>
+	   foreach($mid_arr as $key=>$value){
+		   ?>
+			<tr>
+			 <th><?=$mname[$key];?></th>
+			 <th><?=$muname[$key];;?></th>
+			 <th><?=$qty[$key];?></th>
+			 <th><?=$munit_arr_price[$key];?></th>
+			 <th><?php echo  number_format((float)$total_amt[$key], 2, '.', ''); ?></th>
+			</tr>
+		   <?php
+		  }
+		endforeach;?>
         </table>
         
 	  <?php
@@ -1222,14 +1295,45 @@ foreach($Data['result'] as $key=>$value ):
 	  return $Content;
 	 }
 
-
-
-
-
- 
-
 	 
 }
+
+	
+		function get_material_details($Data){
+
+		foreach($Data as $key =>$value){
+
+   			$mid_arr = explode(",",$value->mid);
+			$muid = explode(",",$value->muid);
+
+			for($t=0; $t<count($mid_arr); $t++){
+
+				if(!empty($mid_arr[$t])) $material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+
+			    if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
+
+				if(isset($material_detail[0]->mname) && !empty($material_detail[0]->mname)){
+					$value->mname[] = $material_detail[0]->mname;	
+				}
+				if(isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname)){
+										$value->muname[] = $mu_detail[0]->muname;	
+					}
+			}
+		  
+		}
+		
+		foreach($Data as $key=>$values ){
+				if(isset($values->mname)) 
+								$values->mname = implode(",",$values->mname); 							
+				if(isset($values->muname)) $values->muname = implode(",",$values->muname); 							
+	
+			}
+			
+					//		echo "<pre>";
+	
+			return $Data;
+		}
+
 	
 	
 		public function get_date()
@@ -1269,8 +1373,11 @@ foreach($Data['result'] as $key=>$value ):
 			$model = $this->model;
 			$data = array("data"=>"");
 			$tablename =  $_POST['id'];
+			
+			$type_mode_option =  $_POST['type_mode_option'];
+			
 			$site =  $_POST['site'];
-			$vendor =  $_POST['vendor'];
+			$vendor =  isset($_POST['vendor'])?$_POST['vendor']:'';
 			$material =  $_POST['material'];
 			$fromData =  $_POST['fromData'];
 			$toData =  $_POST['toData'];
@@ -1279,6 +1386,7 @@ foreach($Data['result'] as $key=>$value ):
 			
 			if($tablename == 'cp_master')
 			{
+
 				$q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`materials`.mname,`munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid ";
 
 				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
@@ -1672,7 +1780,7 @@ foreach($Data['result'] as $key=>$value ):
 	
 	
 	
-				else if ($tablename == 'vendor_bills_master') 
+			else if ($tablename == 'vendor_bills_master') 
 			{
 						$q = "select `vendor_bills_master`.*,`vendordetails`.vname ,`sitedetails`.sname from `vendor_bills_master` LEFT JOIN `sitedetails` ON `sitedetails`.sid = `vendor_bills_master`.sid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `vendor_bills_master`.vid";
 
@@ -1729,20 +1837,82 @@ foreach($Data['result'] as $key=>$value ):
 	
 	
 	
-	
-	
-	
-	
-	
+			if ($type_mode_option == 'mo_master' || $type_mode_option == 'rtv_master' || $type_mode_option == 'grn_master' ) 
+			{
+if($type_mode_option == 'mo_master'){
+	$q = "select `".$type_mode_option."`.*,`transporters`.tname,s1.sname as TSID, s2.sname as RSID  from `".$type_mode_option."` LEFT JOIN `transporters` ON `transporters`.tid = `".$type_mode_option."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$type_mode_option."`.mid LEFT JOIN `sitedetails` s1 ON s1.sid = `mo_master`.tsid LEFT JOIN `sitedetails` s2 ON s2.sid = `mo_master`.rsid WHERE `".$type_mode_option."`.`tid`!=''; ";
+} else {
+	$q = "select `".$type_mode_option."`.*,`transporters`.tname , `sitedetails`.sname, `vendordetails`.`vname`  from `".$type_mode_option."` LEFT JOIN `transporters` ON `transporters`.tid = `".$type_mode_option."`.tid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$type_mode_option."`.sid LEFT JOIN `materials` ON `materials`.mid = `".$type_mode_option."`.mid LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$type_mode_option."`.vid WHERE `".$type_mode_option."`.`tid`!=''; ";
 
-			$result = $this->db->query($q);
-			$data['result'] = $result->result();
-			$data['max'] = $max;
-			$data['min'] = $min;
-			$data['tablename'] = $tablename;
-			$data['model'] = $model;
-			$more = (isset($more_values) && !empty($more_values))?$more_values:'';
-			echo $this->set_data_into_table($data , $data['tablename'] , $more);
+	}
+
+   $tablename = $type_mode_option;
+				
+				if($site != '' || $vendor != '' || $material != '' || $fromData != '' || $toData != ''){
+					$q .= " and ";
+				}
+				
+				$exc = 0;
+				if($site != ''){
+					if($exc == 0){
+						$q .= $tablename.".sid = '".$site."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".sid = '".$site."' ";
+					}
+					$exc = 1;
+				}
+				if($vendor != ''){
+					if($exc == 0){
+						$q .= $tablename.".vid = '".$vendor."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".vid = '".$vendor."' ";
+					}
+					$exc = 1;
+				}
+				if($material != ''){
+					if($exc == 0){
+						$q .=  "find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+
+					else{
+						$q .= "OR find_in_set('".$material."', ".$tablename.".mid) ";
+					}
+					
+					$exc = 1;
+				}
+				if($fromData != '')
+				{
+					$fdate = date('Y-m-d',strtotime($fromData));
+					$t_date = date('Y-m-d',strtotime($toData));
+					if($exc == 0){
+						$q .= $tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					else{
+						$q .= "OR ".$tablename.".grncreatedon >= '".$fdate."' AND ".$tablename.".grncreatedon <= '".$fdate."' ";
+					}
+					$exc = 1;
+				}
+			}
+	
+	
+	
+	
+			$q = isset($q)?$q:'';
+			if($tablename == 'transporters' && empty($type_mode_option)) echo "<p style='font-size:15px; color:red; text-align:center;font-weight: bold;'>*  Please select type for transporter<p>";
+			else {
+				$tablename = isset($type_mode_option)&&!empty($type_mode_option)?$type_mode_option:$tablename;
+				$result = $this->db->query($q);
+				$data['result'] = $result->result();
+				$data['max'] = $max;
+				$data['min'] = $min;
+				$data['tablename'] = $tablename;
+				$data['model'] = $model;
+				$more = (isset($more_values) && !empty($more_values))?$more_values:'';
+				if($tablename == 'vendor_bills_master') $data['result'] = $this->get_material_details($data['result']);
+				echo $this->set_data_into_table($data , $data['tablename'] , $more);
+			}
 			//echo $this->load->view('report_ajax',$data);
 
 //			print_r($data);

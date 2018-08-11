@@ -12,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-        <title>New Vendor Bill</title>
+        <title>Vendor Bill</title>
 
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
@@ -104,7 +104,7 @@
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h1>New Vendor Bill</h1>
+                        <h1>Vendor Bill</h1>
                         <div class="clearfix"></div>
                     </div>
 

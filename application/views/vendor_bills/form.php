@@ -1,3 +1,7 @@
+<?php $uid = $this->session->userdata('username'); ?>
+<?php
+ error_reporting(0);
+    ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,8 +12,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-        <title>Codeigniter | </title>
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,600,900" rel="stylesheet">
+        <title>New Vendor Bill</title>
+
         <!-- Bootstrap -->
         <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
         <link href="<?php echo base_url();?>assets/css/mycss.css" rel="stylesheet">
@@ -32,35 +36,47 @@
 
         <!-- Custom Theme Style -->
         <link href="<?php echo base_url();?>assets/css/custom.min.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
 
         <!--     Select2 JS and CSS Files -->
         <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js')?>" type='text/javascript'></script>
         <script src="<?php echo base_url('assets/select2/dist/js/select2.min.js')?>" type='text/javascript'></script>
 
         <link href="<?php echo base_url('assets/select2/dist/css/select2.min.css')?>" rel='stylesheet' type='text/css'>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
     </head>
 
     <body class="nav-md">
         <div class="container body">
             <div class="main_container">
-                        <div class="col-md-3 left_col">
-                            <div class="left_col scroll-view">
-                                <div class="navbar nav_title" style="border: 0;">
-                                    <a href="<?php echo base_url();?>" class="site_title">Construction Analytics 2018</a>
-                                </div>
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
 
-                                <!-- sidebar menu -->
-                                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                                    <div class="menu_section">
-                                    </div>
 
-                                </div>
-                                <!-- /sidebar menu -->
+                        <!-- sidebar menu -->
+                        <?php
+    $this->load->view('include/sidebar');
+                        ?>
+                        <!-- /sidebar menu -->
+                    </div>
+                </div>
+
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                             </div>
-                        </div>
+
+                        </nav>
+                    </div>
+                </div>
+
+                <!--    Top navigation-->
+                <body class="nav-md">
+                    <div class="container body">
+                        <div class="main_container">
 
                         <!-- top navigation -->
                         <div class="top_nav">
@@ -74,15 +90,13 @@
                             </div>
                         </div>
                         <!-- /top navigation -->
-                        <?php
-error_reporting(0);
-?>
-<style>
-	.select2{
-		width:100%;
-	}
-</style>
-
+<!--
+    <style>
+        .select2{
+            width:100%;
+        }
+    </style>
+-->
 <div class="right_col" role="main">          
     <div class="row">
         <div class="clearfix"></div>
@@ -90,13 +104,16 @@ error_reporting(0);
             <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Update Construction</h2>
+                        <h1>New Vendor Bill</h1>
                         <div class="clearfix"></div>
                     </div>
 
+
+<!--
                     <?php
 						$this->load->view('include/footer');
                     ?>
+-->
 
                     <div class="message">
                         <?php
@@ -1048,7 +1065,12 @@ error_reporting(0);
         </div>
     </div>
 </div>
+            </div>
+        </div>
 </body>
+            </div>
+        </div>
+    </body>
 </html>
 <script>
 jQuery(document).ready(function(){

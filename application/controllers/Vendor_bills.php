@@ -23,7 +23,11 @@ class Vendor_bills extends CI_Controller {
         {
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['result'] = $this->$model->db_query("select `".$this->table."`.*,`sitedetails`.sname,`vendordetails`.vname from `".$this->table."` INNER JOIN `sitedetails` ON `sitedetails`.sid = `".$this->table."`.sid INNER JOIN `vendordetails` ON `vendordetails`.vid = `".$this->table."`.vid ");
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('vendor_bills/manage',$data);
         }
         else  
@@ -38,16 +42,16 @@ class Vendor_bills extends CI_Controller {
         $data['controller'] = $this->controller;
         $data['show_table'] = $this->view_table();
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['discount_types'] = $this->$model->select(array(),'discount_type',array(),'');
-
         $user = $this->$model->select(array(),'users',array('uid' => 11),'');
-
         $data['sites'] = $this->$model->db_query("SELECT * FROM `sitedetails` WHERE sid IN(".$user[0]->site.")");
-
-
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('vendor_bills/index', $data);
     }
     public function view_table(){
@@ -60,7 +64,6 @@ class Vendor_bills extends CI_Controller {
     }
 
     public function show_data_by_site_vendor() {
-
       $sid = $this->input->post('sid');
       $vid = $this->input->post('vid');
  
@@ -80,6 +83,8 @@ class Vendor_bills extends CI_Controller {
         }
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['action'] = "insert";
         $data['show_table'] = $this->view_table();
         $data['row'] = $this->$model->select(array(),$this->table,array(),'');
@@ -90,6 +95,8 @@ class Vendor_bills extends CI_Controller {
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
         $data['show_table'] = $this->view_table();
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('vendor_bills/index', $data);
     }
 	
@@ -343,7 +350,6 @@ foreach($data as $key=>$value ){
         $payment_days = $this->input->post('payment_days');
         $vbremarks = $this->input->post('vbremarks');
         $uindex = implode(",",$this->input->post('uindex'));
-        $date = date('Y-m-d');
         
 
 		$mid = count($this->input->post('selectMaterial')) > 0 ? implode(",",$this->input->post('selectMaterial')) : $this->input->post('selectMaterial');	
@@ -369,6 +375,7 @@ foreach($data as $key=>$value ){
         $data = array(
 		
             'grnrefid'=>$grnrefid,
+            
 			'vid'  => $vid,
             'sid'  => $sid,
 			'mid'  => $mid,			
@@ -387,7 +394,6 @@ foreach($data as $key=>$value ){
             'pocreatedon'  => $date,
             'payment_days'  => $payment_days,
             'vbremarks'  => $vbremarks,
-            'date'  => $date,
             'unit'  => $unit,
             'muid'  => $muid,
             'm_qty'  => $m_qty,           
@@ -398,7 +404,7 @@ foreach($data as $key=>$value ){
             'remark' => $remark,
             'status' => $status,
             'created_at' => $create_date,
-            'created_by' => $user_id
+            'created_by' => $uid
         );
         $success = $this->$model->insert($data,$this->table);
         
@@ -421,6 +427,8 @@ foreach($data as $key=>$value ){
         $vbid = $this->uri->segment(3);
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['action'] = "insert";
         $data['show_table'] = $this->view_table();
         $data['result'] = $this->$model->select(array(),$this->table,array('id'=>$vbid),'');
@@ -432,7 +440,8 @@ foreach($data as $key=>$value ){
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['office_details'] = $this->$model->select(array(),'officedetails',array(),'');
         $data['show_table'] = $this->view_table();
-
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('vendor_bills/form', $data);
 
     }
@@ -524,7 +533,8 @@ foreach($data as $key=>$value ){
         $payment_days = $this->input->post('payment_days');
         $vbremarks = $this->input->post('vbremarks');
         $uindex = implode(",",$this->input->post('uindex'));
-        $date = date('Y-m-d');
+        $updateddate = date('Y-m-d h:i:s');
+        $uid = $this->input->post('uid');
 
    		$mid = count($this->input->post('mid')) > 0 ? implode(",",$this->input->post('mid')) : $this->input->post('mid');	
 		$unit = count($this->input->post('unit')) > 0 ? implode(",",$this->input->post('unit')) : $this->input->post('unit');	
@@ -557,7 +567,6 @@ foreach($data as $key=>$value ){
             'pocreatedon'  => $date,
             'payment_days'  => $payment_days,
             'vbremarks'  => $vbremarks,
-            'date'  => $date,
             'unit'  => $unit,
             'muid'  => $muid,
             'm_qty'  => $m_qty,           
@@ -566,8 +575,8 @@ foreach($data as $key=>$value ){
             'igst'  => $igst,
             'total'  => $total,
             'remark' => $remark,
-            'updated_at' => $create_date,
-            'updated_by' => $user_id
+            'updated_at' => $updateddate,
+            'updated_by' => $uid
         );
 
         $this->session->set_flashdata('dispMessage','<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Vendor Updated Successfully!</div>');

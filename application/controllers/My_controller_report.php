@@ -472,8 +472,8 @@ public function get_type_of_data(){
         	$moid_query = $this->db->get('mo_master');
 			
 			$moid_array = $moid_query->result();
-			echo "<pre>";
-			print_r($moid_array);
+			//echo "<pre>";
+			//print_r($moid_array);
 			
 			/*foreach($moid_array as $key=>$value){
 				 $all_id['mid'][]=$value->mid;
@@ -969,8 +969,8 @@ public function set_data_into_table($Data='' , $table_name='' , $more= ''){
                         {
                         $material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
                         $mu_detail = $this->db->select(array())->where(array('muid'=>$munit_arr[$t]))->get('munits')->result();
-						echo "<pre>";
-						print_r($material_detail);
+						//echo "<pre>";
+						//print_r($material_detail);
             
                      ?>
                       <tr>

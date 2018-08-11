@@ -111,18 +111,9 @@ error_reporting(0);
                         <div class="datatable-responsive">
                             <table id="datatable1" class="table table-striped table-bordered">
                                 <thead>
-                                  <tr>
-                                   <td colspan="1" style="border: none;width: 9%;padding-top: 13px;font-weight: bold;">
-                                    Check All&nbsp;
-                                    
-                                   </td>
-                                   <td colspan="13" style="border:none;"><input type="checkbox" style="width:1.5%;" class="checkAll" /></td>
-                                  </tr>
                                 
                                     <tr class="headings">
-                                        <th class="column-title">
-                                           Select Material 
-										</th>                                    
+                                  
                                         <th class="column-title">GRNID</th>
                                         <th class="column-title">Receive Date</th>
                                         <th class="column-title">Challan No.</th>
@@ -183,7 +174,6 @@ error_reporting(0);
 											<?php foreach($materials as $material_detail){ 
 											 if($material[$i] == $material_detail->mid):
 											?>
-                                              <input type="checkbox" name="selectMaterial[]" class="MaterailSelect" style="width: 20%;" value="<?=$material_detail->mid?>" />
                                             <input type="hidden" name="mid[]" class="" value="<?=$material_detail->mid?>" />
                                               
 											<?php 

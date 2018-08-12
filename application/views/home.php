@@ -36,7 +36,8 @@
                     </h4>
                 </div>
                 <div class="col-md-3 col-md-3">
-                    <button class="btn btn-info" style="background-color: black;float: right;"><a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">Logout</a></button>
+                    <a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">
+                    <button class="btn btn-info" style="background-color: black;float: right;">Logout</button></a>
                 </div>
             </div>
         </div>

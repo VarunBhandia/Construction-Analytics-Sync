@@ -24,7 +24,9 @@ class Reporting extends CI_Controller
         {
             $model = $this->model;
             $data['action'] = "report_insert";
-            $data['controller'] = $this->controller; 
+            $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $site_id = 0;
             $user_id =11;
             $query = $this->$model->select(array(),'users',array('uid'=> $user_id),'','');
@@ -57,7 +59,9 @@ class Reporting extends CI_Controller
             $arr[]["data"] = "cpchallan";
             $arr[]["data"] = "cpremark";
             $data['disData'] = json_encode($arr);
-
+            
+            $username = $this->session->userdata('username');
+            $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $this->load->view('report',$data);
         }
         else  
@@ -68,6 +72,9 @@ class Reporting extends CI_Controller
     public function get_tables()
     {
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $report = $this->input->post('id');
 
         $arr = Array();
@@ -108,6 +115,9 @@ class Reporting extends CI_Controller
     public function get_date()
     {
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $range = $this->input->post('range');
 
         $date = date('d-m-Y');

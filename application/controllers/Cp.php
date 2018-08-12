@@ -26,8 +26,6 @@ class Cp extends CI_Controller
             $data["cp_data"] = $this->cp_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
-            $username = $this->session->userdata('username');
-            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
@@ -62,18 +60,20 @@ class Cp extends CI_Controller
 
         $cp_data = $this->cp_m->fetch_data();
 
+
+
         $excel_row = 2;
 
         foreach($cp_data as $row)
         {
             $object->getActiveSheet()->setCellValueByColumnAndRow(0, $excel_row, $row->cpid);
             $object->getActiveSheet()->setCellValueByColumnAndRow(1, $excel_row, $row->cprefid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(2, $excel_row, $row->sname);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(3, $excel_row, $row->vname);
             $object->getActiveSheet()->setCellValueByColumnAndRow(4, $excel_row, $row->cppurchasedate);
             $object->getActiveSheet()->setCellValueByColumnAndRow(5, $excel_row, $row->cpchallan);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mid);
-            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muid);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(6, $excel_row, $row->mname);
+            $object->getActiveSheet()->setCellValueByColumnAndRow(7, $excel_row, $row->muname);
             $object->getActiveSheet()->setCellValueByColumnAndRow(8, $excel_row, $row->cpunitprice);
             $object->getActiveSheet()->setCellValueByColumnAndRow(9, $excel_row, $row->cplinechallan);
             $object->getActiveSheet()->setCellValueByColumnAndRow(10, $excel_row, $row->cpremark);
@@ -89,6 +89,37 @@ class Cp extends CI_Controller
         $object_writer->save('php://output');
 
     }
+
+	function get_material_details($Data){
+		foreach($Data as $key =>$value){
+
+   			$mid_arr = explode(",",$value->mid);
+			$muid = explode(",",$value->muid);
+
+			for($t=0; $t<count($mid_arr); $t++){
+
+				if(!empty($mid_arr[$t])) $material_detail = $this->db->select(array())->where(array('mid'=>$mid_arr[$t]))->get('materials')->result();
+			    if(!empty($muid[$t]))$mu_detail = $this->db->select(array())->where(array('muid'=>$muid[$t]))->get('munits')->result();
+				
+				if(isset($material_detail[0]->mname) && !empty($material_detail[0]->mname)){
+					$value->mname[] = $material_detail[0]->mname;	
+				}
+				if(isset($mu_detail[0]->muname) && !empty($mu_detail[0]->muname)){
+										$value->muname[] = $mu_detail[0]->muname;	
+					}
+			}
+		  
+		}
+		
+		foreach($Data as $key=>$values ){
+				if(isset($values->mname)) 
+								$values->mname = implode(",",$values->mname); 							
+				if(isset($values->muname)) $values->muname = implode(",",$values->muname); 							
+	
+			}
+			
+			return $Data;
+		}
 
     function select_by_id_action()
 
@@ -149,8 +180,6 @@ class Cp extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->cp_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -163,8 +192,6 @@ class Cp extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
@@ -193,67 +220,18 @@ class Cp extends CI_Controller
         $this->load->view('cp/index', $data);
 
     }
-    
-    public function select_by_date_range() {
-        $model = $this->model;
-        $data['controller'] = $this->controller;
-        $username = $this->session->userdata('username');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $date1 = $this->input->post('date_from');
-        $date2 = $this->input->post('date_to');
-        $data = array(
-            'date1' => $date1,
-            'date2' => $date2
-        );
-        if ($date1 == "" || $date2 == "") {
-            $data['date_range_error_message'] = "Both date fields are required";
-        } else {
-            $result = $this->cp_m->show_data_by_date_range($data);
-            if ($result != false) {
-                $data['result_display_date'] = $result;
-            } else {
-                $data['result_display_date'] = "No record found !";
-            }
-        }
-
-        $data['controller'] = $this->controller;
-        $data['row'] = $this->$model->select(array(),$this->table,array(),'');
-        $data['show_table'] = $this->view_table();
-        $username = $this->session->userdata('username');
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
-        $this->load->view('cp/index', $data);
-    }
-    
 
 
     public function form()
     {
-        if($this->session->userdata('username') != '')  
-        {
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('cp/form',$data);
-            }
-        else  
-        {  
-            redirect(base_url() . 'main/login');  
-        }  
-
     }
 
     public function insert()
@@ -263,7 +241,6 @@ class Cp extends CI_Controller
         $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
-        $creationdate = date('Y-m-d H:i:s');
         $challan = $this->input->post('challan');
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -276,24 +253,12 @@ class Cp extends CI_Controller
         $linechallan = count($this->input->post('linechallan')) > 0 ? implode(",",$this->input->post('linechallan')) : $this->input->post('linechallan');
 
         $remark = count($this->input->post('remark')) > 0 ? implode(",",$this->input->post('remark')) : $this->input->post('remark');
-        
-        $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
-        foreach($data['sites'] as $site_details){
-            if($site_details->sid == $site){
-                $site_unique_identifier = $site_details->uniquesid;
-                $site_id = $site_details->sid;
-                $cprefid = 'CP/2018/'.$site_unique_identifier."/".$site_id;
-            }
-        }
-        echo $cprefid;
-        
+
         $data = array(
             'sid'  => $site,
             'cpcreatedby'  => $uid,
-            'cprefid' => $cprefid,
             'vid'  => $vendor,
             'cppurchasedate'  => $date,
-            'cpcreatedon' => $creationdate,
             'cpchallan' => $challan,
             'mid' => $material,
             'cpqty'  => $qty,
@@ -314,16 +279,12 @@ class Cp extends CI_Controller
     {
         $model = $this->model;
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$cpid),'');
-        $data['action'] = "update";
-        $data['controller'] = $this->controller;
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $username = $this->session->userdata('username');
-        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
         $this->load->view('cp/form',$data);
     }
 
@@ -335,7 +296,6 @@ class Cp extends CI_Controller
         $uid = $this->input->post('uid');
         $vendor = $this->input->post('vendor');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
-        $updateddate = date('Y-m-d H:i:s');
         $challan = $this->input->post('challan');
 
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
@@ -352,10 +312,9 @@ class Cp extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'cpupdatedby'  => $uid,
+            'cpcreatedby'  => $uid,
             'vid'  => $vendor,
             'cppurchasedate'  => $date,
-            'cpupdatedon' => $updateddate,
             'cpchallan' => $challan,
             'mid' => $material,
             'cpqty'  => $qty,
@@ -387,8 +346,6 @@ class Cp extends CI_Controller
         /* File Select */
         $model = $this->model;
         $data['controller'] = $this->controller;
-        $username = $this->session->userdata('username');
-        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         /* Database In Data Count */
         $data['Count'] = $this->$model->countTableRecords('cp_master',array());
         $this->load->view('cp/excel',$data);

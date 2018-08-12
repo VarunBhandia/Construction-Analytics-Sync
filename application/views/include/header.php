@@ -67,8 +67,11 @@
                             <div class="nav toggle">
                                 <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                             </div>
+                            <a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">
+                                <button class="btn btn-info" style="background-color: black;float: right;">Logout</button></a>
 
                         </nav>
                     </div>
+
                 </div>
                 <!-- /top navigation -->

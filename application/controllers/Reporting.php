@@ -5,7 +5,7 @@ class Reporting extends CI_Controller
 {
     public $table = 'test';
     public $controller = 'My_controller';
-    public $message = 'Construction';
+    public $message = 'Reporting';
     public $primary_id = "id";
     public $model;
 
@@ -84,7 +84,8 @@ class Reporting extends CI_Controller
             $arr[]["data"] = "total";
             $arr[]["data"] = "cpchallan";
             $arr[]["data"] = "cpremark";
-        }else if($report == 'po_master'){
+        }
+        else if($report == 'po_master'){
             $arr[]["data"] = "id";
             $arr[]["data"] = "vid";
             $arr[]["data"] = "sid";
@@ -357,7 +358,7 @@ class Reporting extends CI_Controller
                 $exc = 1;
             }
         }
-        
+
         else if ($tablename == 'rtv_master') 
         {
             $q = "select `".$tablename."`.*,`vendordetails`.vname,`sitedetails`.sname,`transporters`.tname, 	 `materials`.mdesc, `materials`.mname, `munits`.muname from `".$tablename."` LEFT JOIN `vendordetails` ON `vendordetails`.vid = `".$tablename."`.vid LEFT JOIN `sitedetails` ON `sitedetails`.sid = `".$tablename."`.sid LEFT JOIN `transporters` ON `transporters`.tid = `".$tablename."`.tid LEFT JOIN `materials` ON `materials`.mid = `".$tablename."`.mid LEFT JOIN `munits` ON `munits`.muid = `".$tablename."`.muid";
@@ -410,7 +411,7 @@ class Reporting extends CI_Controller
                 $exc = 1;
             }
         } 
-        
+
         else 
         {
 

@@ -114,6 +114,7 @@ elseif($action == 'update')
                                                             <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Site
                                                             </label>
                                                             <div class="col-md-5 col-sm-6 col-xs-12">
+                                                                <?php if ($action == 'insert') { ?>
                                                                 <select class="itemname form-control " id="site" name="site">
                                                                     <option value="">---site name----</option>
                                                                     <?php
@@ -121,7 +122,7 @@ elseif($action == 'update')
     foreach($sites as $site)
     {                                                                   for($i=0;$i < $count_site;$i++){
         if($user_sites[$i] == $site->sid ){ ?>
-                                                                    <option value="<?php echo $site->sid; ?>" <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> >
+                                                                    <option value="<?php echo $site->sid; ?>">
                                                                         <?php echo $site->sname;?>
                                                                     </option>
 
@@ -137,6 +138,12 @@ elseif($action == 'update')
                                                                         placeholder: '--- Select Sites ---',
                                                                     });
                                                                 </script>
+                                                                <?php } ?>
+                                                                <?php if ($action == 'update'){
+    foreach($sites as $site){
+        if($row[0]->sid == $site->sid){echo $site->sname;}
+    } ?> <input type="hidden" value="<?php echo $row[0]->sid; ?>" name="site">
+                                                                <?php } ?>
                                                             </div>
                                                             <label class="control-label col-md-1 col-sm-3 col-xs-12">Date
                                                             </label>

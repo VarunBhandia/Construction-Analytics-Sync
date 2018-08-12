@@ -227,9 +227,15 @@ elseif($action == 'update')
                                                                             <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                                                 <option value=""></option>
                                                                                 <?php
-                                                                         foreach($materials as $value)
-                                                                         { echo $material[$i]; ?>
-                                                                                <option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
+    foreach($materials as $value)
+    { ?>
+                                                                                <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
+     foreach($units as $m_unit)
+     {
+         if($value->munit == $m_unit->muid)
+         {echo ' ( '.$m_unit->muname.' )' ;}
+     }
+                                                                                    ?></option>
                                                                                 <?php }	?>
                                                                             </select>
                                                                             <script type="text/javascript">
@@ -237,16 +243,6 @@ elseif($action == 'update')
                                                                                     placeholder: '--- Select Material ---',
                                                                                 });
                                                                             </script>
-                                                                        </td>
-                                                                        <td>
-                                                                            <select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-                                                                                <option value=""></option>
-                                                                                <?php
-                                                                         foreach($units as $value)
-                                                                         { ?>
-                                                                                <option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-                                                                                <?php }	?>
-                                                                            </select>
                                                                         </td>
                                                                         <td>
                                                                             <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
@@ -351,17 +347,17 @@ elseif($action == 'update')
                                                                             <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                                                 <option value=""></option>
                                                                                 <?php
-    foreach($materials as $value)
-    { ?>
+foreach($materials as $value)
+{ ?>
                                                                                 <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
-     foreach($units as $m_unit)
-     {
-         if($value->munit == $m_unit->muid)
-         {echo ' ( '.$m_unit->muname.' )' ;}
-     }
+ foreach($units as $m_unit)
+ {
+     if($value->munit == $m_unit->muid)
+     {echo ' ( '.$m_unit->muname.' )' ;}
+ }
                                                                                     ?></option>
                                                                                 <?php }	?>
-                                                                            </select>
+                                </select>
                                 </td>
                         <td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">

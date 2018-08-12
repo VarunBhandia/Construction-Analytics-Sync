@@ -134,32 +134,30 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div  class="row">
+                                                    <div class="col-md-8">                                                
+                                                        <form enctype="multipart/form-data" action="<?php echo base_url()?>material_rqst/select_by_date_range" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date From
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control" name="date_from" >
+                                                            </div>
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date To
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control col-md-2 col-sm-3 col-xs-12" name="date_to" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                            <div class="col-md-1">
+                                                                <input type="submit" value="Show Record" class="btn btn-success" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
                                                 <div class="clearfix"></div>
                                             </div>
-                                            <div  class="row">
-                                                <div class="col-md-8">                                                
-                                                    <form enctype="multipart/form-data" action="<?php echo base_url()?>material_rqst/select_by_date_range" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                                                        <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date From
-                                                        </label>
-                                                        <div class="col-md-3 col-sm-3 col-xs-12">
-                                                            <input type="date" class="form-control" name="date_from" >
-                                                        </div>
-                                                        <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date To
-                                                        </label>
-                                                        <div class="col-md-3 col-sm-3 col-xs-12">
-                                                            <input type="date" class="form-control col-md-2 col-sm-3 col-xs-12" name="date_to" >
-                                                        </div>
-                                                        <div class="col-md-1"></div>
-                                                        <div class="col-md-1">
-                                                            <input type="submit" value="Show Record" class="btn btn-success" >
-                                                        </div>
-                                                        <div class="col-md-1"></div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <?php
-    echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
-                                            ?>
                                             <div class="message">
                                                 <?php
                                                 if (isset($result_display))

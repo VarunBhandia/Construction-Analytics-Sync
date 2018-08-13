@@ -66,8 +66,9 @@
                             </div>
 
                         </nav>
-                            <a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">
-                                <button class="btn btn-info" style="margin: 1em;background-color: black;float: right;">Logout</button></a>
+                        <a  class="Logout" href="<?php echo base_url().'main/logout' ?> ">
+                            <button class="btn btn-info" style="margin: 1em;background-color: black;float: right;">Logout</button>
+                        </a>
                     </div>
                 </div>
 
@@ -87,7 +88,7 @@
                                                 <h1>Purchase Order</h1>
                                                 <?php 
     $user_sites = explode(",",$user_details[0]->site);
-                               $count_site =  count($user_sites);
+                           $count_site =  count($user_sites);
                                                 ?>
 
                                                 <div class="row">

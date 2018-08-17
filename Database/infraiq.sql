@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 08, 2018 at 06:37 AM
--- Server version: 10.1.26-MariaDB
--- PHP Version: 7.1.9
+-- Generation Time: Aug 12, 2018 at 03:00 PM
+-- Server version: 10.1.25-MariaDB
+-- PHP Version: 7.1.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -412,7 +412,6 @@ CREATE TABLE `grn_master` (
 --
 
 INSERT INTO `grn_master` (`grnid`, `sid`, `vid`, `grnchallan`, `grnreceivedate`, `grncreatedon`, `grncreatedby`, `grnupdatedby`, `grnupdatedon`, `mid`, `grnqty`, `grnunitprice`, `muid`, `grntruck`, `grnlinechallan`, `tid`, `grnremarks`, `grnrefid`, `billed_status`, `billed_genrated`, `porefid`) VALUES
-(1, '1', '2', '43', '2018-07-05', '2018-07-11 13:43:15', NULL, '', '0000-00-00 00:00:00', '3403', '3236', '313', '7', '33', '333', '6', '', NULL, '', '', ''),
 (2, '4', '30', '4442', '2018-07-05', '2018-07-11 14:42:54', 'tushar', '', '0000-00-00 00:00:00', '3393', '42', '42', '17', '24', '24', '7', '', NULL, '', '', ''),
 (3, '2', '21', '', '2018-07-09', '0000-00-00 00:00:00', NULL, '', '0000-00-00 00:00:00', '3423', '21132', '3', '5', '33', '32', '7', '21', NULL, '', '', ''),
 (4, '174', '27', '45', '2018-07-11', '0000-00-00 00:00:00', NULL, '', '0000-00-00 00:00:00', '3408', '1', '400', '1', '', '50', '7', 'hp', NULL, '', '', ''),
@@ -421,7 +420,8 @@ INSERT INTO `grn_master` (`grnid`, `sid`, `vid`, `grnchallan`, `grnreceivedate`,
 (8, '2', '2', '12', '2018-07-17', '2018-07-19 11:30:24', 'tushar', 'tushar', '2018-07-19 11:31:48', '3422,3424', '23,24', ',', '6,7', '23,11', '32,11', '8,8', ',11', NULL, '3422,3424', 'yes', ''),
 (9, '4', '21', '85747', '2018-07-25', '0000-00-00 00:00:00', 'varunbhandia', '', '0000-00-00 00:00:00', '1', '52', '3548', '17', '20454', '85747', '5', '2', NULL, '', '', ''),
 (10, '5', '21', '85474', '2018-07-25', '0000-00-00 00:00:00', 'varunbhandia', '', '0000-00-00 00:00:00', '1', '25', '25', '18', '8547', '85474', '5', '2', NULL, '', '', ''),
-(11, '3', '1', '85447', '2018-07-25', '0000-00-00 00:00:00', 'varunbhandia', '', '0000-00-00 00:00:00', '1', '25', '25', '17', '5687', '85447', '6', '', NULL, '', '', '');
+(11, '3', '1', '85447', '2018-07-25', '0000-00-00 00:00:00', 'varunbhandia', '', '0000-00-00 00:00:00', '1', '25', '25', '17', '5687', '85447', '6', '', NULL, '', '', ''),
+(12, '2', '2', '', '2018-08-12', '2018-08-12 13:50:27', 'varunbhandia', '', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', 'GRN/2018/S', '0', '', '');
 
 -- --------------------------------------------------------
 
@@ -3515,16 +3515,17 @@ CREATE TABLE `material_rqst` (
   `mrcreatedby` varchar(255) NOT NULL,
   `mrupdatedby` varchar(100) NOT NULL,
   `mrupdatedon` datetime NOT NULL,
-  `uid` varchar(50) NOT NULL
+  `uid` varchar(50) NOT NULL,
+  `mrapprove` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `material_rqst`
 --
 
-INSERT INTO `material_rqst` (`mrid`, `sid`, `mid`, `mrqty`, `mrunitprice`, `mrrefid`, `muid`, `mrremarks`, `mrrecievedate`, `mrcreatedon`, `mrcreatedby`, `mrupdatedby`, `mrupdatedon`, `uid`) VALUES
-(2100, '174', '3428', '', '', '', '', '', '2018-07-18', '2018-07-21 15:42:20', 'tushar', '', '0000-00-00 00:00:00', ''),
-(2101, '177', '3428', '', '', '', '', '', '2018-06-19', '2018-07-21 15:42:39', 'tushar', '', '0000-00-00 00:00:00', '');
+INSERT INTO `material_rqst` (`mrid`, `sid`, `mid`, `mrqty`, `mrunitprice`, `mrrefid`, `muid`, `mrremarks`, `mrrecievedate`, `mrcreatedon`, `mrcreatedby`, `mrupdatedby`, `mrupdatedon`, `uid`, `mrapprove`) VALUES
+(2105, '1', '3423', '', '', 'MR/2018/office/1', '', '', '1970-01-01', '2018-08-12 17:43:22', 'varunbhandia', '', '0000-00-00 00:00:00', '', ''),
+(2106, '1', '3418', '', '', 'MR/2018/office/1', '', '', '1970-01-01', '2018-08-12 17:43:35', 'varunbhandia', '', '0000-00-00 00:00:00', '', '');
 
 -- --------------------------------------------------------
 
@@ -3716,17 +3717,6 @@ CREATE TABLE `po_master` (
   `mid` varchar(255) NOT NULL,
   `uid` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `po_master`
---
-
-INSERT INTO `po_master` (`poid`, `mrrefid`, `porefid`, `sid`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `gst_frieght_amount`, `gross_amount`, `invoice_to`, `contact_name`, `contact_no`, `tandc`, `pocreatedon`, `m_unit`, `qty`, `app_qty`, `unit`, `dtid`, `discount`, `cgst_rate`, `sgst_rate`, `igst_rate`, `cgst`, `sgst`, `igst`, `total`, `vid`, `remark`, `potandc`, `pocreatedby`, `poupdatedby`, `poupdatedon`, `mid`, `uid`) VALUES
-(1, '', '', '', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01 00:00:00', '2', '65', '65', '5', '1', '', '', '', '', '', '', '', '', '1', '', '', 'tushar', 'tushar', '2018-07-23 12:46:33', '3423', ''),
-(2, '', '', '65', '0', '0', '0', '450', '456', '', '933.36', '', '', '', '', '1970-01-01 00:00:00', '1', '1', '100', '5', '1', '50', '', '', '', '', '', '', '450', '4', '', '', 'tushar', '', '0000-00-00 00:00:00', '3418', ''),
-(3, '', '', '130', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01 00:00:00', '1,2', '1,1', '1,1', '50,12', '1,2', ',', '', '', '', ',', ',', ',', ',', '4', ',', '', 'tushar', '', '0000-00-00 00:00:00', '1,242', ''),
-(4, '', '', '3', '', '', '', '', '', '', '', '', '', '', '', '1970-01-01 00:00:00', '1', '23', '23', '20', '2', '', '', '', '', '', '', '', '', '2', '', '', 'tushar', 'tushar', '2018-07-19 00:00:00', '3423', ''),
-(5, '', '', '2', '172306', '85300', '85300', '513506', '500', '', '514026', '11', 'Manisha Gotwal', '7858774859', 't7c', '2018-07-19 00:00:00', '1', '3412', '3412', '50', '1', '', '5', '5', '5', '101', '50', '50', '513506', '2', '', '', 'tushar', 'tushar', '2018-07-19 11:14:24', '1', '');
 
 -- --------------------------------------------------------
 
@@ -4219,6 +4209,7 @@ CREATE TABLE `users` (
   `uid` int(11) NOT NULL,
   `username` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
+  `deactivate` varchar(255) NOT NULL,
   `uemail` varchar(255) NOT NULL,
   `uaddress` varchar(255) NOT NULL,
   `umobile` varchar(255) NOT NULL,
@@ -4250,11 +4241,12 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`uid`, `username`, `password`, `uemail`, `uaddress`, `umobile`, `user_role`, `site_role`, `material`, `vendor`, `mr`, `po`, `rtv`, `cp`, `uogrn`, `vendorbills`, `vendorbillpayment`, `moveorder`, `officegstdetails`, `subcontractor`, `transporter`, `workorder`, `reporting`, `workordermaterials`, `consumption`, `site`, `ucreatedon`, `ucreatedby`) VALUES
-(2, 'varun', 'varun', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', ''),
-(3, 'tushar', 'tushar', '4634@gmail.com', '3456', '47737', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179', '0000-00-00 00:00:00', ''),
-(11, 'varunbhandia', 'varun', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179', '0000-00-00 00:00:00', ''),
-(13, 'deekay', 'deekay', 'rtyui@gmail.com', 'qwerty', '123456789', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179', '0000-00-00 00:00:00', '');
+INSERT INTO `users` (`uid`, `username`, `password`, `deactivate`, `uemail`, `uaddress`, `umobile`, `user_role`, `site_role`, `material`, `vendor`, `mr`, `po`, `rtv`, `cp`, `uogrn`, `vendorbills`, `vendorbillpayment`, `moveorder`, `officegstdetails`, `subcontractor`, `transporter`, `workorder`, `reporting`, `workordermaterials`, `consumption`, `site`, `ucreatedon`, `ucreatedby`) VALUES
+(2, 'varun', '123456789qwerty', '1', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '0000-00-00 00:00:00', ''),
+(3, 'tushar', 'tushar', '1', '4634@gmail.com', '3456', '47737', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179', '0000-00-00 00:00:00', ''),
+(11, 'varunbhandia', 'varun', '0', 'dfhdfh@zfgdf.sdg', 'fsdgdfh', 'dfhdfh', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '1', '0000-00-00 00:00:00', ''),
+(13, 'deekay', '123456789qwerty', '1', 'rtyui@gmail.com', 'qwerty', '123456789', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179', '0000-00-00 00:00:00', ''),
+(14, 'dfgdfg', 'fzxbdfzbdfzb', '0', 'fzdbfzxb@fd.seagesag', 'fgdfzxbzxcb', 'easgasegesdg', '0', '1', '1', '0', '1', '1', '0', '0', '1', '0', '1', '1', '0', '1', '1', '0', '1', '1', '0', '11,153', '2018-08-12 18:14:23', '');
 
 -- --------------------------------------------------------
 
@@ -5840,7 +5832,7 @@ CREATE TABLE `vendor_bills_master` (
 --
 
 INSERT INTO `vendor_bills_master` (`id`, `grnrefid`, `vid`, `sid`, `mid`, `order_index`, `csgt_total`, `ssgt_total`, `isgt_total`, `total_amount`, `frieght_amount`, `frieght_gst`, `gross_amount`, `adjustment`, `deduction`, `bill_no`, `bill_date`, `bill_type`, `invoice_to`, `pocreatedon`, `payment_days`, `vbremarks`, `date`, `unit`, `muid`, `m_qty`, `cgst`, `sgst`, `igst`, `total`, `remark`, `status`, `u_status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `uid`) VALUES
-(7, '', 2, 2, '3422,3424', '0,1', 158.35, 76.30, 115.18, 2220.83, 254.00, 12.00, 2505.31, '', '', '1240', '2018-08-09', 'asset', '11', '2018-08-07', 60, 'AVR', '2018-08-07', '25,54', '6,7', '23,24', '5,10', '2,5', '2,8', '626.75,1594.08', 'AR,RE', 'Pending,Pending', 'Disapprove', 11, 11, '2018-08-07 07:30:50', '2018-08-07 04:00:50', ''),
+(7, '', 2, 2, '3422,3424', '0,1', 158.35, 76.30, 115.18, 2220.83, 254.00, 12.00, 2505.31, '', '', '1240', '2018-08-09', 'asset', '11', '2018-08-07', 60, 'AVR', '2018-08-07', '25,54', '6,7', '23,24', '5,10', '2,5', '2,8', '626.75,1594.08', 'AR,RE', 'Pending,Pending', 'Disapprove', 11, 11, '2018-08-09 05:48:05', '2018-08-07 04:00:50', ''),
 (8, '', 21, 1, '3424,3423', '0,1', 22.10, 72.53, 156.58, 1356.21, 255.00, 24.00, 1672.41, '', '', '1420', '2018-08-08', 'purchase', '11', '2018-08-07', 60, 'ARE , EER', '2018-08-07', '23,24', '1,2', '23,24', '2,2', '5,8', '10,18', '618.9300000000001,737.28', '23,24', 'Pending,Pending', 'Disapprove', 11, 0, '2018-08-07 02:06:05', '0000-00-00 00:00:00', '');
 
 -- --------------------------------------------------------
@@ -6134,193 +6126,161 @@ ALTER TABLE `workitems`
 --
 ALTER TABLE `category`
   MODIFY `cid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
-
 --
 -- AUTO_INCREMENT for table `consumption`
 --
 ALTER TABLE `consumption`
   MODIFY `consid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `cp_master`
 --
 ALTER TABLE `cp_master`
   MODIFY `cpid` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123;
-
 --
 -- AUTO_INCREMENT for table `dyform`
 --
 ALTER TABLE `dyform`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee`
 --
 ALTER TABLE `employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `employee_info`
 --
 ALTER TABLE `employee_info`
   MODIFY `emp_id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `fruits`
 --
 ALTER TABLE `fruits`
   MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `grn_master`
 --
 ALTER TABLE `grn_master`
-  MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
+  MODIFY `grnid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `import`
 --
 ALTER TABLE `import`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `material`
 --
 ALTER TABLE `material`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
   MODIFY `mid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3425;
-
 --
 -- AUTO_INCREMENT for table `material_rqst`
 --
 ALTER TABLE `material_rqst`
-  MODIFY `mrid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2102;
-
+  MODIFY `mrid` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2107;
 --
 -- AUTO_INCREMENT for table `mo_master`
 --
 ALTER TABLE `mo_master`
   MODIFY `moid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `munits`
 --
 ALTER TABLE `munits`
   MODIFY `muid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `performance`
 --
 ALTER TABLE `performance`
   MODIFY `performance_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `po_master`
 --
 ALTER TABLE `po_master`
-  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
+  MODIFY `poid` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `rtv_master`
 --
 ALTER TABLE `rtv_master`
   MODIFY `rtvid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT for table `sitedetails`
 --
 ALTER TABLE `sitedetails`
   MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
-
 --
 -- AUTO_INCREMENT for table `students`
 --
 ALTER TABLE `students`
   MODIFY `Student_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `subcontdetails`
 --
 ALTER TABLE `subcontdetails`
   MODIFY `subid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
 --
 -- AUTO_INCREMENT for table `tbl_customer`
 --
 ALTER TABLE `tbl_customer`
   MODIFY `CustomerID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
 --
 -- AUTO_INCREMENT for table `tbl_employee`
 --
 ALTER TABLE `tbl_employee`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
-
 --
 -- AUTO_INCREMENT for table `tbl_employees`
 --
 ALTER TABLE `tbl_employees`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
 --
 -- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE `test`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
+  MODIFY `uid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `vendor`
 --
 ALTER TABLE `vendor`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT for table `vendordetails`
 --
 ALTER TABLE `vendordetails`
   MODIFY `vid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1485;
-
 --
 -- AUTO_INCREMENT for table `vendor_bills_master`
 --
 ALTER TABLE `vendor_bills_master`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
 --
 -- AUTO_INCREMENT for table `workitems`
 --
 ALTER TABLE `workitems`
-  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-COMMIT;
+  MODIFY `wiid` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

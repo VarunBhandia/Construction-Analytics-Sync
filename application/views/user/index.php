@@ -102,6 +102,7 @@
                                                                 <th>Address</th>
                                                                 <th>Mobile Number</th>
                                                                 <th>Action</th>
+                                                                <th>Status</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -114,8 +115,14 @@
                                                                 <td><?php echo $test->uaddress;?></td>
                                                                 <td><?php echo $test->umobile;?></td>
 
-                                                                <td><a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->uid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> </a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->uid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> </a></td>
-
+                                                                <td>
+                                                                    <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->uid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i> </a><a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->uid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i> </a>
+                                                                </td>   
+                                                                <td>
+                                                                    <?php if($test->deactivate == 0){ ?>
+                                                                    <a onclick="return confirm('Do You really want to Deactivate the User ?');" href="<?php echo base_url().$controller;?>/deactivate/<?php echo $test->uid;?>" class="btn btn-warning">Deactivate</a> <?php } 
+                                                                    else { echo 'Deactivated'; }?>
+                                                                </td>
                                                                 <?php $no++;?>
                                                             </tr>
                                                             <?php

@@ -134,32 +134,30 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div  class="row">
+                                                    <div class="col-md-8">                                                
+                                                        <form enctype="multipart/form-data" action="<?php echo base_url()?>material_rqst/select_by_date_range" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date From
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control" name="date_from" >
+                                                            </div>
+                                                            <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date To
+                                                            </label>
+                                                            <div class="col-md-3 col-sm-3 col-xs-12">
+                                                                <input type="date" class="form-control col-md-2 col-sm-3 col-xs-12" name="date_to" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                            <div class="col-md-1">
+                                                                <input type="submit" value="Show Record" class="btn btn-success" >
+                                                            </div>
+                                                            <div class="col-md-1"></div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
                                                 <div class="clearfix"></div>
                                             </div>
-                                            <div  class="row">
-                                                <div class="col-md-8">                                                
-                                                    <form enctype="multipart/form-data" action="<?php echo base_url()?>material_rqst/select_by_date_range" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
-                                                        <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date From
-                                                        </label>
-                                                        <div class="col-md-3 col-sm-3 col-xs-12">
-                                                            <input type="date" class="form-control" name="date_from" >
-                                                        </div>
-                                                        <label class="control-label col-md-2 col-sm-3 col-xs-12"> Date To
-                                                        </label>
-                                                        <div class="col-md-3 col-sm-3 col-xs-12">
-                                                            <input type="date" class="form-control col-md-2 col-sm-3 col-xs-12" name="date_to" >
-                                                        </div>
-                                                        <div class="col-md-1"></div>
-                                                        <div class="col-md-1">
-                                                            <input type="submit" value="Show Record" class="btn btn-success" >
-                                                        </div>
-                                                        <div class="col-md-1"></div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <?php
-    echo '<font style="font-size:16px;" color="red">'.$this->session->flashdata('add_message').'</font>';
-                                            ?>
                                             <div class="message">
                                                 <?php
                                                 if (isset($result_display))
@@ -326,10 +324,8 @@
                                                                 <tr>
                                                                     <td><?php echo $no;?></td>
                                                                     <td><?php echo $test->mrrefid;?></td>
-                                                                    <td><?php foreach($sites as $site){
-                                                                    if($site->sid == $test->sid ){echo $site->sname; }
-
-                                                                } ?></td>
+                                                        <td><?php foreach($sites as $site){
+                                                        if($site->sid == $test->sid ){echo $site->sname; }} ?></td>
                                                                     <td><?php echo $test->mrcreatedon;?></td>
                                                                     <td>
                                                                         <a href="<?php echo base_url().$controller;?>/approve/<?php echo $test->mrid;?>" class="btn btn-success">App</a>
@@ -337,7 +333,39 @@
                                                                         <a href="<?php echo base_url().$controller;?>/edit/<?php echo $test->mrid;?>" class="btn btn-success"><i class="glyphicon glyphicon-edit icon-white"></i></a> <?php } }?>
                                                                         <a href="<?php echo base_url();?>po/form/<?php echo $test->mrid;?>" class="btn btn-success">PO</a>
                                                                         <a onclick="return confirm('Do You Really Delete?');" href="<?php echo base_url().$controller;?>/delete/<?php echo $test->mrid;?>" class="btn btn-danger"><i class="glyphicon glyphicon-trash icon-white"></i></a>
-                                                                    </td>
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?php echo $test->mrid;?>">Info</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal<?php echo $test->mrid;?>" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Information</h4>
+        </div>
+        <div class="modal-body">
+            <b>ID : </b><?php echo $test->mrid;?> <br><br>
+            <b>MR REF ID : </b><?php echo $test->mrrefid;?><br><br>
+            <b>SITE : </b><?php foreach($sites as $site){if($site->sid == $test->sid ){echo $site->sname; }} ?><br><br>
+            <b>QTY : </b><?php echo $test->mrremarks;?><br>
+            <b>ID : </b><?php echo $test->mrrecievedate;?><br>
+            <b>ID : </b><?php echo $test->mrcreatedon;?><br>
+            <b>ID : </b><?php echo $test->mrcreatedby;?><br>
+            <b>ID : </b><?php echo $test->mrupdatedby;?><br>
+            <b>ID : </b><?php echo $test->mrapprove;?><br>
+            <b>ID : </b><?php echo $test->mrupdatedby;?><br>
+            <b>ID : </b><?php echo $test->mrupdatedon;?><br>
+          </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+                                                                      </td>
                                                                     <?php $no++;?>
                                                                 </tr>
                                                                 <?php

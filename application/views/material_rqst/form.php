@@ -114,6 +114,7 @@ elseif($action == 'update')
                                                             <label class="control-label col-md-1 col-sm-3 col-xs-12" for="last-name">Site
                                                             </label>
                                                             <div class="col-md-5 col-sm-6 col-xs-12">
+                                                                <?php if ($action == 'insert') { ?>
                                                                 <select class="itemname form-control " id="site" name="site">
                                                                     <option value="">---site name----</option>
                                                                     <?php
@@ -121,7 +122,7 @@ elseif($action == 'update')
     foreach($sites as $site)
     {                                                                   for($i=0;$i < $count_site;$i++){
         if($user_sites[$i] == $site->sid ){ ?>
-                                                                    <option value="<?php echo $site->sid; ?>" <?php if($action == 'update'){  echo $site->sid == $row[0]->sid ? 'selected' : '' ; }?> >
+                                                                    <option value="<?php echo $site->sid; ?>">
                                                                         <?php echo $site->sname;?>
                                                                     </option>
 
@@ -137,6 +138,12 @@ elseif($action == 'update')
                                                                         placeholder: '--- Select Sites ---',
                                                                     });
                                                                 </script>
+                                                                <?php } ?>
+                                                                <?php if ($action == 'update'){
+    foreach($sites as $site){
+        if($row[0]->sid == $site->sid){echo $site->sname;}
+    } ?> <input type="hidden" value="<?php echo $row[0]->sid; ?>" name="site">
+                                                                <?php } ?>
                                                             </div>
                                                             <label class="control-label col-md-1 col-sm-3 col-xs-12">Date
                                                             </label>
@@ -149,10 +156,9 @@ elseif($action == 'update')
                                                                 <thead>
                                                                     <tr class="headings">
                                                                         <th class="column-title">Material Name</th>
-                                                                        <th class="column-title">Material Unit</th>
                                                                         <th class="column-title">Qty</th>
-                                                                        <th class="column-title">  Unit Price</th>
-                                                                        <th class="column-title"> Remarks</th>
+                                                                        <th class="column-title">Unit Price</th>
+                                                                        <th class="column-title">Remarks</th>
                                                                         <th class="column-title no-link last">
                                                                             <span class="nobr">Action</span>
                                                                         </th>
@@ -163,29 +169,25 @@ elseif($action == 'update')
 { ?>
                                                                     <tr class="pending-user">
                                                                         <td>
-							<select class="materialname form-control select_width" id="material_0" name="material[]">
-								<option value=""></option>
-								<?php
-								foreach($materials as $value)
-								{ ?>
-									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
-								<?php }	?>
-							</select>
-							<script type="text/javascript">
-      $('.materialname').select2({
-        placeholder: '--- Select Material ---',
-        });
-</script>
-						</td>
-                                                                       <td>
-							                                                <select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-								                                            <option value=""></option>
+                                                                            <select class="materialname form-control select_width" id="material_0" name="material[]">
+                                                                                <option value=""></option>
                                                                                 <?php
-                                                                                foreach($units as $value)
-                                                                                { ?>
-                                                                                    <option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
+    foreach($materials as $value)
+    { ?>
+                                                                                <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
+     foreach($units as $m_unit)
+     {
+         if($value->munit == $m_unit->muid)
+         {echo ' ( '.$m_unit->muname.' )' ;}
+     }
+                                                                                    ?></option>
                                                                                 <?php }	?>
                                                                             </select>
+                                                                            <script type="text/javascript">
+                                                                                $('.materialname').select2({
+                                                                                    placeholder: '--- Select Material ---',
+                                                                                });
+                                                                            </script>
                                                                         </td>
                                                                         <td>
                                                                             <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
@@ -221,31 +223,27 @@ elseif($action == 'update')
                                                                      {
                                                                     ?>
                                                                     <tr class="pending-user">
-                                                                       <td>
-							<select class="materialname form-control select_width" id="material_0" name="material[]">
-								<option value=""></option>
-								<?php
-								foreach($materials as $value)
-								{ echo $material[$i]; ?>
-									<option <?php if($action == 'update'){  echo ((int)$value->mid == (int)$material[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
-								<?php }	?>
-							</select>
-							 <script type="text/javascript">
-      $('.materialname').select2({
-        placeholder: '--- Select Material ---',
-        });
-</script>
-						</td>
-                                                                       <td>
-							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-								<option value=""></option>
-								<?php
-								foreach($units as $value)
-								{ ?>
-									<option <?php if($action == 'update'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-								<?php }	?>
-							</select>
-						</td>
+                                                                        <td>
+                                                                            <select class="materialname form-control select_width" id="material_0" name="material[]">
+                                                                                <option value=""></option>
+                                                                                <?php
+    foreach($materials as $value)
+    { ?>
+                                                                                <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
+     foreach($units as $m_unit)
+     {
+         if($value->munit == $m_unit->muid)
+         {echo ' ( '.$m_unit->muname.' )' ;}
+     }
+                                                                                    ?></option>
+                                                                                <?php }	?>
+                                                                            </select>
+                                                                            <script type="text/javascript">
+                                                                                $('.materialname').select2({
+                                                                                    placeholder: '--- Select Material ---',
+                                                                                });
+                                                                            </script>
+                                                                        </td>
                                                                         <td>
                                                                             <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off">
                                                                         </td>
@@ -346,26 +344,22 @@ elseif($action == 'update')
                             <script  type="text/html" id="form_tpl">
 	<tr class="pending-user">
 						<td>
-							<select class="form-control select_width" id="material_0" name="material[]">
-								<option value=""></option>
-								<?php
-								foreach($materials as $value)
-								{ ?>
-									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
-								<?php }	?>
-							</select>
-						</td>
+                                                                            <select class="materialname form-control select_width" id="material_0" name="material[]">
+                                                                                <option value=""></option>
+                                                                                <?php
+foreach($materials as $value)
+{ ?>
+                                                                                <option value="<?php echo $value->mid?>"><?php echo $value->mname; 
+ foreach($units as $m_unit)
+ {
+     if($value->munit == $m_unit->muid)
+     {echo ' ( '.$m_unit->muname.' )' ;}
+ }
+                                                                                    ?></option>
+                                                                                <?php }	?>
+                                </select>
+                                </td>
                         <td>
-							<select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-								<option value=""></option>
-								<?php
-								foreach($units as $value)
-								{ ?>
-									<option value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-								<?php }	?>
-							</select>
-						</td>
-						<td>
 							<input type="text" id="qty_0" name="qty[]" class="amountonly form-control" placeholder="0.00" autocomplete="off">
                                 </td>
 						<td>

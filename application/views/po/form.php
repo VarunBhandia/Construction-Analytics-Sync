@@ -1901,12 +1901,15 @@ if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                         //                                                                        $m_unit = explode(",",$row[0]->muid);
                                                                         $remarks = explode(",",$row[0]->mrremarks);
 
-
+                                                                        echo '<pre>';
+                                                                        print_r($material);
+                                                                        echo '</pre>';
 
                                                                         for($i=0; $i<count($material); $i++)
                                                                         {
                                                                     ?>
                                                                     <tr class="pending-user">
+                                                                        
                                                                         <td>
                                                                             <select class="materialname form-control select_width" id="material_0" name="material[]">
                                                                                 <option value=""></option>
@@ -1921,16 +1924,6 @@ if(!igst_d_k){igst_d_k = parseFloat(0); }
                                                                                     placeholder: '--- Select Material ---',
                                                                                 });
                                                                             </script> 
-                                                                        </td>
-                                                                        <td>
-                                                                            <select class="form-control select_width" id="m_unit_0" name="m_unit[]">
-                                                                                <option value=""></option>
-                                                                                <?php
-                                                                            foreach($units as $value)
-                                                                            { ?>
-                                                                                <option <?php if($action == 'insert'){  echo ($value->muid == $m_unit[$i]) ? 'selected' : '' ; }?> value="<?php echo $value->muid?>"><?php echo $value->muname;?></option>
-                                                                                <?php }	?>
-                                                                            </select>
                                                                         </td>
                                                                         <td>
                                                                             <input type="text" id="qty_0" name="qty[]" class="amountonly form-control" value="<?php echo $qty[$i]; ?>" placeholder="0.00" autocomplete="off" readonly>

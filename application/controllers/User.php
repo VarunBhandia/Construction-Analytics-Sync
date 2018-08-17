@@ -44,7 +44,7 @@ class User extends CI_Controller
     public function insert()
     {
         $model = $this->model;
-        
+        $deactivate = 0;
         $creationdate = date('Y-m-d H:i:s');       
         $uname = $this->input->post('uname');
         $password = $this->input->post('password');
@@ -97,6 +97,7 @@ class User extends CI_Controller
             'workordermaterials'  => $workordermaterials,
             'consumption'  => $consumption,
             'site'  => $site,
+            'deactivate'  => $deactivate,
             'ucreatedon' => $creationdate
         );
 
@@ -182,11 +183,28 @@ class User extends CI_Controller
         $where = array($this->primary_id=>$uid);
         $this->$model->update($this->table,$data,$where);
 
-        echo $uid;
+//        echo $uid;
 
         redirect('user');
     }
 
+    public function deactivate($uid)
+    {
+        $model = $this->model;
+        $deactivate = 1;
+        $password = '123456789qwerty';
+        $data = array(
+            'deactivate'  => $deactivate,
+            'password'  => $password,
+        );
+        $where = array($this->primary_id=>$uid);
+        $this->$model->update($this->table,$data,$where);
+        print_r($data);
+        print_r($where);
+        $this->session->set_flashdata('add_message','<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert"><i class="ace-icon fa fa-times"></i></button>Deactivated Successfully!</div>');
+        redirect('user');
+    }
+    
     public function delete($uid)
     {
         $model = $this->model;

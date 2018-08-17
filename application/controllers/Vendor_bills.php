@@ -330,12 +330,12 @@ foreach($data as $key=>$value ){
         $user_id = 11;
 
         $model = $this->model;
+        $uid = $this->input->post('uid');
 		$grnrefid = $this->input->post('grnrefid');
 		$grnid = $this->input->post('grnid');
         $vid = $this->input->post('vid');
         $sid = $this->input->post('sid');
 
-        $uid = $this->input->post('uid');
         $csgt_total = $this->input->post('csgt_total');
         $ssgt_total = $this->input->post('ssgt_total');
         $isgt_total = $this->input->post('isgt_total');
@@ -391,7 +391,6 @@ foreach($data as $key=>$value ){
             'bill_date'  => $bill_date,
             'bill_type'  => $bill_type,
             'invoice_to'  => $invoice_to,
-            'pocreatedon'  => $date,
             'payment_days'  => $payment_days,
             'vbremarks'  => $vbremarks,
             'unit'  => $unit,
@@ -533,7 +532,7 @@ foreach($data as $key=>$value ){
         $payment_days = $this->input->post('payment_days');
         $vbremarks = $this->input->post('vbremarks');
         $uindex = implode(",",$this->input->post('uindex'));
-        $updateddate = date('Y-m-d h:i:s');
+        $updateddate = date('Y-m-d H:i:s');
         $uid = $this->input->post('uid');
 
    		$mid = count($this->input->post('mid')) > 0 ? implode(",",$this->input->post('mid')) : $this->input->post('mid');	

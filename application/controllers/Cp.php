@@ -26,6 +26,8 @@ class Cp extends CI_Controller
             $data["cp_data"] = $this->cp_m->fetch_data();
             $model = $this->model;
             $data['controller'] = $this->controller;
+            $username = $this->session->userdata('username');
+            $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
             $data['row'] = $this->$model->select(array(),$this->table,array(),'');
             $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
             $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
@@ -180,6 +182,9 @@ class Cp extends CI_Controller
     {			
         $data['controller'] = $this->controller;
         $model = $this->model;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $result = $this->cp_m->show_all_data();
         if ($result != false) {
             return $result;
@@ -192,6 +197,8 @@ class Cp extends CI_Controller
     {
         $model = $this->model;
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $username = $this->session->userdata('username');
@@ -227,10 +234,14 @@ class Cp extends CI_Controller
         $model = $this->model;
         $data['action'] = "insert";
         $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('cp/form',$data);
     }
 
@@ -242,6 +253,7 @@ class Cp extends CI_Controller
         $vendor = $this->input->post('vendor');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
         $challan = $this->input->post('challan');
+        $cdate = date('Y-m-d H:i:s');       
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
         $qty = count($this->input->post('qty')) > 0 ? implode(",",$this->input->post('qty')) : $this->input->post('qty');
@@ -264,6 +276,7 @@ class Cp extends CI_Controller
             'cpqty'  => $qty,
             'muid'  => $m_unit,
             'cpunitprice' => $unitprice,
+            'cpcreatedon' => $cdate,
             'cplinechallan'  => $linechallan,
             'cpremark'  => $remark
         );
@@ -279,12 +292,16 @@ class Cp extends CI_Controller
     {
         $model = $this->model;
         $data['row'] = $this->$model->select(array(),$this->table,array($this->primary_id=>$cpid),'');
+        $data['action'] = "update";
+        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_roles'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $data['sites'] = $this->$model->select(array(),'sitedetails',array(),'');
         $data['vendors'] = $this->$model->select(array(),'vendordetails',array(),'');
         $data['materials'] = $this->$model->select(array(),'materials',array(),'');
         $data['units'] = $this->$model->select(array(),'munits',array(),'');
-        $data['action'] = "update";
-        $data['controller'] = $this->controller;
+        $username = $this->session->userdata('username');
+        $data['user_details'] = $this->$model->select(array(),'users',array('username'=>$username),'');
         $this->load->view('cp/form',$data);
     }
 
@@ -297,6 +314,7 @@ class Cp extends CI_Controller
         $vendor = $this->input->post('vendor');
         $date = date('Y-m-d',strtotime($this->input->post('date')));
         $challan = $this->input->post('challan');
+        $updateddate = date('Y-m-d H:i:s');       
 
         $material = count($this->input->post('material')) > 0 ? implode(",",$this->input->post('material')) : $this->input->post('material');
 
@@ -312,7 +330,7 @@ class Cp extends CI_Controller
 
         $data = array(
             'sid'  => $site,
-            'cpcreatedby'  => $uid,
+            'cpupdatedby'  => $uid,
             'vid'  => $vendor,
             'cppurchasedate'  => $date,
             'cpchallan' => $challan,
@@ -320,6 +338,7 @@ class Cp extends CI_Controller
             'cpqty'  => $qty,
             'muid'  => $m_unit,
             'cpunitprice' => $unitprice,
+            'cpupdatedon' => $updateddate,
             'cplinechallan'  => $linechallan,
             'cpremark'  => $remark
         );

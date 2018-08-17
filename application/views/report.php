@@ -1,5 +1,5 @@
 <?php
-	error_reporting(0);
+	error_reporting(0);	
 ?>
 
 <style>
@@ -8,81 +8,93 @@ div#search_data {
 }
 </style>
 <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-            <!-- Meta, title, CSS, favicons, etc. -->
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge">
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!-- Meta, title, CSS, favicons, etc. -->
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="<?php echo base_url();?>assets/images/favicon.ico" />
 
-            <title>Reporting</title>
+        <title>Reports</title>
 
-            <!-- Bootstrap -->
-            <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
-            <link href="<?php echo base_url();?>assets/css/mycss.css" rel="stylesheet">
-            <!-- Font Awesome -->
-            <link href="<?php echo base_url();?>assets/css/font-awesome.min.css" rel="stylesheet">
-            <!-- bootstrap-progressbar -->
-            <link href="<?php echo base_url();?>assets/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-            <!-- bootstrap-daterangepicker -->
-            <link href="<?php echo base_url();?>assets/css/daterangepicker.css" rel="stylesheet">
-            <!-- bootstrap-datetimepicker -->
-            <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-datepicker3.css"/>
+        <!-- Bootstrap -->
+        <link href="<?php echo base_url();?>assets/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>assets/css/mycss.css" rel="stylesheet">
+        <!-- Font Awesome -->
+        <link href="<?php echo base_url();?>assets/css/font-awesome.min.css" rel="stylesheet">
+        <!-- bootstrap-progressbar -->
+        <link href="<?php echo base_url();?>assets/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+        <!-- bootstrap-daterangepicker -->
+        <link href="<?php echo base_url();?>assets/css/daterangepicker.css" rel="stylesheet">
+        <!-- bootstrap-datetimepicker -->
+        <link rel="stylesheet" href="<?php echo base_url();?>assets/css/bootstrap-datepicker3.css"/>
 
-            <link href="<?php echo base_url();?>assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>assets/css/bootstrap-datetimepicker.css" rel="stylesheet">
 
-            <!-- Datatable -->
-            <link href="<?php echo base_url();?>assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
+        <!-- Datatable -->
+        <link href="<?php echo base_url();?>assets/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
-            <!--Copy Data-->
-            <link href="<?php echo base_url();?>assets/css/buttons.bootstrap.min.css" rel="stylesheet">
+        <!--Copy Data-->
+        <link href="<?php echo base_url();?>assets/css/buttons.bootstrap.min.css" rel="stylesheet">
 
-            <!-- Custom Theme Style -->
-            <link href="<?php echo base_url();?>assets/css/custom.min.css" rel="stylesheet">
-            <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
+        <!-- Custom Theme Style -->
+        <link href="<?php echo base_url();?>assets/css/custom.min.css" rel="stylesheet">
+        <link href="<?php echo base_url();?>css/style.css" rel="stylesheet">
 
-            <!--     Select2 JS and CSS Files -->
-            <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js')?>" type='text/javascript'></script>
-            <script src="<?php echo base_url('assets/select2/dist/js/select2.min.js')?>" type='text/javascript'></script>
+        <!--     Select2 JS and CSS Files -->
+        <script src="<?php echo base_url('assets/js/jquery-3.2.1.min.js')?>" type='text/javascript'></script>
+        <script src="<?php echo base_url('assets/select2/dist/js/select2.min.js')?>" type='text/javascript'></script>
 
-            <link href="<?php echo base_url('assets/select2/dist/css/select2.min.css')?>" rel='stylesheet' type='text/css'>
+        <link href="<?php echo base_url('assets/select2/dist/css/select2.min.css')?>" rel='stylesheet' type='text/css'>
 
-        </head>
+    </head>
 
-        <body class="nav-md">
-            <div class="container body">
-                <div class="main_container">
-                    <div class="col-md-3 left_col">
-                        <div class="left_col scroll-view">
+    <body class="nav-md">
+        <div class="container body">
+            <div class="main_container">
+                <div class="col-md-3 left_col">
+                    <div class="left_col scroll-view">
 
 
-                            <!-- sidebar menu -->
-                            <?php
-                            $this->load->view('include/sidebar');
-                            ?>
-                            <!-- /sidebar menu -->
-                        </div>
+                        <!-- sidebar menu -->
+                        <?php
+    $this->load->view('include/sidebar');
+                        ?>
+                        <!-- /sidebar menu -->
                     </div>
+                </div>
 
-                    <!-- top navigation -->
-                    <div class="top_nav">
-                        <div class="nav_menu">
-                            <nav>
-                                <div class="nav toggle">
-                                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
-                                </div>
+                <!-- top navigation -->
+                <div class="top_nav">
+                    <div class="nav_menu">
+                        <nav>
+                            <div class="nav toggle">
+                                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                            </div>
 
-                            </nav>
-                        </div>
+                        </nav>
                     </div>
-        
-             <!--    Top navigation-->            
-<body class="nav-md">
-    <div class="container body">
-      <div class="main_container">
-      
+                </div>
+
+                <!--    Top navigation-->
+                <body class="nav-md">
+                    <div class="container body">
+                        <div class="main_container">
+
+                        <!-- top navigation -->
+                        <div class="top_nav">
+                            <div class="nav_menu">
+                                <nav>
+                                    <div class="nav toggle">
+                                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                                    </div>
+
+                                </nav>
+                            </div>
+                        </div>
+                        
 	<!-- page content -->
         <div class="right_col" role="main">      
           <div class="row">
@@ -103,7 +115,7 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-6 col-xs-12" for="report">Report Type :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-							<select class="reporttype" name="report" id="report" style="width:100%;">
+							<select class="select2" name="report" id="report" style="width:100%;">
 								<option value=""></option>
 								<option value="cp_master">Cash Purchase</option>
 								<option value="po_master">Purchase Order</option>
@@ -118,12 +130,8 @@ div#search_data {
 
                                 
 								<option value="transporters">Transporter Report</option>
+
 							</select>
-                      <script type="text/javascript">
-      $('.reporttype').select2({
-        placeholder: '--- Select Report ---',
-        });
-</script>
                         </div>
                       </div>
                      
@@ -137,15 +145,7 @@ div#search_data {
                                 <option value="rtv_master" tid="">RTV</option>
                                 <option value="grn_master" tid="">GRN</option>
 
-                           <select class="transp" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
-								<option value=""></option>
-
 							</select>
-                       <script type="text/javascript">
-      $('.transp').select2({
-        placeholder: '--- Select Sites ---',
-        });
-</script>
                         </div>
                       </div>   
                      
@@ -153,22 +153,9 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Transporter :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-
                            <select class="select2" id="transporter" name="transporter" placeholder=" Select Site" style="width:100%;">
 
-
-                           <select class="site" id="type-mode-option" name="type_mode_option" placeholder=" Select Site" style="width:100%;">
-                                <option value="All">All Meterial</option>
-                                <option value="moid" tid="">Mo Master</option>
-                                <option value="rtv" tid="">RTV</option>
-                                <option value="grn" tid="">GRN</option>
-
 							</select>
-                       <script type="text/javascript">
-      $('.site').select2({
-        placeholder: '--- Select Sites ---',
-        });
-</script>
                         </div>
                       </div>                    
 
@@ -178,7 +165,7 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Material :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                           <select class="mat" id="material" name="material" placeholder=" Select Material" style="width:100%;">
+                           <select class="select2" id="material" name="material" placeholder=" Select Material" style="width:100%;">
 								<option value=""></option>
 								<?php
 								foreach($material as $value)
@@ -186,11 +173,6 @@ div#search_data {
 									<option value="<?php echo $value->mid?>"><?php echo $value->mname;?></option>
 								<?php }	?>
 							</select>
-                           <script type="text/javascript">
-      $('.mat').select2({
-        placeholder: '--- Select Material ---',
-        });
-</script>
                             <div id="munit-data"></div>
                         </div>
                       </div>
@@ -199,7 +181,7 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="site">Site :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                           <select class="sitename" id="site" name="site" placeholder=" Select Site" style="width:100%;">
+                           <select class="select2" id="site" name="site" placeholder=" Select Site" style="width:100%;">
 								<option value=""></option>
 								<?php
 								foreach($site as $value)
@@ -207,11 +189,6 @@ div#search_data {
 									<option value="<?php echo $value->sid?>"><?php echo $value->sname;?></option>
 								<?php }	?>
 							</select>
-                       <script type="text/javascript">
-      $('.sitename').select2({
-        placeholder: '--- Select Sites ---',
-        });
-</script>
                         </div>
                       </div>
 					  
@@ -220,7 +197,7 @@ div#search_data {
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Vendor :
                         </label>
                         <div class="col-md-4 col-sm-6 col-xs-12">
-                           <select class="vendorname" id="vendor" name="vendor" placeholder=" Select Vendor" style="width:100%;">
+                           <select class="select2" id="vendor" name="vendor" placeholder=" Select Vendor" style="width:100%;">
 								<option value=""></option>
 								<?php
 								foreach($vendor as $value)
@@ -228,11 +205,6 @@ div#search_data {
 									<option value="<?php echo $value->vid?>"><?php echo $value->vname;?></option>
 								<?php }	?>
 							</select>
-                       <script type="text/javascript">
-      $('.vendorname').select2({
-        placeholder: '--- Select Vendor ---',
-        });
-</script>
                         </div>
                       </div>
 					</div>
@@ -244,7 +216,7 @@ div#search_data {
 							<label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Category :
 							</label>
 							<div class="col-md-4 col-sm-6 col-xs-12">
-							   <select class="cat" id="category" name="category" placeholder=" Select Category" style="width:100%;">
+							   <select class="select2" id="category" name="category" placeholder=" Select Category" style="width:100%;">
 									<option value=""></option>
 									<?php
 									foreach($category as $value)
@@ -252,11 +224,6 @@ div#search_data {
 										<option value="<?php echo $value->cid?>"><?php echo $value->cname;?></option>
 									<?php }	?>
 								</select>
-							 <script type="text/javascript">
-      $('.cat').select2({
-        placeholder: '--- Select Category ---',
-        });
-</script>	
 							</div>
 						  </div>
 					  </div>
@@ -358,14 +325,11 @@ div#search_data {
 				</div>
             </div>
             </div>
-        </div>
-    </div>
-                    </body>
-                </div>
-            </div>
-        </body>
-               
-                <!-- /page content -->
+                            </div>
+                        </div>
+                    </div>
+                </body>
+        <!-- /page content -->
 <?php
 	$this->load->view('include/footer');
 ?>
